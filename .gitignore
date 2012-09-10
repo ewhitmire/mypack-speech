@@ -14,5 +14,7 @@
 
 *.suo
 
+**bin/
+**obj/
 
 MyPackSpeech/*
