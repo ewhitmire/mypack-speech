@@ -1,0 +1,11 @@
+C:\git\mypack-speech\TestProject\TestProject\bin\Debug\TestProject.exe
+C:\git\mypack-speech\TestProject\TestProject\bin\Debug\TestProject.pdb
+C:\git\mypack-speech\TestProject\TestProject\obj\x86\Debug\MainWindow.baml
+C:\git\mypack-speech\TestProject\TestProject\obj\x86\Debug\MainWindow.g.cs
+C:\git\mypack-speech\TestProject\TestProject\obj\x86\Debug\App.g.cs
+C:\git\mypack-speech\TestProject\TestProject\obj\x86\Debug\TestProject_MarkupCompile.cache
+C:\git\mypack-speech\TestProject\TestProject\obj\x86\Debug\TestProject.g.resources
+C:\git\mypack-speech\TestProject\TestProject\obj\x86\Debug\TestProject.Properties.Resources.resources
+C:\git\mypack-speech\TestProject\TestProject\obj\x86\Debug\TestProject.csproj.GenerateResource.Cache
+C:\git\mypack-speech\TestProject\TestProject\obj\x86\Debug\TestProject.exe
+C:\git\mypack-speech\TestProject\TestProject\obj\x86\Debug\TestProject.pdb
