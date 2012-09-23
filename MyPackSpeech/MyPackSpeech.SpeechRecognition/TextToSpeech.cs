@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Speech;
+using System.Speech.Synthesis;
 
 namespace MyPackSpeech.SpeechRecognition
 {
-   public class Class1
+   public static class TextToSpeech
    {
    }
 }

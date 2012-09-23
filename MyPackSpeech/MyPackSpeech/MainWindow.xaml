@@ -5,27 +5,18 @@
    <Grid>
       <Grid.RowDefinitions>
          <RowDefinition Height="21" />
-         <RowDefinition Height="89" />
-         <RowDefinition Height="60" />
-         <RowDefinition Height="60" />
-         <RowDefinition Height="60" />
-         <RowDefinition Height="233*" />
+         <RowDefinition Height="*" />
       </Grid.RowDefinitions>
       <Grid.ColumnDefinitions>
-         <ColumnDefinition Width="Auto" />
-         <ColumnDefinition Width="80" />
-         <ColumnDefinition Width="80" />
-         <ColumnDefinition Width="80" />
-         <ColumnDefinition Width="627*" />
+         <ColumnDefinition Width="*" />
       </Grid.ColumnDefinitions>
       <Menu Grid.Column="1" Grid.ColumnSpan="4"> 
          <MenuItem Header="_File">
-            <MenuItem Header="_Load" Click="Load_Click"></MenuItem>
+            <MenuItem Header="Load _Courses" Click="loadCourses_Click"></MenuItem>
+            <MenuItem Header="Load _Student" Click="loadStudent_Click"></MenuItem>
          </MenuItem>
-      </Menu>
-      <GridSplitter Grid.Column="1" Grid.Row="1" Grid.RowSpan="4" Width="10"  HorizontalAlignment="Right" VerticalAlignment="Stretch"   ResizeDirection="Columns" Margin="0,29,0,0" />
-      <GridSplitter Grid.Row="1" Grid.ColumnSpan="3" Height="10" HorizontalAlignment="Stretch" VerticalAlignment="Bottom"  ResizeDirection="Rows" Grid.Column="1" />
-      <Rectangle Grid.Column="2" Fill="LightCoral" Margin="0,29,0,42" Grid.Row="1" />
-      <Rectangle Grid.Column="1" Grid.Row="2" Fill="LightBlue" Width="50"/>      
+         <MenuItem Header="Requirements" Click="showReqs_Click"></MenuItem>
+         <MenuItem Header="Courses" Click="showCourses_Click"></MenuItem>
+        </Menu>
    </Grid>
 </Window>

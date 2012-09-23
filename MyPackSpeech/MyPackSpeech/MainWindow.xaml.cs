@@ -12,6 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Win32;
+using MyPackSpeech.SpeechRecognition;
 
 namespace MyPackSpeech
 {
@@ -32,8 +33,47 @@ namespace MyPackSpeech
 
       private void loadFile()
       {
-         OpenFileDialog fileDlg = new OpenFileDialog();
-         fileDlg.ShowDialog(this);
+         
+      }
+
+      private void loadCourses_Click(object sender, RoutedEventArgs e)
+      {
+         string file = getFile();
+      }
+
+      private void loadStudent_Click(object sender, RoutedEventArgs e)
+      {
+         string file = getFile();
+      }
+
+      private string getFile()
+      {
+         OpenFileDialog dlg = new OpenFileDialog();
+         if(dlg.ShowDialog(this).GetValueOrDefault(false))
+            return dlg.FileName;
+         return string.Empty;
+      }
+
+      private void showReqs()
+      {
+      }
+
+
+      private void showReqs_Click(object sender, RoutedEventArgs e)
+      {
+         showReqs();
+      }
+
+      private void showCourses_Click(object sender, RoutedEventArgs e)
+      {
+         showCourses();
+      }
+
+      private void showCourses()
+      {
+         CourseWindow courseWin = new CourseWindow();
+         courseWin.Show();
+         
       }
    }
 }
