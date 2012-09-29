@@ -29,12 +29,12 @@ namespace MyPackSpeech.DataManager.Data
       /// equals
       /// </summary>
       [Description("==")]
-      E,
+      EQ,
       /// <summary>
       /// not equals
       /// </summary>
       [Description("!=")]
-      NE,
+      NEQ,
       /// <summary>
       /// greater than or equals
       /// </summary>

@@ -40,11 +40,11 @@ namespace MyPackSpeech
 
          Courses.Add(new Course(new Department("Comp Sci", "CSC"), 101, "intro 101"));
          Courses.Add(new Course(new Department("Comp Sci", "CSC"), 201, "intermediate 201"));
-         Courses[1].Prerequisites.Add(new CourseFilter(){Dept=Courses[0].Dept, Number=Courses[0].Number, Op = Operator.E});
+         Courses[1].Prerequisites.Add(new CourseFilter(){Dept=Courses[0].Dept, Number=Courses[0].Number, Op = Operator.EQ});
 
          Courses.Add(new Course(new Department("Comp Sci", "CSC"), 301, "advanced 301"));
-         Courses[2].Prerequisites.Add(new CourseFilter() { Dept = Courses[0].Dept, Number = Courses[0].Number, Op = Operator.E });
-         Courses[2].Prerequisites.Add(new CourseFilter() { Dept = Courses[1].Dept, Number = Courses[1].Number, Op = Operator.E });
+         Courses[2].Prerequisites.Add(new CourseFilter() { Dept = Courses[0].Dept, Number = Courses[0].Number, Op = Operator.EQ });
+         Courses[2].Prerequisites.Add(new CourseFilter() { Dept = Courses[1].Dept, Number = Courses[1].Number, Op = Operator.EQ });
 
          Courses.Add(new Course(new Department("Mathematics", "MA"), 141, "Calc one"));
          Courses.Add(new Course(new Department("Mathematics", "MA"), 241, "Calc two"));

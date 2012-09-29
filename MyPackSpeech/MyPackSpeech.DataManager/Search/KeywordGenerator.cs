@@ -13,7 +13,7 @@ namespace MyPackSpeech.DataManager.Search
       {
          char[] arr = sentence.ToCharArray();
 
-         arr = Array.FindAll<char>(arr, (c => (char.IsLetterOrDigit(c) || char.IsWhiteSpace(c) || c == '-')));
+         arr = Array.FindAll<char>(arr, c => (char.IsLetterOrDigit(c) || char.IsWhiteSpace(c)));
          sentence = new string(arr);
 
          List<string> keyWords = (from s in sentence.Split(SplitChars, StringSplitOptions.RemoveEmptyEntries).Select(t => t.Trim().ToLower())

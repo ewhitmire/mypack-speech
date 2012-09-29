@@ -7,10 +7,21 @@ namespace MyPackSpeech.DataManager.Data
 {
    public class CourseFilter
    {
+      private static Dictionary<Operator, Func<int, int, bool>> OperatorFuncs = new Dictionary<Operator, Func<int, int, bool>>();
+      static CourseFilter()
+      {
+         OperatorFuncs[Operator.LT] = (l, r) => l < r;
+         OperatorFuncs[Operator.LTE] = (l, r) => l <= r;
+         OperatorFuncs[Operator.EQ] = (l, r) => l == r;
+         OperatorFuncs[Operator.NEQ] = (l, r) => l != r;
+         OperatorFuncs[Operator.GT] = (l, r) => l > r;
+         OperatorFuncs[Operator.GTE] = (l, r) => l >= r;
+      }
+
       public Department Dept { get; set; }
       public int Number { get; set; }
       public Operator Op { get; set; }
-
+     
       public CourseFilter()
       {
       }
@@ -25,23 +36,7 @@ namespace MyPackSpeech.DataManager.Data
 
       private bool compareNumber(Course course)
       {
-         switch (Op)
-         {
-            case Operator.LT:
-               return course.Number < Number;
-            case Operator.LTE:
-               return course.Number <= Number;
-            case Operator.E:
-               return course.Number == Number;
-            case Operator.NE:
-               return course.Number != Number;
-            case Operator.GTE:
-               return course.Number >= Number;
-            case Operator.GT:
-               return course.Number > Number;
-            default:
-               throw new ArgumentException("Invalid operator " + Op);
-         }
+         return OperatorFuncs[Op](course.Number, Number);
       }
 
       public override string ToString()
