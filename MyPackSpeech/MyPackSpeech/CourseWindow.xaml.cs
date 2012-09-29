@@ -10,6 +10,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using MyPackSpeech.DataManager;
 
 namespace MyPackSpeech
 {
@@ -18,9 +19,35 @@ namespace MyPackSpeech
    /// </summary>
    public partial class CourseWindow : Window
    {
+      CourseCatalog catalog;
+      public CourseCatalog Catalog
+      {
+         get { return this.catalog; }
+         set
+         {
+            this.catalog = value;
+            updateCourses();
+         }
+      }
+
       public CourseWindow()
       {
          InitializeComponent();
+      }
+
+      private void updateCourses()
+      {
+         courseControl.Courses.Clear();
+         if (catalog != null)
+         {
+            foreach (var course in ApplyCourseFilter())
+               courseControl.Courses.Add(course);
+         }
+      }
+
+      private IEnumerable<DataManager.Data.Course> ApplyCourseFilter()
+      {
+         return catalog.Courses.Where(c => c.Dept.Abv.ToLower() == "ma");
       }
    }
 }

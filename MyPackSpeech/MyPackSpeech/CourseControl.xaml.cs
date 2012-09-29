@@ -21,8 +21,8 @@ namespace MyPackSpeech
    /// </summary>
    public partial class CourseControl : UserControl
    {
-      private BindingList<Course> courses = new BindingList<Course>();
-      public BindingList<Course> Courses
+      private BindingList<ICourse> courses = new BindingList<ICourse>();
+      public BindingList<ICourse> Courses
       {
          get { return courses; }
       }
@@ -31,27 +31,7 @@ namespace MyPackSpeech
       {
          InitializeComponent();
 
-         setDefaultCourses();
-      }
-
-      private void setDefaultCourses()
-      {
-         Courses.Clear();
-
-         Courses.Add(new Course(new Department("Comp Sci", "CSC"), 101, "intro 101"));
-         Courses.Add(new Course(new Department("Comp Sci", "CSC"), 201, "intermediate 201"));
-         Courses[1].Prerequisites.Add(new CourseFilter(){Dept=Courses[0].Dept, Number=Courses[0].Number, Op = Operator.EQ});
-
-         Courses.Add(new Course(new Department("Comp Sci", "CSC"), 301, "advanced 301"));
-         Courses[2].Prerequisites.Add(new CourseFilter() { Dept = Courses[0].Dept, Number = Courses[0].Number, Op = Operator.EQ });
-         Courses[2].Prerequisites.Add(new CourseFilter() { Dept = Courses[1].Dept, Number = Courses[1].Number, Op = Operator.EQ });
-
-         Courses.Add(new Course(new Department("Mathematics", "MA"), 141, "Calc one"));
-         Courses.Add(new Course(new Department("Mathematics", "MA"), 241, "Calc two"));
-         Courses.Add(new Course(new Department("Mathematics", "MA"), 242, "Calc three"));
-
-         courseGrid.AutoGenerateColumns = true;
-         courseGrid.ItemsSource = Courses;
+         courseGrid.ItemsSource = courses;
       }
 
       private void displayCourses()

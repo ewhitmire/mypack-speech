@@ -7,10 +7,12 @@ using MyPackSpeech.DataManager.Search;
 
 namespace MyPackSpeech.DataManager.Data
 {
-   public class Course : IKeywordProvider
+   public class Course : IKeywordProvider, MyPackSpeech.DataManager.Data.ICourse
    {
       public Department Dept { get; private set; }
       public int Number { get; private set; }
+      public string Name { get; private set; }
+      [Browsable(false)]
       public string Description { get; private set; }
       [Browsable( false)]
       public List<CourseFilter> Prerequisites { get; private set; }
@@ -23,12 +25,13 @@ namespace MyPackSpeech.DataManager.Data
             return string.Join(", ", Prerequisites.Select(p => p.ToString()));
          }
       }
-      public Course(Department dept, int number, string desc, params CourseFilter[] prereqs)
+      public Course(Department dept, string name, int number, string desc, params CourseFilter[] prereqs)
       {
          checkArguments(dept, number);
 
          Dept = dept;
          Number = number;
+         Name = name;
          Description = desc ?? string.Empty;
          Prerequisites = new List<CourseFilter>(prereqs);
 

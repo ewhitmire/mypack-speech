@@ -4,6 +4,6 @@
         xmlns:local="clr-namespace:MyPackSpeech" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="MyPackSpeech.CourseWindow"
         Title="CourseWindow" d:DesignWidth="580" d:DesignHeight="420">
     <Canvas HorizontalAlignment="Left" VerticalAlignment="Top">
-        <local:CourseControl Canvas.Left="80" Canvas.Top="74"/>
+        <local:CourseControl Canvas.Left="24" Canvas.Top="29" x:Name="courseControl"/>
     </Canvas>
 </Window>

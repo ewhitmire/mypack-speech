@@ -76,8 +76,8 @@ namespace MyPackSpeech
       private void showCourses()
       {
          CourseWindow courseWin = new CourseWindow();
-         courseWin.Show();
-         
+         courseWin.Catalog = this.catalog;
+         courseWin.Show();         
       }
    }
 }

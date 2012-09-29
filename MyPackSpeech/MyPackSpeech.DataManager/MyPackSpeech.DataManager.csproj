@@ -53,6 +53,7 @@
     <Compile Include="Data\CourseFilter.cs" />
     <Compile Include="Data\Department.cs" />
     <Compile Include="Data\Enums.cs" />
+    <Compile Include="Data\ICourse.cs" />
     <Compile Include="Data\IKeywordProvider.cs" />
     <Compile Include="Data\ScheduledCourse.cs" />
     <Compile Include="Utils.cs" />
