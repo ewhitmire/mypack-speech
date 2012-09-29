@@ -13,7 +13,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Win32;
 using MyPackSpeech.SpeechRecognition;
-
+using MyPackSpeech.DataManager;
 namespace MyPackSpeech
 {
    /// <summary>
@@ -21,9 +21,13 @@ namespace MyPackSpeech
    /// </summary>
    public partial class MainWindow : Window
    {
+
+      private CourseCatalog catalog;
+
       public MainWindow()
       {
          InitializeComponent();
+         catalog = new CourseCatalog();
       }
 
       private void Load_Click(object sender, RoutedEventArgs e)
