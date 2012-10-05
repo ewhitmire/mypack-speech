@@ -23,11 +23,13 @@ namespace MyPackSpeech
    {
 
       private CourseCatalog catalog;
+      private DegreeCatalog degrees;
 
       public MainWindow()
       {
          InitializeComponent();
          catalog = new CourseCatalog();
+         degrees = new DegreeCatalog();
       }
 
       private void Load_Click(object sender, RoutedEventArgs e)

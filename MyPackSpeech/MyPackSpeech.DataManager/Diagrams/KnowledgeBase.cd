@@ -14,7 +14,7 @@
       <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AACCgAAAAAAgAAAEAGAACAAgAAAAAAAAAAgAAAAIAAA=</HashCode>
+      <HashCode>AACCgAAAAAAgAAAEAGAACAQgAAAAAAAAAAgAAAAIAAA=</HashCode>
       <FileName>Data\Course.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -35,7 +35,7 @@
       <Method Name="ToString" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>ABAAAAAAAAAAAAAEAEAAAAAAAgAAAAECAAgAAAAACAA=</HashCode>
+      <HashCode>ABAAAAAAAAAAAAAEAEAAAAAAAgAIAAECAAgAAAAACAA=</HashCode>
       <FileName>Data\CourseFilter.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -53,7 +53,6 @@
       <FileName>Data\DegreeRequirement.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Property Name="CourseRequirement" />
       <Property Name="FullFillment" />
     </ShowAsAssociation>
   </Class>
@@ -100,8 +99,8 @@
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="Course" />
-      <Property Name="Requirement" />
       <Property Name="Semester" />
+      <Property Name="Requirement" />
     </ShowAsAssociation>
   </Class>
   <Class Name="MyPackSpeech.DataManager.Data.Student">
@@ -114,8 +113,8 @@
       <FileName>Data\Student.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
-      <Property Name="Requirements" />
       <Property Name="ScheduledCourses" />
+      <Property Name="Requirements" />
       <Property Name="RequiredCourses" />
       <Property Name="Unfullfilled" />
     </ShowAsCollectionAssociation>

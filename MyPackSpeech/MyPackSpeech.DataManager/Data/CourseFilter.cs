@@ -21,17 +21,30 @@ namespace MyPackSpeech.DataManager.Data
       public Department Dept { get; set; }
       public int Number { get; set; }
       public Operator Op { get; set; }
+      public List<CourseFilter> SubFilters { get; set; }
      
       public CourseFilter()
       {
+         SubFilters = new List<CourseFilter>();
       }
 
       public bool Matches(Course course)
       {
-         if (course.Dept != Dept)
-            return false;
+         bool fMatches = false;
+         if (course.Dept == Dept)
+         {
+            fMatches = compareNumber(course);
+         }
 
-         return compareNumber(course);
+         if (!fMatches)
+         {
+            foreach (CourseFilter filter in SubFilters)
+            {
+               fMatches = fMatches | filter.Matches(course);
+            }
+         }
+
+         return fMatches;
       }
 
       private bool compareNumber(Course course)

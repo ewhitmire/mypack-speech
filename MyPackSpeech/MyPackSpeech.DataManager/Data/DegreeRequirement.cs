@@ -7,37 +7,37 @@ namespace MyPackSpeech.DataManager.Data
 {
    public class DegreeRequirement
    {
-      private ScheduledCourse fullFillment;
+      private ScheduledCourse fulfillment;
       public CourseFilter CourseRequirement { get; set; }      
 
       public DegreeRequirement()
       {
       }
 
-      public ScheduledCourse FullFillment
+      public ScheduledCourse Fulfillment
       {
-         get { return fullFillment; }
+         get { return fulfillment; }
          set
          {
-            if (fullFillment != value)
+            if (fulfillment != value)
             {
                //clear up old references
-               if (fullFillment != null && fullFillment.Requirement == this)
-                  fullFillment.Requirement = null;
+               if (fulfillment != null && fulfillment.Requirement == this)
+                  fulfillment.Requirement = null;
 
-               fullFillment = value;
+               fulfillment = value;
 
                //complete link
-               if (fullFillment != null)
-                  fullFillment.Requirement = this;
+               if (fulfillment != null)
+                  fulfillment.Requirement = this;
             }
          }
       }
 
       public override string ToString()
       {
-         if (FullFillment != null)
-            return string.Format("{0} => {1}", CourseRequirement, FullFillment);
+         if (Fulfillment != null)
+            return string.Format("{0} => {1}", CourseRequirement, Fulfillment);
 
          return CourseRequirement.ToString();
       }

@@ -11,15 +11,25 @@ namespace MyPackSpeech.DataManager
 {
    public class CourseCatalog
    {
+      public static CourseCatalog Instance;
+
       public List<Course> Courses { get; private set; }
       public List<Department> Departments { get; private set; }
       private const string departmentsList = "CourseData/prefixes.txt";
 
       public CourseCatalog()
       {
+         Instance = this;
+
          Courses = new List<Course>();
          Departments = new List<Department>();
          LoadData();
+
+      }
+
+      public Department GetDepartment(String prefix)
+      {
+         return Departments.Find(d => d.Abv.Equals(prefix));
       }
 
       private void LoadData()
@@ -45,7 +55,7 @@ namespace MyPackSpeech.DataManager
                   JArray json = JArray.Parse(fileContents);
                   foreach (JToken courseObject in json)
                   {
-                     Debug.WriteLine(courseObject["name"]);
+                     //Debug.WriteLine(courseObject["name"]);
                      int courseNumber = int.Parse(courseObject["number"].ToString());
                      string description = "";
                      if (courseObject["description"] != null)
