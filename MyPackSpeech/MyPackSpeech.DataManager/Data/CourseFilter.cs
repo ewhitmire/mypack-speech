@@ -21,11 +21,15 @@ namespace MyPackSpeech.DataManager.Data
       public Department Dept { get; set; }
       public int Number { get; set; }
       public Operator Op { get; set; }
-      public List<CourseFilter> SubFilters { get; set; }
-     
+      public List<CourseFilter> And { get; set; }
+      public List<CourseFilter> Or { get; set; }
+      public List<CourseFilter> Not { get; set; }
+
       public CourseFilter()
       {
-         SubFilters = new List<CourseFilter>();
+         And = new List<CourseFilter>();
+         Or = new List<CourseFilter>();
+         Not = new List<CourseFilter>();
       }
 
       public bool Matches(Course course)
@@ -38,12 +42,40 @@ namespace MyPackSpeech.DataManager.Data
 
          if (!fMatches)
          {
-            foreach (CourseFilter filter in SubFilters)
+            foreach (CourseFilter filter in Or)
             {
-               fMatches = fMatches | filter.Matches(course);
+               if (filter.Matches(course))
+               {
+                  fMatches = true;
+                  break;
+               }
             }
          }
 
+         if (fMatches)
+         {
+            foreach (CourseFilter filter in Not)
+            {
+               if (filter.Matches(course))
+               {
+                  fMatches = false;
+                  break;
+               }
+            }
+         }
+
+         if (fMatches)
+         {
+            foreach (CourseFilter filter in And)
+            {
+               if (!filter.Matches(course))
+               {
+                  fMatches = false;
+                  break;
+               }
+            }
+
+         }
          return fMatches;
       }
 
@@ -54,7 +86,28 @@ namespace MyPackSpeech.DataManager.Data
 
       public override string ToString()
       {
-         return string.Format("{0} {1}{2}", getOpString(), Dept, Number);
+         String text = "[ ";
+         if (Number > 0)
+         {
+            text += string.Format("{0} {1}{2}", getOpString(), Dept, Number);
+         }
+
+         if (Or.Count > 0)
+         {
+            text += "OR: (" + String.Join(" | ", Or) +")";
+         }
+         if (And.Count > 0)
+         {
+            text += "AND: (" + String.Join(" & ", And) +")";
+         }
+         if (Not.Count > 0)
+         {
+            text += " NOT: (" + String.Join(", ", Not) +")";
+         }
+
+         text += " ]";
+
+         return text;
       }
 
       private string getOpString()

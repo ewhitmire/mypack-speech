@@ -1,84 +1,97 @@
-[{
-"name": "Computer Science",
-"requirements": [
-    { 
-        "name": "Engineering and Computer Science",
-        "filters": [
-            { "course": "E 101" },
-            { "course": "E 115" },
-            { "course": "CSC 116" },
-            { "course": "CSC 216" },
-            { "course": "CSC 226" },
-            { "course": "CSC 230" },
-            { "course": "CSC 236" },
-            { "course": "CSC 246" },
-            { "or":[{"course": "CSC 302"}, {"course": "CSC 333"}] },
-            { "course": "CSC 316" },
-            { "course": "CSC 326" },
-            { "course": "CSC 379" },
-            { "course": "CSC 492" }
+[
+{
+    "type": "filter",
+    "id": "CSC Restricted Electives",
+    "filter": {
+        "or": [
+            {"course": "CSC 302"},
+            {"course": "CSC 312"},
+            {"course": "CSC 342"},
+            {"department": "CSC", "GTE":"400", "not":[{"course":"CSC 423"}, {"course":"CSC 427"},{"course":"CSC 428"},{"course":"CSC 489"}]}
         ]
-    },
-    { 
-        "name": "Mathematics and Statistics",
-        "filters": [
-            { "course": "MA 141" },
-            { "course": "MA 241" },
-            { "course": "MA 242" },
-            { "course": "MA 305" },
-            { "course": "ST 370" }
-        ]
-    },
-    { 
-        "name": "Natural and Basic Sciences",
-        "filters": [
-            { "course": "CH 101" },
-            { "course": "CH 102" },
-            { "name": "Basic Science Elective" },
-            { "course": "PY 205" },
-            { "course": "PY 208" }
-        ]
-    },
-    { 
-        "name": "English",
-        "filters": [
-            { "course": "ENG 101" },
-            { "course": "ENG 331" }
-        ]
-    },
-    { 
-        "name": "Economics",
-        "filters": [
-            { "or":[ {"course": "EC 205"},{"course": "EC 201"},{"course": "ARE 201"}]}
-        ]
-    },
-    {
-        "name": "GEP",
-        "filters": [
-            { "name": "Humanities" },
-            { "name": "Humanities" },
-            { "name": "Social Science" },
-            { "name": "Interdisciplinary Perspectives" },
-            { "name": "Interdisciplinary Perspectives" },
-            { "name": "Additional Breadth" }
-        ]
-    },
-    {
-        "name": "CSC Restricted Electives",
-        "filters": [
-            { "department": "CSC", "credits": 3 },
-            { "department": "CSC", "credits": 3 },
-            { "department": "CSC", "credits": 3 },
-            { "department": "CSC", "credits": 3 }
-        ]
-    },
-    {
-        "name": "Other Restricted Electives",
-        "filters": [
-            { "credits": 3 },
-            { "credits": 3 },
-            { "credits": 3 },
-            { "credits": 3 }
-        ]
-    }]
-}]
+    }
+},
+{
+    "type": "degree",
+    "name": "Computer Science",
+    "requirements": [
+        { 
+            "name": "Engineering and Computer Science",
+            "filters": [
+                { "course": "E 101" },
+                { "course": "E 115" },
+                { "course": "CSC 116" },
+                { "course": "CSC 216" },
+                { "course": "CSC 226" },
+                { "course": "CSC 230" },
+                { "course": "CSC 236" },
+                { "course": "CSC 246" },
+                { "or":[{"course": "CSC 302"}, {"course": "CSC 333"}] },
+                { "course": "CSC 316" },
+                { "course": "CSC 326" },
+                { "course": "CSC 379" },
+                { "course": "CSC 492" }
+            ]
+        },
+        { 
+            "name": "Mathematics and Statistics",
+            "filters": [
+                { "course": "MA 141" },
+                { "course": "MA 241" },
+                { "course": "MA 242" },
+                { "course": "MA 305" },
+                { "course": "ST 370" }
+            ]
+        },
+        { 
+            "name": "Natural and Basic Sciences",
+            "filters": [
+                { "course": "CH 101" },
+                { "course": "CH 102" },
+                { "name": "Basic Science Elective" },
+                { "course": "PY 205" },
+                { "course": "PY 208" }
+            ]
+        },
+        { 
+            "name": "English",
+            "filters": [
+                { "course": "ENG 101" },
+                { "course": "ENG 331" }
+            ]
+        },
+        { 
+            "name": "Economics",
+            "filters": [
+                { "or":[ {"course": "EC 205"},{"course": "EC 201"},{"course": "ARE 201"}]}
+            ]
+        },
+        {
+            "name": "GEP",
+            "filters": [
+                { "name": "Humanities" },
+                { "name": "Humanities" },
+                { "name": "Social Science" },
+                { "name": "Interdisciplinary Perspectives" },
+                { "name": "Interdisciplinary Perspectives" },
+                { "name": "Additional Breadth" }
+            ]
+        },
+        {
+            "name": "CSC Restricted Electives",
+            "filters": [
+                { "id":"CSC Restricted Electives", "credits": 12 }
+            ]
+        },
+        {
+            "name": "Other Restricted Electives",
+            "filters": [
+                { "credits": 3 },
+                { "credits": 3 },
+                { "credits": 3 },
+                { "credits": 3 }
+            ]
+        }
+    ]
+}
+]

@@ -38,7 +38,7 @@ namespace MyPackSpeech.DataManager.Data
          {
 
             return from r in Requirements
-                   where r.FullFillment == null || !ScheduledCourses.Contains(r.FullFillment)
+                   where r.Fulfillment == null || !ScheduledCourses.Contains(r.Fulfillment)
                    select r;
          }
       }
