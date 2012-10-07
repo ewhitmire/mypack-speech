@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -21,17 +22,20 @@ namespace MyPackSpeech
    /// </summary>
    public partial class CourseControl : UserControl
    {
-      private BindingList<ICourse> courses = new BindingList<ICourse>();
-      public BindingList<ICourse> Courses
+      private ObservableCollection<ICourse> courses = new ObservableCollection<ICourse>();
+      public ObservableCollection<ICourse> Courses
       {
          get { return courses; }
+         set
+         {
+            courses = value ?? new ObservableCollection<ICourse>();
+            displayCourses();
+         }
       }
 
       public CourseControl()
       {
          InitializeComponent();
-
-         courseGrid.ItemsSource = courses;
       }
 
       private void displayCourses()
@@ -40,6 +44,8 @@ namespace MyPackSpeech
          {
             courseGrid.Invoke(() => displayCourses());
          }
+
+         courseGrid.ItemsSource = courses;
       }      
    }
 }

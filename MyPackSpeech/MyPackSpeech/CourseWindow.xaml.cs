@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
-using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using MyPackSpeech.DataManager;
+using MyPackSpeech.DataManager.Data;
 
 namespace MyPackSpeech
 {
@@ -40,14 +34,13 @@ namespace MyPackSpeech
          courseControl.Courses.Clear();
          if (catalog != null)
          {
-            foreach (var course in ApplyCourseFilter())
-               courseControl.Courses.Add(course);
+            courseControl.Courses = new ObservableCollection<ICourse>(ApplyCourseFilter());
          }
       }
 
-      private IEnumerable<DataManager.Data.Course> ApplyCourseFilter()
+      private IEnumerable<ICourse> ApplyCourseFilter()
       {
-         return catalog.Courses.Where(c => c.Dept.Abv.ToLower() == "ma");
+         return catalog.Courses.Where(c => c.Dept.Abv.ToLower() == "csc");
       }
    }
 }

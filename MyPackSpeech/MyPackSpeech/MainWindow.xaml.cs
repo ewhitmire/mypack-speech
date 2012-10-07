@@ -14,6 +14,8 @@ using System.Windows.Shapes;
 using Microsoft.Win32;
 using MyPackSpeech.SpeechRecognition;
 using MyPackSpeech.DataManager;
+using MyPackSpeech.DataManager.Data;
+using System.Collections.ObjectModel;
 namespace MyPackSpeech
 {
    /// <summary>
@@ -77,9 +79,17 @@ namespace MyPackSpeech
 
       private void showCourses()
       {
-         CourseWindow courseWin = new CourseWindow();
-         courseWin.Catalog = this.catalog;
-         courseWin.Show();         
+         CourseWindow courseWin = new CourseWindow()
+         {
+            Height = 300,
+            Width = 400
+         };
+
+         CourseWindowWF win = new CourseWindowWF();
+         win.Courses = new ObservableCollection<Course>(catalog.Courses);
+         win.Show();
+         //courseWin.Catalog = this.catalog;
+         //courseWin.Show();         
       }
    }
 }

@@ -4,8 +4,14 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="351" d:DesignWidth="436">
-    <Canvas HorizontalAlignment="Left" VerticalAlignment="Top">
-        <DataGrid x:Name="courseGrid" HorizontalAlignment="Left" EnableColumnVirtualization="True" IsTextSearchEnabled="True"/>
-    </Canvas>
+             d:DesignHeight="300" d:DesignWidth="300">
+    <ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Auto">
+        <DataGrid x:Name="courseGrid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                          EnableColumnVirtualization="True" IsTextSearchEnabled="True" EnableRowVirtualization="True"
+                          VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" 
+                          Grid.Row="0" Grid.Column="0"
+                          Background="DarkGray"
+                          Width="{Binding Content.ActualWidth, ElementName=mainWindow}"
+                          Height="{Binding Content.ActualHeight, ElementName=mainWindow}"/>
+    </ScrollViewer>
 </UserControl>

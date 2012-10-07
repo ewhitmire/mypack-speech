@@ -38,6 +38,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -60,6 +62,12 @@
     </Compile>
     <Compile Include="CourseWindow.xaml.cs">
       <DependentUpon>CourseWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CourseWindowWF.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CourseWindowWF.Designer.cs">
+      <DependentUpon>CourseWindowWF.cs</DependentUpon>
     </Compile>
     <Compile Include="UIUtils.cs" />
     <Page Include="CourseWindow.xaml">
@@ -97,6 +105,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="CourseWindowWF.resx">
+      <DependentUpon>CourseWindowWF.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
