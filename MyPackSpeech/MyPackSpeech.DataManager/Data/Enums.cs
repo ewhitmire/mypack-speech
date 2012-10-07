@@ -44,6 +44,13 @@ namespace MyPackSpeech.DataManager.Data
       /// greater than
       /// </summary>
       [Description(">")]
-      GT
+      GT,
+
+      /// <summary>
+      /// Test if one value is in another value, 
+      /// ex: our in course = true
+      /// </summary>
+      [Description("in")]
+      In
    }
 }

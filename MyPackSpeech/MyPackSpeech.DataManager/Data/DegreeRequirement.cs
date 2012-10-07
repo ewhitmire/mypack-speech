@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using MyPackSpeech.DataManager.Data.Filter;
 
 namespace MyPackSpeech.DataManager.Data
 {
    public class DegreeRequirement
    {
       private ScheduledCourse fulfillment;
-      public CourseFilter CourseRequirement { get; set; }      
+      public IFilter<Course> CourseRequirement { get; set; }      
 
       public DegreeRequirement()
       {

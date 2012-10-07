@@ -49,12 +49,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CourseCatalog.cs" />
+    <Compile Include="Data\Filter\CourseFilter.cs" />
     <Compile Include="Data\DegreeProgram.cs" />
     <Compile Include="Data\Course.cs" />
-    <Compile Include="Data\CourseFilter.cs" />
     <Compile Include="Data\DegreeRequirementCategory.cs" />
     <Compile Include="Data\Department.cs" />
     <Compile Include="Data\Enums.cs" />
+    <Compile Include="Data\Filter\AndFilter.cs" />
+    <Compile Include="Data\Filter\Comparisons.cs" />
+    <Compile Include="Data\Filter\NotFilter.cs" />
+    <Compile Include="Data\Filter\OrFilter.cs" />
+    <Compile Include="Data\Filter\LogicalFilterBase.cs" />
+    <Compile Include="Data\Filter\Filter.cs" />
+    <Compile Include="Data\Filter\IFilter.cs" />
     <Compile Include="Data\ICourse.cs" />
     <Compile Include="Data\IKeywordProvider.cs" />
     <Compile Include="Data\ScheduledCourse.cs" />

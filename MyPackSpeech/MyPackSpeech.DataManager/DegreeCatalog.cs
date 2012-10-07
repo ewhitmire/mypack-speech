@@ -6,19 +6,20 @@ using System.Diagnostics;
 using System.IO;
 using MyPackSpeech.DataManager.Data;
 using Newtonsoft.Json.Linq;
+using MyPackSpeech.DataManager.Data.Filter;
 
 namespace MyPackSpeech.DataManager
 {
    public class DegreeCatalog
    {
       public List<DegreeProgram> degrees;
-      private Dictionary<String, CourseFilter> orphanedFilters;
+      private Dictionary<String, IFilter<Course>> orphanedFilters;
       private const string degreeList = "Curricula/degrees.txt";
 
       public DegreeCatalog()
       {
          degrees = new List<DegreeProgram>();
-         orphanedFilters = new Dictionary<String, CourseFilter>();
+         orphanedFilters = new Dictionary<string, IFilter<Course>>();
          LoadData();
       }
       public void LoadData()
@@ -27,8 +28,7 @@ namespace MyPackSpeech.DataManager
          StreamReader deparmentsReader = new StreamReader(degreeList);
          string degree;
          while ((degree = deparmentsReader.ReadLine()) != null)
-         {
-           
+         {           
             String filename = String.Format("Curricula/{0}.json", degree);
             
             if (File.Exists(filename))
@@ -39,11 +39,10 @@ namespace MyPackSpeech.DataManager
                JArray json = JArray.Parse(fileContents);
 
                foreach (JToken jsonItem in json)
-               {
-                  
+               {                  
                   if (jsonItem["type"].ToString().Equals("filter"))
                   {
-                     CourseFilter filter = ParseCourseFilter(jsonItem["filter"]);
+                     IFilter<Course> filter = ParseCourseFilter(jsonItem["filter"]);
                      orphanedFilters.Add(jsonItem["id"].ToString(), filter);
                   }
                   else
@@ -62,7 +61,7 @@ namespace MyPackSpeech.DataManager
 
                         foreach (JToken jsonCourseFilter in filters)
                         {
-                           CourseFilter courseFilter = ParseCourseFilter(jsonCourseFilter);
+                           IFilter<Course> courseFilter = ParseCourseFilter(jsonCourseFilter);
                            DegreeRequirement degreeReq = new DegreeRequirement();
                            degreeReq.CourseRequirement = courseFilter;
 
@@ -75,19 +74,17 @@ namespace MyPackSpeech.DataManager
          }
       }
 
-      public CourseFilter ParseCourseFilter(JToken json)
+      public IFilter<Course> ParseCourseFilter(JToken json)
       {
-         CourseFilter c;
+         IFilter<Course> c = null;
          if (json["course"] != null)
          {
             String courseName = json["course"].ToString();
             String[] data = courseName.Split(' ');
 
-
-            c = new CourseFilter();
-            c.Op = Operator.EQ;
-            c.Dept = CourseCatalog.Instance.GetDepartment(data[0]);
-            c.Number = int.Parse(data[1]);
+            Department dept = CourseCatalog.Instance.GetDepartment(data[0]);
+            int number = int.Parse(data[1]);
+            c = CourseFilter.DeptName(dept.Name).And(CourseFilter.Number(number));
          }
          else if (json["id"] != null)
          {
@@ -96,27 +93,38 @@ namespace MyPackSpeech.DataManager
          else if (json["department"] != null)
          {
             // Must be something like CSC 400+
-            c = new CourseFilter();
-            c.Dept = CourseCatalog.Instance.GetDepartment(json["department"].ToString());
+            Department dept = CourseCatalog.Instance.GetDepartment(json["department"].ToString());
+            c = CourseFilter.DeptName(dept.Name);
+
+            IFilter<Course> numbers = null;
             foreach (Operator op in Enum.GetValues(typeof(Operator)))
             {
-               if (json[op.ToString()] != null)
+               var val = json[op.ToString()];
+               if (val != null)
                {
-                  c.Op = op;
-                  c.Number = int.Parse(json[op.ToString()].ToString());
+                  int num = int.Parse(val.ToString());
+                  if (json[op.ToString()] != null)
+                  {
+                     if (numbers == null)
+                        numbers = CourseFilter.Number(op, num);
+                     else
+                        numbers = numbers.Or(CourseFilter.Number(op, num));
+                  }
                }
             }
+
+            c = c.And(numbers);
          }
-         else
-         {
-            c = new CourseFilter();
-         }
-         
+
          if (json["and"] != null)
          {
             foreach (JToken subfilter in json["and"])
             {
-               c.And.Add(ParseCourseFilter(subfilter));
+               var filter = ParseCourseFilter(subfilter);
+               if (c == null)
+                  c = filter;
+               else
+                  c = c.And(filter);
             }
          }
          
@@ -124,7 +132,11 @@ namespace MyPackSpeech.DataManager
          {
             foreach (JToken subfilter in json["or"])
             {
-               c.Or.Add(ParseCourseFilter(subfilter));
+               var filter = ParseCourseFilter(subfilter);
+               if (c == null)
+                  c = filter;
+               else
+                  c = c.Or(filter);
             }
          }
 
@@ -132,7 +144,11 @@ namespace MyPackSpeech.DataManager
          {
             foreach (JToken subfilter in json["not"])
             {
-               c.Not.Add(ParseCourseFilter(subfilter));
+               var filter = ParseCourseFilter(subfilter).Not();
+               if (c == null)
+                  c = filter;
+               else
+                  c = c.And(filter);
             }
          }
 

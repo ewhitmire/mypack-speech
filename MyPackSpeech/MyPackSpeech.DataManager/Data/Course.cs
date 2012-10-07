@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using MyPackSpeech.DataManager.Data.Filter;
 using MyPackSpeech.DataManager.Search;
 
 namespace MyPackSpeech.DataManager.Data
@@ -10,6 +11,8 @@ namespace MyPackSpeech.DataManager.Data
    public class Course : IKeywordProvider, MyPackSpeech.DataManager.Data.ICourse
    {
       public Department Dept { get; private set; }
+      public string DeptName { get { return Dept.Name; } }
+      public string DeptAbv { get { return Dept.Abv; } }
       public int Number { get; private set; }
       public string Name { get; private set; }
       [Browsable(false)]
