@@ -35,40 +35,42 @@ namespace MyPackSpeech.DataManager
       private void LoadData()
       {
          Debug.WriteLine("Reading list of departments");
-         StreamReader deparmentsReader = new StreamReader(departmentsList);
-         string line;
-         while ((line = deparmentsReader.ReadLine()) != null)
+         using (StreamReader deparmentsReader = new StreamReader(departmentsList))
          {
-            string[] lineParts = line.Split("-".ToCharArray());
-            if (lineParts.Length >= 2)
+            string line;
+            while ((line = deparmentsReader.ReadLine()) != null)
             {
-               Department dept = new Department(lineParts[1].Trim(), lineParts[0].Trim());
-               String filename = String.Format("CourseData/{0}.json", dept.Abv);
-
-               if (File.Exists(filename))
+               string[] lineParts = line.Split("-".ToCharArray());
+               if (lineParts.Length >= 2)
                {
-                  Departments.Add(dept);
-                  Debug.WriteLine(dept);
+               Department dept = new Department(lineParts[1].Trim(), lineParts[0].Trim());
+                  String filename = String.Format("CourseData/{0}.json", dept.Abv);
 
-
-                  String fileContents = System.IO.File.ReadAllText(filename);
-                  JArray json = JArray.Parse(fileContents);
-                  foreach (JToken courseObject in json)
+                  if (File.Exists(filename))
                   {
-                     //Debug.WriteLine(courseObject["name"]);
-                     int courseNumber = int.Parse(courseObject["number"].ToString());
-                     string description = "";
-                     if (courseObject["description"] != null)
+                     Departments.Add(dept);
+                     Debug.WriteLine(dept);
+
+
+                     String fileContents = System.IO.File.ReadAllText(filename);
+                     JArray json = JArray.Parse(fileContents);
+                     foreach (JToken courseObject in json)
                      {
-                        description = courseObject["description"].ToString();
+                        //Debug.WriteLine(courseObject["name"]);
+                        int courseNumber = int.Parse(courseObject["number"].ToString());
+                        string description = "";
+                        if (courseObject["description"] != null)
+                        {
+                           description = courseObject["description"].ToString();
+                        }
+                        string name = "";
+                        if (courseObject["name"] != null)
+                        {
+                           name = courseObject["name"].ToString();
+                        }
+                        Course course = new Course(dept, name, courseNumber, description);
+                        Courses.Add(course);
                      }
-                     string name = "";
-                     if (courseObject["name"] != null)
-                     {
-                        name = courseObject["name"].ToString();
-                     }
-                     Course course = new Course(dept, name, courseNumber, description);
-                     Courses.Add(course);
                   }
                }
             }
