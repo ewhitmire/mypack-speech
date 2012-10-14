@@ -42,7 +42,7 @@ namespace MyPackSpeech.DataManager
             string[] lineParts = line.Split("-".ToCharArray());
             if (lineParts.Length >= 2)
             {
-               Department dept = new Department(line.Substring(line.IndexOf("-")).Trim(), lineParts[0].Trim());
+               Department dept = new Department(lineParts[1].Trim(), lineParts[0].Trim());
                String filename = String.Format("CourseData/{0}.json", dept.Abv);
 
                if (File.Exists(filename))
