@@ -45,8 +45,15 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommandGrammar.cs" />
     <Compile Include="TextToSpeech.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MyPackSpeech.DataManager\MyPackSpeech.DataManager.csproj">
+      <Project>{2EAE3C3D-FCD5-40FD-B040-222816A53308}</Project>
+      <Name>MyPackSpeech.DataManager</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -16,6 +16,9 @@ using MyPackSpeech.SpeechRecognition;
 using MyPackSpeech.DataManager;
 using MyPackSpeech.DataManager.Data;
 using System.Collections.ObjectModel;
+using System.Speech.Recognition;
+using System.Speech.Synthesis;
+
 namespace MyPackSpeech
 {
    /// <summary>
@@ -24,14 +27,47 @@ namespace MyPackSpeech
    public partial class MainWindow : Window
    {
 
-      private CourseCatalog catalog;
-      private DegreeCatalog degrees;
+       private CourseCatalog catalog;
+       private DegreeCatalog degrees;
+       SpeechSynthesizer reader;
+       private SpeechRecognitionEngine recognitionEngine;
+       private CommandGrammar grammar;
+
 
       public MainWindow()
       {
-         InitializeComponent();
-         catalog = new CourseCatalog();
-         degrees = new DegreeCatalog();
+          InitializeComponent();
+          catalog = new CourseCatalog();
+          degrees = new DegreeCatalog();
+          reader = new SpeechSynthesizer();
+          recognitionEngine = new SpeechRecognitionEngine();
+          grammar = new CommandGrammar(catalog.Courses);
+          txtOutput.Text += "Number of Classes: " + catalog.Courses.Count;
+
+          recognitionEngine.LoadGrammar(grammar.grammar);
+          recognitionEngine.SetInputToDefaultAudioDevice();
+          recognitionEngine.SpeechRecognized += recognitionEngine_SpeechRecognized;
+      }
+
+
+
+      void recognitionEngine_SpeechRecognized(object sender, SpeechRecognizedEventArgs args)
+      {
+          reader.SpeakAsync(args.Result.Text);
+
+
+          txtOutput.Text += "Command Found:" + args.Result.Text + "\n";
+          if (args.Result.Semantics.ContainsKey("add"))
+          {
+              reader.SpeakAsync("Adding that class.");
+
+          }
+          if (args.Result.Semantics.ContainsKey("remove"))
+          {
+              reader.SpeakAsync("Removing that class.");
+
+          }
+
       }
 
       private void Load_Click(object sender, RoutedEventArgs e)
@@ -90,6 +126,23 @@ namespace MyPackSpeech
          win.Show();
          //courseWin.Catalog = this.catalog;
          //courseWin.Show();         
+      }
+
+      private void button1_Click(object sender, RoutedEventArgs e)
+      {
+          try
+          {
+              recognitionEngine.RecognizeAsync(RecognizeMode.Multiple);
+              txtOutput.Text = "Started\n";
+          } catch (System.InvalidOperationException) {
+              Console.WriteLine("Speech has already been started");
+          
+          }
+      }
+
+      private void txtOutput_TextChanged(object sender, TextChangedEventArgs e)
+      {
+
       }
    }
 }

@@ -6,6 +6,7 @@ using System.Windows;
 using MyPackSpeech.DataManager;
 using MyPackSpeech.DataManager.Data;
 
+
 namespace MyPackSpeech
 {
    /// <summary>
@@ -14,6 +15,8 @@ namespace MyPackSpeech
    public partial class CourseWindow : Window
    {
       CourseCatalog catalog;
+
+
       public CourseCatalog Catalog
       {
          get { return this.catalog; }
@@ -21,8 +24,11 @@ namespace MyPackSpeech
          {
             this.catalog = value;
             updateCourses();
+
          }
       }
+
+
 
       public CourseWindow()
       {
@@ -42,5 +48,7 @@ namespace MyPackSpeech
       {
          return catalog.Courses.Where(c => c.Dept.Abv.ToLower() == "csc");
       }
+
+
    }
 }
