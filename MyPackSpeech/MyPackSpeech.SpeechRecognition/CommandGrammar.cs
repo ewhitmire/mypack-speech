@@ -103,7 +103,21 @@ namespace MyPackSpeech.SpeechRecognition
                 deptChoices.Add(deptsRV);
 
             }
-            SemanticResultKey classesSemKey = new SemanticResultKey("department", deptChoices);
+            SemanticResultKey deptSemKey = new SemanticResultKey("department", deptChoices);
+
+
+            //Class: a class, this class, that class, that other class
+            Choices classNumbers = new Choices();
+            SemanticResultValue numbersRV;
+            for (int i = 100; i < 1000; i++)
+            {
+                numbersRV = new SemanticResultValue("" + i, i);
+                classNumbers.Add(numbersRV);
+
+            }
+            SemanticResultKey numbersSemKey = new SemanticResultKey("numbers", classNumbers);
+
+
 
             Choices preposition = new Choices("to", "from", "of");
             SemanticResultKey prepSemKey = new SemanticResultKey("prepositions", preposition);
@@ -151,7 +165,8 @@ namespace MyPackSpeech.SpeechRecognition
             GrammarBuilder finalCommand = new GrammarBuilder();
             finalCommand.Append(pleasentries, 0, 1);
             finalCommand.Append(commandSemKey);
-            finalCommand.Append(classesSemKey);
+            finalCommand.Append(deptSemKey);
+            finalCommand.Append(numbersSemKey);
             finalCommand.Append(prepSemKey);
             finalCommand.Append(semesterSemKey);
             finalCommand.Append(prepYearSemKey, 0, 1);
