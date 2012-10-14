@@ -57,9 +57,11 @@ namespace MyPackSpeech
 
 
           txtOutput.Text += "Command Found:" + args.Result.Text + "\n";
-          if (args.Result.Semantics.ContainsKey("add"))
+          if (args.Result.Semantics.ContainsKey("command"))
           {
-              reader.SpeakAsync("Adding that class.");
+              String commandValue = args.Result.Semantics.Value.ToString();
+              txtOutput.Text += "Command: " + commandValue;
+              reader.SpeakAsync(commandValue + " that class");
 
           }
           if (args.Result.Semantics.ContainsKey("remove"))
