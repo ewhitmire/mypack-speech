@@ -38,6 +38,10 @@ namespace MyPackSpeech
       {
           InitializeComponent();
           catalog = new CourseCatalog();
+      }
+
+      private void setupCourses()
+      {
           degrees = new DegreeCatalog();
           reader = new SpeechSynthesizer();
           recognitionEngine = new SpeechRecognitionEngine();
@@ -116,8 +120,16 @@ namespace MyPackSpeech
       }
 
       private void showCourses()
+      int currReq = -1;
+      private void btnNextClick(object sender, EventArgs e)
       {
          CourseWindow courseWin = new CourseWindow()
+         btnNext.HorizontalContentAlignment = HorizontalAlignment.Stretch;
+         currReq++;
+         currReq %= degrees.degrees[0].Requirements.Count;
+         DegreeRequirement req = degrees.degrees[0].Requirements[currReq];
+         btnNext.Content = req.Category.Name;
+         //if (req.CourseRequirement != null)
          {
             Height = 300,
             Width = 400
@@ -128,6 +140,8 @@ namespace MyPackSpeech
          win.Show();
          //courseWin.Catalog = this.catalog;
          //courseWin.Show();         
+            CourseCatalog.Instance.Filter = req.CourseRequirement;
+         }
       }
 
       private void button1_Click(object sender, RoutedEventArgs e)

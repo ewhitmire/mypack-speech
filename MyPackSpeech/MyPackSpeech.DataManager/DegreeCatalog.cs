@@ -63,9 +63,10 @@ namespace MyPackSpeech.DataManager
                         {
                            IFilter<Course> courseFilter = ParseCourseFilter(jsonCourseFilter);
                            DegreeRequirement degreeReq = new DegreeRequirement();
+                           degreeReq.Category = cat;
                            degreeReq.CourseRequirement = courseFilter;
 
-                           program.requirements.Add(degreeReq);
+                           program.Requirements.Add(degreeReq);
                         }
                      }
                   }
@@ -106,9 +107,9 @@ namespace MyPackSpeech.DataManager
                   if (json[op.ToString()] != null)
                   {
                      if (numbers == null)
-                        numbers = CourseFilter.Number(op, num);
+                        numbers = CourseFilter.Number(num, op);
                      else
-                        numbers = numbers.Or(CourseFilter.Number(op, num));
+                        numbers = numbers.Or(CourseFilter.Number(num, op));
                   }
                }
             }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace MyPackSpeech.DataManager.Data.Filter
 {
@@ -21,7 +22,8 @@ namespace MyPackSpeech.DataManager.Data.Filter
 
          StrFuncs[Operator.EQ] = (l, r) => l.Equals(r, StringComparison.CurrentCultureIgnoreCase);
          StrFuncs[Operator.NEQ] = (l, r) => !l.Equals(r, StringComparison.CurrentCultureIgnoreCase);
-         StrFuncs[Operator.In] = (l, r) => r.ToLower().Contains(l.ToLower());
+         StrFuncs[Operator.Like] = (l, r) => l.ToLower().Contains(r.ToLower());
+         StrFuncs[Operator.Regex] = (l, r) => Regex.IsMatch(l, r, RegexOptions.IgnoreCase);
       }
 
       public static bool Eval(int lhs, int rhs, Operator op)

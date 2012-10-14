@@ -50,7 +50,9 @@ namespace MyPackSpeech.DataManager.Data
       /// Test if one value is in another value, 
       /// ex: our in course = true
       /// </summary>
-      [Description("in")]
-      In
+      [Description("Like")]
+      Like,
+      [Description("RegEx")]
+      Regex
    }
 }

@@ -13,7 +13,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MyPackSpeech.DataManager;
 using MyPackSpeech.DataManager.Data;
+using MyPackSpeech.DataManager.Data.Filter;
 
 namespace MyPackSpeech
 {
@@ -22,20 +24,16 @@ namespace MyPackSpeech
    /// </summary>
    public partial class CourseControl : UserControl
    {
-      private ObservableCollection<ICourse> courses = new ObservableCollection<ICourse>();
-      public ObservableCollection<ICourse> Courses
-      {
-         get { return courses; }
-         set
-         {
-            courses = value ?? new ObservableCollection<ICourse>();
-            displayCourses();
-         }
-      }
-
       public CourseControl()
       {
          InitializeComponent();
+         if (DesignerProperties.GetIsInDesignMode(this) == false)
+            CourseCatalog.Instance.FilterChanged += Instance_FilterChanged;
+      }
+
+      void Instance_FilterChanged(object sender, EventArgs e)
+      {
+         displayCourses();
       }
 
       private void displayCourses()
@@ -45,7 +43,7 @@ namespace MyPackSpeech
             courseGrid.Invoke(() => displayCourses());
          }
 
-         courseGrid.ItemsSource = courses;
+         courseGrid.ItemsSource = CourseCatalog.Instance.FilteredCourses;
       }      
    }
 }

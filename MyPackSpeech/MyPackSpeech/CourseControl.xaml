@@ -12,6 +12,24 @@
                           Grid.Row="0" Grid.Column="0"
                           Background="DarkGray"
                           Width="{Binding Content.ActualWidth, ElementName=mainWindow}"
-                          Height="{Binding Content.ActualHeight, ElementName=mainWindow}"/>
+                          Height="{Binding Content.ActualHeight, ElementName=mainWindow}" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Dept}" Header="Department" IsReadOnly="True" Width="75"/>
+                <DataGridTextColumn Binding="{Binding Number}" Header="Number" IsReadOnly="True" Width="50"/>
+                <DataGridTextColumn Binding="{Binding Name}" Header="Name" IsReadOnly="True" />
+            </DataGrid.Columns>
+            <DataGrid.CacheMode>
+                <BitmapCache EnableClearType="True" SnapsToDevicePixels="True"/>
+            </DataGrid.CacheMode>
+            <DataGrid.RowStyle>
+                <Style TargetType="{x:Type DataGridRow}">
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="ToolTip" Value="{Binding DescriptionWrap}" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.RowStyle>
+        </DataGrid>
     </ScrollViewer>
 </UserControl>

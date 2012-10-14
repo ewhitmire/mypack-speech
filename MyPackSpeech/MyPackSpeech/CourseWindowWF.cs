@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using MyPackSpeech.DataManager.Data;
+using MyPackSpeech.DataManager.Data.Filter;
 
 namespace MyPackSpeech
 {
@@ -22,7 +23,12 @@ namespace MyPackSpeech
             courses = value ?? new ObservableCollection<Course>();
             setupGrid();
          }
+      }
 
+      public IFilter<Course> Filter
+      {
+         get;
+         set;
       }
 
       public CourseWindowWF()
@@ -45,7 +51,10 @@ namespace MyPackSpeech
 
       private IEnumerable<Course> ApplyFilter(ObservableCollection<Course> courses)
       {
-         return courses.Where(c => c.Dept.Abv.ToLower() == "csc");
+         if (Filter != null)
+            return courses.Where(c => Filter.Matches(c));
+         else
+            return courses;
       }
       
    }

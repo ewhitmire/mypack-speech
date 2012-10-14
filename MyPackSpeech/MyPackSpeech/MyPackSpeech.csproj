@@ -201,9 +201,6 @@
     <Compile Include="CourseControl.xaml.cs">
       <DependentUpon>CourseControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="CourseWindow.xaml.cs">
-      <DependentUpon>CourseWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="CourseWindowWF.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -211,10 +208,6 @@
       <DependentUpon>CourseWindowWF.cs</DependentUpon>
     </Compile>
     <Compile Include="UIUtils.cs" />
-    <Page Include="CourseWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

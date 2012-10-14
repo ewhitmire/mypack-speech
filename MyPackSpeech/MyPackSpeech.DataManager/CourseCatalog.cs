@@ -6,36 +6,77 @@ using System.IO;
 using System.Diagnostics;
 using MyPackSpeech.DataManager.Data;
 using Newtonsoft.Json.Linq;
+using MyPackSpeech.DataManager.Data.Filter;
+using System.Collections.ObjectModel;
 
 namespace MyPackSpeech.DataManager
 {
    public class CourseCatalog
    {
-      public static CourseCatalog Instance;
+      private const string DepartmentsList = "CourseData/prefixes.txt";
+
+      event EventHandler filterChanged = null;
+      private IFilter<Course> filter;
+
+      private ObservableCollection<Course> filteredCourses = null;
+      private void clearFilteredCourses()
+      {
+         if (filteredCourses != null)
+            filteredCourses.Clear();
+         filteredCourses = null;
+      }
+      private static CourseCatalog instance = null;
+      public static CourseCatalog Instance
+      {
+         get
+         {
+            if (instance == null)
+               instance = new CourseCatalog();
+            return instance;
+         }
+      }
 
       public List<Course> Courses { get; private set; }
       public List<Department> Departments { get; private set; }
-      private const string departmentsList = "CourseData/prefixes.txt";
-
-      public CourseCatalog()
+      public event EventHandler FilterChanged { add { filterChanged += value; } remove { filterChanged -= value; } }
+      public IFilter<Course> Filter
       {
-         Instance = this;
-
+         get { return filter; }
+         set
+         {
+            filter = value;
+            OnFilterChanged();
+         }
+      }
+      public ObservableCollection<Course> FilteredCourses
+      {
+         get
+         {
+            if (filteredCourses == null)
+            {
+               IFilter<Course> courseFilter = filter;
+               if (courseFilter == null)
+                  filteredCourses = new ObservableCollection<Course>(Courses.Take(200));
+               else
+                  filteredCourses = new ObservableCollection<Course>(Courses.Where(c => courseFilter.Matches(c)).Take(32));
+            }
+            return filteredCourses;
+         }
+      }
+      protected CourseCatalog()
+      {
          Courses = new List<Course>();
          Departments = new List<Department>();
          LoadData();
-
       }
-
       public Department GetDepartment(String prefix)
       {
          return Departments.Find(d => d.Abv.Equals(prefix));
       }
-
       private void LoadData()
       {
          Debug.WriteLine("Reading list of departments");
-         using (StreamReader deparmentsReader = new StreamReader(departmentsList))
+         using (StreamReader deparmentsReader = new StreamReader(DepartmentsList))
          {
             string line;
             while ((line = deparmentsReader.ReadLine()) != null)
@@ -43,7 +84,8 @@ namespace MyPackSpeech.DataManager
                string[] lineParts = line.Split("-".ToCharArray());
                if (lineParts.Length >= 2)
                {
-               Department dept = new Department(lineParts[1].Trim(), lineParts[0].Trim());
+                  string dname = line.Substring(line.IndexOf("-") + 1).Trim();
+                  Department dept = new Department(dname, lineParts[0].Trim());
                   String filename = String.Format("CourseData/{0}.json", dept.Abv);
 
                   if (File.Exists(filename))
@@ -75,6 +117,14 @@ namespace MyPackSpeech.DataManager
                }
             }
          }
+      }
+      private void OnFilterChanged()
+      {
+         clearFilteredCourses();
+         EventHandler evt = filterChanged;
+         if (evt != null)
+            evt(this, EventArgs.Empty);
+
       }
    }
 }
