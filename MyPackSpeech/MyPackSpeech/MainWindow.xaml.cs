@@ -27,7 +27,6 @@ namespace MyPackSpeech
    public partial class MainWindow : Window
    {
 
-       private CourseCatalog catalog;
        private DegreeCatalog degrees;
        SpeechSynthesizer reader;
        private SpeechRecognitionEngine recognitionEngine;
@@ -37,7 +36,7 @@ namespace MyPackSpeech
       public MainWindow()
       {
           InitializeComponent();
-          catalog = new CourseCatalog();
+          setupCourses();
       }
 
       private void setupCourses()
@@ -45,27 +44,21 @@ namespace MyPackSpeech
           degrees = new DegreeCatalog();
           reader = new SpeechSynthesizer();
           recognitionEngine = new SpeechRecognitionEngine();
-          grammar = new CommandGrammar(catalog.Courses);
-          txtOutput.Text += "Number of Classes: " + catalog.Courses.Count;
+          grammar = new CommandGrammar(CourseCatalog.Instance.Courses);
+          txtOutput.Text += "Number of Classes: " + CourseCatalog.Instance.Courses.Count;
 
           recognitionEngine.LoadGrammar(grammar.grammar);
           recognitionEngine.SetInputToDefaultAudioDevice();
           recognitionEngine.SpeechRecognized += recognitionEngine_SpeechRecognized;
       }
-
-
-
       void recognitionEngine_SpeechRecognized(object sender, SpeechRecognizedEventArgs args)
       {
           reader.SpeakAsync(args.Result.Text);
 
-
           txtOutput.Text += "Command Found:" + args.Result.Text + "\n";
-          if (args.Result.Semantics.ContainsKey("command"))
+          if (args.Result.Semantics.ContainsKey("add"))
           {
-              //String commandValue = args.Result.Semantics.Value;
-              //txtOutput.Text += "Command: " + commandValue;
-              //reader.SpeakAsync(commandValue + " that class");
+              reader.SpeakAsync("Adding that class.");
 
           }
           if (args.Result.Semantics.ContainsKey("remove"))
@@ -75,7 +68,6 @@ namespace MyPackSpeech
           }
 
       }
-
       private void Load_Click(object sender, RoutedEventArgs e)
       {
          loadFile();
@@ -116,32 +108,18 @@ namespace MyPackSpeech
 
       private void showCourses_Click(object sender, RoutedEventArgs e)
       {
-         showCourses();
       }
 
-      private void showCourses()
       int currReq = -1;
       private void btnNextClick(object sender, EventArgs e)
       {
-         CourseWindow courseWin = new CourseWindow()
          btnNext.HorizontalContentAlignment = HorizontalAlignment.Stretch;
          currReq++;
          currReq %= degrees.degrees[0].Requirements.Count;
          DegreeRequirement req = degrees.degrees[0].Requirements[currReq];
          btnNext.Content = req.Category.Name;
-         //if (req.CourseRequirement != null)
-         {
-            Height = 300,
-            Width = 400
-         };
+         CourseCatalog.Instance.Filter = req.CourseRequirement;
 
-         CourseWindowWF win = new CourseWindowWF();
-         win.Courses = new ObservableCollection<Course>(catalog.Courses);
-         win.Show();
-         //courseWin.Catalog = this.catalog;
-         //courseWin.Show();         
-            CourseCatalog.Instance.Filter = req.CourseRequirement;
-         }
       }
 
       private void button1_Click(object sender, RoutedEventArgs e)
@@ -151,8 +129,7 @@ namespace MyPackSpeech
               recognitionEngine.RecognizeAsync(RecognizeMode.Multiple);
               txtOutput.Text = "Started\n";
           } catch (System.InvalidOperationException) {
-              Console.WriteLine("Speech has already been started");
-          
+              Console.WriteLine("Speech has already been started");          
           }
       }
 
