@@ -27,45 +27,50 @@ namespace MyPackSpeech
    public partial class MainWindow : Window
    {
 
-       private DegreeCatalog degrees;
-       SpeechSynthesizer reader;
-       private SpeechRecognitionEngine recognitionEngine;
-       private CommandGrammar grammar;
+      private DegreeCatalog degrees;
+      SpeechSynthesizer reader;
+      private SpeechRecognitionEngine recognitionEngine;
+      private CommandGrammar grammar;
 
 
       public MainWindow()
       {
-          InitializeComponent();
-          setupCourses();
+         InitializeComponent();
+         setupCourses();
       }
 
       private void setupCourses()
       {
-          degrees = new DegreeCatalog();
-          reader = new SpeechSynthesizer();
-          recognitionEngine = new SpeechRecognitionEngine();
-          grammar = new CommandGrammar(CourseCatalog.Instance.Courses);
-          txtOutput.Text += "Number of Classes: " + CourseCatalog.Instance.Courses.Count;
+         degrees = new DegreeCatalog();
+         reader = new SpeechSynthesizer();
+         recognitionEngine = new SpeechRecognitionEngine();
+         grammar = new CommandGrammar(CourseCatalog.Instance.Courses);
+         txtOutput.Text += "Number of Classes: " + CourseCatalog.Instance.Courses.Count;
 
-          recognitionEngine.LoadGrammar(grammar.grammar);
-          recognitionEngine.SetInputToDefaultAudioDevice();
-          recognitionEngine.SpeechRecognized += recognitionEngine_SpeechRecognized;
+         recognitionEngine.LoadGrammar(grammar.grammar);
+         recognitionEngine.SetInputToDefaultAudioDevice();
+         recognitionEngine.SpeechRecognized += recognitionEngine_SpeechRecognized;
       }
       void recognitionEngine_SpeechRecognized(object sender, SpeechRecognizedEventArgs args)
       {
-          reader.SpeakAsync(args.Result.Text);
+         reader.SpeakAsync(args.Result.Text);
 
-          txtOutput.Text += "Command Found:" + args.Result.Text + "\n";
-          if (args.Result.Semantics.ContainsKey("add"))
-          {
-              reader.SpeakAsync("Adding that class.");
+         txtOutput.Text += "Command Found:" + args.Result.Text + " (" + args.Result.Confidence + ")\n";
+         foreach (RecognizedPhrase phrase in args.Result.Alternates)
+         {
+            txtOutput.Text += "Alternative: "+phrase.Text + " ("+phrase.Confidence+")\n";
+         }
 
-          }
-          if (args.Result.Semantics.ContainsKey("remove"))
-          {
-              reader.SpeakAsync("Removing that class.");
+         if (args.Result.Semantics.ContainsKey("add"))
+         {
+            reader.SpeakAsync("Adding that class.");
 
-          }
+         }
+         if (args.Result.Semantics.ContainsKey("remove"))
+         {
+            reader.SpeakAsync("Removing that class.");
+
+         }
 
       }
       private void Load_Click(object sender, RoutedEventArgs e)
@@ -75,7 +80,7 @@ namespace MyPackSpeech
 
       private void loadFile()
       {
-         
+
       }
 
       private void loadCourses_Click(object sender, RoutedEventArgs e)
@@ -91,7 +96,7 @@ namespace MyPackSpeech
       private string getFile()
       {
          OpenFileDialog dlg = new OpenFileDialog();
-         if(dlg.ShowDialog(this).GetValueOrDefault(false))
+         if (dlg.ShowDialog(this).GetValueOrDefault(false))
             return dlg.FileName;
          return string.Empty;
       }
@@ -124,13 +129,15 @@ namespace MyPackSpeech
 
       private void button1_Click(object sender, RoutedEventArgs e)
       {
-          try
-          {
-              recognitionEngine.RecognizeAsync(RecognizeMode.Multiple);
-              txtOutput.Text = "Started\n";
-          } catch (System.InvalidOperationException) {
-              Console.WriteLine("Speech has already been started");          
-          }
+         try
+         {
+            recognitionEngine.RecognizeAsync(RecognizeMode.Multiple);
+            txtOutput.Text = "Started\n";
+         }
+         catch (System.InvalidOperationException)
+         {
+            Console.WriteLine("Speech has already been started");
+         }
       }
 
       private void txtOutput_TextChanged(object sender, TextChangedEventArgs e)
