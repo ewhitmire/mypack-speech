@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommandGrammar.cs" />
+    <Compile Include="CommandTypes.cs" />
     <Compile Include="TextToSpeech.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

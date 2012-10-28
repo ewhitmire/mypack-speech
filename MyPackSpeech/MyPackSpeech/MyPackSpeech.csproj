@@ -58,9 +58,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ActionManager.cs" />
     <Compile Include="CourseControl.xaml.cs">
       <DependentUpon>CourseControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="RecoManager.cs" />
     <Compile Include="UIUtils.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

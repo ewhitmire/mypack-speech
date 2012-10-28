@@ -20,7 +20,7 @@
             <MenuItem Header="Requirements" Click="showReqs_Click"/>
             <MenuItem Header="Courses" Click="showCourses_Click"/>
         </Menu>
-        <TextBox Grid.Row="1" Height="182" HorizontalAlignment="Left" Margin="11,38,0,0" Name="txtOutput" VerticalAlignment="Top" Width="874" TextChanged="txtOutput_TextChanged" />
+        <TextBox Grid.Row="1" Height="398" HorizontalAlignment="Left" Margin="11,38,0,0" Name="txtOutput" VerticalAlignment="Top" Width="520" TextChanged="txtOutput_TextChanged" />
         <Button Content="Start Speech Recognition" Grid.Row="1" Height="23" HorizontalAlignment="Left" Margin="11,6,0,0" Name="button1" VerticalAlignment="Top" Width="148" Click="button1_Click" />
         <Canvas HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="1" Grid.Row="1" />
         <local:CourseControl Grid.Column="1" HorizontalAlignment="Stretch" Margin="10,10,10,0" Grid.Row="1" VerticalAlignment="Stretch" x:Name="courseViewer"

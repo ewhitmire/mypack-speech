@@ -105,26 +105,23 @@ namespace MyPackSpeech.SpeechRecognition
          // year
          Choices years = new Choices();
          SemanticResultValue yearRV;
-         yearRV = new SemanticResultValue("2012", "2012");
-         years.Add(yearRV);
-         yearRV = new SemanticResultValue("2013", "2013");
-         years.Add(yearRV);
-         yearRV = new SemanticResultValue("2014", "2014");
-         years.Add(yearRV);
-         yearRV = new SemanticResultValue("2015", "2015");
-         years.Add(yearRV);
-         yearRV = new SemanticResultValue("2016", "2016");
-         years.Add(yearRV);
+         int currentYear = 2012;
+         for (int year = currentYear; year < currentYear + 6; year++)
+         {
+            yearRV = new SemanticResultValue(year.ToString(), year.ToString());
+            years.Add(yearRV);
+
+         }
          SemanticResultKey yearSemKey = new SemanticResultKey("year", years);
 
-         GrammarBuilder year = new GrammarBuilder();
-         year.Append(yearPrep, 0, 1);
-         year.Append(yearSemKey);
-         year.Append("schedule", 0, 1);
+         GrammarBuilder yearGrammar = new GrammarBuilder();
+         yearGrammar.Append(yearPrep, 0, 1);
+         yearGrammar.Append(yearSemKey);
+         yearGrammar.Append("schedule", 0, 1);
 
          GrammarBuilder semesterYear = new GrammarBuilder();
          semesterYear.Append(semester, 0, 1);
-         semesterYear.Append(year, 0, 1);
+         semesterYear.Append(yearGrammar, 0, 1);
          return semesterYear;
       }
 
@@ -137,10 +134,9 @@ namespace MyPackSpeech.SpeechRecognition
             {
                depts.Add(thisCourse.Dept);
             }
-
          }
-
       }
+
       private void buildCommandGrammar()
       {
 
@@ -149,20 +145,40 @@ namespace MyPackSpeech.SpeechRecognition
          GrammarBuilder remove = removeCommand();
          GrammarBuilder move = moveCommand();
          GrammarBuilder swap = swapCommand();
+         GrammarBuilder error = errorCommand();
 
 
          //now build the complete pattern...
-         GrammarBuilder systemRequest = new GrammarBuilder();
+         Choices commandChoices = new Choices();
+         commandChoices.Add(add);
+         commandChoices.Add(remove);
+         commandChoices.Add(move);
+         commandChoices.Add(swap);
+         commandChoices.Add(error);
 
-         systemRequest.Append(add, 0, 1);
-         systemRequest.Append(remove, 0, 1);
-         systemRequest.Append(move, 0, 1);
-         systemRequest.Append(swap, 0, 1);
+         GrammarBuilder systemRequest = new GrammarBuilder();
+         systemRequest.Append(commandChoices);
 
          Grammar testGrammar = new Grammar(systemRequest);
          this.grammar = testGrammar;
       }
+      private GrammarBuilder errorCommand()
+      {
 
+         Choices commands = new Choices();
+         SemanticResultValue commandSRV;
+         commandSRV = new SemanticResultValue("no", (int)CommandTypes.Undo);
+         commands.Add(commandSRV);
+         commandSRV = new SemanticResultValue("undo", (int)CommandTypes.Undo);
+         commands.Add(commandSRV);
+         SemanticResultKey commandSemKey = new SemanticResultKey("command", commands);
+
+         // put the whole command together
+         GrammarBuilder finalCommand = new GrammarBuilder();
+         finalCommand.Append(commandSemKey);
+
+         return finalCommand;
+      }
       private GrammarBuilder addCommand()
       {
          //<pleasantries> <command> <CLASS> <prep> <Time><year>
@@ -173,9 +189,9 @@ namespace MyPackSpeech.SpeechRecognition
 
          Choices commands = new Choices();
          SemanticResultValue commandSRV;
-         commandSRV = new SemanticResultValue("add", "add");
+         commandSRV = new SemanticResultValue("add", (int)CommandTypes.Add);
          commands.Add(commandSRV);
-         commandSRV = new SemanticResultValue("take", "add");
+         commandSRV = new SemanticResultValue("take", (int)CommandTypes.Add);
          commands.Add(commandSRV);
          SemanticResultKey commandSemKey = new SemanticResultKey("command", commands);
 
@@ -194,9 +210,9 @@ namespace MyPackSpeech.SpeechRecognition
 
          Choices commands = new Choices();
          SemanticResultValue commandSRV;
-         commandSRV = new SemanticResultValue("remove", "remove");
+         commandSRV = new SemanticResultValue("remove", (int)CommandTypes.Remove);
          commands.Add(commandSRV);
-         commandSRV = new SemanticResultValue("get rid of", "remove");
+         commandSRV = new SemanticResultValue("get rid of", (int)CommandTypes.Remove);
          commands.Add(commandSRV);
          SemanticResultKey commandSemKey = new SemanticResultKey("command", commands);
 
@@ -215,7 +231,7 @@ namespace MyPackSpeech.SpeechRecognition
 
          Choices commands = new Choices();
          SemanticResultValue commandSRV;
-         commandSRV = new SemanticResultValue("move", "move");
+         commandSRV = new SemanticResultValue("move", (int)CommandTypes.Move);
          commands.Add(commandSRV);
          SemanticResultKey commandSemKey = new SemanticResultKey("command", commands);
 
@@ -234,7 +250,7 @@ namespace MyPackSpeech.SpeechRecognition
 
          Choices commands = new Choices();
          SemanticResultValue commandSRV;
-         commandSRV = new SemanticResultValue("swap", "swap");
+         commandSRV = new SemanticResultValue("swap", (int)CommandTypes.Swap);
          commands.Add(commandSRV);
          SemanticResultKey commandSemKey = new SemanticResultKey("command", commands);
 

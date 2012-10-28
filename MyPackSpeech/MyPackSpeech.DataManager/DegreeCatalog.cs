@@ -12,6 +12,17 @@ namespace MyPackSpeech.DataManager
 {
    public class DegreeCatalog
    {
+      private static DegreeCatalog instance = null;
+      public static DegreeCatalog Instance
+      {
+         get
+         {
+            if (instance == null)
+               instance = new DegreeCatalog();
+            return instance;
+         }
+      }
+
       public List<DegreeProgram> degrees;
       private Dictionary<String, IFilter<Course>> orphanedFilters;
       private const string degreeList = "Curricula/degrees.txt";
