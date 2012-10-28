@@ -268,5 +268,31 @@ namespace MyPackSpeech.SpeechRecognition
       }
 
 
+      private GrammarBuilder showCommand()
+      {
+
+         Choices commands = new Choices();
+         SemanticResultValue commandSRV;
+         commandSRV = new SemanticResultValue("Show me", (int)CommandTypes.Show);
+         commands.Add(commandSRV);
+         commandSRV = new SemanticResultValue("I want to see", (int)CommandTypes.Show);
+         commands.Add(commandSRV);
+         SemanticResultKey commandSemKey = new SemanticResultKey("command", commands);
+
+
+
+
+         // put the whole command together
+         GrammarBuilder finalCommand = new GrammarBuilder();
+         finalCommand.Append(this.pleasantries, 0, 1);
+         finalCommand.Append(commandSemKey);
+         finalCommand.Append(this.course);
+         finalCommand.Append("with");
+         finalCommand.Append(this.course2);
+
+         return finalCommand;
+      }
+
+
    }
 }

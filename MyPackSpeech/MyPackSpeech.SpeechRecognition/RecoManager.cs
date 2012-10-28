@@ -8,12 +8,16 @@ using MyPackSpeech.DataManager;
 
 namespace MyPackSpeech.SpeechRecognition
 {
-   class RecoManager
+   public class RecoManager
    {
 
       private SpeechRecognitionEngine recognitionEngine;
       SpeechSynthesizer reader;
       private CommandGrammar grammar;
+
+      public delegate void SpeechRecognizedHandler(object sender, SpeechRecognizedEventArgs ca);
+      public event SpeechRecognizedHandler SpeechRecognized;
+
 
 
       private static RecoManager instance = null;
@@ -41,18 +45,16 @@ namespace MyPackSpeech.SpeechRecognition
       {
          recognitionEngine.RecognizeAsync(RecognizeMode.Multiple);
       }
-
       void recognitionEngine_SpeechRecognized(object sender, SpeechRecognizedEventArgs args)
       {
          reader.SpeakAsyncCancelAll();
          reader.SpeakAsync(args.Result.Text);
          ActionManager.Instance.ProcessResult(args.Result);
-
-         MainWindow.Instance.WriteToOutputWindow("Command Found:" + args.Result.Text + " (" + args.Result.Confidence + ")\n");
-         foreach (RecognizedPhrase phrase in args.Result.Alternates)
+         if (SpeechRecognized != null)
          {
-            MainWindow.Instance.WriteToOutputWindow("Alternative: " + phrase.Text + " (" + phrase.Confidence + ")\n");
+            SpeechRecognized(this, args);
          }
+         
 
 
       }

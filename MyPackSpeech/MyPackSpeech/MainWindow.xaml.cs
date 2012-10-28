@@ -27,20 +27,8 @@ namespace MyPackSpeech
    public partial class MainWindow : Window
    {
 
-      private static MainWindow instance = null;
-      public static MainWindow Instance
-      {
-         get
-         {
-            if (instance == null)
-               instance = new MainWindow();
-            return instance;
-         }
-      }
-
       public MainWindow()
       {
-         instance = this;
          InitializeComponent();
          setupCourses();
       }
@@ -111,11 +99,27 @@ namespace MyPackSpeech
 
       }
 
+      private void RecoManager_SpeechRecognized(object sender, SpeechRecognizedEventArgs args)
+      {
+         WriteToOutputWindow("Command Found:" + args.Result.Text + " (" + args.Result.Confidence + ")\n");
+         foreach (RecognizedPhrase phrase in args.Result.Alternates)
+         {
+            WriteToOutputWindow("Alternative: " + phrase.Text + " (" + phrase.Confidence + ")\n");
+         }
+      }
+
+      private void ActionManager_ActionDetected(object sender, ActionDetectedEventArgs args)
+      {
+         WriteToOutputWindow("Action Found:" + args.type+"\n");
+      }
+
       private void button1_Click(object sender, RoutedEventArgs e)
       {
          try
          {
             RecoManager.Instance.Start();
+            RecoManager.Instance.SpeechRecognized += new RecoManager.SpeechRecognizedHandler(RecoManager_SpeechRecognized);
+            ActionManager.Instance.ActionDetected += new ActionManager.ActionDetectedHandler(ActionManager_ActionDetected);
             txtOutput.Text = "Started\n";
          }
          catch (System.InvalidOperationException)

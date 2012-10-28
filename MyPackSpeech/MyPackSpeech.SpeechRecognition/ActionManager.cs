@@ -8,7 +8,18 @@ using MyPackSpeech.SpeechRecognition;
 
 namespace MyPackSpeech
 {
-   class ActionManager
+   public class ActionDetectedEventArgs : System.EventArgs
+   {
+      public CommandTypes type;
+
+      public ActionDetectedEventArgs(CommandTypes t)
+      {
+         this.type = t;
+      }
+
+   } 
+
+   public class ActionManager
    {
       private static ActionManager instance = null;
       public static ActionManager Instance
@@ -20,6 +31,11 @@ namespace MyPackSpeech
             return instance;
          }
       }
+
+      // delegate declaration 
+      public delegate void ActionDetectedHandler(object sender, ActionDetectedEventArgs args);
+      // event declaration 
+      public event ActionDetectedHandler ActionDetected;
 
       public void ProcessResult(RecognitionResult result)
       {
@@ -41,6 +57,11 @@ namespace MyPackSpeech
       private void ProcessCommand(RecognitionResult result)
       {
          CommandTypes cmd = (CommandTypes)(result.Semantics["command"].Value);
+         ActionDetectedEventArgs args = new ActionDetectedEventArgs(cmd);
+         if (ActionDetected != null)
+         {
+            ActionDetected(this, args);
+         }
          switch (cmd)
          {
             case CommandTypes.Add:

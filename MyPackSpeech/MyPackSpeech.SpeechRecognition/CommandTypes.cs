@@ -11,6 +11,7 @@ namespace MyPackSpeech.SpeechRecognition
       Remove,
       Move,
       Swap,
-      Undo
+      Undo,
+      Show
    }
 }
