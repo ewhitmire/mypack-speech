@@ -17,7 +17,6 @@ namespace MyPackSpeech.SpeechRecognition
       private List<Department> depts;
       private GrammarBuilder semester;
       private GrammarBuilder course;
-      private GrammarBuilder course2;
       private Choices pleasantries;
 
 
@@ -42,11 +41,10 @@ namespace MyPackSpeech.SpeechRecognition
              "I want to", "Would you", "Would you please", "please");
 
          this.semester = buildSemesterGrammar();
-         this.course = buildCourseGrammar("");
-         this.course2 = buildCourseGrammar("other_");
+         this.course = buildCourseGrammar();
 
       }
-      private GrammarBuilder buildCourseGrammar(String semKeyPrefix)
+      private GrammarBuilder buildCourseGrammar()
       {
          //Class: a class, this class, that class, that other class
          Choices deptChoices = new Choices();
@@ -59,7 +57,7 @@ namespace MyPackSpeech.SpeechRecognition
             deptChoices.Add(deptsRV);
 
          }
-         SemanticResultKey deptSemKey = new SemanticResultKey(semKeyPrefix+"department", deptChoices);
+         SemanticResultKey deptSemKey = new SemanticResultKey(Slots.Department.ToString(), deptChoices);
 
 
          //Class: a class, this class, that class, that other class
@@ -71,7 +69,7 @@ namespace MyPackSpeech.SpeechRecognition
             classNumbers.Add(numbersRV);
 
          }
-         SemanticResultKey numbersSemKey = new SemanticResultKey(semKeyPrefix+"numbers", classNumbers);
+         SemanticResultKey numbersSemKey = new SemanticResultKey(Slots.Number.ToString(), classNumbers);
 
          GrammarBuilder course = new GrammarBuilder();
          course.Append(deptSemKey);
@@ -91,7 +89,7 @@ namespace MyPackSpeech.SpeechRecognition
          semestersRV = new SemanticResultValue("fall", "fall");
          semestersChoices.Add(semestersRV);
 
-         SemanticResultKey semesterSemKey = new SemanticResultKey("semester", semestersChoices);
+         SemanticResultKey semesterSemKey = new SemanticResultKey(Slots.Semester.ToString(), semestersChoices);
         
          GrammarBuilder semester = new GrammarBuilder();
 
@@ -112,7 +110,7 @@ namespace MyPackSpeech.SpeechRecognition
             years.Add(yearRV);
 
          }
-         SemanticResultKey yearSemKey = new SemanticResultKey("year", years);
+         SemanticResultKey yearSemKey = new SemanticResultKey(Slots.Year.ToString(), years);
 
          GrammarBuilder yearGrammar = new GrammarBuilder();
          yearGrammar.Append(yearPrep, 0, 1);
@@ -195,11 +193,13 @@ namespace MyPackSpeech.SpeechRecognition
          commands.Add(commandSRV);
          SemanticResultKey commandSemKey = new SemanticResultKey("command", commands);
 
+         SemanticResultKey course1 = new SemanticResultKey(Slots.Course1.ToString(), this.course);
+
          // put the whole command together
          GrammarBuilder finalCommand = new GrammarBuilder();
          finalCommand.Append(this.pleasantries, 0, 1);
          finalCommand.Append(commandSemKey);
-         finalCommand.Append(this.course);
+         finalCommand.Append(course1);
          finalCommand.Append(this.semester);
 
          return finalCommand;
@@ -216,11 +216,14 @@ namespace MyPackSpeech.SpeechRecognition
          commands.Add(commandSRV);
          SemanticResultKey commandSemKey = new SemanticResultKey("command", commands);
 
+
+         SemanticResultKey course1 = new SemanticResultKey(Slots.Course1.ToString(), this.course);
+
          // put the whole command together
          GrammarBuilder finalCommand = new GrammarBuilder();
          finalCommand.Append(this.pleasantries, 0, 1);
          finalCommand.Append(commandSemKey);
-         finalCommand.Append(this.course);
+         finalCommand.Append(course1);
          finalCommand.Append(this.semester);
 
          return finalCommand;
@@ -235,11 +238,14 @@ namespace MyPackSpeech.SpeechRecognition
          commands.Add(commandSRV);
          SemanticResultKey commandSemKey = new SemanticResultKey("command", commands);
 
+
+         SemanticResultKey course1 = new SemanticResultKey(Slots.Course1.ToString(), this.course);
+
          // put the whole command together
          GrammarBuilder finalCommand = new GrammarBuilder();
          finalCommand.Append(this.pleasantries, 0, 1);
          finalCommand.Append(commandSemKey);
-         finalCommand.Append(this.course);
+         finalCommand.Append(course1);
          finalCommand.Append(this.semester);
 
          return finalCommand;
@@ -254,15 +260,18 @@ namespace MyPackSpeech.SpeechRecognition
          commands.Add(commandSRV);
          SemanticResultKey commandSemKey = new SemanticResultKey("command", commands);
 
-         
+         SemanticResultKey course1 = new SemanticResultKey(Slots.Course1.ToString(), this.course);
+         SemanticResultKey course2 = new SemanticResultKey(Slots.Course2.ToString(), this.course);
+
+         Choices connection = new Choices("and", "with");
 
          // put the whole command together
          GrammarBuilder finalCommand = new GrammarBuilder();
          finalCommand.Append(this.pleasantries, 0, 1);
          finalCommand.Append(commandSemKey);
-         finalCommand.Append(this.course);
-         finalCommand.Append("with");
-         finalCommand.Append(this.course2);
+         finalCommand.Append(course1);
+         finalCommand.Append(connection, 0, 1);
+         finalCommand.Append(course2);
 
          return finalCommand;
       }
@@ -280,15 +289,17 @@ namespace MyPackSpeech.SpeechRecognition
          SemanticResultKey commandSemKey = new SemanticResultKey("command", commands);
 
 
+         SemanticResultKey course1 = new SemanticResultKey(Slots.Course1.ToString(), this.course);
+         SemanticResultKey course2 = new SemanticResultKey(Slots.Course2.ToString(), this.course);
 
 
          // put the whole command together
          GrammarBuilder finalCommand = new GrammarBuilder();
          finalCommand.Append(this.pleasantries, 0, 1);
          finalCommand.Append(commandSemKey);
-         finalCommand.Append(this.course);
+         finalCommand.Append(course1);
          finalCommand.Append("with");
-         finalCommand.Append(this.course2);
+         finalCommand.Append(course2);
 
          return finalCommand;
       }

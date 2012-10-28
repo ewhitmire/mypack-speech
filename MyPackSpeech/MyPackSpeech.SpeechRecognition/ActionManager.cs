@@ -5,6 +5,7 @@ using System.Text;
 using System.Speech.Recognition;
 using System.Diagnostics;
 using MyPackSpeech.SpeechRecognition;
+using MyPackSpeech.SpeechRecognition.Actions;
 
 namespace MyPackSpeech
 {
@@ -62,12 +63,49 @@ namespace MyPackSpeech
          {
             ActionDetected(this, args);
          }
-         switch (cmd)
+         Type ActionType = cmd.ActionClass();
+         IAction action = (IAction)Activator.CreateInstance(ActionType);
+         action.Inform(result.Semantics);
+         action.Perform();            
+      }
+      public static List<Slots> ValidateExistingCourse(SemanticValue course)
+      {
+         List<Slots> missing = new List<Slots>();
+         if (!course.ContainsKey(Slots.Department.ToString()))
          {
-            case CommandTypes.Add:
-               Debug.Write("Add command");
-               break;
+            missing.Add(Slots.Department);
          }
+         if (!course.ContainsKey(Slots.Number.ToString()))
+         {
+            missing.Add(Slots.Department);
+         }
+         return missing;
+      }
+
+      public static List<Slots> ValidateCourse(SemanticValue course)
+      {
+         List<Slots> missing = new List<Slots>();
+         if (!course.ContainsKey(Slots.Department.ToString()))
+         {
+            missing.Add(Slots.Department);
+         }
+         if (!course.ContainsKey(Slots.Number.ToString()))
+         {
+            missing.Add(Slots.Department);
+         }
+         if (!course.ContainsKey(Slots.Semester.ToString()))
+         {
+            missing.Add(Slots.Semester);
+         }
+         if (!course.ContainsKey(Slots.Year.ToString()))
+         {
+            missing.Add(Slots.Year);
+         }
+         return missing;
+      }
+      public void PromptForMissing(SemanticValue context, List<Slots> missing)
+      {
+         Debug.Write("hooray!");
       }
    }
 }
