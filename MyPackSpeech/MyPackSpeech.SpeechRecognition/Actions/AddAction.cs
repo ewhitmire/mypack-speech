@@ -30,7 +30,10 @@ namespace MyPackSpeech.SpeechRecognition.Actions
 
       public void Undo()
       {
+<<<<<<< HEAD
          throw new NotImplementedException();
+=======
+>>>>>>> aff0d614a10c252dff43f38588170c6663bd5e16
       }
    }
 }

@@ -24,7 +24,6 @@ namespace MyPackSpeech
    /// </summary>
    public partial class CourseControl : UserControl
    {
-
       public CourseControl()
       {
          InitializeComponent();

@@ -1,0 +1,148 @@
+﻿<UserControl x:Class="MyPackSpeech.PhraseChart"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:charting="clr-namespace:System.Windows.Forms.DataVisualization.Charting;assembly=System.Windows.Forms.DataVisualization"
+             xmlns:wf="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"  
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <WindowsFormsHost Grid.Column="0" Grid.Row="0">
+            <charting:Chart Name="chart1" x:Name="barChart" >
+                <charting:Chart.ChartAreas>
+                    <charting:ChartArea>
+                        <charting:ChartArea.Area3DStyle>
+                            <charting:ChartArea3DStyle />
+                        </charting:ChartArea.Area3DStyle>
+                        <charting:ChartArea.AxisX>
+                            <charting:Axis>
+                                <charting:Axis.LabelStyle>
+                                    <charting:LabelStyle />
+                                </charting:Axis.LabelStyle>
+                                <charting:Axis.MajorGrid>
+                                    <charting:Grid Enabled="False" />
+                                </charting:Axis.MajorGrid>
+                                <charting:Axis.MajorTickMark>
+                                    <charting:TickMark />
+                                </charting:Axis.MajorTickMark>
+                                <charting:Axis.MinorGrid>
+                                    <charting:Grid />
+                                </charting:Axis.MinorGrid>
+                                <charting:Axis.MinorTickMark>
+                                    <charting:TickMark />
+                                </charting:Axis.MinorTickMark>
+                                <charting:Axis.ScaleBreakStyle>
+                                    <charting:AxisScaleBreakStyle />
+                                </charting:Axis.ScaleBreakStyle>
+                                <charting:Axis.ScaleView>
+                                    <charting:AxisScaleView />
+                                </charting:Axis.ScaleView>
+                                <charting:Axis.ScrollBar>
+                                    <charting:AxisScrollBar />
+                                </charting:Axis.ScrollBar>
+                            </charting:Axis>
+                        </charting:ChartArea.AxisX>
+                        <charting:ChartArea.AxisX2>
+                            <charting:Axis>
+                                <charting:Axis.LabelStyle>
+                                    <charting:LabelStyle />
+                                </charting:Axis.LabelStyle>
+                                <charting:Axis.MajorGrid>
+                                    <charting:Grid />
+                                </charting:Axis.MajorGrid>
+                                <charting:Axis.MajorTickMark>
+                                    <charting:TickMark />
+                                </charting:Axis.MajorTickMark>
+                                <charting:Axis.MinorGrid>
+                                    <charting:Grid />
+                                </charting:Axis.MinorGrid>
+                                <charting:Axis.MinorTickMark>
+                                    <charting:TickMark />
+                                </charting:Axis.MinorTickMark>
+                                <charting:Axis.ScaleBreakStyle>
+                                    <charting:AxisScaleBreakStyle />
+                                </charting:Axis.ScaleBreakStyle>
+                                <charting:Axis.ScaleView>
+                                    <charting:AxisScaleView />
+                                </charting:Axis.ScaleView>
+                                <charting:Axis.ScrollBar>
+                                    <charting:AxisScrollBar />
+                                </charting:Axis.ScrollBar>
+                            </charting:Axis>
+                        </charting:ChartArea.AxisX2>
+                        <charting:ChartArea.AxisY>
+                            <charting:Axis>
+                                <charting:Axis.LabelStyle>
+                                    <charting:LabelStyle />
+                                </charting:Axis.LabelStyle>
+                                <charting:Axis.MajorGrid>
+                                    <charting:Grid Enabled="False" />
+                                </charting:Axis.MajorGrid>
+                                <charting:Axis.MajorTickMark>
+                                    <charting:TickMark />
+                                </charting:Axis.MajorTickMark>
+                                <charting:Axis.MinorGrid>
+                                    <charting:Grid />
+                                </charting:Axis.MinorGrid>
+                                <charting:Axis.MinorTickMark>
+                                    <charting:TickMark />
+                                </charting:Axis.MinorTickMark>
+                                <charting:Axis.ScaleBreakStyle>
+                                    <charting:AxisScaleBreakStyle />
+                                </charting:Axis.ScaleBreakStyle>
+                                <charting:Axis.ScaleView>
+                                    <charting:AxisScaleView />
+                                </charting:Axis.ScaleView>
+                                <charting:Axis.ScrollBar>
+                                    <charting:AxisScrollBar />
+                                </charting:Axis.ScrollBar>
+                            </charting:Axis>
+                        </charting:ChartArea.AxisY>
+                        <charting:ChartArea.AxisY2>
+                            <charting:Axis>
+                                <charting:Axis.LabelStyle>
+                                    <charting:LabelStyle />
+                                </charting:Axis.LabelStyle>
+                                <charting:Axis.MajorGrid >
+                                    <charting:Grid Enabled="False" />
+                                </charting:Axis.MajorGrid>
+                                <charting:Axis.MajorTickMark>
+                                    <charting:TickMark />
+                                </charting:Axis.MajorTickMark>
+                                <charting:Axis.MinorGrid>
+                                    <charting:Grid />
+                                </charting:Axis.MinorGrid>
+                                <charting:Axis.MinorTickMark>
+                                    <charting:TickMark />
+                                </charting:Axis.MinorTickMark>
+                                <charting:Axis.ScaleBreakStyle>
+                                    <charting:AxisScaleBreakStyle />
+                                </charting:Axis.ScaleBreakStyle>
+                                <charting:Axis.ScaleView>
+                                    <charting:AxisScaleView />
+                                </charting:Axis.ScaleView>
+                                <charting:Axis.ScrollBar>
+                                    <charting:AxisScrollBar />
+                                </charting:Axis.ScrollBar>
+                            </charting:Axis>
+                        </charting:ChartArea.AxisY2>
+                        <charting:ChartArea.CursorX>
+                            <charting:Cursor />
+                        </charting:ChartArea.CursorX>
+                        <charting:ChartArea.CursorY>
+                            <charting:Cursor />
+                        </charting:ChartArea.CursorY>
+                    </charting:ChartArea>
+                </charting:Chart.ChartAreas>
+            </charting:Chart>
+        </WindowsFormsHost>
+    </Grid>
+    
+</UserControl>

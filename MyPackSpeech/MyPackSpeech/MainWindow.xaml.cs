@@ -19,9 +19,6 @@ using System.Collections.ObjectModel;
 using System.Speech.Recognition;
 using System.Speech.Synthesis;
 using System.Windows.Forms;
-//using System.Web;
-//using System.Data;
-
 
 namespace MyPackSpeech
 {
@@ -425,19 +422,28 @@ namespace MyPackSpeech
          WriteToOutputWindow("Action Found:" + args.type+"\n");
       }
 
+      bool recoStarted = false;
       private void button1_Click(object sender, RoutedEventArgs e)
       {
-         try
-         {
-            RecoManager.Instance.Start();
-            RecoManager.Instance.SpeechRecognized += new RecoManager.SpeechRecognizedHandler(RecoManager_SpeechRecognized);
-            ActionManager.Instance.ActionDetected += new ActionManager.ActionDetectedHandler(ActionManager_ActionDetected);
-            txtOutput.Text = "Started\n";
-         }
-         catch (System.InvalidOperationException)
-         {
-            Console.WriteLine("Speech has already been started");
-         }
+		  if (!recoStarted)
+		  {
+			  try
+			  {
+				  recoStarted = true;
+				  RecoManager.Instance.Start();
+				  RecoManager.Instance.SpeechRecognized += new RecoManager.SpeechRecognizedHandler(RecoManager_SpeechRecognized);
+				  ActionManager.Instance.ActionDetected += ActionManager_ActionDetected;
+				  txtOutput.Text = "Started\n";
+				  recoStarted = true;
+			  }
+			  catch (System.InvalidOperationException)
+			  {
+				  Console.WriteLine("Speech has already been started");
+			  }
+		  }
+
+		 ChartWindow cw = new ChartWindow();
+		 cw.Show();
       }
 
       private void txtOutput_TextChanged(object sender, TextChangedEventArgs e)
