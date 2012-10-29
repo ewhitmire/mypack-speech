@@ -36,11 +36,18 @@ namespace MyPackSpeech
          makeHeaders();
          makeGrids();
          makeRequirementTree();
+         Course course = CourseCatalog.Instance.Courses[5];
+         Course course2 = CourseCatalog.Instance.Courses[4250];
+         Course course3 = CourseCatalog.Instance.Courses[1240];
 
+         DegreeProgram dp = DegreeCatalog.Instance.degrees[0];
+         Student student = new Student(dp);
+         Schedule schedule = student.Schedule;
+         ScheduledCourse myCourse1 = new ScheduledCourse(course, Semester.Fall, 2013, null);
+         ScheduledCourse myCourse2 = new ScheduledCourse(course2, Semester.Spring, 2015, null);
+         ScheduledCourse myCourse3 = new ScheduledCourse(course3, Semester.Fall, 2014, null);
+         
 
-         //Course course = CourseCatalog.Instance.Courses[5];
-         //Course course2 = CourseCatalog.Instance.Courses[4250];
-         //Course course3 = CourseCatalog.Instance.Courses[1240];
          //addClass(course, 3);
          //addClass(course2, 3);
          //addClass(course3, 7);
@@ -55,7 +62,7 @@ namespace MyPackSpeech
 
       }
 
-      public void loadSchedule(Schedule schedule) {
+      public void RefreshSchedule(Schedule schedule) {
           //Current semester is fall 2012
           
           for (int i = 0; i < schedule.Courses.Count; i++) {
@@ -445,6 +452,8 @@ namespace MyPackSpeech
       private void ActionManager_ActionDetected(object sender, ActionDetectedEventArgs args)
       {
          WriteToOutputWindow("Action Found:" + args.type+"\n");
+         //Student student = args.Student;
+         //RefreshSchedule(student.Schedule);
       }
 
       bool recoStarted = false;
