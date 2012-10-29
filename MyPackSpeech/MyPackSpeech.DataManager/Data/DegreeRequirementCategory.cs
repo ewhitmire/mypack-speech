@@ -5,13 +5,13 @@ using System.Text;
 
 namespace MyPackSpeech.DataManager.Data
 {
-   class DegreeRequirementCategory
+   public class DegreeRequirementCategory
    {
-      public String name;
+      public readonly String Name;
 
       public DegreeRequirementCategory(String categoryName)
       {
-         name = categoryName;
+         Name = categoryName;
       }
    }
 }

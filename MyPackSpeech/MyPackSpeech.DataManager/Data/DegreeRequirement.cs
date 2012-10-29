@@ -9,7 +9,8 @@ namespace MyPackSpeech.DataManager.Data
    public class DegreeRequirement
    {
       private ScheduledCourse fulfillment;
-      public IFilter<Course> CourseRequirement { get; set; }      
+      public IFilter<Course> CourseRequirement { get; set; }
+      public DegreeRequirementCategory Category { get; set; }
 
       public DegreeRequirement()
       {

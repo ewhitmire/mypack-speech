@@ -8,13 +8,17 @@ namespace MyPackSpeech.DataManager.Data
 {
    public class DegreeProgram
    {
-      public List<DegreeRequirement> requirements { get; private set; }
-      public String name { get; private set; }
+      public List<DegreeRequirement> Requirements { get; private set; }
+      public List<DegreeRequirementCategory> GetCategories()
+      {
+         return Requirements.Select(r => r.Category).Distinct().ToList();
+      }
+      public String Name { get; private set; }
 
       public DegreeProgram(String degreeName)
       {
-         name = degreeName;
-         requirements = new List<DegreeRequirement>();
+         Name = degreeName;
+         Requirements = new List<DegreeRequirement>();
       }
    }
 }

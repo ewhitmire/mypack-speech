@@ -8,7 +8,7 @@ using MyPackSpeech.DataManager.Search;
 
 namespace MyPackSpeech.DataManager.Data
 {
-   public class Course : IKeywordProvider, MyPackSpeech.DataManager.Data.ICourse
+   public class Course : IKeywordProvider
    {
       public Department Dept { get; private set; }
       public string DeptName { get { return Dept.Name; } }
@@ -17,6 +17,27 @@ namespace MyPackSpeech.DataManager.Data
       public string Name { get; private set; }
       [Browsable(false)]
       public string Description { get; private set; }
+      public string DescriptionWrap
+      {
+         get
+         {
+            string[] words = Description.Split(' ');
+            List<string> lines = new List<string>();
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < words.Length;i++ )
+            {
+               if (sb.Length > 80)
+               {
+                  lines.Add(sb.ToString());
+                  sb.Clear();
+               }
+               sb.Append(words[i]);
+               sb.Append(" ");
+            }
+            lines.Add(sb.ToString());
+            return string.Join(Environment.NewLine, lines.ToArray());
+         }
+      }
       [Browsable( false)]
       public List<CourseFilter> Prerequisites { get; private set; }
 

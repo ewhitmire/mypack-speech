@@ -10,170 +10,300 @@ using MyPackSpeech.DataManager.Data;
 
 namespace MyPackSpeech.SpeechRecognition
 {
-    public class CommandGrammar
-    {
-        public Grammar grammar;
-        private List<Course> classList;
-        private List<Department> depts;
-
-        public CommandGrammar() 
-        {
-            buildCommandGrammar();
-        }
-
-        public CommandGrammar(List<Course> courses)
-        {
-            this.classList = courses;
-            this.depts = new List<Department>();
-
-            parseClasses();
-            buildCommandGrammar();
-        }
+   public class CommandGrammar
+   {
+      public Grammar grammar;
+      private List<Course> classList;
+      private List<Department> depts;
+      private GrammarBuilder semester;
+      private GrammarBuilder course;
+      private Choices pleasantries;
 
 
-        private void parseClasses() 
-        {
-            for (int i = 0; i < this.classList.Count; i++ ) 
-            {
-                Course thisCourse = this.classList[i];
-                if(!depts.Contains(thisCourse.Dept)){
-                    depts.Add(thisCourse.Dept);
-                }
+      public CommandGrammar()
+      {
+         buildCommonGrammars();
+         buildCommandGrammar();
+      }
 
-            }
+      public CommandGrammar(List<Course> courses)
+      {
+         this.classList = courses;
+         this.depts = new List<Department>();
+
+         parseClasses();
+         buildCommonGrammars();
+         buildCommandGrammar();
+      }
+      private void buildCommonGrammars()
+      {
+         this.pleasantries = new Choices("I'd like a", "I'd like to", "I would like to",
+             "I want to", "Would you", "Would you please", "please");
+
+         this.semester = buildSemesterGrammar();
+         this.course = buildCourseGrammar();
+
+      }
+      private GrammarBuilder buildCourseGrammar()
+      {
+         //Class: a class, this class, that class, that other class
+         Choices deptChoices = new Choices();
+         SemanticResultValue deptsRV;
+         for (int i = 0; i < this.depts.Count; i++)
+         {
+            deptsRV = new SemanticResultValue(this.depts[i].Abv, this.depts[i].Abv);
+            deptChoices.Add(deptsRV);
+            deptsRV = new SemanticResultValue(this.depts[i].Name, this.depts[i].Abv);
+            deptChoices.Add(deptsRV);
+
+         }
+         SemanticResultKey deptSemKey = new SemanticResultKey(Slots.Department.ToString(), deptChoices);
+
+
+         //Class: a class, this class, that class, that other class
+         Choices classNumbers = new Choices();
+         SemanticResultValue numbersRV;
+         for (int i = 100; i < 1000; i++)
+         {
+            numbersRV = new SemanticResultValue("" + i, i);
+            classNumbers.Add(numbersRV);
+
+         }
+         SemanticResultKey numbersSemKey = new SemanticResultKey(Slots.Number.ToString(), classNumbers);
+
+         GrammarBuilder course = new GrammarBuilder();
+         course.Append(deptSemKey);
+         course.Append(numbersSemKey);
+
+         return course;
+      }
+      private GrammarBuilder buildSemesterGrammar()
+      {
+         Choices prepositions = new Choices("to", "to my", "to the", "in", "in the");
+
+         // semesters
+         Choices semestersChoices = new Choices();
+         SemanticResultValue semestersRV;
+         semestersRV = new SemanticResultValue("spring", "spring");
+         semestersChoices.Add(semestersRV);
+         semestersRV = new SemanticResultValue("fall", "fall");
+         semestersChoices.Add(semestersRV);
+
+         SemanticResultKey semesterSemKey = new SemanticResultKey(Slots.Semester.ToString(), semestersChoices);
         
-        
-        }
-        private void buildCommandGrammar()
-        {
+         GrammarBuilder semester = new GrammarBuilder();
 
+         semester.Append(prepositions, 0, 1);
+         semester.Append(semesterSemKey);
+         semester.Append("schedule", 0, 1);
 
-            GrammarBuilder add = addCommand();
+         // "2013" OR "of 2013"
+         Choices yearPrep = new Choices("of", "to", "from", "in");
 
+         // year
+         Choices years = new Choices();
+         SemanticResultValue yearRV;
+         int currentYear = 2012;
+         for (int year = currentYear; year < currentYear + 6; year++)
+         {
+            yearRV = new SemanticResultValue(year.ToString(), year.ToString());
+            years.Add(yearRV);
 
-            //Might be needed for further commands that have a different form
-            //In which case it will be systemRequest.Append(permutationList);
+         }
+         SemanticResultKey yearSemKey = new SemanticResultKey(Slots.Year.ToString(), years);
 
-            GrammarBuilder permutationList = new GrammarBuilder();
-            permutationList.Append(add);
+         GrammarBuilder yearGrammar = new GrammarBuilder();
+         yearGrammar.Append(yearPrep, 0, 1);
+         yearGrammar.Append(yearSemKey);
+         yearGrammar.Append("schedule", 0, 1);
 
-            //now build the complete pattern...
-            GrammarBuilder systemRequest = new GrammarBuilder();
+         GrammarBuilder semesterYear = new GrammarBuilder();
+         semesterYear.Append(semester, 0, 1);
+         semesterYear.Append(yearGrammar, 0, 1);
+         return semesterYear;
+      }
 
-            systemRequest.Append(permutationList, 0, 1);
-
-            Grammar testGrammar = new Grammar(systemRequest);
-            this.grammar = testGrammar;
-        }
-
-        private GrammarBuilder addCommand()
-        {
-            //<pleasantries> <command> <CLASS> <prep> <Time><year>
-            //Pleasentries: I'd like to, please, I want to, would you
-            //Command: Add, Remove
-            //Class: a class, this class, that class, that other class
-            //Preposition: to,from, of
-            //Time: to my schedule, to the spring semester, to my fall semester
-            //Year: 2012, 2013, 2014, 2015
-
-            //build the core set of choices
-            Choices pleasentries = new Choices("I'd like a", "I'd like to", "I would like to",
-                "I want to", "Would you", "Would you please", "please");
-            SemanticResultKey pleasentriesSemKey = new SemanticResultKey("pleasentries", pleasentries);
-
-            Choices commands = new Choices();
-            SemanticResultValue commandSRV;
-            commandSRV = new SemanticResultValue("add", "add");
-            commands.Add(commandSRV);
-            commandSRV = new SemanticResultValue("remove", "remove");
-            commands.Add(commandSRV);
-            commandSRV = new SemanticResultValue("get rid of", "remove");
-            commands.Add(commandSRV);
-            SemanticResultKey commandSemKey = new SemanticResultKey("command", commands);
-
-
-            //Class: a class, this class, that class, that other class
-            Choices deptChoices = new Choices();
-            SemanticResultValue deptsRV;
-            for (int i = 0; i < this.depts.Count; i++ )
+      private void parseClasses()
+      {
+         for (int i = 0; i < this.classList.Count; i++)
+         {
+            Course thisCourse = this.classList[i];
+            if (!depts.Contains(thisCourse.Dept))
             {
-                deptsRV = new SemanticResultValue(this.depts[i].Abv, this.depts[i].Abv);
-                deptChoices.Add(deptsRV);
-                deptsRV = new SemanticResultValue(this.depts[i].Name, this.depts[i].Abv);
-                deptChoices.Add(deptsRV);
-
+               depts.Add(thisCourse.Dept);
             }
-            SemanticResultKey deptSemKey = new SemanticResultKey("department", deptChoices);
+         }
+      }
+
+      private void buildCommandGrammar()
+      {
 
 
-            //Class: a class, this class, that class, that other class
-            Choices classNumbers = new Choices();
-            SemanticResultValue numbersRV;
-            for (int i = 100; i < 1000; i++)
-            {
-                numbersRV = new SemanticResultValue("" + i, i);
-                classNumbers.Add(numbersRV);
-
-            }
-            SemanticResultKey numbersSemKey = new SemanticResultKey("numbers", classNumbers);
+         GrammarBuilder add = addCommand();
+         GrammarBuilder remove = removeCommand();
+         GrammarBuilder move = moveCommand();
+         GrammarBuilder swap = swapCommand();
+         GrammarBuilder error = errorCommand();
 
 
+         //now build the complete pattern...
+         Choices commandChoices = new Choices();
+         commandChoices.Add(add);
+         commandChoices.Add(remove);
+         commandChoices.Add(move);
+         commandChoices.Add(swap);
+         commandChoices.Add(error);
 
-            Choices preposition = new Choices("to", "from", "of");
-            SemanticResultKey prepSemKey = new SemanticResultKey("prepositions", preposition);
+         GrammarBuilder systemRequest = new GrammarBuilder();
+         systemRequest.Append(commandChoices);
+
+         Grammar testGrammar = new Grammar(systemRequest);
+         this.grammar = testGrammar;
+      }
+      private GrammarBuilder errorCommand()
+      {
+
+         Choices commands = new Choices();
+         SemanticResultValue commandSRV;
+         commandSRV = new SemanticResultValue("no", (int)CommandTypes.Undo);
+         commands.Add(commandSRV);
+         commandSRV = new SemanticResultValue("undo", (int)CommandTypes.Undo);
+         commands.Add(commandSRV);
+         SemanticResultKey commandSemKey = new SemanticResultKey("command", commands);
+
+         // put the whole command together
+         GrammarBuilder finalCommand = new GrammarBuilder();
+         finalCommand.Append(commandSemKey);
+
+         return finalCommand;
+      }
+      private GrammarBuilder addCommand()
+      {
+         //<pleasantries> <command> <CLASS> <prep> <Time><year>
+         //Pleasantries: I'd like to, please, I want to, would you
+         //Command: Add, Remove
+         //Class: a class, this class, that class, that other class
+         //When: to Spring 2012
+
+         Choices commands = new Choices();
+         SemanticResultValue commandSRV;
+         commandSRV = new SemanticResultValue("add", (int)CommandTypes.Add);
+         commands.Add(commandSRV);
+         commandSRV = new SemanticResultValue("take", (int)CommandTypes.Add);
+         commands.Add(commandSRV);
+         SemanticResultKey commandSemKey = new SemanticResultKey("command", commands);
+
+         SemanticResultKey course1 = new SemanticResultKey(Slots.Course1.ToString(), this.course);
+
+         // put the whole command together
+         GrammarBuilder finalCommand = new GrammarBuilder();
+         finalCommand.Append(this.pleasantries, 0, 1);
+         finalCommand.Append(commandSemKey);
+         finalCommand.Append(course1);
+         finalCommand.Append(this.semester);
+
+         return finalCommand;
+      }
+
+      private GrammarBuilder removeCommand()
+      {
+
+         Choices commands = new Choices();
+         SemanticResultValue commandSRV;
+         commandSRV = new SemanticResultValue("remove", (int)CommandTypes.Remove);
+         commands.Add(commandSRV);
+         commandSRV = new SemanticResultValue("get rid of", (int)CommandTypes.Remove);
+         commands.Add(commandSRV);
+         SemanticResultKey commandSemKey = new SemanticResultKey("command", commands);
 
 
+         SemanticResultKey course1 = new SemanticResultKey(Slots.Course1.ToString(), this.course);
 
-            // semesters
-            Choices semesters = new Choices();
-            SemanticResultValue semestersRV;
-            semestersRV = new SemanticResultValue("my spring semester", "spring");
-            semesters.Add(semestersRV);
-            semestersRV = new SemanticResultValue("spring semester", "spring");
-            semesters.Add(semestersRV);
-            semestersRV = new SemanticResultValue("my fall semester", "fall");
-            semesters.Add(semestersRV);
-            semestersRV = new SemanticResultValue("fall semester", "fall");
-            semesters.Add(semestersRV);
+         // put the whole command together
+         GrammarBuilder finalCommand = new GrammarBuilder();
+         finalCommand.Append(this.pleasantries, 0, 1);
+         finalCommand.Append(commandSemKey);
+         finalCommand.Append(course1);
+         finalCommand.Append(this.semester);
 
-            SemanticResultKey semesterSemKey = new SemanticResultKey("semester", semesters);
+         return finalCommand;
+      }
 
+      private GrammarBuilder moveCommand()
+      {
 
-            // year
-            Choices years = new Choices();
-            SemanticResultValue yearRV;
-            yearRV = new SemanticResultValue("2012", "2012");
-            years.Add(yearRV);
-            yearRV = new SemanticResultValue("2013", "2013");
-            years.Add(yearRV);
-            yearRV = new SemanticResultValue("2014", "2014");
-            years.Add(yearRV);
-            yearRV = new SemanticResultValue("2015", "2015");
-            years.Add(yearRV);
-            yearRV = new SemanticResultValue("2016", "2016");
-            years.Add(yearRV);
-            SemanticResultKey yearSemKey = new SemanticResultKey("year", years);
-
-            // "2013" OR "of 2013"
-            GrammarBuilder prepYear = new GrammarBuilder();
-            prepYear.Append(prepSemKey, 0, 1);
-            prepYear.Append(yearSemKey);
-
-            SemanticResultKey prepYearSemKey = new SemanticResultKey("year", years);
-
-            // put the whole command together
-            GrammarBuilder finalCommand = new GrammarBuilder();
-            finalCommand.Append(pleasentries, 0, 1);
-            finalCommand.Append(commandSemKey);
-            finalCommand.Append(deptSemKey);
-            finalCommand.Append(numbersSemKey);
-            finalCommand.Append(prepSemKey);
-            finalCommand.Append(semesterSemKey);
-            finalCommand.Append(prepYearSemKey, 0, 1);
-
-            return finalCommand;
-        }
+         Choices commands = new Choices();
+         SemanticResultValue commandSRV;
+         commandSRV = new SemanticResultValue("move", (int)CommandTypes.Move);
+         commands.Add(commandSRV);
+         SemanticResultKey commandSemKey = new SemanticResultKey("command", commands);
 
 
-    }
+         SemanticResultKey course1 = new SemanticResultKey(Slots.Course1.ToString(), this.course);
+
+         // put the whole command together
+         GrammarBuilder finalCommand = new GrammarBuilder();
+         finalCommand.Append(this.pleasantries, 0, 1);
+         finalCommand.Append(commandSemKey);
+         finalCommand.Append(course1);
+         finalCommand.Append(this.semester);
+
+         return finalCommand;
+      }
+
+      private GrammarBuilder swapCommand()
+      {
+
+         Choices commands = new Choices();
+         SemanticResultValue commandSRV;
+         commandSRV = new SemanticResultValue("swap", (int)CommandTypes.Swap);
+         commands.Add(commandSRV);
+         SemanticResultKey commandSemKey = new SemanticResultKey("command", commands);
+
+         SemanticResultKey course1 = new SemanticResultKey(Slots.Course1.ToString(), this.course);
+         SemanticResultKey course2 = new SemanticResultKey(Slots.Course2.ToString(), this.course);
+
+         Choices connection = new Choices("and", "with");
+
+         // put the whole command together
+         GrammarBuilder finalCommand = new GrammarBuilder();
+         finalCommand.Append(this.pleasantries, 0, 1);
+         finalCommand.Append(commandSemKey);
+         finalCommand.Append(course1);
+         finalCommand.Append(connection, 0, 1);
+         finalCommand.Append(course2);
+
+         return finalCommand;
+      }
+
+
+      private GrammarBuilder showCommand()
+      {
+
+         Choices commands = new Choices();
+         SemanticResultValue commandSRV;
+         commandSRV = new SemanticResultValue("Show me", (int)CommandTypes.Show);
+         commands.Add(commandSRV);
+         commandSRV = new SemanticResultValue("I want to see", (int)CommandTypes.Show);
+         commands.Add(commandSRV);
+         SemanticResultKey commandSemKey = new SemanticResultKey("command", commands);
+
+
+         SemanticResultKey course1 = new SemanticResultKey(Slots.Course1.ToString(), this.course);
+         SemanticResultKey course2 = new SemanticResultKey(Slots.Course2.ToString(), this.course);
+
+
+         // put the whole command together
+         GrammarBuilder finalCommand = new GrammarBuilder();
+         finalCommand.Append(this.pleasantries, 0, 1);
+         finalCommand.Append(commandSemKey);
+         finalCommand.Append(course1);
+         finalCommand.Append("with");
+         finalCommand.Append(course2);
+
+         return finalCommand;
+      }
+
+
+   }
 }
