@@ -445,36 +445,5 @@ namespace MyPackSpeech
 		 ChartWindow cw = new ChartWindow();
 		 cw.Show();
       }
-
-      private void txtOutput_TextChanged(object sender, TextChangedEventArgs e)
-      {
-
-      }
-
-      private void InfoDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
-      {
-
-      }
-
-     
-      private void courseViewer_Loaded(object sender, RoutedEventArgs e)
-      {
-
-      }
-
-      private void POW1_SelectionChanged(object sender, SelectionChangedEventArgs e)
-      {
-
-      }
-
-      private void Window_Loaded(object sender, RoutedEventArgs e)
-      {
-
-      }
-
-      private void dataGrid3_SelectionChanged(object sender, SelectionChangedEventArgs e)
-      {
-
-      }
    }
 }

@@ -33,17 +33,10 @@ namespace MyPackSpeech
          }
       }
 
-<<<<<<< HEAD
-      // delegate declaration 
-      public delegate void ActionDetectedHandler(object sender, ActionDetectedEventArgs args);
-      // event declaration 
-      public event ActionDetectedHandler ActionDetected;
-=======
       // event declaration 
       public event EventHandler<ActionDetectedEventArgs> ActionDetected;
 
 	  Stack<IAction> actionHistory = new Stack<IAction>();
->>>>>>> aff0d614a10c252dff43f38588170c6663bd5e16
 
       public void ProcessResult(RecognitionResult result)
       {
@@ -62,21 +55,6 @@ namespace MyPackSpeech
          throw new NotImplementedException();
       }
 
-<<<<<<< HEAD
-      private void ProcessCommand(RecognitionResult result)
-      {
-         CommandTypes cmd = (CommandTypes)(result.Semantics["command"].Value);
-         ActionDetectedEventArgs args = new ActionDetectedEventArgs(cmd);
-         if (ActionDetected != null)
-         {
-            ActionDetected(this, args);
-         }
-         Type ActionType = cmd.ActionClass();
-         IAction action = (IAction)Activator.CreateInstance(ActionType);
-         action.Inform(result.Semantics);
-         action.Perform();            
-      }
-=======
 	  private void ProcessCommand(RecognitionResult result)
 	  {
 		  CommandTypes cmd = (CommandTypes)(result.Semantics["command"].Value);
@@ -100,7 +78,6 @@ namespace MyPackSpeech
 		  }
 	  }
 
->>>>>>> aff0d614a10c252dff43f38588170c6663bd5e16
       public static List<Slots> ValidateExistingCourse(SemanticValue course)
       {
          List<Slots> missing = new List<Slots>();
