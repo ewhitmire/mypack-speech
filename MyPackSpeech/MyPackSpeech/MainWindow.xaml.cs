@@ -55,9 +55,34 @@ namespace MyPackSpeech
 
       }
 
+      public void loadSchedule(Schedule schedule) {
+          //Current semester is fall 2012
+          
+          for (int i = 0; i < schedule.Courses.Count; i++) {
+              int column;
+              int sem = 0;
+              ScheduledCourse course = schedule.Courses[i];
+              switch (course.Semester) { 
+                  case Semester.Fall:
+                      break;
+                  case Semester.Spring:
+                      sem = 1;
+                      break;
+                  default:
+                      break;
+              }
 
+              int year = course.Year - 2012;
+              column = year + sem;
 
-      public void makeRequirementTree() {
+              addClass(course.Course, column);
+          }
+
+      
+      }
+
+      public void makeRequirementTree()
+      {
       
       }
 
@@ -295,48 +320,48 @@ namespace MyPackSpeech
 
 
           //List<String> myClasses = new List<String>{ "1","2","3","4","5" };
-
           DataGridTextColumn mySemester1 = new DataGridTextColumn();
-          mySemester1.Width = POW1.Width / 4 -2;
-          mySemester1.Header = "Spring 2013";
+          mySemester1.Width = POW1.Width / 4 - 2;
+          mySemester1.Header = "Fall 2012";
           POW1.Columns.Add(mySemester1);
 
-          
+
           DataGridTextColumn mySemester2 = new DataGridTextColumn();
-          mySemester2.Width = POW1.Width / 4;
-          mySemester2.Header = "Fall 2013";
+          mySemester2.Width = POW1.Width / 4 -2;
+          mySemester2.Header = "Spring 2013";
           POW1.Columns.Add(mySemester2);
+
           
           DataGridTextColumn mySemester3 = new DataGridTextColumn();
           mySemester3.Width = POW1.Width / 4;
-          mySemester3.Header = "Spring 2014";
+          mySemester3.Header = "Fall 2013";
           POW1.Columns.Add(mySemester3);
-
+          
           DataGridTextColumn mySemester4 = new DataGridTextColumn();
           mySemester4.Width = POW1.Width / 4;
-          mySemester4.Header = "Fall 2014";
+          mySemester4.Header = "Spring 2014";
           POW1.Columns.Add(mySemester4);
 
           DataGridTextColumn mySemester5 = new DataGridTextColumn();
-          mySemester5.Width = POW2.Width / 4-2;
-          mySemester5.Header = "Spring 2015";
+          mySemester5.Width = POW2.Width / 4;
+          mySemester5.Header = "Fall 2014";
           POW2.Columns.Add(mySemester5);
-
 
           DataGridTextColumn mySemester6 = new DataGridTextColumn();
           mySemester6.Width = POW2.Width / 4;
-          mySemester6.Header = "Fall 2015";
-          POW2.Columns.Add(mySemester6);
+          mySemester6.Header = "Spring 2015";
+          POW2.Columns.Add(mySemester6);          
 
           DataGridTextColumn mySemester7 = new DataGridTextColumn();
           mySemester7.Width = POW2.Width / 4;
-          mySemester7.Header = "Spring 2016";
+          mySemester7.Header = "Fall 2015";
           POW2.Columns.Add(mySemester7);
 
           DataGridTextColumn mySemester8 = new DataGridTextColumn();
           mySemester8.Width = POW2.Width / 4;
-          mySemester8.Header = "Fall 2016";
-          POW2.Columns.Add(mySemester8);          
+          mySemester8.Header = "Spring 2016";
+          POW2.Columns.Add(mySemester8);
+
     
 
           
