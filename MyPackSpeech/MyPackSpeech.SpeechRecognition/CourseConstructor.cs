@@ -1,4 +1,6 @@
 ﻿using MyPackSpeech.DataManager.Data;
+using MyPackSpeech.DataManager.Data.Filter;
+using MyPackSpeech.DataManager;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,13 +13,21 @@ namespace MyPackSpeech.SpeechRecognition
    {
       public static Course ContructCourse(SemanticValue semantics)
       {
-         return null;
+         String Department = semantics[Slots.Department.ToString()].ToString();
+         int Number = int.Parse(semantics[Slots.Number.ToString()].ToString());
+
+         IFilter<Course> filter = CourseFilter.DeptAbv(Department).And(CourseFilter.Number(Number, Operator.EQ));
+         CourseCatalog.Instance.Filter = filter;
+         return CourseCatalog.Instance.FilteredCourses[0];
       }
 
       public static ScheduledCourse ContructScheduledCourse(SemanticValue semantics)
       {
          Course course = ContructCourse(semantics);
-         return null;
+         Semester sem = (Semester) Enum.Parse(typeof(Semester),  semantics[Slots.Semester.ToString()].ToString());
+         int year = int.Parse(semantics[Slots.Year.ToString()].ToString());
+         ScheduledCourse sCourse = new ScheduledCourse(course, sem, year);
+         return sCourse;
       }
 
 
