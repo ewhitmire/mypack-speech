@@ -29,8 +29,8 @@ namespace MyPackSpeech.SpeechRecognition.Actions
             return false;
          }
 
-         Course course = CourseConstructor.ContructCourse(semantics);
-         ScheduledCourse sCourse = new ScheduledCourse(course,
+         ScheduledCourse course = CourseConstructor.ContructScheduledCourse(semantics);
+         Student.AddCourse(course);
          return true;
       }
 
