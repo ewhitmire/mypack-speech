@@ -33,10 +33,10 @@ namespace MyPackSpeech
          }
       }
 
-      // delegate declaration 
-      public delegate void ActionDetectedHandler(object sender, ActionDetectedEventArgs args);
       // event declaration 
-      public event ActionDetectedHandler ActionDetected;
+      public event EventHandler<ActionDetectedEventArgs> ActionDetected;
+
+	  Stack<IAction> actionHistory = new Stack<IAction>();
 
       public void ProcessResult(RecognitionResult result)
       {
@@ -55,19 +55,29 @@ namespace MyPackSpeech
          throw new NotImplementedException();
       }
 
-      private void ProcessCommand(RecognitionResult result)
-      {
-         CommandTypes cmd = (CommandTypes)(result.Semantics["command"].Value);
-         ActionDetectedEventArgs args = new ActionDetectedEventArgs(cmd);
-         if (ActionDetected != null)
-         {
-            ActionDetected(this, args);
-         }
-         Type ActionType = cmd.ActionClass();
-         IAction action = (IAction)Activator.CreateInstance(ActionType);
-         action.Inform(result.Semantics);
-         action.Perform();            
-      }
+	  private void ProcessCommand(RecognitionResult result)
+	  {
+		  CommandTypes cmd = (CommandTypes)(result.Semantics["command"].Value);
+		  if (ActionDetected != null)
+		  {
+			  ActionDetectedEventArgs args = new ActionDetectedEventArgs(cmd);
+			  ActionDetected(this, args);
+		  }
+		  if (cmd == CommandTypes.Undo && actionHistory.Count > 0)
+		  {
+			  IAction action = actionHistory.Pop();
+			  action.Undo();
+		  }
+		  else
+		  {
+			  Type ActionType = cmd.ActionClass();
+			  IAction action = (IAction)Activator.CreateInstance(ActionType);
+			  action.Inform(result.Semantics);
+			  action.Perform();
+			  actionHistory.Push(action);
+		  }
+	  }
+
       public static List<Slots> ValidateExistingCourse(SemanticValue course)
       {
          List<Slots> missing = new List<Slots>();
