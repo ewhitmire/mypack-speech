@@ -8,6 +8,7 @@ using MyPackSpeech.DataManager;
 
 namespace MyPackSpeech.SpeechRecognition
 {
+
 	public class RecoManager
 	{
 

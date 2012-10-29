@@ -60,16 +60,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ChartWindow.xaml.cs">
-      <DependentUpon>ChartWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="CourseControl.xaml.cs">
       <DependentUpon>CourseControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UIUtils.cs" />
+    <Compile Include="ChartWindow.xaml.cs">
+      <DependentUpon>ChartWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="PhraseChart.xaml.cs">
       <DependentUpon>PhraseChart.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UIUtils.cs" />
     <Page Include="ChartWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
