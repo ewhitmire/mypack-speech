@@ -38,20 +38,20 @@ namespace MyPackSpeech
          makeRequirementTree();
 
 
-         Course course = CourseCatalog.Instance.Courses[5];
-         Course course2 = CourseCatalog.Instance.Courses[4250];
-         Course course3 = CourseCatalog.Instance.Courses[1240];
-         addClass(course, 3);
-         addClass(course2, 3);
-         addClass(course3, 7);
-         //removeClass(course);
-         moveClass(course2,7);
-         swapClasses(course3, course);
-         showInfo(course2);
-         addBookmark(course);
-         addBookmark(course2);
-         addBookmark(course3);
-         removeBookmark(course2);
+         //Course course = CourseCatalog.Instance.Courses[5];
+         //Course course2 = CourseCatalog.Instance.Courses[4250];
+         //Course course3 = CourseCatalog.Instance.Courses[1240];
+         //addClass(course, 3);
+         //addClass(course2, 3);
+         //addClass(course3, 7);
+         ////removeClass(course);
+         //moveClass(course2,7);
+         //swapClasses(course3, course);
+         //showInfo(course2);
+         //addBookmark(course);
+         //addBookmark(course2);
+         //addBookmark(course3);
+         //removeBookmark(course2);
 
       }
 
@@ -448,12 +448,14 @@ namespace MyPackSpeech
       }
 
       bool recoStarted = false;
+      Student student;
       private void button1_Click(object sender, RoutedEventArgs e)
       {
 		  if (!recoStarted)
 		  {
 			  try
 			  {
+              student = new Student(DegreeCatalog.Instance.degrees[0]);
 				  recoStarted = true;
 				  RecoManager.Instance.Start();
 				  RecoManager.Instance.SpeechRecognized += new RecoManager.SpeechRecognizedHandler(RecoManager_SpeechRecognized);

@@ -63,19 +63,22 @@ namespace MyPackSpeech
 			  ActionDetectedEventArgs args = new ActionDetectedEventArgs(cmd);
 			  ActionDetected(this, args);
 		  }
-		  if (cmd == CommandTypes.Undo && actionHistory.Count > 0)
-		  {
-			  IAction action = actionHistory.Pop();
-			  action.Undo();
-		  }
-		  else
-		  {
-			  Type ActionType = cmd.ActionClass();
-			  IAction action = (IAction)Activator.CreateInstance(ActionType);
-			  action.Inform(result.Semantics);
-			  action.Perform();
-			  actionHistory.Push(action);
-		  }
+        if (cmd == CommandTypes.Undo)
+        {
+           if (actionHistory.Count > 0)
+           {
+              IAction action = actionHistory.Pop();
+              action.Undo();
+           }
+        }
+        else
+        {
+           Type ActionType = cmd.ActionClass();
+           IAction action = (IAction)Activator.CreateInstance(ActionType);
+           action.Inform(result.Semantics);
+           action.Perform();
+           actionHistory.Push(action);
+        }
 	  }
 
       public static List<Slots> ValidateExistingCourse(SemanticValue course)
