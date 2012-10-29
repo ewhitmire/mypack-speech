@@ -6,19 +6,23 @@ using System.Speech.Recognition;
 using System.Diagnostics;
 using MyPackSpeech.SpeechRecognition;
 using MyPackSpeech.SpeechRecognition.Actions;
+using MyPackSpeech.DataManager.Data;
+using MyPackSpeech.DataManager;
 
 namespace MyPackSpeech
 {
    public class ActionDetectedEventArgs : System.EventArgs
    {
-      public CommandTypes type;
+      public readonly CommandTypes Type;
+      public readonly Student Student;
 
-      public ActionDetectedEventArgs(CommandTypes t)
+      public ActionDetectedEventArgs(CommandTypes t, Student student)
       {
-         this.type = t;
+         this.Type = t;
+         this.Student = student;
       }
 
-   } 
+   }
 
    public class ActionManager
    {
@@ -36,7 +40,7 @@ namespace MyPackSpeech
       // event declaration 
       public event EventHandler<ActionDetectedEventArgs> ActionDetected;
 
-	  Stack<IAction> actionHistory = new Stack<IAction>();
+      Stack<IAction> actionHistory = new Stack<IAction>();
 
       public void ProcessResult(RecognitionResult result)
       {
@@ -55,31 +59,34 @@ namespace MyPackSpeech
          throw new NotImplementedException();
       }
 
-	  private void ProcessCommand(RecognitionResult result)
-	  {
-		  CommandTypes cmd = (CommandTypes)(result.Semantics["command"].Value);
-		  if (ActionDetected != null)
-		  {
-			  ActionDetectedEventArgs args = new ActionDetectedEventArgs(cmd);
-			  ActionDetected(this, args);
-		  }
-        if (cmd == CommandTypes.Undo)
-        {
-           if (actionHistory.Count > 0)
-           {
-              IAction action = actionHistory.Pop();
-              action.Undo();
-           }
-        }
-        else
-        {
-           Type ActionType = cmd.ActionClass();
-           IAction action = (IAction)Activator.CreateInstance(ActionType);
-           action.Inform(result.Semantics);
-           action.Perform();
-           actionHistory.Push(action);
-        }
-	  }
+      private void ProcessCommand(RecognitionResult result)
+      {
+         CommandTypes cmd = (CommandTypes)(result.Semantics["command"].Value);
+        
+         if (cmd == CommandTypes.Undo)
+         {
+            if (actionHistory.Count > 0)
+            {
+               IAction action = actionHistory.Pop();
+               action.Undo();
+            }
+         }
+         else
+         {
+            Type ActionType = cmd.ActionClass();
+            IAction action = (IAction)Activator.CreateInstance(ActionType);
+            action.Inform(result.Semantics, CurrStudent);
+            action.Perform();
+
+            actionHistory.Push(action);
+         }
+
+         if (ActionDetected != null)
+         {
+            ActionDetectedEventArgs args = new ActionDetectedEventArgs(cmd, CurrStudent);
+            ActionDetected(this, args);
+         }
+      }
 
       public static List<Slots> ValidateExistingCourse(SemanticValue course)
       {
@@ -120,5 +127,13 @@ namespace MyPackSpeech
       {
          Debug.Write("hooray!");
       }
+
+      protected ActionManager()
+      {
+         CurrStudent = new Student(DegreeCatalog.Instance.Degrees[0]);
+      }
+      #region student
+      public Student CurrStudent { get; private set; }
+      #endregion
    }
 }

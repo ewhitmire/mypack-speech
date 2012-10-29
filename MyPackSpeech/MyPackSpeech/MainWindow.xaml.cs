@@ -401,8 +401,8 @@ namespace MyPackSpeech
          //btnNext.HorizontalContentAlignment = HorizontalAlignment.Stretch;
          currReq++;
 
-         currReq %= DegreeCatalog.Instance.degrees[0].Requirements.Count;
-         DegreeRequirement req = DegreeCatalog.Instance.degrees[0].Requirements[currReq];
+         currReq %= DegreeCatalog.Instance.Degrees[0].Requirements.Count;
+         DegreeRequirement req = DegreeCatalog.Instance.Degrees[0].Requirements[currReq];
          btnNext.Content = req.Category.Name;
          CourseCatalog.Instance.Filter = req.CourseRequirement;
 
@@ -419,7 +419,7 @@ namespace MyPackSpeech
 
       private void ActionManager_ActionDetected(object sender, ActionDetectedEventArgs args)
       {
-         WriteToOutputWindow("Action Found:" + args.type+"\n");
+         WriteToOutputWindow("Action Found:" + args.Type+"\n");
       }
 
       bool recoStarted = false;
@@ -430,7 +430,7 @@ namespace MyPackSpeech
 		  {
 			  try
 			  {
-              student = new Student(DegreeCatalog.Instance.degrees[0]);
+              student = new Student(DegreeCatalog.Instance.Degrees[0]);
 				  recoStarted = true;
 				  RecoManager.Instance.Start();
 				  RecoManager.Instance.SpeechRecognized += new RecoManager.SpeechRecognizedHandler(RecoManager_SpeechRecognized);

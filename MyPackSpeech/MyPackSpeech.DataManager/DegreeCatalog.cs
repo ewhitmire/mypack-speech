@@ -23,13 +23,13 @@ namespace MyPackSpeech.DataManager
          }
       }
 
-      public List<DegreeProgram> degrees;
+      public List<DegreeProgram> Degrees;
       private Dictionary<String, IFilter<Course>> orphanedFilters;
       private const string degreeList = "Curricula/degrees.txt";
 
       public DegreeCatalog()
       {
-         degrees = new List<DegreeProgram>();
+         Degrees = new List<DegreeProgram>();
          orphanedFilters = new Dictionary<string, IFilter<Course>>();
          LoadData();
       }
@@ -61,7 +61,7 @@ namespace MyPackSpeech.DataManager
                      // likely only 1 per file
                      String name = jsonItem["name"].ToString();
                      DegreeProgram program = new DegreeProgram(name);
-                     degrees.Add(program);
+                     Degrees.Add(program);
 
                      JToken reqs = jsonItem["requirements"];
 
