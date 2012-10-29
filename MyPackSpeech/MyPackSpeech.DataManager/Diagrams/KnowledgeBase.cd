@@ -14,15 +14,12 @@
       <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AACCgAAAAAAgAAAEAGAACAQgAAAAAAAAAAgAAAAIAAA=</HashCode>
+      <HashCode>AACCgAAAAAAgAQAEAOAACAQgAAAAAAAAEAgAAAAIAAA=</HashCode>
       <FileName>Data\Course.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="Dept" />
     </ShowAsAssociation>
-    <ShowAsCollectionAssociation>
-      <Property Name="Prerequisites" />
-    </ShowAsCollectionAssociation>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="MyPackSpeech.DataManager.Data.CourseFilter">
@@ -49,12 +46,9 @@
       <Method Name="ToString" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAEAAAAEAEAABAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>gAAAAAAAEAAAAAAEAAAAAAAAAAAAAAAAAAAAAIAACAA=</HashCode>
       <FileName>Data\DegreeRequirement.cs</FileName>
     </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="FullFillment" />
-    </ShowAsAssociation>
   </Class>
   <Class Name="MyPackSpeech.DataManager.Data.Department" BaseTypeListCollapsed="true">
     <Position X="0.75" Y="2.75" Width="1.5" />
@@ -109,12 +103,10 @@
       <Method Name="Student" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>QAAAAAAQAAAAAAAAAAAAEAAAAAIAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>QAAAAAAQAAAAAAAAAAAAAAAQAEAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Data\Student.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
-      <Property Name="ScheduledCourses" />
-      <Property Name="Requirements" />
       <Property Name="RequiredCourses" />
       <Property Name="Unfullfilled" />
     </ShowAsCollectionAssociation>
@@ -136,7 +128,7 @@
   <Enum Name="MyPackSpeech.DataManager.Data.Operator" Collapsed="true">
     <Position X="12.25" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>BAIAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAEAAAAAA=</HashCode>
+      <HashCode>BAIAAAAAAAAADAAAAAAAAAAAAAAAAAAAAAAAEAABAAA=</HashCode>
       <FileName>Data\Enums.cs</FileName>
     </TypeIdentifier>
   </Enum>

@@ -6,7 +6,7 @@ using System.Text;
 namespace MyPackSpeech.DataManager.Data
 {
    public class Schedule
-   {
+   {      
       public List<ScheduledCourse> Courses { get; private set; }
       public readonly Student Student;
 
