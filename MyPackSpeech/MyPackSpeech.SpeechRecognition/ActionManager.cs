@@ -13,12 +13,12 @@ namespace MyPackSpeech
 {
    public class ActionDetectedEventArgs : System.EventArgs
    {
-      public readonly CommandTypes Type;
+      public readonly CommandTypes CommandType;
       public readonly Student Student;
 
       public ActionDetectedEventArgs(CommandTypes t, Student student)
       {
-         this.Type = t;
+         this.CommandType = t;
          this.Student = student;
       }
 

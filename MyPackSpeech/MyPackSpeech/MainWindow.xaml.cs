@@ -36,11 +36,21 @@ namespace MyPackSpeech
          makeHeaders();
          makeGrids();
          makeRequirementTree();
+         Course course = CourseCatalog.Instance.Courses[5];
+         Course course2 = CourseCatalog.Instance.Courses[4250];
+         Course course3 = CourseCatalog.Instance.Courses[1240];
 
+         DegreeProgram dp = DegreeCatalog.Instance.Degrees[0];
+         Student student = new Student(dp);
+         ScheduledCourse myCourse1 = new ScheduledCourse(course, Semester.Spring, 2015, null);
+         ScheduledCourse myCourse2 = new ScheduledCourse(course2, Semester.Spring, 2016, null);
+         ScheduledCourse myCourse3 = new ScheduledCourse(course3, Semester.Fall, 2015, null);
+         student.AddCourse(myCourse1);
+         student.AddCourse(myCourse2);
+         student.AddCourse(myCourse3);
 
-         //Course course = CourseCatalog.Instance.Courses[5];
-         //Course course2 = CourseCatalog.Instance.Courses[4250];
-         //Course course3 = CourseCatalog.Instance.Courses[1240];
+         RefreshSchedule(student.Schedule);
+
          //addClass(course, 3);
          //addClass(course2, 3);
          //addClass(course3, 7);
@@ -55,9 +65,44 @@ namespace MyPackSpeech
 
       }
 
+      public void RefreshSchedule(Schedule schedule) {
+          //First semester is fall 2012
+          
+          for (int i = 0; i < schedule.Courses.Count; i++) {
+              int column;
+              int sem = 0;
+              ScheduledCourse course = schedule.Courses[i];
+              if(course.Semester == Semester.Fall) { 
+                    sem = 1;
+              }
 
+             //2012: 0
+             //2013: 1-2
+             //2014: 3-4
+             //2014: 5-6
+             //2016: 7
 
-      public void makeRequirementTree() {
+              int year = course.Year - 2012;
+              
+             // 2 semesters for each year accept 2012
+             if (year > 0) {
+                 year = year * 2 - 1;
+              }
+
+              column = year + sem;
+
+             //Special case Fall, 2012
+              if (course.Year == 2012 && course.Semester == Semester.Fall) {
+               column = 0;
+              }
+              addClass(course.Course, column);
+          }
+
+      
+      }
+
+      public void makeRequirementTree()
+      {
       
       }
 
@@ -295,48 +340,48 @@ namespace MyPackSpeech
 
 
           //List<String> myClasses = new List<String>{ "1","2","3","4","5" };
-
           DataGridTextColumn mySemester1 = new DataGridTextColumn();
-          mySemester1.Width = POW1.Width / 4 -2;
-          mySemester1.Header = "Spring 2013";
+          mySemester1.Width = POW1.Width / 4 - 2;
+          mySemester1.Header = "Fall 2012";
           POW1.Columns.Add(mySemester1);
 
-          
+
           DataGridTextColumn mySemester2 = new DataGridTextColumn();
-          mySemester2.Width = POW1.Width / 4;
-          mySemester2.Header = "Fall 2013";
+          mySemester2.Width = POW1.Width / 4 -2;
+          mySemester2.Header = "Spring 2013";
           POW1.Columns.Add(mySemester2);
+
           
           DataGridTextColumn mySemester3 = new DataGridTextColumn();
           mySemester3.Width = POW1.Width / 4;
-          mySemester3.Header = "Spring 2014";
+          mySemester3.Header = "Fall 2013";
           POW1.Columns.Add(mySemester3);
-
+          
           DataGridTextColumn mySemester4 = new DataGridTextColumn();
           mySemester4.Width = POW1.Width / 4;
-          mySemester4.Header = "Fall 2014";
+          mySemester4.Header = "Spring 2014";
           POW1.Columns.Add(mySemester4);
 
           DataGridTextColumn mySemester5 = new DataGridTextColumn();
-          mySemester5.Width = POW2.Width / 4-2;
-          mySemester5.Header = "Spring 2015";
+          mySemester5.Width = POW2.Width / 4;
+          mySemester5.Header = "Fall 2014";
           POW2.Columns.Add(mySemester5);
-
 
           DataGridTextColumn mySemester6 = new DataGridTextColumn();
           mySemester6.Width = POW2.Width / 4;
-          mySemester6.Header = "Fall 2015";
-          POW2.Columns.Add(mySemester6);
+          mySemester6.Header = "Spring 2015";
+          POW2.Columns.Add(mySemester6);          
 
           DataGridTextColumn mySemester7 = new DataGridTextColumn();
           mySemester7.Width = POW2.Width / 4;
-          mySemester7.Header = "Spring 2016";
+          mySemester7.Header = "Fall 2015";
           POW2.Columns.Add(mySemester7);
 
           DataGridTextColumn mySemester8 = new DataGridTextColumn();
           mySemester8.Width = POW2.Width / 4;
-          mySemester8.Header = "Fall 2016";
-          POW2.Columns.Add(mySemester8);          
+          mySemester8.Header = "Spring 2016";
+          POW2.Columns.Add(mySemester8);
+
     
 
           
@@ -419,7 +464,9 @@ namespace MyPackSpeech
 
       private void ActionManager_ActionDetected(object sender, ActionDetectedEventArgs args)
       {
-         WriteToOutputWindow("Action Found:" + args.Type+"\n");
+         WriteToOutputWindow("Action Found:" + args.CommandType+"\n");
+         Student student = args.Student;
+         RefreshSchedule(student.Schedule);
       }
 
       bool recoStarted = false;
