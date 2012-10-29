@@ -43,7 +43,7 @@ namespace MyPackSpeech.SpeechRecognition.Actions
 
       public void Undo()
       {
-         throw new NotImplementedException();
+         //throw new NotImplementedException();
       }
    }
 }

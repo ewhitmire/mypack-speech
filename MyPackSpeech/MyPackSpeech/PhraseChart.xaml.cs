@@ -69,7 +69,7 @@ namespace MyPackSpeech
 
 		private void setupEvents()
 		{
-			//RecoManager.Instance.SpeechRecognized += Instance_SpeechRecognized;
+			RecoManager.Instance.SpeechRecognized += Instance_SpeechRecognized;
 		}
 
 		void Instance_SpeechRecognized(object sender, SpeechRecognizedEventArgs ca)
@@ -86,16 +86,17 @@ namespace MyPackSpeech
 			series.ChartArea = barChart.ChartAreas[0].Name;
 
 			int x = 1;
-			DataPoint pt = new DataPoint(series);
-			pt.XValue = x;
-			x++;
-			pt.YValues = new double[] { ca.Result.Confidence };
-			pt.AxisLabel = ca.Result.Text;
-			pt.BorderColor = System.Drawing.Color.Black;
-			int r = 255 - (int)(pt.YValues[0] * 255.0);
-			pt.Color = System.Drawing.Color.FromArgb(r, r, r);
+         //DataPoint pt = new DataPoint(series);
+         //pt.XValue = x;
+         //x++;
+         //pt.YValues = new double[] { ca.Result.Confidence };
+         //pt.AxisLabel = ca.Result.Text;
+         //pt.BorderColor = System.Drawing.Color.Black;
+         //int r = 255 - (int)(pt.YValues[0] * 255.0);
+         //pt.Color = System.Drawing.Color.FromArgb(r, r, r);
 
-			series.Points.Add(pt);
+         //series.Points.Add(pt);
+         //pt = null;
 			foreach (RecognizedPhrase phrase in ca.Result.Alternates)
 			{
 				DataPoint pAlt = new DataPoint(series);
@@ -104,8 +105,11 @@ namespace MyPackSpeech
 				pAlt.AxisLabel = phrase.Text;
 				x++;
 				pAlt.BorderColor = System.Drawing.Color.Black;
-				int altr = 255 - (int)(pt.YValues[0] * 255.0);
+				int altr = 255 - (int)(pAlt.YValues[0] * 255.0);
 				pAlt.Color = System.Drawing.Color.FromArgb(altr, altr, altr);
+            pAlt.Label = phrase.Confidence.ToString("G4");
+            series.Points.Add(pAlt);
+
 			}
 			barChart.ResumeLayout();
 		}
