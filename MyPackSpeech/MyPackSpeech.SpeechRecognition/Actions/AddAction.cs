@@ -10,28 +10,31 @@ namespace MyPackSpeech.SpeechRecognition.Actions
    class AddAction : IAction
    {
       public Student Student { get; private set; }  
-      SemanticValue course;
+      SemanticValue semantics;
       public void Inform(SemanticValue sem, Student student)
       {
          Student = student;
          if (sem.ContainsKey(Slots.Course1.ToString()))
          {
-            course = sem[Slots.Course1.ToString()];
+            semantics = sem[Slots.Course1.ToString()];
          }
       }
       public bool Perform()
       {
-         List<Slots> missing = ActionManager.ValidateCourse(course);
+         List<Slots> missing = ActionManager.ValidateCourse(semantics);
 
          if (missing.Count > 0)
          {
-            ActionManager.Instance.PromptForMissing(course, missing);
+            ActionManager.Instance.PromptForMissing(semantics, missing);
             return false;
          }
 
-         
+         Course course = CourseConstructor.ContructCourse(semantics);
+         ScheduledCourse sCourse = new ScheduledCourse(course,
          return true;
       }
+
+     
 
       public void Undo()
       {
