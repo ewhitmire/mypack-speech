@@ -3,16 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Speech.Recognition;
+using MyPackSpeech.DataManager.Data;
 
 namespace MyPackSpeech.SpeechRecognition.Actions
 {
    class SwapAction : IAction
    {
+      public Student Student { get; private set; }  
       SemanticValue course1;
       SemanticValue course2;
 
-      public void Inform(SemanticValue sem)
+      public void Inform(SemanticValue sem, Student student)
       {
+         Student = student;
          if (sem.ContainsKey(Slots.Course1.ToString()))
          {
             course1 = sem[Slots.Course1.ToString()];

@@ -40,13 +40,16 @@ namespace MyPackSpeech
          Course course2 = CourseCatalog.Instance.Courses[4250];
          Course course3 = CourseCatalog.Instance.Courses[1240];
 
-         DegreeProgram dp = DegreeCatalog.Instance.degrees[0];
+         DegreeProgram dp = DegreeCatalog.Instance.Degrees[0];
          Student student = new Student(dp);
-         Schedule schedule = student.Schedule;
-         ScheduledCourse myCourse1 = new ScheduledCourse(course, Semester.Fall, 2013, null);
-         ScheduledCourse myCourse2 = new ScheduledCourse(course2, Semester.Spring, 2015, null);
-         ScheduledCourse myCourse3 = new ScheduledCourse(course3, Semester.Fall, 2014, null);
-         
+         ScheduledCourse myCourse1 = new ScheduledCourse(course, Semester.Spring, 2015, null);
+         ScheduledCourse myCourse2 = new ScheduledCourse(course2, Semester.Spring, 2016, null);
+         ScheduledCourse myCourse3 = new ScheduledCourse(course3, Semester.Fall, 2015, null);
+         student.AddCourse(myCourse1);
+         student.AddCourse(myCourse2);
+         student.AddCourse(myCourse3);
+
+         RefreshSchedule(student.Schedule);
 
          //addClass(course, 3);
          //addClass(course2, 3);
@@ -63,25 +66,35 @@ namespace MyPackSpeech
       }
 
       public void RefreshSchedule(Schedule schedule) {
-          //Current semester is fall 2012
+          //First semester is fall 2012
           
           for (int i = 0; i < schedule.Courses.Count; i++) {
               int column;
               int sem = 0;
               ScheduledCourse course = schedule.Courses[i];
-              switch (course.Semester) { 
-                  case Semester.Fall:
-                      break;
-                  case Semester.Spring:
-                      sem = 1;
-                      break;
-                  default:
-                      break;
+              if(course.Semester == Semester.Fall) { 
+                    sem = 1;
               }
 
+             //2012: 0
+             //2013: 1-2
+             //2014: 3-4
+             //2014: 5-6
+             //2016: 7
+
               int year = course.Year - 2012;
+              
+             // 2 semesters for each year accept 2012
+             if (year > 0) {
+                 year = year * 2 - 1;
+              }
+
               column = year + sem;
 
+             //Special case Fall, 2012
+              if (course.Year == 2012 && course.Semester == Semester.Fall) {
+               column = 0;
+              }
               addClass(course.Course, column);
           }
 
@@ -433,8 +446,8 @@ namespace MyPackSpeech
          //btnNext.HorizontalContentAlignment = HorizontalAlignment.Stretch;
          currReq++;
 
-         currReq %= DegreeCatalog.Instance.degrees[0].Requirements.Count;
-         DegreeRequirement req = DegreeCatalog.Instance.degrees[0].Requirements[currReq];
+         currReq %= DegreeCatalog.Instance.Degrees[0].Requirements.Count;
+         DegreeRequirement req = DegreeCatalog.Instance.Degrees[0].Requirements[currReq];
          btnNext.Content = req.Category.Name;
          CourseCatalog.Instance.Filter = req.CourseRequirement;
 
@@ -451,9 +464,9 @@ namespace MyPackSpeech
 
       private void ActionManager_ActionDetected(object sender, ActionDetectedEventArgs args)
       {
-         WriteToOutputWindow("Action Found:" + args.type+"\n");
-         //Student student = args.Student;
-         //RefreshSchedule(student.Schedule);
+         WriteToOutputWindow("Action Found:" + args.CommandType+"\n");
+         Student student = args.Student;
+         RefreshSchedule(student.Schedule);
       }
 
       bool recoStarted = false;
@@ -464,7 +477,7 @@ namespace MyPackSpeech
 		  {
 			  try
 			  {
-              student = new Student(DegreeCatalog.Instance.degrees[0]);
+              student = new Student(DegreeCatalog.Instance.Degrees[0]);
 				  recoStarted = true;
 				  RecoManager.Instance.Start();
 				  RecoManager.Instance.SpeechRecognized += new RecoManager.SpeechRecognizedHandler(RecoManager_SpeechRecognized);
