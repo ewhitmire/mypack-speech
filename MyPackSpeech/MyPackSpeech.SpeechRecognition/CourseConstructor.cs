@@ -17,7 +17,7 @@ namespace MyPackSpeech.SpeechRecognition
          int Number = (int)semantics[Slots.Number.ToString()].Value;
 
          IFilter<Course> filter = CourseFilter.DeptAbv(Department).And(CourseFilter.Number(Number, Operator.EQ));
-         return CourseCatalog.Instance.GetCourses(filter).First<Course>();
+         return CourseCatalog.Instance.GetCourses(filter).FirstOrDefault();
       }
 
       public static ScheduledCourse ContructScheduledCourse(SemanticValue semantics)

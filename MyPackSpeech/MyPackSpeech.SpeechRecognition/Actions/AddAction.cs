@@ -9,7 +9,8 @@ namespace MyPackSpeech.SpeechRecognition.Actions
 {
    class AddAction : IAction
    {
-      public Student Student { get; private set; }  
+      public Student Student { get; private set; }
+      public ScheduledCourse Course { get; private set; }
       private SemanticValue semantics = null;
       public void Inform(SemanticValue sem, Student student)
       {
@@ -26,15 +27,15 @@ namespace MyPackSpeech.SpeechRecognition.Actions
             return false;
          }
 
-         ScheduledCourse sCourse = CourseConstructor.ContructScheduledCourse(semantics);
-         Student.AddCourse(sCourse);
+         Course = CourseConstructor.ContructScheduledCourse(semantics);
+         Student.AddCourse(Course);
          return true;
       }
 
-     
-
       public void Undo()
       {
+         if (Course != null)
+            Student.Schedule.Courses.Remove(Course);
       }
    }
 }
