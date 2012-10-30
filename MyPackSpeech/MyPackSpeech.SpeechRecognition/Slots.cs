@@ -10,8 +10,6 @@ namespace MyPackSpeech.SpeechRecognition
       Department=0,
       Number,
       Semester,
-      Year,
-      Course1,
-      Course2
+      Year
    }
 }

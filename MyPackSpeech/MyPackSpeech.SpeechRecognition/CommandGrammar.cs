@@ -142,7 +142,7 @@ namespace MyPackSpeech.SpeechRecognition
          GrammarBuilder add = addCommand();
          GrammarBuilder remove = removeCommand();
          GrammarBuilder move = moveCommand();
-         GrammarBuilder swap = swapCommand();
+         //GrammarBuilder swap = swapCommand();
          GrammarBuilder error = errorCommand();
 
 
@@ -151,7 +151,7 @@ namespace MyPackSpeech.SpeechRecognition
          commandChoices.Add(add);
          commandChoices.Add(remove);
          commandChoices.Add(move);
-         commandChoices.Add(swap);
+         //commandChoices.Add(swap);
          commandChoices.Add(error);
 
          GrammarBuilder systemRequest = new GrammarBuilder();
@@ -193,13 +193,16 @@ namespace MyPackSpeech.SpeechRecognition
          commands.Add(commandSRV);
          SemanticResultKey commandSemKey = new SemanticResultKey("command", commands);
 
-         SemanticResultKey course1 = new SemanticResultKey(Slots.Course1.ToString(), this.course);
+         //SemanticResultKey course1 = new SemanticResultKey(Slots.Course1.ToString(), this.course);
+
+         Choices preps = new Choices("to", "in");
 
          // put the whole command together
          GrammarBuilder finalCommand = new GrammarBuilder();
          finalCommand.Append(this.pleasantries, 0, 1);
          finalCommand.Append(commandSemKey);
-         finalCommand.Append(course1);
+         finalCommand.Append(this.course);
+         finalCommand.Append(preps, 0, 1);
          finalCommand.Append(this.semester);
 
          return finalCommand;
@@ -217,13 +220,13 @@ namespace MyPackSpeech.SpeechRecognition
          SemanticResultKey commandSemKey = new SemanticResultKey("command", commands);
 
 
-         SemanticResultKey course1 = new SemanticResultKey(Slots.Course1.ToString(), this.course);
+         //SemanticResultKey course1 = new SemanticResultKey(Slots.Course1.ToString(), this.course);
 
          // put the whole command together
          GrammarBuilder finalCommand = new GrammarBuilder();
          finalCommand.Append(this.pleasantries, 0, 1);
          finalCommand.Append(commandSemKey);
-         finalCommand.Append(course1);
+         finalCommand.Append(this.course);
          finalCommand.Append(this.semester);
 
          return finalCommand;
@@ -239,19 +242,19 @@ namespace MyPackSpeech.SpeechRecognition
          SemanticResultKey commandSemKey = new SemanticResultKey("command", commands);
 
 
-         SemanticResultKey course1 = new SemanticResultKey(Slots.Course1.ToString(), this.course);
+         //SemanticResultKey course1 = new SemanticResultKey(Slots.Course1.ToString(), this.course);
 
          // put the whole command together
          GrammarBuilder finalCommand = new GrammarBuilder();
          finalCommand.Append(this.pleasantries, 0, 1);
          finalCommand.Append(commandSemKey);
-         finalCommand.Append(course1);
+         finalCommand.Append(this.course);
          finalCommand.Append(this.semester);
 
          return finalCommand;
       }
 
-      private GrammarBuilder swapCommand()
+/*      private GrammarBuilder swapCommand()
       {
 
          Choices commands = new Choices();
@@ -276,8 +279,8 @@ namespace MyPackSpeech.SpeechRecognition
          return finalCommand;
       }
 
-
-      private GrammarBuilder showCommand()
+*/
+ /*     private GrammarBuilder showCommand()
       {
 
          Choices commands = new Choices();
@@ -303,7 +306,7 @@ namespace MyPackSpeech.SpeechRecognition
 
          return finalCommand;
       }
-
+*/
 
    }
 }

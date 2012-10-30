@@ -105,13 +105,14 @@ namespace MyPackSpeech
       public static List<Slots> ValidateCourse(SemanticValue course)
       {
          List<Slots> missing = new List<Slots>();
+
          if (!course.ContainsKey(Slots.Department.ToString()))
          {
             missing.Add(Slots.Department);
          }
          if (!course.ContainsKey(Slots.Number.ToString()))
          {
-            missing.Add(Slots.Department);
+            missing.Add(Slots.Number);
          }
          if (!course.ContainsKey(Slots.Semester.ToString()))
          {

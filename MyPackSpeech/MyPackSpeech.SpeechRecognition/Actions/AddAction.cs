@@ -10,14 +10,11 @@ namespace MyPackSpeech.SpeechRecognition.Actions
    class AddAction : IAction
    {
       public Student Student { get; private set; }  
-      SemanticValue semantics;
+      private SemanticValue semantics = null;
       public void Inform(SemanticValue sem, Student student)
       {
          Student = student;
-         if (sem.ContainsKey(Slots.Course1.ToString()))
-         {
-            semantics = sem[Slots.Course1.ToString()];
-         }
+         semantics = sem;
       }
       public bool Perform()
       {
@@ -29,8 +26,8 @@ namespace MyPackSpeech.SpeechRecognition.Actions
             return false;
          }
 
-         ScheduledCourse course = CourseConstructor.ContructScheduledCourse(semantics);
-         Student.AddCourse(course);
+         ScheduledCourse sCourse = CourseConstructor.ContructScheduledCourse(semantics);
+         Student.AddCourse(sCourse);
          return true;
       }
 

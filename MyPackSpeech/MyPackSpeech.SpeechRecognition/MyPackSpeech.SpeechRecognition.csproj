@@ -47,7 +47,6 @@
   <ItemGroup>
     <Compile Include="ActionManager.cs" />
     <Compile Include="Actions\AddAction.cs" />
-    <Compile Include="Actions\SwapAction.cs" />
     <Compile Include="CommandGrammar.cs" />
     <Compile Include="CommandTypes.cs" />
     <Compile Include="Actions\IAction.cs" />

@@ -14,7 +14,7 @@ namespace MyPackSpeech.SpeechRecognition
       public static Course ContructCourse(SemanticValue semantics)
       {
          String Department = semantics[Slots.Department.ToString()].ToString();
-         int Number = int.Parse(semantics[Slots.Number.ToString()].ToString());
+         int Number = (int)semantics[Slots.Number.ToString()].Value;
 
          IFilter<Course> filter = CourseFilter.DeptAbv(Department).And(CourseFilter.Number(Number, Operator.EQ));
          CourseCatalog.Instance.Filter = filter;
@@ -25,7 +25,7 @@ namespace MyPackSpeech.SpeechRecognition
       {
          Course course = ContructCourse(semantics);
          Semester sem = (Semester) Enum.Parse(typeof(Semester),  semantics[Slots.Semester.ToString()].ToString());
-         int year = int.Parse(semantics[Slots.Year.ToString()].ToString());
+         int year = (int)semantics[Slots.Year.ToString()].Value;
          ScheduledCourse sCourse = new ScheduledCourse(course, sem, year);
          return sCourse;
       }
