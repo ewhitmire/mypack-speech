@@ -177,7 +177,7 @@ namespace MyPackSpeech.SpeechRecognition
          Choices commandChoices = new Choices();
          commandChoices.Add(add);
          commandChoices.Add(remove);
-         commandChoices.Add(move);
+         //commandChoices.Add(move);
          //commandChoices.Add(swap);
          commandChoices.Add(error);
 
