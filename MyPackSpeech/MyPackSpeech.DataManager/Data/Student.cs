@@ -57,5 +57,11 @@ namespace MyPackSpeech.DataManager.Data
          if (evt != null)
             evt(this, EventArgs.Empty);
       }
+
+	  public void RemoveCourse(ScheduledCourse Course)
+	  {
+		  Schedule.Courses.Remove(Course);
+		  OnScheduleChanged();
+	  }
    }
 }
