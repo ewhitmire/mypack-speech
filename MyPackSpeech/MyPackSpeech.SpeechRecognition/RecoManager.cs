@@ -13,7 +13,7 @@ namespace MyPackSpeech.SpeechRecognition
 	{
 
 		private SpeechRecognitionEngine recognitionEngine;
-		SpeechSynthesizer reader;
+		public SpeechSynthesizer reader;
 		private CommandGrammar grammar;
 
 		public delegate void SpeechRecognizedHandler(object sender, SpeechRecognizedEventArgs ca);

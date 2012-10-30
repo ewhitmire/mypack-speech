@@ -74,11 +74,14 @@ namespace MyPackSpeech
          else
          {
             Type ActionType = cmd.ActionClass();
-            IAction action = (IAction)Activator.CreateInstance(ActionType);
-            action.Inform(result.Semantics, CurrStudent);
-            action.Perform();
+            if (!ActionType.Equals(typeof(IAction)))
+            {
 
-            actionHistory.Push(action);
+               IAction action = (IAction)Activator.CreateInstance(ActionType);
+               action.Inform(result.Semantics, CurrStudent);
+               action.Perform();
+               actionHistory.Push(action);
+            }
          }
 
          if (ActionDetected != null)
@@ -91,7 +94,11 @@ namespace MyPackSpeech
      
       public void PromptForMissing(SemanticValue context, List<Slots> missing)
       {
-         Debug.Write("hooray!");
+         RecoManager.Instance.reader.SpeakAsyncCancelAll();
+         foreach (Slots s in missing)
+         {
+            RecoManager.Instance.reader.SpeakAsync("I don't know the " + s.ToString());
+         }
       }
 
       protected ActionManager()
