@@ -35,6 +35,7 @@ namespace MyPackSpeech.SpeechRecognition
          buildCommonGrammars();
          buildCommandGrammar();
       }
+
       private void buildCommonGrammars()
       {
          this.pleasantries = new Choices("I'd like a", "I'd like to", "I would like to",
@@ -42,8 +43,8 @@ namespace MyPackSpeech.SpeechRecognition
 
          this.semester = buildSemesterGrammar();
          this.course = buildCourseGrammar();
-
       }
+
       private GrammarBuilder buildCourseGrammar()
       {
          //Class: a class, this class, that class, that other class
@@ -53,12 +54,12 @@ namespace MyPackSpeech.SpeechRecognition
          {
             deptsRV = new SemanticResultValue(this.depts[i].Abv, this.depts[i].Abv);
             deptChoices.Add(deptsRV);
+
             deptsRV = new SemanticResultValue(this.depts[i].Name, this.depts[i].Abv);
             deptChoices.Add(deptsRV);
-
          }
+         
          SemanticResultKey deptSemKey = new SemanticResultKey(Slots.Department.ToString(), deptChoices);
-
 
          //Class: a class, this class, that class, that other class
          Choices classNumbers = new Choices();
@@ -71,6 +72,38 @@ namespace MyPackSpeech.SpeechRecognition
          GrammarBuilder course = new GrammarBuilder();
          course.Append(deptSemKey);
          course.Append(numbersSemKey);
+
+         return course;
+      }
+
+      private GrammarBuilder buildCourseGrammarNested()
+      {
+         //Class: a class, this class, that class, that other class
+         Choices deptChoices = new Choices();
+         SemanticResultValue deptsRV;
+         for (int i = 0; i < this.depts.Count; i++)
+         {
+            Department dept = depts[i];
+            Choices classNumbers = new Choices();
+            foreach (var numbersRV in classList.Where(c => c.DeptAbv == dept.Abv).Select(c => c.Number).Distinct().Select(n => new SemanticResultValue(n.ToString(), n)))
+            {
+               classNumbers.Add(numbersRV);
+            }
+
+            deptsRV = new SemanticResultValue(dept.Abv, dept.Abv);
+            GrammarBuilder deptsGmr = deptsRV.ToGrammarBuilder();            
+            deptsGmr.Append(classNumbers);
+            deptChoices.Add(deptsGmr);
+
+            deptsRV = new SemanticResultValue(dept.Name, dept.Abv);
+            deptsGmr = deptsRV.ToGrammarBuilder();
+            deptsGmr.Append(classNumbers);
+            deptChoices.Add(deptsGmr);
+         }
+
+         SemanticResultKey deptSemKey = new SemanticResultKey(Slots.Department.ToString(), deptChoices);
+         GrammarBuilder course = new GrammarBuilder();
+         course.Append(deptChoices.ToGrammarBuilder());
 
          return course;
       }
@@ -87,7 +120,7 @@ namespace MyPackSpeech.SpeechRecognition
          semestersChoices.Add(semestersRV);
 
          SemanticResultKey semesterSemKey = new SemanticResultKey(Slots.Semester.ToString(), semestersChoices);
-        
+
          GrammarBuilder semester = new GrammarBuilder();
 
          semester.Append(prepositions, 0, 1);
@@ -134,14 +167,11 @@ namespace MyPackSpeech.SpeechRecognition
 
       private void buildCommandGrammar()
       {
-
-
          GrammarBuilder add = addCommand();
          GrammarBuilder remove = removeCommand();
          GrammarBuilder move = moveCommand();
          //GrammarBuilder swap = swapCommand();
          GrammarBuilder error = errorCommand();
-
 
          //now build the complete pattern...
          Choices commandChoices = new Choices();
@@ -159,7 +189,6 @@ namespace MyPackSpeech.SpeechRecognition
       }
       private GrammarBuilder errorCommand()
       {
-
          Choices commands = new Choices();
          SemanticResultValue commandSRV;
          commandSRV = new SemanticResultValue("no", (int)CommandTypes.Undo);
@@ -207,7 +236,6 @@ namespace MyPackSpeech.SpeechRecognition
 
       private GrammarBuilder removeCommand()
       {
-
          Choices commands = new Choices();
          SemanticResultValue commandSRV;
          commandSRV = new SemanticResultValue("remove", (int)CommandTypes.Remove);
@@ -215,7 +243,6 @@ namespace MyPackSpeech.SpeechRecognition
          commandSRV = new SemanticResultValue("get rid of", (int)CommandTypes.Remove);
          commands.Add(commandSRV);
          SemanticResultKey commandSemKey = new SemanticResultKey("command", commands);
-
 
          //SemanticResultKey course1 = new SemanticResultKey(Slots.Course1.ToString(), this.course);
 
@@ -251,59 +278,59 @@ namespace MyPackSpeech.SpeechRecognition
          return finalCommand;
       }
 
-/*      private GrammarBuilder swapCommand()
-      {
+      /*      private GrammarBuilder swapCommand()
+            {
 
-         Choices commands = new Choices();
-         SemanticResultValue commandSRV;
-         commandSRV = new SemanticResultValue("swap", (int)CommandTypes.Swap);
-         commands.Add(commandSRV);
-         SemanticResultKey commandSemKey = new SemanticResultKey("command", commands);
+               Choices commands = new Choices();
+               SemanticResultValue commandSRV;
+               commandSRV = new SemanticResultValue("swap", (int)CommandTypes.Swap);
+               commands.Add(commandSRV);
+               SemanticResultKey commandSemKey = new SemanticResultKey("command", commands);
 
-         SemanticResultKey course1 = new SemanticResultKey(Slots.Course1.ToString(), this.course);
-         SemanticResultKey course2 = new SemanticResultKey(Slots.Course2.ToString(), this.course);
+               SemanticResultKey course1 = new SemanticResultKey(Slots.Course1.ToString(), this.course);
+               SemanticResultKey course2 = new SemanticResultKey(Slots.Course2.ToString(), this.course);
 
-         Choices connection = new Choices("and", "with");
+               Choices connection = new Choices("and", "with");
 
-         // put the whole command together
-         GrammarBuilder finalCommand = new GrammarBuilder();
-         finalCommand.Append(this.pleasantries, 0, 1);
-         finalCommand.Append(commandSemKey);
-         finalCommand.Append(course1);
-         finalCommand.Append(connection, 0, 1);
-         finalCommand.Append(course2);
+               // put the whole command together
+               GrammarBuilder finalCommand = new GrammarBuilder();
+               finalCommand.Append(this.pleasantries, 0, 1);
+               finalCommand.Append(commandSemKey);
+               finalCommand.Append(course1);
+               finalCommand.Append(connection, 0, 1);
+               finalCommand.Append(course2);
 
-         return finalCommand;
-      }
+               return finalCommand;
+            }
 
-*/
- /*     private GrammarBuilder showCommand()
-      {
+      */
+      /*     private GrammarBuilder showCommand()
+           {
 
-         Choices commands = new Choices();
-         SemanticResultValue commandSRV;
-         commandSRV = new SemanticResultValue("Show me", (int)CommandTypes.Show);
-         commands.Add(commandSRV);
-         commandSRV = new SemanticResultValue("I want to see", (int)CommandTypes.Show);
-         commands.Add(commandSRV);
-         SemanticResultKey commandSemKey = new SemanticResultKey("command", commands);
-
-
-         SemanticResultKey course1 = new SemanticResultKey(Slots.Course1.ToString(), this.course);
-         SemanticResultKey course2 = new SemanticResultKey(Slots.Course2.ToString(), this.course);
+              Choices commands = new Choices();
+              SemanticResultValue commandSRV;
+              commandSRV = new SemanticResultValue("Show me", (int)CommandTypes.Show);
+              commands.Add(commandSRV);
+              commandSRV = new SemanticResultValue("I want to see", (int)CommandTypes.Show);
+              commands.Add(commandSRV);
+              SemanticResultKey commandSemKey = new SemanticResultKey("command", commands);
 
 
-         // put the whole command together
-         GrammarBuilder finalCommand = new GrammarBuilder();
-         finalCommand.Append(this.pleasantries, 0, 1);
-         finalCommand.Append(commandSemKey);
-         finalCommand.Append(course1);
-         finalCommand.Append("with");
-         finalCommand.Append(course2);
+              SemanticResultKey course1 = new SemanticResultKey(Slots.Course1.ToString(), this.course);
+              SemanticResultKey course2 = new SemanticResultKey(Slots.Course2.ToString(), this.course);
 
-         return finalCommand;
-      }
-*/
+
+              // put the whole command together
+              GrammarBuilder finalCommand = new GrammarBuilder();
+              finalCommand.Append(this.pleasantries, 0, 1);
+              finalCommand.Append(commandSemKey);
+              finalCommand.Append(course1);
+              finalCommand.Append("with");
+              finalCommand.Append(course2);
+
+              return finalCommand;
+           }
+     */
 
    }
 }
