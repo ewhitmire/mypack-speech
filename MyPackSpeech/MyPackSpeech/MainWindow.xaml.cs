@@ -42,9 +42,9 @@ namespace MyPackSpeech
 
          DegreeProgram dp = DegreeCatalog.Instance.Degrees[0];
          Student student = new Student(dp);
-         ScheduledCourse myCourse1 = new ScheduledCourse(course, Semester.Spring, 2015, null);
+         ScheduledCourse myCourse1 = new ScheduledCourse(course, Semester.Spring, 2013, null);
          ScheduledCourse myCourse2 = new ScheduledCourse(course2, Semester.Spring, 2016, null);
-         ScheduledCourse myCourse3 = new ScheduledCourse(course3, Semester.Fall, 2015, null);
+         ScheduledCourse myCourse3 = new ScheduledCourse(course3, Semester.Fall, 2012, null);
          student.AddCourse(myCourse1);
          student.AddCourse(myCourse2);
          student.AddCourse(myCourse3);
@@ -88,7 +88,7 @@ namespace MyPackSpeech
                     sem = 1;
               }
 
-             //2012: 0
+             //2012: -1-0
              //2013: 1-2
              //2014: 3-4
              //2014: 5-6
@@ -97,17 +97,14 @@ namespace MyPackSpeech
               int year = course.Year - 2012;
               
              // 2 semesters for each year accept 2012
-             if (year > 0) {
                  year = year * 2 - 1;
-              }
 
               column = year + sem;
 
-             //Special case Fall, 2012
-              if (course.Year == 2012 && course.Semester == Semester.Fall) {
-               column = 0;
+              if (-1 < column && column < 8)
+              {
+                 addClass(course.Course, column);
               }
-              addClass(course.Course, column);
           }
 
       
@@ -169,7 +166,7 @@ namespace MyPackSpeech
               {
                   TextBlock txt1 = new TextBlock();
                   txt1.Text = "";
-                  txt1.FontSize = 12;
+                  txt1.FontSize = 10;
                   txt1.FontWeight = FontWeights.Bold;
                   Grid.SetColumn(txt1, j);
                   Grid.SetRow(txt1, i);
@@ -243,6 +240,10 @@ namespace MyPackSpeech
        public int getSemester(Course course)
        {
            String text = course.DeptAbv + course.Number + "-" + course.Name;
+           if (text.Length > 28)
+           {
+              text = text.Substring(0, 28) + "...";
+           }
 
            for (int i = 0; i < myGrid.Children.Count; i++)
            {
@@ -293,7 +294,11 @@ namespace MyPackSpeech
 
        public Boolean removeClass(Grid g, Course course) {
            String text = course.DeptAbv + course.Number + "-" + course.Name;
-           
+           if (text.Length > 28)
+           {
+              text = text.Substring(0, 28) + "...";
+           }
+ 
            for (int i = 0; i < g.Children.Count; i++) {
                TextBlock e = (TextBlock)g.Children[i];
                if (e.Text.Equals(text)) {
@@ -306,10 +311,15 @@ namespace MyPackSpeech
 
        public void addClass(Course course, int semester)
       {
+         showInfo(course);
           if (semester < 4)
           {
               String text = course.DeptAbv + course.Number + "-" + course.Name;
-              //length greater than 27???
+              if (text.Length > 28)
+              {
+                 text = text.Substring(0, 28) + "...";
+              }
+                 //length greater than 27???
 
               int i = 0;
               Boolean added = false;
@@ -328,7 +338,10 @@ namespace MyPackSpeech
           else {
               semester -= 4;
               String text = course.DeptAbv + course.Number + "-" + course.Name;
-
+              if (text.Length > 28)
+              {
+                 text = text.Substring(0, 28) + "...";
+              }
               int i = 0;
               Boolean added = false;
               while (i < myGrid2.RowDefinitions.Count && !added)
