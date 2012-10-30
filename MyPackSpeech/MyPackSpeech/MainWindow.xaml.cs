@@ -166,7 +166,7 @@ namespace MyPackSpeech
               {
                   TextBlock txt1 = new TextBlock();
                   txt1.Text = "";
-                  txt1.FontSize = 12;
+                  txt1.FontSize = 10;
                   txt1.FontWeight = FontWeights.Bold;
                   Grid.SetColumn(txt1, j);
                   Grid.SetRow(txt1, i);
@@ -240,6 +240,10 @@ namespace MyPackSpeech
        public int getSemester(Course course)
        {
            String text = course.DeptAbv + course.Number + "-" + course.Name;
+           if (text.Length > 28)
+           {
+              text = text.Substring(0, 28) + "...";
+           }
 
            for (int i = 0; i < myGrid.Children.Count; i++)
            {
@@ -290,7 +294,11 @@ namespace MyPackSpeech
 
        public Boolean removeClass(Grid g, Course course) {
            String text = course.DeptAbv + course.Number + "-" + course.Name;
-           
+           if (text.Length > 28)
+           {
+              text = text.Substring(0, 28) + "...";
+           }
+ 
            for (int i = 0; i < g.Children.Count; i++) {
                TextBlock e = (TextBlock)g.Children[i];
                if (e.Text.Equals(text)) {
@@ -307,7 +315,11 @@ namespace MyPackSpeech
           if (semester < 4)
           {
               String text = course.DeptAbv + course.Number + "-" + course.Name;
-              //length greater than 27???
+              if (text.Length > 28)
+              {
+                 text = text.Substring(0, 28) + "...";
+              }
+                 //length greater than 27???
 
               int i = 0;
               Boolean added = false;
@@ -326,7 +338,10 @@ namespace MyPackSpeech
           else {
               semester -= 4;
               String text = course.DeptAbv + course.Number + "-" + course.Name;
-
+              if (text.Length > 28)
+              {
+                 text = text.Substring(0, 28) + "...";
+              }
               int i = 0;
               Boolean added = false;
               while (i < myGrid2.RowDefinitions.Count && !added)
