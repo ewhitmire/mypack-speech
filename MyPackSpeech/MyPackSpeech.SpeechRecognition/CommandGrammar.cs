@@ -62,12 +62,9 @@ namespace MyPackSpeech.SpeechRecognition
 
          //Class: a class, this class, that class, that other class
          Choices classNumbers = new Choices();
-         SemanticResultValue numbersRV;
-         for (int i = 100; i < 1000; i++)
-         {
-            numbersRV = new SemanticResultValue("" + i, i);
+		 foreach (var numbersRV in classList.Select(c => c.Number).Distinct().Select(n => new SemanticResultValue(n.ToString(), n)))
+		 {
             classNumbers.Add(numbersRV);
-
          }
          SemanticResultKey numbersSemKey = new SemanticResultKey(Slots.Number.ToString(), classNumbers);
 
