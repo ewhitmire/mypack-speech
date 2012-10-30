@@ -71,6 +71,34 @@ namespace MyPackSpeech.DataManager
          Courses = new List<Course>();
          Departments = new List<Department>();
          LoadData();
+         WriteKeyWordFile();
+      }
+
+      private void WriteKeyWordFile()
+      {
+         if (File.Exists(Course.KeyWordFile))
+            File.Delete(Course.KeyWordFile);
+         Dictionary<string, int> words = new Dictionary<string, int>(StringComparer.CurrentCultureIgnoreCase);
+         foreach (var course in Courses)
+         {
+            foreach (var word in course.KeyWords)
+            {
+               if (!words.ContainsKey(word))
+                  words[word] = 0;
+               words[word]++;
+            }
+         }
+         using (StreamWriter sw = new StreamWriter(File.OpenWrite(Course.KeyWordFile)))
+         {
+            foreach (string word in words.OrderByDescending(kp => kp.Value).Select(kp => kp.Key))
+            {
+               int num;
+               if (!int.TryParse(word, out num))
+               {
+                  sw.WriteLine(String.Format("{0},{1}", word, words[word]));
+               }
+            }
+         }
       }
       public Department GetDepartment(String prefix)
       {
