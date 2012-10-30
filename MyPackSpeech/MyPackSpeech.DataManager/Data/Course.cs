@@ -5,11 +5,13 @@ using System.Linq;
 using System.Text;
 using MyPackSpeech.DataManager.Data.Filter;
 using MyPackSpeech.DataManager.Search;
+using System.IO;
 
 namespace MyPackSpeech.DataManager.Data
 {
    public class Course : IKeywordProvider
    {
+      const string KeyWordFile = "keywords.txt";
       public Department Dept { get; private set; }
       public string DeptName { get { return Dept.Name; } }
       public string DeptAbv { get { return Dept.Abv; } }
@@ -78,6 +80,7 @@ namespace MyPackSpeech.DataManager.Data
       private void setKeyWords()
       {
          KeyWords = KeywordGenerator.GetKeywords(Description);
+         KeyWords.ForEach(w => File.AppendAllText(KeyWordFile, w + Environment.NewLine));         
       }
 
       #region IKeywordProvider
