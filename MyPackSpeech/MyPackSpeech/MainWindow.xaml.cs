@@ -49,7 +49,7 @@ namespace MyPackSpeech
          student.AddCourse(myCourse2);
          student.AddCourse(myCourse3);
 
-         RefreshSchedule(student.Schedule);
+         //RefreshSchedule(student.Schedule);
 
          //addClass(course, 3);
          //addClass(course2, 3);

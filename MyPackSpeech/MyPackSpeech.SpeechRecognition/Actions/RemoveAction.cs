@@ -20,7 +20,7 @@ namespace MyPackSpeech.SpeechRecognition.Actions
       }
       public bool Perform()
       {
-         List<Slots> missing = ActionManager.ValidateCourse(semantics);
+         List<Slots> missing = CourseConstructor.ValidateCourse(semantics);
 
          if (missing.Count > 0)
          {
@@ -28,11 +28,12 @@ namespace MyPackSpeech.SpeechRecognition.Actions
             return false;
          }
 
-        Course = CourseConstructor.ContructScheduledCourse(semantics);
-		if (Course != null)
-		{
-			Student.RemoveCourse(Course);
-		}
+         ScheduledCourse sCourse= CourseConstructor.ContructScheduledCourse(semantics);
+         Course = Student.Schedule.Courses.Find(c => c.Equals(sCourse));
+		   if (Course != null)
+		   {
+			   Student.RemoveCourse(Course);
+		   }
          return true;
       }    
 
