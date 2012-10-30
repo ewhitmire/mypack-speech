@@ -18,7 +18,7 @@ namespace MyPackSpeech.SpeechRecognition.Actions
       }
       public bool Perform()
       {
-         List<Slots> missing = ActionManager.ValidateCourse(semantics);
+         List<Slots> missing = CourseConstructor.ValidateCourse(semantics);
 
          if (missing.Count > 0)
          {

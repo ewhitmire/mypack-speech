@@ -28,7 +28,42 @@ namespace MyPackSpeech.SpeechRecognition
          ScheduledCourse sCourse = new ScheduledCourse(course, sem, year);
          return sCourse;
       }
+      public static List<Slots> ValidateExistingCourse(SemanticValue course)
+      {
+         List<Slots> missing = new List<Slots>();
+         if (!course.ContainsKey(Slots.Department.ToString()))
+         {
+            missing.Add(Slots.Department);
+         }
+         if (!course.ContainsKey(Slots.Number.ToString()))
+         {
+            missing.Add(Slots.Department);
+         }
+         return missing;
+      }
 
+      public static List<Slots> ValidateCourse(SemanticValue course)
+      {
+         List<Slots> missing = new List<Slots>();
+
+         if (!course.ContainsKey(Slots.Department.ToString()))
+         {
+            missing.Add(Slots.Department);
+         }
+         if (!course.ContainsKey(Slots.Number.ToString()))
+         {
+            missing.Add(Slots.Number);
+         }
+         if (!course.ContainsKey(Slots.Semester.ToString()))
+         {
+            missing.Add(Slots.Semester);
+         }
+         if (!course.ContainsKey(Slots.Year.ToString()))
+         {
+            missing.Add(Slots.Year);
+         }
+         return missing;
+      }
 
 
    }
