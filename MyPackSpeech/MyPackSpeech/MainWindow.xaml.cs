@@ -303,6 +303,7 @@ namespace MyPackSpeech
 
        public void addClass(Course course, int semester)
       {
+         showInfo(course);
           if (semester < 4)
           {
               String text = course.DeptAbv + course.Number + "-" + course.Name;
