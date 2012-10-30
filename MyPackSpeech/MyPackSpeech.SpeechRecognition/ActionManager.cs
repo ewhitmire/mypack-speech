@@ -62,13 +62,15 @@ namespace MyPackSpeech
       private void ProcessCommand(RecognitionResult result)
       {
          CommandTypes cmd = (CommandTypes)(result.Semantics["command"].Value);
-        
+         bool callEvent = false;
+
          if (cmd == CommandTypes.Undo)
          {
             if (actionHistory.Count > 0)
             {
                IAction action = actionHistory.Pop();
                action.Undo();
+               callEvent = true;
             }
          }
          else
@@ -79,12 +81,12 @@ namespace MyPackSpeech
 
                IAction action = (IAction)Activator.CreateInstance(ActionType);
                action.Inform(result.Semantics, CurrStudent);
-               action.Perform();
+               callEvent = action.Perform();
                actionHistory.Push(action);
             }
          }
 
-         if (ActionDetected != null)
+         if (callEvent && ActionDetected != null)
          {
             ActionDetectedEventArgs args = new ActionDetectedEventArgs(cmd, CurrStudent);
             ActionDetected(this, args);

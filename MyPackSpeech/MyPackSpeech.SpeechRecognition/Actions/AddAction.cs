@@ -28,8 +28,12 @@ namespace MyPackSpeech.SpeechRecognition.Actions
          }
 
          Course = CourseConstructor.ContructScheduledCourse(semantics);
-         Student.AddCourse(Course);
-         return true;
+         if (Course != null)
+         {
+            Student.AddCourse(Course);
+            return true;
+         }
+         return false;
       }
 
       public void Undo()
