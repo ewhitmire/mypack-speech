@@ -23,6 +23,10 @@ namespace MyPackSpeech.SpeechRecognition
       public static ScheduledCourse ContructScheduledCourse(SemanticValue semantics)
       {
          Course course = ContructCourse(semantics);
+         if (course == null)
+         {
+            return null;
+         }
          Semester sem = (Semester)Enum.Parse(typeof(Semester), semantics[Slots.Semester.ToString()].Value.ToString(), true);
          int year = int.Parse(semantics[Slots.Year.ToString()].Value.ToString());
          ScheduledCourse sCourse = new ScheduledCourse(course, sem, year);

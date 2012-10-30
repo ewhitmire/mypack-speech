@@ -49,7 +49,7 @@ namespace MyPackSpeech.SpeechRecognition
 		void recognitionEngine_SpeechRecognized(object sender, SpeechRecognizedEventArgs args)
 		{
 			reader.SpeakAsyncCancelAll();
-			reader.SpeakAsync(args.Result.Text);
+			//reader.SpeakAsync(args.Result.Text);
 			ActionManager.Instance.ProcessResult(args.Result);
 			if (SpeechRecognized != null)
 			{

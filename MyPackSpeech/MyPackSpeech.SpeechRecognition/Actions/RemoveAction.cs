@@ -34,8 +34,9 @@ namespace MyPackSpeech.SpeechRecognition.Actions
 		   if (Course != null)
 		   {
 			   Student.RemoveCourse(Course);
+            return true;
 		   }
-         return true;
+         return false;
       }    
 
 

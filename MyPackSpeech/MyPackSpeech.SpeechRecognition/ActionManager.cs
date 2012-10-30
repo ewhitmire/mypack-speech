@@ -90,6 +90,7 @@ namespace MyPackSpeech
          {
             ActionDetectedEventArgs args = new ActionDetectedEventArgs(cmd, CurrStudent);
             ActionDetected(this, args);
+            RecoManager.Instance.reader.SpeakAsync("Ok");
          }
       }
 
