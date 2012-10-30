@@ -13,23 +13,57 @@ namespace MyPackSpeech.SpeechRecognition
    {
       public static Course ContructCourse(SemanticValue semantics)
       {
-         String Department = semantics[Slots.Department.ToString()].ToString();
-         int Number = int.Parse(semantics[Slots.Number.ToString()].ToString());
+         String Department = semantics[Slots.Department.ToString()].Value.ToString();
+         int Number = (int)semantics[Slots.Number.ToString()].Value;
 
          IFilter<Course> filter = CourseFilter.DeptAbv(Department).And(CourseFilter.Number(Number, Operator.EQ));
-         CourseCatalog.Instance.Filter = filter;
-         return CourseCatalog.Instance.FilteredCourses[0];
+         return CourseCatalog.Instance.GetCourses(filter).FirstOrDefault();
       }
 
       public static ScheduledCourse ContructScheduledCourse(SemanticValue semantics)
       {
          Course course = ContructCourse(semantics);
-         Semester sem = (Semester) Enum.Parse(typeof(Semester),  semantics[Slots.Semester.ToString()].ToString());
-         int year = int.Parse(semantics[Slots.Year.ToString()].ToString());
+         Semester sem = (Semester)Enum.Parse(typeof(Semester), semantics[Slots.Semester.ToString()].Value.ToString(), true);
+         int year = int.Parse(semantics[Slots.Year.ToString()].Value.ToString());
          ScheduledCourse sCourse = new ScheduledCourse(course, sem, year);
          return sCourse;
       }
+      public static List<Slots> ValidateExistingCourse(SemanticValue course)
+      {
+         List<Slots> missing = new List<Slots>();
+         if (!course.ContainsKey(Slots.Department.ToString()))
+         {
+            missing.Add(Slots.Department);
+         }
+         if (!course.ContainsKey(Slots.Number.ToString()))
+         {
+            missing.Add(Slots.Department);
+         }
+         return missing;
+      }
 
+      public static List<Slots> ValidateCourse(SemanticValue course)
+      {
+         List<Slots> missing = new List<Slots>();
+
+         if (!course.ContainsKey(Slots.Department.ToString()))
+         {
+            missing.Add(Slots.Department);
+         }
+         if (!course.ContainsKey(Slots.Number.ToString()))
+         {
+            missing.Add(Slots.Number);
+         }
+         if (!course.ContainsKey(Slots.Semester.ToString()))
+         {
+            missing.Add(Slots.Semester);
+         }
+         if (!course.ContainsKey(Slots.Year.ToString()))
+         {
+            missing.Add(Slots.Year);
+         }
+         return missing;
+      }
 
 
    }

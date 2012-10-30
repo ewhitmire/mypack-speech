@@ -9,19 +9,17 @@ namespace MyPackSpeech.SpeechRecognition.Actions
 {
    class AddAction : IAction
    {
-      public Student Student { get; private set; }  
-      SemanticValue semantics;
+      public Student Student { get; private set; }
+      public ScheduledCourse Course { get; private set; }
+      private SemanticValue semantics = null;
       public void Inform(SemanticValue sem, Student student)
       {
          Student = student;
-         if (sem.ContainsKey(Slots.Course1.ToString()))
-         {
-            semantics = sem[Slots.Course1.ToString()];
-         }
+         semantics = sem;
       }
       public bool Perform()
       {
-         List<Slots> missing = ActionManager.ValidateCourse(semantics);
+         List<Slots> missing = CourseConstructor.ValidateCourse(semantics);
 
          if (missing.Count > 0)
          {
@@ -29,15 +27,15 @@ namespace MyPackSpeech.SpeechRecognition.Actions
             return false;
          }
 
-         ScheduledCourse course = CourseConstructor.ContructScheduledCourse(semantics);
-         Student.AddCourse(course);
+         Course = CourseConstructor.ContructScheduledCourse(semantics);
+         Student.AddCourse(Course);
          return true;
       }
 
-     
-
       public void Undo()
       {
+         if (Course != null)
+            Student.Schedule.Courses.Remove(Course);
       }
    }
 }

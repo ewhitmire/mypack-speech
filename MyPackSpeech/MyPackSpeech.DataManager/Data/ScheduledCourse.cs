@@ -24,5 +24,14 @@ namespace MyPackSpeech.DataManager.Data
       {
          return string.Format("{0} {1} {2}", Semester, Year, Course);
       }
+      public override bool Equals(object obj)
+      {
+         ScheduledCourse other = obj as ScheduledCourse;
+         if ((object)other == null)
+         {
+            return false;
+         }
+         return other.Year == Year && other.Semester == Semester && other.Course.Equals(Course);
+      }
    }
 }

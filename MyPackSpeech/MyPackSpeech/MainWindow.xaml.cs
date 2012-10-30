@@ -49,7 +49,7 @@ namespace MyPackSpeech
          student.AddCourse(myCourse2);
          student.AddCourse(myCourse3);
 
-         RefreshSchedule(student.Schedule);
+         //RefreshSchedule(student.Schedule);
 
          //addClass(course, 3);
          //addClass(course2, 3);
@@ -64,10 +64,22 @@ namespace MyPackSpeech
          //removeBookmark(course2);
 
       }
-
+      private void ClearSchedule()
+      {
+         for (int i = 0; i < myGrid.Children.Count; i++)
+         {
+            TextBlock e = (TextBlock)myGrid.Children[i];
+            e.Text = "";
+         }
+         for (int i = 0; i < myGrid2.Children.Count; i++)
+         {
+            TextBlock e = (TextBlock)myGrid2.Children[i];
+            e.Text = "";
+         }
+      }
       public void RefreshSchedule(Schedule schedule) {
           //First semester is fall 2012
-          
+         ClearSchedule();
           for (int i = 0; i < schedule.Courses.Count; i++) {
               int column;
               int sem = 0;

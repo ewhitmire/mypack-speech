@@ -15,11 +15,9 @@ namespace MyPackSpeech.SpeechRecognition
             case CommandTypes.Add:
                return typeof(AddAction);
             case CommandTypes.Remove:
-               //return typeof(RemoveAction);
+               return typeof(RemoveAction);
             case CommandTypes.Move:
                //return typeof(MoveAction);
-            case CommandTypes.Swap:
-               return typeof(SwapAction);
             case CommandTypes.Undo:
                //return typeof(UndoAction);
             case CommandTypes.Show:
