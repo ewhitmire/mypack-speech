@@ -42,9 +42,9 @@ namespace MyPackSpeech
 
          DegreeProgram dp = DegreeCatalog.Instance.Degrees[0];
          Student student = new Student(dp);
-         ScheduledCourse myCourse1 = new ScheduledCourse(course, Semester.Spring, 2015, null);
+         ScheduledCourse myCourse1 = new ScheduledCourse(course, Semester.Spring, 2013, null);
          ScheduledCourse myCourse2 = new ScheduledCourse(course2, Semester.Spring, 2016, null);
-         ScheduledCourse myCourse3 = new ScheduledCourse(course3, Semester.Fall, 2015, null);
+         ScheduledCourse myCourse3 = new ScheduledCourse(course3, Semester.Fall, 2012, null);
          student.AddCourse(myCourse1);
          student.AddCourse(myCourse2);
          student.AddCourse(myCourse3);
@@ -76,7 +76,7 @@ namespace MyPackSpeech
                     sem = 1;
               }
 
-             //2012: 0
+             //2012: -1-0
              //2013: 1-2
              //2014: 3-4
              //2014: 5-6
@@ -85,17 +85,14 @@ namespace MyPackSpeech
               int year = course.Year - 2012;
               
              // 2 semesters for each year accept 2012
-             if (year > 0) {
                  year = year * 2 - 1;
-              }
 
               column = year + sem;
 
-             //Special case Fall, 2012
-              if (course.Year == 2012 && course.Semester == Semester.Fall) {
-               column = 0;
+              if (-1 < column && column < 8)
+              {
+                 addClass(course.Course, column);
               }
-              addClass(course.Course, column);
           }
 
       
