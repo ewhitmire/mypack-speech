@@ -33,5 +33,10 @@ namespace MyPackSpeech.DataManager.Data
          }
          return other.Year == Year && other.Semester == Semester && other.Course.Equals(Course);
       }
+
+      public override int GetHashCode()
+      {
+         return Year ^ Semester.GetHashCode() ^ Course.GetHashCode();
+      }
    }
 }
