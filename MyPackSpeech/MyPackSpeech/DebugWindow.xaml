@@ -1,0 +1,14 @@
+﻿<Window x:Class="MyPackSpeech.DebugWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:my="clr-namespace:MyPackSpeech"
+        Title="ChartWindow" Height="300" Width="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="119*"/>
+            <RowDefinition Height="150*"/>
+        </Grid.RowDefinitions>
+        <my:PhraseChart Margin="10"/>
+        <TextBox x:Name="debugOutput" Margin="10" Grid.Row="1" />
+    </Grid>
+</Window>
