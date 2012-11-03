@@ -74,6 +74,8 @@ namespace MyPackSpeech
 
 		void Instance_SpeechRecognized(object sender, SpeechRecognizedEventArgs ca)
 		{
+         DebugWindow.Trace("Command Found:" + ca.Result.Text + " (" + ca.Result.Confidence + ")");
+
 			barChart.SuspendLayout();
 			barChart.ChartAreas.Clear();
 			barChart.ChartAreas.Add("area1");
@@ -99,6 +101,8 @@ namespace MyPackSpeech
          //pt = null;
 			foreach (RecognizedPhrase phrase in ca.Result.Alternates)
 			{
+
+            DebugWindow.Trace("Alternative: " + phrase.Text + " (" + phrase.Confidence + ")");
 				DataPoint pAlt = new DataPoint(series);
 				pAlt.XValue = x;
 				pAlt.YValues = new double[] { phrase.Confidence };

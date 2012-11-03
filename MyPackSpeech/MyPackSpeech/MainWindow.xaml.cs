@@ -361,9 +361,6 @@ namespace MyPackSpeech
        
        public void makeHeaders()
       {
-
-
-
           //List<String> myClasses = new List<String>{ "1","2","3","4","5" };
           DataGridTextColumn mySemester1 = new DataGridTextColumn();
           mySemester1.Width = POW1.Width / 4 - 2;
@@ -412,14 +409,10 @@ namespace MyPackSpeech
           
 
       }
-      public void WriteToOutputWindow(String text)
-      {
-         txtOutput.Text += text;
-      }
 
       private void setupCourses()
       {
-         txtOutput.Text += "Number of Classes: " + CourseCatalog.Instance.Courses.Count;
+         DebugWindow.Trace("Number of Classes: " + CourseCatalog.Instance.Courses.Count);
          
       }
       
@@ -478,18 +471,9 @@ namespace MyPackSpeech
 
       }
 
-      private void RecoManager_SpeechRecognized(object sender, SpeechRecognizedEventArgs args)
-      {
-         WriteToOutputWindow("Command Found:" + args.Result.Text + " (" + args.Result.Confidence + ")\n");
-         foreach (RecognizedPhrase phrase in args.Result.Alternates)
-         {
-            WriteToOutputWindow("Alternative: " + phrase.Text + " (" + phrase.Confidence + ")\n");
-         }
-      }
-
       private void ActionManager_ActionDetected(object sender, ActionDetectedEventArgs args)
       {
-         WriteToOutputWindow("Action Found:" + args.CommandType+"\n");
+         DebugWindow.Trace("Action Found:" + args.CommandType);
          Student student = args.Student;
          RefreshSchedule(student.Schedule);
       }
@@ -505,18 +489,17 @@ namespace MyPackSpeech
               student = new Student(DegreeCatalog.Instance.Degrees[0]);
 				  recoStarted = true;
 				  RecoManager.Instance.Start();
-				  RecoManager.Instance.SpeechRecognized += new RecoManager.SpeechRecognizedHandler(RecoManager_SpeechRecognized);
 				  ActionManager.Instance.ActionDetected += ActionManager_ActionDetected;
-				  txtOutput.Text = "Started\n";
+              DebugWindow.Trace("Started");
 				  recoStarted = true;
 			  }
 			  catch (System.InvalidOperationException)
 			  {
-				  Console.WriteLine("Speech has already been started");
+				  DebugWindow.Trace("Speech has already been started");
 			  }
 		  }
 
-		 ChartWindow cw = new ChartWindow();
+		 DebugWindow cw = new DebugWindow();
 		 cw.Show();
       }
    }

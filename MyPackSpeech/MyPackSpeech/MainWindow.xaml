@@ -14,9 +14,11 @@
             <ColumnDefinition Width="361*"/>
         </Grid.ColumnDefinitions>
         <Border BorderBrush="Silver" BorderThickness="1" Grid.Column="1" Grid.Row="1" Height="317" HorizontalAlignment="Left" Margin="11,56,0,0" Name="border3" VerticalAlignment="Top" Width="338">
-            <TextBox Height="300" Name="txtOutput" Width="315" />
+            <TextBox Height="300" x:Name="infoBox" Width="315" />
         </Border>
-        <Border BorderBrush="Silver" BorderThickness="1" Grid.Row="1" Height="317" HorizontalAlignment="Left" Margin="8,56,0,0" Name="border1" VerticalAlignment="Top" Width="693" />
+        <Border BorderBrush="Silver" BorderThickness="1" Grid.Row="1" Height="556" HorizontalAlignment="Left" Margin="8,56,0,0" Name="border1" VerticalAlignment="Top" Width="693" >
+            <local:SemesterView HorizontalAlignment="Left" VerticalAlignment="Top" Margin="9,9,0,0" Height="536" Width="673"/>
+        </Border>
         <Menu Grid.Column="0" Grid.ColumnSpan="2" ItemsSource="{Binding}">
             <Menu.ItemBindingGroup>
                 <BindingGroup Name="Semesters" />
@@ -31,22 +33,16 @@
         </Menu>
         <Button Content="Start Speech Recognition" Grid.Row="1" Height="23" HorizontalAlignment="Left" Margin="11,6,0,0" Name="button1" VerticalAlignment="Top" Width="148" Click="button1_Click" />
         <Button Content="Next" HorizontalAlignment="Left" Margin="187,6,0,0" Grid.Row="1" VerticalAlignment="Top" Width="Auto" x:Name="btnNext" Click="btnNextClick"/>
-        <DataGrid AutoGenerateColumns="False" Grid.Row="1" Height="151" HorizontalAlignment="Left" Margin="16,64,0,0" Name="POW1" VerticalAlignment="Top" Width="678" Grid.ColumnSpan="1" Grid.Column="0" ItemsSource="{Binding}" AlternationCount="1" DataContext="{Binding}" HeadersVisibility="Column" IsReadOnly="True" />
+        <DataGrid AutoGenerateColumns="False" Grid.Row="1" Height="151" HorizontalAlignment="Left" Margin="-751,89,0,0" Name="POW1" VerticalAlignment="Top" Width="678" Grid.ColumnSpan="1" Grid.Column="0" ItemsSource="{Binding}" AlternationCount="1" DataContext="{Binding}" HeadersVisibility="Column" IsReadOnly="True" />
         <Label Content="Plan of Work" Grid.Row="1" Height="28" HorizontalAlignment="Left" Margin="4,34,0,0" Name="PlanOfWorkLabel" VerticalAlignment="Top" Width="80" />
-        <DataGrid AutoGenerateColumns="False" Grid.Row="1" Height="150" HorizontalAlignment="Left" Margin="16,214,0,0" Name="POW2" VerticalAlignment="Top" Width="678" />
-        <Border BorderBrush="Silver" BorderThickness="1" Grid.Row="1" Height="218" HorizontalAlignment="Left" Margin="8,394,0,0" Name="border2" VerticalAlignment="Top" Width="693">
-            <TextBox Height="199" Name="infoBox" Width="676" IsReadOnly="True" TextWrapping="Wrap" />
-        </Border>
-        <Label Content="Requirements" Grid.Row="1" Height="23" HorizontalAlignment="Left" Margin="11,34,0,0" Name="RequirementsLabel" VerticalAlignment="Top" Width="92" Grid.Column="1" />
-        <Label Content="Info" Grid.Row="1" Height="28" HorizontalAlignment="Left" Margin="4,372,0,0" Name="InfoLabel" VerticalAlignment="Top" />
+        <DataGrid AutoGenerateColumns="False" Grid.Row="1" Height="150" HorizontalAlignment="Left" Margin="-751,250,0,0" Name="POW2" VerticalAlignment="Top" Width="678" />
+        <Label Content="Info" Grid.Row="1" Height="23" HorizontalAlignment="Left" Margin="11,34,0,0" Name="RequirementsLabel" VerticalAlignment="Top" Width="92" Grid.Column="1" />
         <Label Content="Bookmarks" Grid.Row="1" Height="28" HorizontalAlignment="Left" Margin="11,372,0,0" Name="BookmarksLabel" VerticalAlignment="Top" Grid.Column="1" />
         <Border BorderBrush="Silver" BorderThickness="1" Grid.Column="1" Grid.Row="1" Height="218" HorizontalAlignment="Left" Margin="11,394,0,0" Name="border4" VerticalAlignment="Top" Width="338">
             <TextBox Height="199" Name="bookmarks" Width="322" IsReadOnly="True" />
         </Border>
-        <TreeView Grid.Column="1" Grid.Row="1" Height="235" HorizontalAlignment="Left" Margin="375,129,0,0" Name="treeView1" VerticalAlignment="Top" Width="316" />
-        <Grid Grid.Row="1" Height="126" HorizontalAlignment="Left" Margin="16,89,0,0" Name="myGrid" VerticalAlignment="Top" Width="678" />
-        <Grid Height="125" HorizontalAlignment="Left" Margin="16,239,0,0" Name="myGrid2" VerticalAlignment="Top" Width="678" Grid.Row="1" />
-        <RichTextBox Height="199" Name="BookMarksRTB" Width="325" Grid.Column="1" Margin="528,394,-492,31" Grid.Row="1" />
+        <Grid Height="125" HorizontalAlignment="Left" Margin="-732,432,0,0" Name="myGrid2" VerticalAlignment="Top" Width="678" Grid.Row="1" />
+        <Grid Height="125" HorizontalAlignment="Left" Margin="-732,432,0,0" x:Name="myGrid" VerticalAlignment="Top" Width="678" Grid.Row="1" />
 
     </Grid>
 </Window>
