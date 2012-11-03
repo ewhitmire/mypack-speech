@@ -8,24 +8,68 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="10*"/>
-            <RowDefinition Height="10*"/>
-            <RowDefinition Height="10*"/>
-            <RowDefinition Height="10*"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="70*"/>
+            <RowDefinition Height="70*"/>
+            <RowDefinition Height="70*"/>
+            <RowDefinition Height="69*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="10*"/>
-            <ColumnDefinition Width="10*"/>
+            <ColumnDefinition Width="20"/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <local:SemesterControl x:Name="sem11" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
-        <local:SemesterControl x:Name="sem12" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Grid.Column="1"/>
-        <local:SemesterControl x:Name="sem21" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Grid.Row="1"/>
-        <local:SemesterControl x:Name="sem22" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Grid.Column="1" Grid.Row="1"/>
-        <local:SemesterControl x:Name="sem31" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Grid.Row="2"/>
-        <local:SemesterControl x:Name="sem32" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Grid.Column="1" Grid.Row="2"/>
-        <local:SemesterControl x:Name="sem41" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Grid.Row="3"/>
-        <local:SemesterControl x:Name="sem42" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Grid.Column="1" Grid.Row="3"/>
+        <local:SemesterControl x:Name="sem11" Margin="5,5,5,5" Grid.Column="1" Grid.Row="1"/>
+        <local:SemesterControl x:Name="sem12" Margin="5,5,5,5" Grid.Column="2" Grid.Row="1"/>
+        <local:SemesterControl x:Name="sem21" Margin="5,5,5,5" Grid.Column="1" Grid.Row="2"/>
+        <local:SemesterControl x:Name="sem22" Margin="5,5,5,5" Grid.Column="2" Grid.Row="2"/>
+        <local:SemesterControl x:Name="sem31" Margin="5,5,5,5" Grid.Column="1" Grid.Row="3"/>
+        <local:SemesterControl x:Name="sem32" Margin="5,5,5,5" Grid.Column="2" Grid.Row="3"/>
+        <local:SemesterControl x:Name="sem41" Margin="5,5,5,5" Grid.Column="1" Grid.Row="4"/>
+        <local:SemesterControl x:Name="sem42" Margin="5,5,5,5" Grid.Column="2" Grid.Row="4"/>
+        <Label Content="Fall" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0"/>
+        <Label Content="Spring" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0"/>
+        <Label Name="year1" Content="2012" Grid.Row="1" Grid.Column="0" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0">
+            <Label.LayoutTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-90"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Label.LayoutTransform>
+        </Label>
+        <Label Name="year2" Content="2012" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0" RenderTransformOrigin="0.5,0.5" Padding="0">
+            <Label.LayoutTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-90"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Label.LayoutTransform>
+        </Label>
+        <Label Name="year3" Content="2012" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0" RenderTransformOrigin="0.5,0.5" Padding="0">
+            <Label.LayoutTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-90"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Label.LayoutTransform>
+        </Label>
+        <Label Name="year4" Content="2012" Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0" RenderTransformOrigin="0.5,0.5" Padding="0">
+            <Label.LayoutTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-90"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Label.LayoutTransform>
+        </Label>
 
     </Grid>
 </UserControl>

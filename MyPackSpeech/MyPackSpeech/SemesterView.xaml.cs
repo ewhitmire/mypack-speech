@@ -22,9 +22,8 @@ namespace MyPackSpeech
    /// </summary>
    public partial class SemesterView : UserControl
    {
-      private List<SemesterControl> semesters;
       private int startYear = 2012;
-      private Semester startSemester = Semester.Fall;
+      //private Semester startSemester = Semester.Fall;
       public SemesterView()
       {
          InitializeComponent();
@@ -32,22 +31,19 @@ namespace MyPackSpeech
       }
       private void InitGrids()
       {
-         semesters = new List<SemesterControl>();
-         semesters.Add(sem11);
-         semesters.Add(sem12);
-         semesters.Add(sem21);
-         semesters.Add(sem22);
-         semesters.Add(sem31);
-         semesters.Add(sem32);
-         semesters.Add(sem41);
-         semesters.Add(sem42);
-         for (int i = 0; i < 4; i++)
-         {
-            semesters[2 * i].SetSemester(Semester.Fall, startYear + i);
-            semesters[2 * i + 1].SetSemester(Semester.Spring, startYear + i);
-         }
-      }
+         sem11.SetSemester(Semester.Fall, startYear);
+         sem12.SetSemester(Semester.Spring, startYear);
+         sem21.SetSemester(Semester.Fall, startYear+1);
+         sem22.SetSemester(Semester.Spring, startYear+1);
+         sem31.SetSemester(Semester.Fall, startYear+2);
+         sem32.SetSemester(Semester.Spring, startYear+2);
+         sem41.SetSemester(Semester.Fall, startYear+3);
+         sem42.SetSemester(Semester.Spring, startYear+3);
 
-      
+         year1.Content = startYear;
+         year2.Content = startYear + 3;
+         year3.Content = startYear + 3;
+         year4.Content = startYear + 3;
+      }
    }
 }

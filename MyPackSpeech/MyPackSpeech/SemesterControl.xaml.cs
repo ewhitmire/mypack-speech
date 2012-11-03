@@ -34,12 +34,34 @@ namespace MyPackSpeech
       {
          this.sem = sem;
          this.year = year;
-         this.title.Content = sem.ToString() + " " + year.ToString();
+         //this.title.Content = sem.ToString() + " " + year.ToString();
       }
       private void SemesterFilter(object sender, FilterEventArgs e)
       {
          ScheduledCourse course = e.Item as ScheduledCourse;
          e.Accepted = course.Semester.Equals(sem) && course.Year.Equals(year);
       }
+
+      private void data_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+      {
+         if (e.PropertyName == "Course")
+         {
+            e.Column.Width = new DataGridLength(2, DataGridLengthUnitType.Star);
+            return;
+         }
+         if (e.PropertyName == "CourseName")
+         {
+            e.Column.Width = new DataGridLength(5, DataGridLengthUnitType.Star);
+            e.Column.Header = "Course Name";
+            return;
+         }
+         if (e.PropertyName == "Credits")
+         {
+            e.Column.Width = new DataGridLength(1, DataGridLengthUnitType.Star);
+            return;
+         }
+         e.Cancel = true;
+      }
+
    }
 }
