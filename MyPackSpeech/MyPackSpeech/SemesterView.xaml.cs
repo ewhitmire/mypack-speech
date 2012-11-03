@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -12,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MyPackSpeech.DataManager.Data;
+using MyPackSpeech.DataManager;
 
 namespace MyPackSpeech
 {
@@ -39,11 +41,10 @@ namespace MyPackSpeech
          semesters.Add(sem32);
          semesters.Add(sem41);
          semesters.Add(sem42);
-
          for (int i = 0; i < 4; i++)
          {
-            semesters[2*i].title.Content = "Fall " + (startYear + i);
-            semesters[2*i+1].title.Content = "Spring " + (startYear + i);
+            semesters[2 * i].SetSemester(Semester.Fall, startYear + i);
+            semesters[2 * i + 1].SetSemester(Semester.Spring, startYear + i);
          }
       }
 

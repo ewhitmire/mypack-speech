@@ -36,53 +36,61 @@ namespace MyPackSpeech.DataManager
       public void LoadData()
       {
          Debug.WriteLine("Reading list of degrees");
-         StreamReader deparmentsReader = new StreamReader(degreeList);
-         string degree;
-         while ((degree = deparmentsReader.ReadLine()) != null)
-         {           
-            String filename = String.Format("Curricula/{0}.json", degree);
+         try
+         {
+            StreamReader deparmentsReader = new StreamReader(degreeList);
+         
+            string degree;
+            while ((degree = deparmentsReader.ReadLine()) != null)
+            {           
+               String filename = String.Format("Curricula/{0}.json", degree);
             
-            if (File.Exists(filename))
-            {
-               Debug.WriteLine(filename);
+               if (File.Exists(filename))
+               {
+                  Debug.WriteLine(filename);
 
-               String fileContents = System.IO.File.ReadAllText(filename);
-               JArray json = JArray.Parse(fileContents);
+                  String fileContents = System.IO.File.ReadAllText(filename);
+                  JArray json = JArray.Parse(fileContents);
 
-               foreach (JToken jsonItem in json)
-               {                  
-                  if (jsonItem["type"].ToString().Equals("filter"))
+                  foreach (JToken jsonItem in json)
                   {
-                     IFilter<Course> filter = ParseCourseFilter(jsonItem["filter"]);
-                     orphanedFilters.Add(jsonItem["id"].ToString(), filter);
-                  }
-                  else
-                  {
-                     // likely only 1 per file
-                     String name = jsonItem["name"].ToString();
-                     DegreeProgram program = new DegreeProgram(name);
-                     Degrees.Add(program);
-
-                     JToken reqs = jsonItem["requirements"];
-
-                     foreach (JToken jsonDegreeCategory in reqs)
+                     if (jsonItem["type"].ToString().Equals("filter"))
                      {
-                        DegreeRequirementCategory cat = new DegreeRequirementCategory(jsonDegreeCategory["name"].ToString());
-                        JToken filters = jsonDegreeCategory["filters"];
+                        IFilter<Course> filter = ParseCourseFilter(jsonItem["filter"]);
+                        orphanedFilters.Add(jsonItem["id"].ToString(), filter);
+                     }
+                     else
+                     {
+                        // likely only 1 per file
+                        String name = jsonItem["name"].ToString();
+                        DegreeProgram program = new DegreeProgram(name);
+                        Degrees.Add(program);
 
-                        foreach (JToken jsonCourseFilter in filters)
+                        JToken reqs = jsonItem["requirements"];
+
+                        foreach (JToken jsonDegreeCategory in reqs)
                         {
-                           IFilter<Course> courseFilter = ParseCourseFilter(jsonCourseFilter);
-                           DegreeRequirement degreeReq = new DegreeRequirement();
-                           degreeReq.Category = cat;
-                           degreeReq.CourseRequirement = courseFilter;
+                           DegreeRequirementCategory cat = new DegreeRequirementCategory(jsonDegreeCategory["name"].ToString());
+                           JToken filters = jsonDegreeCategory["filters"];
 
-                           program.Requirements.Add(degreeReq);
+                           foreach (JToken jsonCourseFilter in filters)
+                           {
+                              IFilter<Course> courseFilter = ParseCourseFilter(jsonCourseFilter);
+                              DegreeRequirement degreeReq = new DegreeRequirement();
+                              degreeReq.Category = cat;
+                              degreeReq.CourseRequirement = courseFilter;
+
+                              program.Requirements.Add(degreeReq);
+                           }
                         }
                      }
                   }
                }
             }
+         }
+         catch (Exception e)
+         {
+            Debug.WriteLine("Count not read degrees.txt");
          }
       }
 

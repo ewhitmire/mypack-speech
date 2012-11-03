@@ -18,14 +18,14 @@
             <ColumnDefinition Width="10*"/>
         </Grid.ColumnDefinitions>
 
-        <local:SemesterControl x:Name="sem11" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="55" Width="130"/>
-        <local:SemesterControl x:Name="sem12" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="55" Width="130" Grid.Column="1"/>
-        <local:SemesterControl x:Name="sem21" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="55" Width="130" Grid.Row="1"/>
-        <local:SemesterControl x:Name="sem22" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="55" Width="130" Grid.Column="1" Grid.Row="1"/>
-        <local:SemesterControl x:Name="sem31" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="55" Width="130" Grid.Row="2"/>
-        <local:SemesterControl x:Name="sem32" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="55" Width="130" Grid.Column="1" Grid.Row="2"/>
-        <local:SemesterControl x:Name="sem41" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="55" Width="130" Grid.Row="3"/>
-        <local:SemesterControl x:Name="sem42" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="55" Width="130" Grid.Column="1" Grid.Row="3"/>
+        <local:SemesterControl x:Name="sem11" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+        <local:SemesterControl x:Name="sem12" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Grid.Column="1"/>
+        <local:SemesterControl x:Name="sem21" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+        <local:SemesterControl x:Name="sem22" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Grid.Column="1" Grid.Row="1"/>
+        <local:SemesterControl x:Name="sem31" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Grid.Row="2"/>
+        <local:SemesterControl x:Name="sem32" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Grid.Column="1" Grid.Row="2"/>
+        <local:SemesterControl x:Name="sem41" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Grid.Row="3"/>
+        <local:SemesterControl x:Name="sem42" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Grid.Column="1" Grid.Row="3"/>
 
     </Grid>
 </UserControl>

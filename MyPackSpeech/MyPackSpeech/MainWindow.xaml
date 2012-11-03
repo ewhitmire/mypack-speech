@@ -17,7 +17,7 @@
             <TextBox Height="300" x:Name="infoBox" Width="315" />
         </Border>
         <Border BorderBrush="Silver" BorderThickness="1" Grid.Row="1" Height="556" HorizontalAlignment="Left" Margin="8,56,0,0" Name="border1" VerticalAlignment="Top" Width="693" >
-            <local:SemesterView HorizontalAlignment="Left" VerticalAlignment="Top" Margin="9,9,0,0" Height="536" Width="673"/>
+            <local:SemesterView x:Name="semView" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="9,9,0,0" Height="536" Width="673"/>
         </Border>
         <Menu Grid.Column="0" Grid.ColumnSpan="2" ItemsSource="{Binding}">
             <Menu.ItemBindingGroup>

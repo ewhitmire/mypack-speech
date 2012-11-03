@@ -14,7 +14,7 @@
       <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AACCgAAAAAAgAQAEAOAACAQgAAAAAAAAEAgAAAAIAAA=</HashCode>
+      <HashCode>AACCgAAAAAAgAQgEAOAACAQgAAAAAAAAEAgAAAAIAAA=</HashCode>
       <FileName>Data\Course.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -77,9 +77,6 @@
     <ShowAsAssociation>
       <Field Name="Student" />
     </ShowAsAssociation>
-    <ShowAsCollectionAssociation>
-      <Property Name="Courses" />
-    </ShowAsCollectionAssociation>
   </Class>
   <Class Name="MyPackSpeech.DataManager.Data.ScheduledCourse">
     <Position X="6.75" Y="4.5" Width="1.5" />
@@ -88,7 +85,7 @@
       <Method Name="ToString" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAAAABAAAAAAEIIAAAAAAAAIAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAABAAAAAAEoIAAAAAAAAIAAIAAAAAAAAAAAAA=</HashCode>
       <FileName>Data\ScheduledCourse.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -103,7 +100,7 @@
       <Method Name="Student" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>QAAAAAAQAAAAAAAAAAAAAAAQAEAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>QAAAAgAQAAAACAAIAAAABAAQAEACAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Data\Student.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>

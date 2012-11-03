@@ -1,5 +1,7 @@
-﻿using System;
+﻿using MyPackSpeech.DataManager.Data;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Windows;
@@ -19,9 +21,25 @@ namespace MyPackSpeech
    /// </summary>
    public partial class SemesterControl : UserControl
    {
+      private Semester sem;
+      private int year;
       public SemesterControl()
       {
          InitializeComponent();
+         CollectionViewSource viewSource = (CollectionViewSource)Resources["viewSource"];
+         viewSource.Source = ActionManager.Instance.CurrStudent.Schedule.Courses;
+
+      }
+      public void SetSemester(Semester sem, int year)
+      {
+         this.sem = sem;
+         this.year = year;
+         this.title.Content = sem.ToString() + " " + year.ToString();
+      }
+      private void SemesterFilter(object sender, FilterEventArgs e)
+      {
+         ScheduledCourse course = e.Item as ScheduledCourse;
+         e.Accepted = course.Semester.Equals(sem) && course.Year.Equals(year);
       }
    }
 }
