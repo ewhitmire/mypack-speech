@@ -15,6 +15,7 @@ namespace MyPackSpeech.SpeechRecognition
       public SpeechSynthesizer reader;
       private CommandGrammar grammar;
       private int tries = 0;
+      private bool isSpeechRecoActive = false;
 
       public delegate void SpeechRecognizedHandler(object sender, SpeechRecognizedEventArgs ca);
       public event SpeechRecognizedHandler SpeechRecognized;
@@ -37,8 +38,24 @@ namespace MyPackSpeech.SpeechRecognition
          grammar = new CommandGrammar(CourseCatalog.Instance.Courses);
          recognitionEngine.LoadGrammar(grammar.grammar);
          recognitionEngine.SetInputToDefaultAudioDevice();
-         recognitionEngine.SpeechRecognitionRejected += recognitionEngine_SpeechRejected;
-         recognitionEngine.SpeechRecognized += recognitionEngine_SpeechRecognized;
+         recognitionEngine.RecognizeAsync(RecognizeMode.Multiple);
+      }
+
+      public void StopSpeechReco()
+      {
+         recognitionEngine.SpeechRecognitionRejected -= recognitionEngine_SpeechRejected;
+         recognitionEngine.SpeechRecognized -= recognitionEngine_SpeechRecognized;
+         isSpeechRecoActive = false;
+      }
+
+      public void StartSpeechReco()
+      {
+         if (!isSpeechRecoActive)
+         {
+            recognitionEngine.SpeechRecognitionRejected += recognitionEngine_SpeechRejected;
+            recognitionEngine.SpeechRecognized += recognitionEngine_SpeechRecognized;
+            isSpeechRecoActive = true;
+         }
       }
 
       private void recognitionEngine_SpeechRejected(object sender, SpeechRecognitionRejectedEventArgs e)
@@ -54,16 +71,11 @@ namespace MyPackSpeech.SpeechRecognition
          }
          else
          {
-            reader.Speak("That may not be a valid command.  Try saying something like. I would like to Add CSC 5 91 to my fall semester 2012.");
+            //reader.Speak("That may not be a valid command.  Try saying something like. I would like to Add CSC 5 91 to my fall semester 2012.");
          }
 
          recognitionEngine.RecognizeAsync(RecognizeMode.Multiple);
          System.Console.WriteLine(rejected);
-      }
-
-      public void Start()
-      {
-         recognitionEngine.RecognizeAsync(RecognizeMode.Multiple);
       }
 
       void recognitionEngine_SpeechRecognized(object sender, SpeechRecognizedEventArgs args)

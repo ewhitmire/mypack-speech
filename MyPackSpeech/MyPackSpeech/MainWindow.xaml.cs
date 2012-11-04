@@ -33,10 +33,7 @@
          {
          InitializeComponent();
          setupCourses();
-
-         RecoManager.Instance.Start();
-         DebugWindow.Trace("Started");
-
+         
          DebugWindow cw = new DebugWindow();
          cw.Show();
 
@@ -68,11 +65,11 @@
              bookmarks.Text = marks;
          }
 
-      public void showInfo(Course course)
-      {
-         infoBox.Text = "" + course.Dept.Name + "(" + course.DeptAbv + ")" + " " + course.Number + "\n" +
-             course.Description;
-      }
+         public void showInfo(Course course)
+         {
+            infoBox.Text = "" + course.Dept.Name + "(" + course.DeptAbv + ")" + " " + course.Number + "\n" +
+                course.Description;
+         }
     
          
          private void setupCourses()
@@ -101,16 +98,16 @@
             string file = getFile();
          }
 
-      private string getFile()
-      {
-          Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
-         if (dlg.ShowDialog(this).GetValueOrDefault(false))
-            return dlg.FileName;
-         return string.Empty;
-      }
-      private void showReqs()
-      {
-      }
+         private string getFile()
+         {
+             Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+            if (dlg.ShowDialog(this).GetValueOrDefault(false))
+               return dlg.FileName;
+            return string.Empty;
+         }
+         private void showReqs()
+         {
+         }
 
 
          private void showReqs_Click(object sender, RoutedEventArgs e)
@@ -122,64 +119,14 @@
          {
          }
 
-// <<<<<<< HEAD
-         // int currReq = -1;
-         // private void btnNextClick(object sender, EventArgs e)
-         // {
-            // //btnNext.HorizontalContentAlignment = HorizontalAlignment.Stretch;
-            // currReq++;
+         private void isSpeechOn_Checked(object sender, RoutedEventArgs e)
+         {
+            RecoManager.Instance.StartSpeechReco();
+         }
 
-            // currReq %= DegreeCatalog.Instance.Degrees[0].Requirements.Count;
-            // DegreeRequirement req = DegreeCatalog.Instance.Degrees[0].Requirements[currReq];
-            // btnNext.Content = req.Category.Name;
-            // CourseCatalog.Instance.Filter = req.CourseRequirement;
-
-         // }
-
-         // private void RecoManager_SpeechRecognized(object sender, SpeechRecognizedEventArgs args)
-         // {
-            // WriteToOutputWindow("Command Found:" + args.Result.Text + " (" + args.Result.Confidence + ")\n");
-            // foreach (RecognizedPhrase phrase in args.Result.Alternates)
-            // {
-               // WriteToOutputWindow("Alternative: " + phrase.Text + " (" + phrase.Confidence + ")\n");
-            // }
-         // }
-
-         // private void ActionManager_ActionDetected(object sender, ActionDetectedEventArgs args)
-         // {
-            // WriteToOutputWindow("Action Found:" + args.CommandType+"\n");
-            // Student student = args.Student;
-            // RefreshSchedule(student.Schedule);
-         // }
-
-         // bool recoStarted = false;
-         // Student student;
-         // private void button1_Click(object sender, RoutedEventArgs e)
-         // {
-		     // if (!recoStarted)
-		     // {
-			     // try
-			     // {
-                 // student = new Student(DegreeCatalog.Instance.Degrees[0]);
-				     // recoStarted = true;
-				     // RecoManager.Instance.Start();
-				     // RecoManager.Instance.SpeechRecognized += new RecoManager.SpeechRecognizedHandler(RecoManager_SpeechRecognized);
-				     // ActionManager.Instance.ActionDetected += ActionManager_ActionDetected;
-				     // txtOutput.Text = "Started\n";
-				     // recoStarted = true;
-			     // }
-			     // catch (System.InvalidOperationException)
-			     // {
-				     // Console.WriteLine("Speech has already been started");
-			     // }
-		     // }
-
-		    // ChartWindow cw = new ChartWindow();
-		    // cw.Show();
-         // }
-      // }
-   // }
-// =======
-
+         private void isSpeechOn_Unchecked(object sender, RoutedEventArgs e)
+         {
+            RecoManager.Instance.StopSpeechReco();
+         }
    }
 }
