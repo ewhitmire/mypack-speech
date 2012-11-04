@@ -37,7 +37,7 @@ namespace MyPackSpeech.SpeechRecognition
 			grammar = new CommandGrammar(CourseCatalog.Instance.Courses);
 			recognitionEngine.LoadGrammar(grammar.grammar);
 			recognitionEngine.SetInputToDefaultAudioDevice();
-         recognitionEngine.SpeechRecognitionRejected += recognitionEngine_SpeechRecognitionRejected;
+         recognitionEngine.SpeechRecognitionRejected += recognitionEngine_SpeechRejected;
 			recognitionEngine.SpeechRecognized += recognitionEngine_SpeechRecognized;
 		}
 
