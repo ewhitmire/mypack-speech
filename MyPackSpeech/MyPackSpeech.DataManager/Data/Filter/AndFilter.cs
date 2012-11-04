@@ -16,5 +16,10 @@ namespace MyPackSpeech.DataManager.Data.Filter
       {
          return LHS.Matches(item) && RHS.Matches(item);
       }
+
+      public override string ToString()
+      {
+         return String.Format("{0} && {1}", LHS, RHS);
+      }
    }
 }

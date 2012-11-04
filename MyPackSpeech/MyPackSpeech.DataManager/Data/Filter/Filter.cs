@@ -73,5 +73,13 @@ namespace MyPackSpeech.DataManager.Data.Filter
       {
          return new NotFilter<T>(this);
       }
+
+      public override string ToString()
+      {
+         string crit = String.IsNullOrEmpty(StrCriteria) 
+            ? IntCriteria.ToString() 
+            : StrCriteria;
+         return String.Format("{0} {1} {2}", PropertyName, Utils.GetDescription(Op.GetType(), Op.ToString()), crit);
+      }
    }
 }

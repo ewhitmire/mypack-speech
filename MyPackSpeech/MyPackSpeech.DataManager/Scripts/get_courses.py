@@ -133,14 +133,14 @@ class CourseParser(HTMLParser):
         elif self.status == self.UNITS:
             split = data.split(" - ")
             self.course['units'] = split[0]
-            if len(split) == 1:
+            if "Fall" in data or "Spring" in data or "Summer" in data:
+                self.course['fall'] = "Fall" in data
+                self.course['spring'] = "Spring" in data
+                self.course['summer'] = "Summer" in data
+            else:
                 self.course['fall'] = "True"
                 self.course['spring'] = "True"
-                self.course['summer'] = "True"
-            else:
-                self.course['fall'] = "Fall" in split[1]
-                self.course['spring'] = "Spring" in split[1]
-                self.course['summer'] = "Summer" in split[1]
+                self.course['summer'] = "False"
         elif self.status == self.DESCRIPTION:
             if hasattr(self.course, "description"):
                 self.course['description'] = self.course['description'] + data
