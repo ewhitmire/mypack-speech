@@ -76,7 +76,7 @@ namespace MyPackSpeech.DataManager.Data
 
       public ScheduledCourse FindCourse(Course course)
       {
-         return Schedule.Courses.Find(c => c.Course.Equals(course));
+         return Schedule.Courses.ToList().Find(c => c.Course.Equals(course));
       }
 
       private void OnScheduleChanged()

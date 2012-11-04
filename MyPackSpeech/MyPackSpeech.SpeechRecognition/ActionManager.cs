@@ -89,10 +89,10 @@ namespace MyPackSpeech
                throw new ArgumentException("Invalid command type: " + cmd);
          }
 
-         if (callEvent && ActionDetected != null)
+         if (callEvent && actionDetected != null)
          {
             ActionDetectedEventArgs args = new ActionDetectedEventArgs(cmd, CurrStudent);
-            ActionDetected(this, args);
+            actionDetected(this, args);
             RecoManager.Instance.reader.SpeakAsync("Ok");
          }
       }
@@ -112,7 +112,7 @@ namespace MyPackSpeech
 
       private void OnSemesterChanged()
       {
-         EventHandler evt = SemesterChanged;
+         EventHandler evt = semesterChanged;
          if (evt != null)
             evt(this, EventArgs.Empty);
       }
