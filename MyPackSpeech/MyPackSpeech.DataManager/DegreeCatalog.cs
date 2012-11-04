@@ -97,6 +97,7 @@ namespace MyPackSpeech.DataManager
          catch (Exception e)
          {
             Debug.WriteLine("Count not read degrees.txt");
+            Debug.WriteLine(e.Message);
          }
       }
 

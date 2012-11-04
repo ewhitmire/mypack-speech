@@ -26,20 +26,24 @@ namespace MyPackSpeech
          InitializeComponent();
 
          DegreeProgram degree = ActionManager.Instance.CurrStudent.Degree;
-         foreach (DegreeRequirementCategory cat in degree.GetCategories())
+         if (degree != null)
          {
-            TreeViewItem categoryChild = new TreeViewItem();
-            categoryChild.Header = cat.Name;
-            reqTree.Items.Add(categoryChild);
-            IEnumerable<DegreeRequirement> reqs = degree.Requirements.Where<DegreeRequirement>(r => r.Category.Equals(cat));
-            foreach (DegreeRequirement req in reqs)
+            foreach (DegreeRequirementCategory cat in degree.GetCategories())
             {
-               TreeViewItem child = new TreeViewItem();
-               child.Header = req;
-               categoryChild.Items.Add(child);
+               TreeViewItem categoryChild = new TreeViewItem();
+               categoryChild.Header = cat.Name;
+               reqTree.Items.Add(categoryChild);
+               IEnumerable<DegreeRequirement> reqs = degree.Requirements.Where<DegreeRequirement>(r => r.Category.Equals(cat));
+               foreach (DegreeRequirement req in reqs)
+               {
+                  TreeViewItem child = new TreeViewItem();
+                  child.Header = req;
+                  RequirementEntry reqEntry = new RequirementEntry(req);
+                  child.Items.Add(reqEntry);
+                  categoryChild.Items.Add(child);
+               }
             }
          }
-
       }
    }
 }

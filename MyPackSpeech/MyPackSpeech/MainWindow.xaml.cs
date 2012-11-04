@@ -33,6 +33,12 @@ namespace MyPackSpeech
       {
          InitializeComponent();
          setupCourses();
+
+         RecoManager.Instance.Start();
+         DebugWindow.Trace("Started");
+
+         DebugWindow cw = new DebugWindow();
+         cw.Show();
       }
       
 
@@ -99,7 +105,6 @@ namespace MyPackSpeech
             return dlg.FileName;
          return string.Empty;
       }
-
       private void showReqs()
       {
       }
@@ -114,41 +119,6 @@ namespace MyPackSpeech
       {
       }
 
-      int currReq = -1;
-      private void btnNextClick(object sender, EventArgs e)
-      {
-         //btnNext.HorizontalContentAlignment = HorizontalAlignment.Stretch;
-         currReq++;
 
-         currReq %= DegreeCatalog.Instance.Degrees[0].Requirements.Count;
-         DegreeRequirement req = DegreeCatalog.Instance.Degrees[0].Requirements[currReq];
-         btnNext.Content = req.Category.Name;
-         CourseCatalog.Instance.Filter = req.CourseRequirement;
-
-      }
-
-      bool recoStarted = false;
-      Student student;
-      private void button1_Click(object sender, RoutedEventArgs e)
-      {
-		  if (!recoStarted)
-		  {
-			  try
-			  {
-              student = new Student(DegreeCatalog.Instance.Degrees[0]);
-				  recoStarted = true;
-				  RecoManager.Instance.Start();
-              DebugWindow.Trace("Started");
-				  recoStarted = true;
-			  }
-			  catch (System.InvalidOperationException)
-			  {
-				  DebugWindow.Trace("Speech has already been started");
-			  }
-		  }
-
-		 DebugWindow cw = new DebugWindow();
-		 cw.Show();
-      }
    }
 }

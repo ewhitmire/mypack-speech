@@ -5,17 +5,16 @@
         Title="MyPack Speech" Height="684" Width="1100" >
 
     <Grid>
+
         <Grid.RowDefinitions>
-            <RowDefinition Height="21" />
-            <RowDefinition Height="159*" />
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="10*" />
+            <RowDefinition Height="5*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-			<ColumnDefinition Width="717*" />
-            <ColumnDefinition Width="361*"/>
+			<ColumnDefinition Width="10*" />
+            <ColumnDefinition Width="4*"/>
         </Grid.ColumnDefinitions>
-        <Border BorderBrush="Silver" BorderThickness="1" Grid.Column="1" Grid.Row="1" Height="317" HorizontalAlignment="Left" Margin="11,56,0,0" Name="border3" VerticalAlignment="Top" Width="338">
-            <TextBox Height="300" x:Name="infoBox" Width="315" />
-        </Border>
         <Menu Grid.Column="0" Grid.ColumnSpan="2" ItemsSource="{Binding}">
             <Menu.ItemBindingGroup>
                 <BindingGroup Name="Semesters" />
@@ -28,14 +27,16 @@
             <MenuItem Header="Requirements" Click="showReqs_Click"/>
             <MenuItem Header="Courses" Click="showCourses_Click"/>
         </Menu>
-        <Button Content="Start Speech Recognition" Grid.Row="1" Height="23" HorizontalAlignment="Left" Margin="11,6,0,0" Name="button1" VerticalAlignment="Top" Width="148" Click="button1_Click" />
-        <Button Content="Next" HorizontalAlignment="Left" Margin="187,6,0,0" Grid.Row="1" VerticalAlignment="Top" Width="Auto" x:Name="btnNext" Click="btnNextClick"/>
-        <Label Content="Info" Grid.Row="1" Height="23" HorizontalAlignment="Left" Margin="11,34,0,0" Name="RequirementsLabel" VerticalAlignment="Top" Width="92" Grid.Column="1" />
-        <Label Content="Bookmarks" Grid.Row="1" Height="28" HorizontalAlignment="Left" Margin="11,372,0,0" Name="BookmarksLabel" VerticalAlignment="Top" Grid.Column="1" />
-        <Border BorderBrush="Silver" BorderThickness="1" Grid.Column="1" Grid.Row="1" Height="218" HorizontalAlignment="Left" Margin="11,394,0,0" Name="border4" VerticalAlignment="Top" Width="338">
-            <TextBox Height="199" Name="bookmarks" Width="322" IsReadOnly="True" />
+        <Label Content="Info" Grid.Row="1" Height="25" HorizontalAlignment="Left" Name="RequirementsLabel" VerticalAlignment="Top" Grid.Column="1" />
+        <Border BorderBrush="Silver" BorderThickness="1" Grid.Column="1" Grid.Row="1" Margin="5,25,5,5" Name="border3">
+            <TextBox x:Name="infoBox" IsEnabled="False"/>
         </Border>
-        <TabControl Grid.Row="1" Margin="0,34,0,0">
+        
+        <Label Content="Bookmarks" Grid.Row="2" Height="25" HorizontalAlignment="Left" Name="BookmarksLabel" VerticalAlignment="Top" Grid.Column="1" />
+        <Border BorderBrush="Silver" BorderThickness="1" Grid.Column="1" Grid.Row="2" Margin="5,25,5,5" Name="border4">
+            <TextBox Name="bookmarks" IsReadOnly="True" IsEnabled="False" />
+        </Border>
+        <TabControl Grid.Row="1" Margin="5,5,5,5" Grid.RowSpan="2">
             <TabItem Header="Semester View">
                 <local:SemesterView x:Name="semView"/>
             </TabItem>
