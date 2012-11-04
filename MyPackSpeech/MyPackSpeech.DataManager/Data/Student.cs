@@ -52,6 +52,33 @@ namespace MyPackSpeech.DataManager.Data
          OnScheduleChanged();
       }
 
+      public ScheduledCourse MoveCourse(ScheduledCourse course)
+      {
+         //Remove existing course then add the new course
+         //Return exiting course for undo
+         ScheduledCourse existing = FindCourse(course.Course);
+
+         if (existing != null)
+         {
+            RemoveCourse(existing);
+         }
+
+         AddCourse(course);
+         
+         OnScheduleChanged();
+         return existing;
+      }
+
+      public bool IsTaking(Course course)
+      {
+         return FindCourse(course) != null;
+      }
+
+      public ScheduledCourse FindCourse(Course course)
+      {
+         return Schedule.Courses.Find(c => c.Course.Equals(course));
+      }
+
       private void OnScheduleChanged()
       {
          EventHandler evt = ScheduleChanged;

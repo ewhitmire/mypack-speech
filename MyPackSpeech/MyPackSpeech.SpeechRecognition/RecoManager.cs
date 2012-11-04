@@ -11,7 +11,6 @@ namespace MyPackSpeech.SpeechRecognition
 
 	public class RecoManager
 	{
-
 		private SpeechRecognitionEngine recognitionEngine;
 		public SpeechSynthesizer reader;
 		private CommandGrammar grammar;
@@ -19,9 +18,7 @@ namespace MyPackSpeech.SpeechRecognition
 
 		public delegate void SpeechRecognizedHandler(object sender, SpeechRecognizedEventArgs ca);
 		public event SpeechRecognizedHandler SpeechRecognized;
-
-
-
+      
 		private static RecoManager instance = null;
 		public static RecoManager Instance
 		{
@@ -40,8 +37,8 @@ namespace MyPackSpeech.SpeechRecognition
 			grammar = new CommandGrammar(CourseCatalog.Instance.Courses);
 			recognitionEngine.LoadGrammar(grammar.grammar);
 			recognitionEngine.SetInputToDefaultAudioDevice();
+         recognitionEngine.SpeechRecognitionRejected += recognitionEngine_SpeechRecognitionRejected;
 			recognitionEngine.SpeechRecognized += recognitionEngine_SpeechRecognized;
-         recognitionEngine.SpeechRecognitionRejected += this.recognitionEngine_SpeechRejected;
 		}
 
       private void recognitionEngine_SpeechRejected(object sender, SpeechRecognitionRejectedEventArgs e) {
@@ -60,7 +57,7 @@ namespace MyPackSpeech.SpeechRecognition
          
          recognitionEngine.RecognizeAsync(RecognizeMode.Multiple);
          System.Console.WriteLine(rejected);
-      }
+	}
 
 		public void Start()
 		{

@@ -20,6 +20,12 @@ namespace MyPackSpeech.SpeechRecognition
          return CourseCatalog.Instance.GetCourses(filter).FirstOrDefault();
       }
 
+      /// <summary>
+      /// Contructs the scheduled course, will get the year and semester from the ActionManager
+      /// if they are not part of the semantic value
+      /// </summary>
+      /// <param name="semantics">The semantics.</param>
+      /// <returns></returns>
       public static ScheduledCourse ContructScheduledCourse(SemanticValue semantics)
       {
          Course course = ContructCourse(semantics);
@@ -27,11 +33,36 @@ namespace MyPackSpeech.SpeechRecognition
          {
             return null;
          }
-         Semester sem = (Semester)Enum.Parse(typeof(Semester), semantics[Slots.Semester.ToString()].Value.ToString(), true);
-         int year = int.Parse(semantics[Slots.Year.ToString()].Value.ToString());
-         ScheduledCourse sCourse = new ScheduledCourse(course, sem, year);
+         Semester? sem = GetSemester(semantics, ActionManager.Instance.CurrentSemester);
+         int? year = GetYear(semantics, ActionManager.Instance.CurrentYear);
+
+         if (year == null)
+            throw new InvalidOperationException("Should not be call without valid year information");
+         if (sem == null)
+            throw new InvalidOperationException("Should not be called without semester information");
+
+         ScheduledCourse sCourse = new ScheduledCourse(course, sem.Value, year.Value);
          return sCourse;
       }
+
+      public static Semester? GetSemester(SemanticValue semantics, Semester? sem = null)
+      {         
+         if (semantics.ContainsKey(Slots.Semester.ToString()))
+         {
+            sem = (Semester)Enum.Parse(typeof(Semester), semantics[Slots.Semester.ToString()].Value.ToString(), true);
+         }
+         
+         return sem;
+      }
+
+      public static int? GetYear(SemanticValue semantics, int? year = null)
+      {
+         if (semantics.ContainsKey(Slots.Year.ToString()))
+            year = int.Parse(semantics[Slots.Year.ToString()].Value.ToString());
+         
+         return year;
+      }
+
       public static List<Slots> ValidateExistingCourse(SemanticValue course)
       {
          List<Slots> missing = new List<Slots>();
@@ -58,11 +89,13 @@ namespace MyPackSpeech.SpeechRecognition
          {
             missing.Add(Slots.Number);
          }
-         if (!course.ContainsKey(Slots.Semester.ToString()))
+         if (!course.ContainsKey(Slots.Semester.ToString())
+            && !ActionManager.Instance.CurrentSemester.HasValue)
          {
             missing.Add(Slots.Semester);
          }
-         if (!course.ContainsKey(Slots.Year.ToString()))
+         if (!course.ContainsKey(Slots.Year.ToString())
+            && !ActionManager.Instance.CurrentYear.HasValue)
          {
             missing.Add(Slots.Year);
          }
