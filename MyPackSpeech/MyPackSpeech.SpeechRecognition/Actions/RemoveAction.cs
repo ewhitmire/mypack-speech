@@ -30,7 +30,7 @@ namespace MyPackSpeech.SpeechRecognition.Actions
 			}
 
          ScheduledCourse sCourse= CourseConstructor.ContructScheduledCourse(semantics);
-         Course = Student.Schedule.Courses.Find(c => c.Equals(sCourse));
+         Course = Student.Schedule.Courses.Where(c => c.Equals(sCourse)).FirstOrDefault();
 		   if (Course != null)
 		   {
 			   Student.RemoveCourse(Course);

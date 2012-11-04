@@ -16,11 +16,20 @@ namespace MyPackSpeech
 	/// <summary>
 	/// Interaction logic for ChartWindow.xaml
 	/// </summary>
-	public partial class ChartWindow : Window
+	public partial class DebugWindow : Window
 	{
-		public ChartWindow()
+      private static DebugWindow instance;
+		public DebugWindow()
 		{
+         instance = this;
 			InitializeComponent();
 		}
+      public static void Trace(String message)
+      {
+         if (instance != null)
+         {
+            instance.debugOutput.AppendText(message+"\n");
+         }
+      }
 	}
 }

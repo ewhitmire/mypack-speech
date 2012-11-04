@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:charting="clr-namespace:System.Windows.Forms.DataVisualization.Charting;assembly=System.Windows.Forms.DataVisualization"
-             xmlns:wf="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"  
+             xmlns:wf="clr-1space:System.Windows.Forms;assembly=System.Windows.Forms"  
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
@@ -15,7 +15,7 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <WindowsFormsHost Grid.Column="0" Grid.Row="0">
-            <charting:Chart Name="chart1" x:Name="barChart" >
+            <charting:Chart x:Name="barChart" >
                 <charting:Chart.ChartAreas>
                     <charting:ChartArea>
                         <charting:ChartArea.Area3DStyle>

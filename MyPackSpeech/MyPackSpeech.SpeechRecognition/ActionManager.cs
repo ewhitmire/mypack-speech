@@ -106,7 +106,7 @@ namespace MyPackSpeech
 
       protected ActionManager()
       {
-         CurrStudent = new Student(DegreeCatalog.Instance.Degrees[0]);
+         CurrStudent = new Student(DegreeCatalog.Instance.Degrees.FirstOrDefault());
       }
       #region student
       public Student CurrStudent { get; private set; }

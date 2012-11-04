@@ -221,14 +221,12 @@ namespace MyPackSpeech.SpeechRecognition
 
          //SemanticResultKey course1 = new SemanticResultKey(Slots.Course1.ToString(), this.course);
 
-         Choices preps = new Choices("to", "in");
 
          // put the whole command together
          GrammarBuilder finalCommand = new GrammarBuilder();
          finalCommand.Append(this.pleasantries, 0, 1);
          finalCommand.Append(commandSemKey);
          finalCommand.Append(this.course);
-         finalCommand.Append(preps, 0, 1);
          finalCommand.Append(this.semester);
 
          return finalCommand;
