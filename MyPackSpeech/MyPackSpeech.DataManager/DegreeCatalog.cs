@@ -57,7 +57,10 @@ namespace MyPackSpeech.DataManager
                      if (jsonItem["type"].ToString().Equals("filter"))
                      {
                         IFilter<Course> filter = ParseCourseFilter(jsonItem["filter"]);
-                        orphanedFilters.Add(jsonItem["id"].ToString(), filter);
+                        if (!orphanedFilters.ContainsKey(jsonItem["id"].ToString()))
+                        {
+                           orphanedFilters.Add(jsonItem["id"].ToString(), filter);
+                        }
                      }
                      else
                      {
@@ -76,11 +79,14 @@ namespace MyPackSpeech.DataManager
                            foreach (JToken jsonCourseFilter in filters)
                            {
                               IFilter<Course> courseFilter = ParseCourseFilter(jsonCourseFilter);
-                              DegreeRequirement degreeReq = new DegreeRequirement();
-                              degreeReq.Category = cat;
-                              degreeReq.CourseRequirement = courseFilter;
+                              if (courseFilter != null)
+                              {
+                                 DegreeRequirement degreeReq = new DegreeRequirement();
+                                 degreeReq.Category = cat;
+                                 degreeReq.CourseRequirement = courseFilter;
 
-                              program.Requirements.Add(degreeReq);
+                                 program.Requirements.Add(degreeReq);
+                              }
                            }
                         }
                      }
@@ -114,64 +120,67 @@ namespace MyPackSpeech.DataManager
          {
             // Must be something like CSC 400+
             Department dept = CourseCatalog.Instance.GetDepartment(json["department"].ToString());
-            c = CourseFilter.DeptName(dept.Name);
-
-            IFilter<Course> numbers = null;
-            foreach (Operator op in Enum.GetValues(typeof(Operator)))
+            if (null != dept)
             {
-               var val = json[op.ToString()];
-               if (val != null)
+               c = CourseFilter.DeptName(dept.Name);
+
+               IFilter<Course> numbers = null;
+               foreach (Operator op in Enum.GetValues(typeof(Operator)))
                {
-                  int num = int.Parse(val.ToString());
-                  if (json[op.ToString()] != null)
+                  var val = json[op.ToString()];
+                  if (val != null)
                   {
-                     if (numbers == null)
-                        numbers = CourseFilter.Number(num, op);
-                     else
-                        numbers = numbers.Or(CourseFilter.Number(num, op));
+                     int num = int.Parse(val.ToString());
+                     if (json[op.ToString()] != null)
+                     {
+                        if (numbers == null)
+                           numbers = CourseFilter.Number(num, op);
+                        else
+                           numbers = numbers.Or(CourseFilter.Number(num, op));
+                     }
                   }
+               }
+
+               c = c.And(numbers);
+            }
+
+            if (json["and"] != null)
+            {
+               foreach (JToken subfilter in json["and"])
+               {
+                  var filter = ParseCourseFilter(subfilter);
+                  if (c == null)
+                     c = filter;
+                  else
+                     c = c.And(filter);
                }
             }
 
-            c = c.And(numbers);
-         }
-
-         if (json["and"] != null)
-         {
-            foreach (JToken subfilter in json["and"])
+            if (json["or"] != null)
             {
-               var filter = ParseCourseFilter(subfilter);
-               if (c == null)
-                  c = filter;
-               else
-                  c = c.And(filter);
+               foreach (JToken subfilter in json["or"])
+               {
+                  var filter = ParseCourseFilter(subfilter);
+                  if (c == null)
+                     c = filter;
+                  else
+                     c = c.Or(filter);
+               }
             }
-         }
-         
-         if (json["or"] != null)
-         {
-            foreach (JToken subfilter in json["or"])
-            {
-               var filter = ParseCourseFilter(subfilter);
-               if (c == null)
-                  c = filter;
-               else
-                  c = c.Or(filter);
-            }
-         }
 
-         if (json["not"] != null)
-         {
-            foreach (JToken subfilter in json["not"])
+            if (json["not"] != null)
             {
-               var filter = ParseCourseFilter(subfilter).Not();
-               if (c == null)
-                  c = filter;
-               else
-                  c = c.And(filter);
+               foreach (JToken subfilter in json["not"])
+               {
+                  var filter = ParseCourseFilter(subfilter).Not();
+                  if (c == null)
+                     c = filter;
+                  else
+                     c = c.And(filter);
+               }
             }
-         }
 
+         }
          return c;
       }
    }

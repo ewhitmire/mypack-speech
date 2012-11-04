@@ -1,7 +1,99 @@
 [
 {
     "type": "filter",
+    "id": "Other Restricted Electives",
+    "filter": {
+        "or": [
+            {"department": "ACC"},
+            {"department": "BCH"},
+            {"department": "BUS"},
+            {"department": "CE"},
+            {"department": "CHE"},
+            {"department": "CSC"},
+            {"department": "EC"},
+            {"department": "ECE"},
+            {"department": "EMS"},
+            {"department": "GC"},
+            {"department": "GN"},
+            {"department": "IE"},
+            {"department": "LOG"},
+            {"department": "MA"},
+            {"department": "MAE"},
+            {"department": "MIE"},
+            {"department": "MSE"},
+            {"department": "MUS"},
+            {"department": "NE"},
+            {"department": "OR"},
+            {"department": "PHI"},
+            {"department": "PSY"},
+            {"department": "PY"},
+            {"department": "ST"}
+        ]
+    }
+},
+{
+    "type": "filter",
     "id": "CSC Restricted Electives",
+    "filter": {
+        "or": [
+            {"course": "CSC 302"},
+            {"course": "CSC 312"},
+            {"course": "CSC 342"},
+            {"department": "CSC", "GTE":"400", "not":[{"course":"CSC 423"}, {"course":"CSC 427"},{"course":"CSC 428"},{"course":"CSC 489"}]}
+        ]
+    }
+},
+{
+    "type": "filter",
+    "id": "Basic Science Elective",
+    "filter": {
+        "or": [
+            {"course": "CSC 302"},
+            {"course": "CSC 312"},
+            {"course": "CSC 342"},
+            {"department": "CSC", "GTE":"400", "not":[{"course":"CSC 423"}, {"course":"CSC 427"},{"course":"CSC 428"},{"course":"CSC 489"}]}
+        ]
+    }
+},
+{
+    "type": "filter",
+    "id": "Humanities",
+    "filter": {
+        "or": [
+            {"course": "CSC 302"},
+            {"course": "CSC 312"},
+            {"course": "CSC 342"},
+            {"department": "CSC", "GTE":"400", "not":[{"course":"CSC 423"}, {"course":"CSC 427"},{"course":"CSC 428"},{"course":"CSC 489"}]}
+        ]
+    }
+},
+{
+    "type": "filter",
+    "id": "Social Science",
+    "filter": {
+        "or": [
+            {"course": "CSC 302"},
+            {"course": "CSC 312"},
+            {"course": "CSC 342"},
+            {"department": "CSC", "GTE":"400", "not":[{"course":"CSC 423"}, {"course":"CSC 427"},{"course":"CSC 428"},{"course":"CSC 489"}]}
+        ]
+    }
+},
+{
+    "type": "filter",
+    "id": "Interdisciplinary Perspectives",
+    "filter": {
+        "or": [
+            {"course": "CSC 302"},
+            {"course": "CSC 312"},
+            {"course": "CSC 342"},
+            {"department": "CSC", "GTE":"400", "not":[{"course":"CSC 423"}, {"course":"CSC 427"},{"course":"CSC 428"},{"course":"CSC 489"}]}
+        ]
+    }
+},
+{
+    "type": "filter",
+    "id": "Additional Breadth",
     "filter": {
         "or": [
             {"course": "CSC 302"},
@@ -69,12 +161,10 @@
         {
             "name": "GEP",
             "filters": [
-                { "name": "Humanities" },
-                { "name": "Humanities" },
-                { "name": "Social Science" },
-                { "name": "Interdisciplinary Perspectives" },
-                { "name": "Interdisciplinary Perspectives" },
-                { "name": "Additional Breadth" }
+                { "id": "Humanities" },
+                { "id": "Social Science" },
+                { "id": "Interdisciplinary Perspectives" },
+                { "id": "Additional Breadth" }
             ]
         },
         {
@@ -86,10 +176,7 @@
         {
             "name": "Other Restricted Electives",
             "filters": [
-                { "credits": 3 },
-                { "credits": 3 },
-                { "credits": 3 },
-                { "credits": 3 }
+                { "id":"Other Restricted Electives", "credits": 9 }
             ]
         }
     ]

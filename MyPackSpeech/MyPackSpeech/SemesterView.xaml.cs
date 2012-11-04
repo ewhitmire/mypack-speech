@@ -41,8 +41,8 @@ namespace MyPackSpeech
          sem42.SetSemester(Semester.Spring, startYear+3);
 
          year1.Content = startYear;
-         year2.Content = startYear + 3;
-         year3.Content = startYear + 3;
+         year2.Content = startYear + 1;
+         year3.Content = startYear + 2;
          year4.Content = startYear + 3;
       }
    }
