@@ -44,7 +44,7 @@ namespace MyPackSpeech.DataManager.Data
       /// greater than
       /// </summary>
       [Description(">")]
-      GT,
+      GT,   
 
       /// <summary>
       /// Test if one value is in another value, 

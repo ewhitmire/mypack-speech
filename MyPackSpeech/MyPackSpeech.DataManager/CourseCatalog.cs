@@ -70,7 +70,10 @@ namespace MyPackSpeech.DataManager
       {
          Courses = new List<Course>();
          Departments = new List<Department>();
+         DateTime start = DateTime.Now;
          LoadData();
+         DateTime end = DateTime.Now;
+         TimeSpan delta = end - start;
          WriteKeyWordFile();
       }
 

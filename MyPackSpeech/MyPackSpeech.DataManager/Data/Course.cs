@@ -83,6 +83,20 @@ namespace MyPackSpeech.DataManager.Data
          //File.AppendAllText(KeyWordFile, String.Join(Environment.NewLine,KeyWords.ToArray())+Environment.NewLine);
       }
 
+      public override bool Equals(object obj)
+      {
+         Course other = obj as Course;
+         if (other == null)
+            return false;
+         return DeptAbv.Equals(other.DeptAbv)
+            && Number == other.Number;
+      }
+
+      public override int GetHashCode()
+      {
+         return Dept.GetHashCode() ^ Number;
+      }
+
       #region IKeywordProvider
       [Browsable(false)]
       public List<string> KeyWords { get; private set; }

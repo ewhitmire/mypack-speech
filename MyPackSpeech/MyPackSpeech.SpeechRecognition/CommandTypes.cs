@@ -8,32 +8,32 @@ namespace MyPackSpeech.SpeechRecognition
 {
    public static class Extensions
    {
-      public static Type ActionClass(this CommandTypes command)
+      public static IAction GetAction(this CommandTypes command)
       {
          switch (command)
          {
             case CommandTypes.Add:
-               return typeof(AddAction);
+               return new AddAction();
             case CommandTypes.Remove:
-               return typeof(RemoveAction);
+               return new RemoveAction();
             case CommandTypes.Move:
-               //return typeof(MoveAction);
-            case CommandTypes.Undo:
-               //return typeof(UndoAction);
+               return new MoveAction();
             case CommandTypes.Show:
-               //return typeof(ShowAction);
             default:
-               return typeof(IAction);
+               break;
          }
+
+         return null;
       }
    }
    public enum CommandTypes
    {
-      Add=0,
+      Add = 0,
       Remove,
       Move,
       Swap,
       Undo,
-      Show
+      Show,
+      SetSemester
    }
 }

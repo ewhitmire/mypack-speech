@@ -38,9 +38,15 @@ namespace MyPackSpeech
       }
 
       // event declaration 
-      public event EventHandler<ActionDetectedEventArgs> ActionDetected;
+      private event EventHandler<ActionDetectedEventArgs> actionDetected;
+      private event EventHandler semesterChanged;
+
+      public event EventHandler<ActionDetectedEventArgs> ActionDetected { add { actionDetected += value; } remove { actionDetected -= value; } }
+      public event EventHandler SemesterChanged { add { semesterChanged += value; } remove { semesterChanged -= value; } }
 
       Stack<IAction> actionHistory = new Stack<IAction>();
+      public Semester? CurrentSemester { get; private set; }
+      public int? CurrentYear { get; private set; }
 
       public void ProcessResult(RecognitionResult result)
       {
@@ -64,26 +70,23 @@ namespace MyPackSpeech
          CommandTypes cmd = (CommandTypes)(result.Semantics["command"].Value);
          bool callEvent = false;
 
-         if (cmd == CommandTypes.Undo)
+         switch (cmd)
          {
-            if (actionHistory.Count > 0)
-            {
-               IAction action = actionHistory.Pop();
-               action.Undo();
-               callEvent = true;
-            }
-         }
-         else
-         {
-            Type ActionType = cmd.ActionClass();
-            if (!ActionType.Equals(typeof(IAction)))
-            {
-
-               IAction action = (IAction)Activator.CreateInstance(ActionType);
-               action.Inform(result.Semantics, CurrStudent);
-               callEvent = action.Perform();
-               actionHistory.Push(action);
-            }
+            case CommandTypes.Add:
+            case CommandTypes.Remove:
+            case CommandTypes.Move:
+               callEvent = doCourseRegistrationAction(result, cmd);
+               break;
+            case CommandTypes.Undo:
+               callEvent = doUndoComnmand(callEvent);
+               break;
+            case CommandTypes.SetSemester:
+               setSemester(result);
+               break;
+            case CommandTypes.Swap:
+            case CommandTypes.Show:
+            default:
+               throw new ArgumentException("Invalid command type: " + cmd);
          }
 
          if (callEvent && ActionDetected != null)
@@ -94,7 +97,52 @@ namespace MyPackSpeech
          }
       }
 
-     
+      private void setSemester(RecognitionResult result)
+      {
+         Semester? semester = CourseConstructor.GetSemester(result.Semantics);
+         if (semester.HasValue)
+            CurrentSemester = semester.Value;
+         int? year = CourseConstructor.GetYear(result.Semantics);
+         if (year.HasValue)
+            CurrentYear = year.Value;
+
+         if (semester.HasValue || year.HasValue)
+            OnSemesterChanged();
+      }
+
+      private void OnSemesterChanged()
+      {
+         EventHandler evt = SemesterChanged;
+         if (evt != null)
+            evt(this, EventArgs.Empty);
+      }
+
+      private bool doCourseRegistrationAction(RecognitionResult result, CommandTypes cmd)
+      {
+         bool callEvent = false;
+         IAction action = cmd.GetAction();
+         if (action!=null)
+         {
+            action.Inform(result.Semantics, CurrStudent);
+            callEvent = action.Perform();
+            //don't push events that didn't work
+            if (callEvent)
+               actionHistory.Push(action);
+         }
+         return callEvent;
+      }
+
+      private bool doUndoComnmand(bool callEvent)
+      {
+         if (actionHistory.Count > 0)
+         {
+            IAction action = actionHistory.Pop();
+            action.Undo();
+            callEvent = true;
+         }
+         return callEvent;
+      }
+
       public void PromptForMissing(SemanticValue context, List<Slots> missing)
       {
          RecoManager.Instance.reader.SpeakAsyncCancelAll();

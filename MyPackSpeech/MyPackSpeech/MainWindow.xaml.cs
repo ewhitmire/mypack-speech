@@ -394,7 +394,7 @@ namespace MyPackSpeech
 
           DataGridTextColumn mySemester6 = new DataGridTextColumn();
           mySemester6.Width = POW2.Width / 4;
-          mySemester6.Header = "Spring 2015";
+          mySemester6.Header = "Spring 2015";          
           POW2.Columns.Add(mySemester6);          
 
           DataGridTextColumn mySemester7 = new DataGridTextColumn();
@@ -507,6 +507,7 @@ namespace MyPackSpeech
 				  RecoManager.Instance.Start();
 				  RecoManager.Instance.SpeechRecognized += new RecoManager.SpeechRecognizedHandler(RecoManager_SpeechRecognized);
 				  ActionManager.Instance.ActionDetected += ActionManager_ActionDetected;
+              ActionManager.Instance.SemesterChanged += ActionManager_SemesterChanged;
 				  txtOutput.Text = "Started\n";
 				  recoStarted = true;
 			  }
@@ -518,6 +519,11 @@ namespace MyPackSpeech
 
 		 ChartWindow cw = new ChartWindow();
 		 cw.Show();
+      }
+
+      void ActionManager_SemesterChanged(object sender, EventArgs e)
+      {
+         
       }
    }
 }
