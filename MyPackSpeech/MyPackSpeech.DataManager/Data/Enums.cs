@@ -13,6 +13,10 @@ namespace MyPackSpeech.DataManager.Data
       Summer
    }
 
+   public static class OperatorExtention
+   {
+      
+   }
    public enum Operator
    {
       /// <summary>

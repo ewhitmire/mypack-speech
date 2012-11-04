@@ -33,5 +33,10 @@ namespace MyPackSpeech.DataManager.Data.Filter
       {
          return new NotFilter<T>(this);
       }
+
+      public override string ToString()
+      {
+         return String.Format("!({0})", Criteria);
+      }
    }
 }
