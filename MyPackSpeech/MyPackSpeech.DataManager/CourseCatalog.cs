@@ -135,6 +135,7 @@ namespace MyPackSpeech.DataManager
                         //Debug.WriteLine(courseObject["name"]);
                         int courseNumber = int.Parse(courseObject["number"].ToString());
                         string description = "";
+                        string preReqs = "";
                         if (courseObject["description"] != null)
                         {
                            description = courseObject["description"].ToString();
@@ -144,7 +145,29 @@ namespace MyPackSpeech.DataManager
                         {
                            name = courseObject["name"].ToString();
                         }
+                        if (courseObject["prerequisites"] != null)
+                        {
+                           preReqs = courseObject["prerequisites"].ToString();
+                        }
+
+                        Boolean spring = true;
+                        if (courseObject["spring"] != null)
+                        {
+                           string offeredInSpring = courseObject["spring"].ToString();
+                           offeredInSpring = offeredInSpring.ToLower();
+                           spring = offeredInSpring.Equals("true");
+                        }
+                        Boolean fall = true;
+                        if (courseObject["fall"] != null)
+                        {
+                           string offeredInfall = courseObject["fall"].ToString();
+                           offeredInfall = offeredInfall.ToLower();
+                           fall = offeredInfall.Equals("true");
+                        }
+
                         Course course = new Course(dept, name, courseNumber, description);
+                        course.spring = spring;
+                        course.fall = fall;
                         Courses.Add(course);
                      }
                   }

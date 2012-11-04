@@ -30,6 +30,24 @@ namespace MyPackSpeech.SpeechRecognition.Actions
          Course = CourseConstructor.ContructScheduledCourse(semantics);
          if (Course != null)
          {
+            switch (Course.Semester) { 
+               case Semester.Fall:
+                  if (!Course.Course.fall) {
+                     ActionManager.Instance.notOffered(semantics, Course.Semester);
+                     return false;
+                  }
+                  break;
+               case Semester.Spring:
+                  if (!Course.Course.spring) {
+                     ActionManager.Instance.notOffered(semantics, Course.Semester);
+                     return false;
+                  }
+                  break;
+               default:
+                  return false;
+
+            }
+
             Student.AddCourse(Course);
             return true;
          }

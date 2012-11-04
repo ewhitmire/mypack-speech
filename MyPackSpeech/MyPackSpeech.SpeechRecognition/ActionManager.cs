@@ -152,9 +152,15 @@ namespace MyPackSpeech
          }
       }
 
+      public void notOffered(SemanticValue context, Semester semester) {
+         //RecoManager.Instance.reader.SpeakAsyncCancelAll();
+
+         RecoManager.Instance.reader.SpeakAsync("That class is not available in the " + semester.ToString());
+      }
+
       protected ActionManager()
       {
-         CurrStudent = new Student(DegreeCatalog.Instance.Degrees[0]);
+         CurrStudent = new Student(DegreeCatalog.Instance.Degrees.FirstOrDefault());
       }
       #region student
       public Student CurrStudent { get; private set; }
