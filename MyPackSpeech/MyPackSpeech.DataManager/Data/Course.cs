@@ -17,6 +17,8 @@ namespace MyPackSpeech.DataManager.Data
       public string DeptAbv { get { return Dept.Abv; } }
       public int Number { get; private set; }
       public string Name { get; private set; }
+      public Boolean spring;
+      public Boolean fall;
       [Browsable(false)]
       public string Description { get; private set; }
       public string DescriptionWrap

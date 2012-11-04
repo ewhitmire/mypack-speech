@@ -39,11 +39,13 @@
 
          DebugWindow cw = new DebugWindow();
          cw.Show();
+
       }
-      
 
 
-         public void addBookmark(Course course) {
+
+         public void addBookmark(Course course)
+         {
              bookmarked.Add(course);
              showBookmarks();
          }
