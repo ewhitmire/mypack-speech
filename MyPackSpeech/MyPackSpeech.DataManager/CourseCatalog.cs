@@ -154,15 +154,13 @@ namespace MyPackSpeech.DataManager
                         if (courseObject["spring"] != null)
                         {
                            string offeredInSpring = courseObject["spring"].ToString();
-                           offeredInSpring = offeredInSpring.ToLower();
-                           spring = offeredInSpring.Equals("true");
+                           spring = offeredInSpring.Equals("true", StringComparison.CurrentCultureIgnoreCase);
                         }
                         Boolean fall = true;
                         if (courseObject["fall"] != null)
                         {
                            string offeredInfall = courseObject["fall"].ToString();
-                           offeredInfall = offeredInfall.ToLower();
-                           fall = offeredInfall.Equals("true");
+                           fall = offeredInfall.Equals("true", StringComparison.CurrentCultureIgnoreCase);
                         }
 
                         Course course = new Course(dept, name, courseNumber, description);
