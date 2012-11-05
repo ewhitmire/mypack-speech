@@ -24,8 +24,6 @@
                 <MenuItem Header="Load _Courses" Click="loadCourses_Click"/>
                 <MenuItem Header="Load _Student" Click="loadStudent_Click"/>
             </MenuItem>
-            <MenuItem Header="Requirements" Click="showReqs_Click"/>
-            <MenuItem Header="Courses" Click="showCourses_Click"/>
         </Menu>
         <Label Content="Info" Grid.Row="1" Height="25" HorizontalAlignment="Left" Name="RequirementsLabel" VerticalAlignment="Top" Grid.Column="1" />
         <Border BorderBrush="Silver" BorderThickness="1" Grid.Column="1" Grid.Row="1" Margin="5,25,5,5" Name="border3">
