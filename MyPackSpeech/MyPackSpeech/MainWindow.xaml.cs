@@ -20,113 +20,136 @@
    using System.Speech.Synthesis;
    using System.Windows.Forms;
 
-   namespace MyPackSpeech
+namespace MyPackSpeech
+{
+   /// <summary>
+   /// Interaction logic for MainWindow.xaml
+   /// </summary>
+   public partial class MainWindow : Window
    {
-      /// <summary>
-      /// Interaction logic for MainWindow.xaml
-      /// </summary>
-      public partial class MainWindow : Window
-      {
-          List<Course> bookmarked = new List<Course>();
+      DebugWindow debugWnd;
 
-         public MainWindow()
-         {
+      List<Course> bookmarked = new List<Course>();
+
+      public MainWindow()
+      {
          InitializeComponent();
-         setupCourses();
-         
-         DebugWindow cw = new DebugWindow();
-         cw.Show();
+         Loaded += MainWindow_Loaded;
+      }
+
+      void MainWindow_Loaded(object sender, RoutedEventArgs e)
+      {
+         showDebugWindow();
+      }
+
+      protected override void OnClosed(EventArgs e)
+      {
+         closeDebugWindow();
+         base.OnClosed(e);
+      }
+
+      public void addBookmark(Course course)
+      {
+         bookmarked.Add(course);
+         showBookmarks();
+      }
+
+      public void removeBookmark(Course course)
+      {
+
+         bookmarked.Remove(course);
+         showBookmarks();
 
       }
 
+      public void showBookmarks()
+      {
+         String marks = "";
 
-
-         public void addBookmark(Course course)
+         for (int i = 0; i < bookmarked.Count; i++)
          {
-             bookmarked.Add(course);
-             showBookmarks();
+            Course course = bookmarked[i];
+            marks += "" + course.Dept.Name + "(" + course.DeptAbv + ")" + " " + course.Number + "\n";
          }
 
-         public void removeBookmark(Course course) {
-          
-             bookmarked.Remove(course);
-             showBookmarks();
+         bookmarks.Text = marks;
+      }
 
-         }
+      public void showInfo(Course course)
+      {
+         infoBox.Text = "" + course.Dept.Name + "(" + course.DeptAbv + ")" + " " + course.Number + "\n" +
+             course.Description;
+      }
 
-         public void showBookmarks() {
-             String marks = "";
 
-             for (int i = 0; i < bookmarked.Count; i++) { 
-               Course course = bookmarked[i];
-               marks += "" + course.Dept.Name + "(" + course.DeptAbv + ")" + " " + course.Number + "\n";
-             }
+      private void Load_Click(object sender, RoutedEventArgs e)
+      {
+         loadFile();
+      }
 
-             bookmarks.Text = marks;
-         }
+      private void loadFile()
+      {
 
-         public void showInfo(Course course)
-         {
-            infoBox.Text = "" + course.Dept.Name + "(" + course.DeptAbv + ")" + " " + course.Number + "\n" +
-                course.Description;
-         }
-    
-         
-         private void setupCourses()
-         {
-            //txtOutput.Text += "Number of Classes: " + CourseCatalog.Instance.Courses.Count;
-         
-         }
+      }
+
+      private void loadCourses_Click(object sender, RoutedEventArgs e)
+      {
+         string file = getFile();
+      }
+
+      private void loadStudent_Click(object sender, RoutedEventArgs e)
+      {
+         string file = getFile();
+      }
+
+      private string getFile()
+      {
+         Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+         if (dlg.ShowDialog(this).GetValueOrDefault(false))
+            return dlg.FileName;
+         return string.Empty;
+      }
+     
+      private void showReqs()
+      {
+      }
       
-         private void Load_Click(object sender, RoutedEventArgs e)
-         {
-            loadFile();
-         }
+      private void showReqs_Click(object sender, RoutedEventArgs e)
+      {
+         showReqs();
+      }
 
-         private void loadFile()
-         {
+      private void showCourses_Click(object sender, RoutedEventArgs e)
+      {
+      }
 
-         }
+      private void isSpeechOn_Checked(object sender, RoutedEventArgs e)
+      {
+         RecoManager.Instance.StartSpeechReco();
+      }
 
-         private void loadCourses_Click(object sender, RoutedEventArgs e)
-         {
-            string file = getFile();
-         }
+      private void isSpeechOn_Unchecked(object sender, RoutedEventArgs e)
+      {
+         RecoManager.Instance.StopSpeechReco();
+      }
 
-         private void loadStudent_Click(object sender, RoutedEventArgs e)
+      #region Debug
+      private void closeDebugWindow()
+      {
+         if (debugWnd != null)
          {
-            string file = getFile();
+            debugWnd.Close();
          }
+      }
 
-         private string getFile()
+      private void showDebugWindow()
+      {
+         if (debugWnd == null)
          {
-             Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
-            if (dlg.ShowDialog(this).GetValueOrDefault(false))
-               return dlg.FileName;
-            return string.Empty;
+            debugWnd = new DebugWindow();
+            debugWnd.Show();
          }
-         private void showReqs()
-         {
-         }
-
-
-         private void showReqs_Click(object sender, RoutedEventArgs e)
-         {
-            showReqs();
-         }
-
-         private void showCourses_Click(object sender, RoutedEventArgs e)
-         {
-         }
-
-         private void isSpeechOn_Checked(object sender, RoutedEventArgs e)
-         {
-            RecoManager.Instance.StartSpeechReco();
-         }
-
-         private void isSpeechOn_Unchecked(object sender, RoutedEventArgs e)
-         {
-            RecoManager.Instance.StopSpeechReco();
-         }
+      }
+      #endregion
    }
 }
