@@ -74,7 +74,7 @@ namespace MyPackSpeech.DataManager
          LoadData();
          DateTime end = DateTime.Now;
          TimeSpan delta = end - start;
-         WriteKeyWordFile();
+         //WriteKeyWordFile();
       }
 
       private void WriteKeyWordFile()
