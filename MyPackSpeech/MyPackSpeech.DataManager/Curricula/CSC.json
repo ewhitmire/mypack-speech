@@ -140,7 +140,7 @@
             "filters": [
                 { "course": "CH 101" },
                 { "course": "CH 102" },
-                { "name": "Basic Science Elective" },
+                { "id": "Basic Science Elective" },
                 { "course": "PY 205" },
                 { "course": "PY 208" }
             ]

@@ -1,4 +1,5 @@
-﻿using MyPackSpeech.DataManager.Data;
+﻿using MyPackSpeech.DataManager;
+using MyPackSpeech.DataManager.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,7 +34,14 @@ namespace MyPackSpeech
          if (req != null)
          {
             this.req = req;
-            this.reqName.Content = req.ToString();
+
+            if (req.CourseRequirement == null)
+            {
+               System.Console.WriteLine("asf");
+            }
+            IEnumerable<Course> courseList = CourseCatalog.Instance.GetCourses(req.CourseRequirement);
+            this.reqName.Content = CourseCatalog.FormatCourseList(courseList);
+
          }
       }
    }

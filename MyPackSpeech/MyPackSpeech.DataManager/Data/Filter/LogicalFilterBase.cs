@@ -25,6 +25,10 @@ namespace MyPackSpeech.DataManager.Data.Filter
 
       public IFilter<T> Or(IFilter<T> rhs)
       {
+         if (rhs == null)
+         {
+            return this;
+         }
          return new OrFilter<T>(this, rhs);
       }
 

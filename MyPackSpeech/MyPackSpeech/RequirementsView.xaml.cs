@@ -36,11 +36,11 @@ namespace MyPackSpeech
                IEnumerable<DegreeRequirement> reqs = degree.Requirements.Where<DegreeRequirement>(r => r.Category.Equals(cat));
                foreach (DegreeRequirement req in reqs)
                {
-                  TreeViewItem child = new TreeViewItem();
-                  child.Header = req;
+                  //reeViewItem child = new TreeViewItem();
+                  //child.Header = req;
                   RequirementEntry reqEntry = new RequirementEntry(req);
-                  child.Items.Add(reqEntry);
-                  categoryChild.Items.Add(child);
+                  //child.Items.Add(reqEntry);
+                  categoryChild.Items.Add(reqEntry);
                }
             }
          }
