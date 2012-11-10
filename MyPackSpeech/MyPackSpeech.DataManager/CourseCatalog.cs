@@ -107,6 +107,193 @@ namespace MyPackSpeech.DataManager
       {
          return Departments.Find(d => d.Abv.Equals(prefix));
       }
+
+      public Boolean isClassName(string myString) {
+         Char[] chars = myString.ToCharArray();
+
+         for (int i = 0; i < chars.Length; i++)
+         {
+            Char c = chars[i];
+            if (!Char.IsUpper(c) && !Char.IsDigit(c))
+            {
+               return false;
+            }
+         }
+         return true;
+      }
+
+      public Boolean isDept(string myString)
+      {
+         for (int i = 0; i < Departments.Count; i++) { 
+            if(Departments[i].Abv.Equals(myString))
+            {
+               return true;
+            }
+         }
+         return false;
+      }
+
+      public Boolean isClassNumber(string myString)
+      {
+         Char[] chars = myString.ToCharArray();
+         if (chars.Length != 3)
+            return false;
+
+         for (int i = 0; i < chars.Length; i++)
+         {
+            Char c = chars[i];
+            if (!Char.IsDigit(c))
+            {
+               return false;
+            }
+         }
+         return true;
+      }
+
+      public Boolean isUpperCase(string myString)
+      {
+         Char[] chars = myString.ToCharArray();
+         
+         for (int i = 0; i < chars.Length; i++)
+         {
+            Char c = chars[i];
+            if (!Char.IsUpper(c))
+            {
+               return false;
+            }
+         }
+         return true;
+      }
+
+
+      public List<string> getPreReqs(string[] reqString)
+      {
+         //Splits to a list
+         List<string> tokens = reqString.ToList();
+
+         //The final strings of class requirements
+         List<string> classes = new List<string>();
+
+         //Get rid of empty tokens
+          while(tokens.Contains("")){
+             tokens.Remove("");
+          }
+
+         // Print original string
+          //for (int i = 1; i < tokens.Count; i++)
+          //{
+          //   string myString = tokens[i];
+          //   System.Console.Write("" + myString + " ");
+
+          //}
+
+         //System.Console.WriteLine();
+
+
+         // Filter out language
+         for (int i = 0; i < tokens.Count; i++) 
+         {
+            string myString = tokens[i];
+            // CSC, 591, CSC591
+            if(isClassName(myString)){ 
+               classes.Add(myString);
+            }
+               // and must have dept before and after
+            else if (myString.Equals("and") && isClassName(tokens[i + 1])
+               && isClassName(tokens[i - 1]))
+            {
+               classes.Add(myString);
+            }
+               // or must have dept before and after
+            else if (myString.Equals("or") && isClassName(tokens[i + 1]) 
+               && isClassName(tokens[i - 1])) 
+            {
+               classes.Add(myString);
+            }
+         }
+
+
+         // IF crosslisted CSC/ECE choose CSC
+         for (int i = 1; i < classes.Count - 1; i++) { 
+            if(classes[i-1].Equals("CSC") && classes[i].Equals("ECE")){
+               classes.RemoveAt(i);
+            }
+         }
+
+
+         // remove hanging Depts
+         for (int i = classes.Count - 2; i > -1; i--)
+         {
+            //Remove all GPA nonsense
+            if (classes[i].Equals("GPA") || classes[i].Equals("2") || classes[i].Equals("75") || classes[i].Equals("7"))
+            {
+               classes.RemoveAt(i);
+            }
+            //Comes from cross listed classes, or majors.
+            else if(isUpperCase(classes[i]) && !isClassNumber(classes[i+1])){
+               classes.RemoveAt(i);
+            } 
+
+         }
+
+         //Given the previos removals, is there an and/or at the beginning
+         if (classes.Count != 0) { 
+            if(classes[0].Equals("and") || classes[0].Equals("or")){
+               classes.RemoveAt(0);
+            }
+         }
+
+         //Given the previous removals is there something hanging at the end
+         if (classes.Count != 0)
+         {
+            if (!isClassNumber(classes[classes.Count - 1]))
+            {
+               classes.RemoveAt(classes.Count - 1);
+            }
+         }
+
+         //Given the previous removals, is there an and/or at the end
+         if (classes.Count != 0) {
+            if (classes[classes.Count - 1].Equals("and") || classes[classes.Count - 1].Equals("or"))
+            {
+               classes.RemoveAt(classes.Count - 1);
+            }
+         
+         
+         }
+
+         ////Print final string of classes
+         //if (classes.Count != 0)
+         //{
+
+         //   for (int i = 0; i < classes.Count; i++)
+         //   {
+         //      System.Console.Write(classes[i] + " ");
+         //   }
+
+         //   System.Console.WriteLine();
+         //   System.Console.WriteLine();
+         //}
+
+         //CourseFilter filter 
+
+         try
+         {
+            for (int i = 0; i < classes.Count; i++) {
+               if (isDept(classes[i])) {
+                  filter = CourseFilter.DeptAbv(classes[i]);
+               }
+               
+            }
+         }
+         catch (Exception e) {
+            System.Console.WriteLine(e);
+         }
+
+
+         return classes;
+      }
+
       private void LoadData()
       {
          Debug.WriteLine("Reading list of departments");
@@ -125,7 +312,7 @@ namespace MyPackSpeech.DataManager
                   if (File.Exists(filename))
                   {
                      Departments.Add(dept);
-                     Debug.WriteLine(dept);
+                     //Debug.WriteLine(dept);
 
 
                      String fileContents = System.IO.File.ReadAllText(filename);
@@ -148,19 +335,29 @@ namespace MyPackSpeech.DataManager
                         if (courseObject["prerequisites"] != null)
                         {
                            preReqs = courseObject["prerequisites"].ToString();
+                           //System.Console.WriteLine("preReqs: " + preReqs);
+                           if(dept.Abv.Equals("CSC")){
+                              Char[] delims = { ' ', '(', ')', ':', ';','.', ',', '/' };
+                              this.getPreReqs(preReqs.Split(delims));
+                           }
                         }
 
                         Boolean spring = true;
                         if (courseObject["spring"] != null)
                         {
-                           string offeredInSpring = courseObject["spring"].ToString();
-                           spring = offeredInSpring.Equals("true", StringComparison.CurrentCultureIgnoreCase);
+                           string offeredInSpring = courseObject["spring"].ToString().ToLower();
+                           spring = offeredInSpring.Equals("true");
+                           //if (dept.Abv.Equals("CSC"))
+                              //System.Console.WriteLine(offeredInSpring + ":Spring:" + dept.Abv + courseNumber);
+
                         }
                         Boolean fall = true;
                         if (courseObject["fall"] != null)
                         {
-                           string offeredInfall = courseObject["fall"].ToString();
-                           fall = offeredInfall.Equals("true", StringComparison.CurrentCultureIgnoreCase);
+                           string offeredInfall = courseObject["fall"].ToString().ToLower();
+                           fall = offeredInfall.Equals("true");
+                           //if (!fall)
+                           //   System.Console.WriteLine(offeredInfall + ":Fall: " + dept.Abv + courseNumber);
                         }
 
                         Course course = new Course(dept, name, courseNumber, description);
