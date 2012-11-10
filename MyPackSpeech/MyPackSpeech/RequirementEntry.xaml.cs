@@ -1,4 +1,5 @@
-﻿using MyPackSpeech.DataManager.Data;
+﻿using MyPackSpeech.DataManager;
+using MyPackSpeech.DataManager.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,7 +34,35 @@ namespace MyPackSpeech
          if (req != null)
          {
             this.req = req;
-            this.reqName.Content = req.ToString();
+            updateContent();
+
+         }
+         ActionManager.Instance.CurrStudent.ScheduleChanged += Student_ScheduleChanged;
+      }
+
+      void Student_ScheduleChanged(object sender, EventArgs e)
+      {
+         updateContent();
+      }
+
+      private void updateContent()
+      {
+
+         if (req != null)
+         {
+            IEnumerable<Course> courseList = CourseCatalog.Instance.GetCourses(req.CourseRequirement);
+            this.courses.Content = CourseCatalog.FormatCourseList(courseList);
+            this.reqName.Content = req.Name;
+            if (req.Fulfillment != null)
+            {
+               this.fulfillment.Content = req.Fulfillment.ToString();
+               this.fulfillment.Foreground = Brushes.Green;
+            }
+            else
+            {
+               this.fulfillment.Content = "Not fulfilled";
+               this.fulfillment.Foreground = Brushes.Red;
+            }
          }
       }
    }

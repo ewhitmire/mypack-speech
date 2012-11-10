@@ -52,7 +52,7 @@ namespace MyPackSpeech.SpeechRecognition
       {
          if (!isSpeechRecoActive)
          {
-            recognitionEngine.SpeechRecognitionRejected += recognitionEngine_SpeechRejected;
+            //recognitionEngine.SpeechRecognitionRejected += recognitionEngine_SpeechRejected;
             recognitionEngine.SpeechRecognized += recognitionEngine_SpeechRecognized;
             isSpeechRecoActive = true;
          }

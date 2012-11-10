@@ -57,9 +57,9 @@ namespace MyPackSpeech.DataManager
                      if (jsonItem["type"].ToString().Equals("filter"))
                      {
                         IFilter<Course> filter = ParseCourseFilter(jsonItem["filter"]);
-                        if (!orphanedFilters.ContainsKey(jsonItem["id"].ToString()))
+                        if (!orphanedFilters.ContainsKey(jsonItem.Value<String>("id")))
                         {
-                           orphanedFilters.Add(jsonItem["id"].ToString(), filter);
+                           orphanedFilters.Add(jsonItem.Value<String>("id"), filter);
                         }
                      }
                      else
@@ -84,7 +84,10 @@ namespace MyPackSpeech.DataManager
                                  DegreeRequirement degreeReq = new DegreeRequirement();
                                  degreeReq.Category = cat;
                                  degreeReq.CourseRequirement = courseFilter;
-
+                                 if (jsonCourseFilter["id"] != null)
+                                 {
+                                    degreeReq.Name = jsonCourseFilter.Value<String>("id");
+                                 }
                                  program.Requirements.Add(degreeReq);
                               }
                            }
@@ -115,7 +118,8 @@ namespace MyPackSpeech.DataManager
          }
          else if (json["id"] != null)
          {
-            c = orphanedFilters[json["id"].ToString()];
+            String key = json.Value<String>("id");
+            c = orphanedFilters[key];
          }
          else if (json["department"] != null)
          {
@@ -141,47 +145,49 @@ namespace MyPackSpeech.DataManager
                      }
                   }
                }
-
-               c = c.And(numbers);
-            }
-
-            if (json["and"] != null)
-            {
-               foreach (JToken subfilter in json["and"])
+               if (numbers != null)
                {
-                  var filter = ParseCourseFilter(subfilter);
-                  if (c == null)
-                     c = filter;
-                  else
-                     c = c.And(filter);
+                  c = c.And(numbers);
                }
             }
-
-            if (json["or"] != null)
-            {
-               foreach (JToken subfilter in json["or"])
-               {
-                  var filter = ParseCourseFilter(subfilter);
-                  if (c == null)
-                     c = filter;
-                  else
-                     c = c.Or(filter);
-               }
-            }
-
-            if (json["not"] != null)
-            {
-               foreach (JToken subfilter in json["not"])
-               {
-                  var filter = ParseCourseFilter(subfilter).Not();
-                  if (c == null)
-                     c = filter;
-                  else
-                     c = c.And(filter);
-               }
-            }
-
          }
+
+         if (json["and"] != null)
+         {
+            foreach (JToken subfilter in json["and"])
+            {
+               var filter = ParseCourseFilter(subfilter);
+               if (c == null)
+                  c = filter;
+               else
+                  c = c.And(filter);
+            }
+         }
+
+         if (json["or"] != null)
+         {
+            foreach (JToken subfilter in json["or"])
+            {
+               var filter = ParseCourseFilter(subfilter);
+               if (c == null)
+                  c = filter;
+               else
+                  c = c.Or(filter);
+            }
+         }
+
+         if (json["not"] != null)
+         {
+            foreach (JToken subfilter in json["not"])
+            {
+               var filter = ParseCourseFilter(subfilter).Not();
+               if (c == null)
+                  c = filter;
+               else
+                  c = c.And(filter);
+            }
+         }
+
          return c;
       }
    }

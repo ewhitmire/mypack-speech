@@ -23,13 +23,35 @@ namespace MyPackSpeech
    {
       private Semester sem;
       private int year;
+      private Brush defaultBrush;
       public SemesterControl()
       {
          InitializeComponent();
          CollectionViewSource viewSource = (CollectionViewSource)Resources["viewSource"];
          viewSource.Source = ActionManager.Instance.CurrStudent.Schedule.Courses;
-
+         ActionManager.Instance.SemesterChanged += ActionManager_SemesterChanged;
+         defaultBrush = data.Background;
+         updateBrush();
       }
+
+      private void ActionManager_SemesterChanged(object sender, EventArgs e)
+      {
+         updateBrush();
+      }
+
+      private void updateBrush()
+      {
+
+         if (sem.Equals(ActionManager.Instance.CurrentSemester) && year.Equals(ActionManager.Instance.CurrentYear))
+         {
+            data.Background = Brushes.LightSteelBlue;
+         }
+         else
+         {
+            data.Background = defaultBrush;
+         }
+      }
+
       public void SetSemester(Semester sem, int year)
       {
          this.sem = sem;
