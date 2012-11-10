@@ -11,6 +11,7 @@ namespace MyPackSpeech.DataManager.Data
       private ScheduledCourse fulfillment;
       public IFilter<Course> CourseRequirement { get; set; }
       public DegreeRequirementCategory Category { get; set; }
+      public String Name;
 
       public DegreeRequirement()
       {

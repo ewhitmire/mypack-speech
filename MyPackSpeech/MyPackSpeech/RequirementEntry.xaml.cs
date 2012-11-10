@@ -34,13 +34,17 @@ namespace MyPackSpeech
          if (req != null)
          {
             this.req = req;
-
-            if (req.CourseRequirement == null)
-            {
-               System.Console.WriteLine("asf");
-            }
             IEnumerable<Course> courseList = CourseCatalog.Instance.GetCourses(req.CourseRequirement);
-            this.reqName.Content = CourseCatalog.FormatCourseList(courseList);
+            this.courses.Content = CourseCatalog.FormatCourseList(courseList);
+            this.reqName.Content = req.Name;
+            if (req.Fulfillment != null)
+            {
+               this.fulfillment.Content = req.Fulfillment.ToString();
+            }
+            else
+            {
+               this.fulfillment.Content = "Not fulfilled";
+            }
 
          }
       }

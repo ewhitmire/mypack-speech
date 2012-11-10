@@ -84,7 +84,10 @@ namespace MyPackSpeech.DataManager
                                  DegreeRequirement degreeReq = new DegreeRequirement();
                                  degreeReq.Category = cat;
                                  degreeReq.CourseRequirement = courseFilter;
-
+                                 if (jsonCourseFilter["id"] != null)
+                                 {
+                                    degreeReq.Name = jsonCourseFilter.Value<String>("id");
+                                 }
                                  program.Requirements.Add(degreeReq);
                               }
                            }

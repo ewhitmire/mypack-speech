@@ -49,6 +49,13 @@ namespace MyPackSpeech.DataManager.Data
       public void AddCourse(ScheduledCourse course)
       {
          Schedule.Courses.Add(course);
+         foreach (DegreeRequirement req in Degree.Requirements.Where(c => c.Fulfillment == null))
+         {
+            if (req.CourseRequirement.Matches(course.Course))
+            {
+               req.Fulfillment = course;
+            }
+         }
          OnScheduleChanged();
       }
 
@@ -89,6 +96,11 @@ namespace MyPackSpeech.DataManager.Data
 	  public void RemoveCourse(ScheduledCourse Course)
 	  {
 		  Schedule.Courses.Remove(Course);
+        DegreeRequirement req = Degree.Requirements.Where(c => c.Fulfillment.Equals(Course)).FirstOrDefault();
+        if (req != null)
+        {
+           req.Fulfillment = null;
+        }
 		  OnScheduleChanged();
 	  }
    }
