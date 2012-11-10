@@ -74,7 +74,7 @@ namespace MyPackSpeech.DataManager
          LoadData();
          DateTime end = DateTime.Now;
          TimeSpan delta = end - start;
-         WriteKeyWordFile();
+         //WriteKeyWordFile();
       }
 
       private void WriteKeyWordFile()
@@ -363,7 +363,10 @@ namespace MyPackSpeech.DataManager
                         Course course = new Course(dept, name, courseNumber, description);
                         course.spring = spring;
                         course.fall = fall;
-                        Courses.Add(course);
+                        if (!Courses.Contains(course))
+                        {
+                           Courses.Add(course);
+                        }
                      }
                   }
                }
@@ -377,6 +380,19 @@ namespace MyPackSpeech.DataManager
          if (evt != null)
             evt(this, EventArgs.Empty);
 
+      }
+
+      public static String FormatCourseList(IEnumerable<Course> courseList)
+      {
+
+         if (courseList.Count() <= 3)
+         {
+            return String.Join(", ", courseList.Select(c => c.ToString()));
+         }
+         else
+         {
+            return String.Join(", ", courseList.Select(c => c.ToString()).Take(3))+" ...";
+         }
       }
    }
 }

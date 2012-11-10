@@ -14,6 +14,10 @@ namespace MyPackSpeech.DataManager.Data.Filter
 
       public override bool Matches(T item)
       {
+         if (LHS == null || RHS == null)
+         {
+            System.Console.WriteLine("yo");
+         }
          return LHS.Matches(item) || RHS.Matches(item);
       }
 

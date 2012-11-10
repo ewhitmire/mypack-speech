@@ -60,7 +60,7 @@ namespace MyPackSpeech.SpeechRecognition
 
       private void recognitionEngine_SpeechRejected(object sender, SpeechRecognitionRejectedEventArgs e)
       {
-         tries++;
+         /*tries++;
          RecognitionResult result = e.Result;
          string rejected = "Rejected: " + (result == null ? string.Empty : result.Text + " " + result.Confidence);
          recognitionEngine.RecognizeAsyncStop();
@@ -75,7 +75,7 @@ namespace MyPackSpeech.SpeechRecognition
          }
 
          recognitionEngine.RecognizeAsync(RecognizeMode.Multiple);
-         System.Console.WriteLine(rejected);
+         //System.Console.WriteLine(rejected);*/
       }
 
       void recognitionEngine_SpeechRecognized(object sender, SpeechRecognizedEventArgs args)
