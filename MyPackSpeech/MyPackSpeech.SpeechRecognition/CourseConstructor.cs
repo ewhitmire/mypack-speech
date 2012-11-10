@@ -46,12 +46,12 @@ namespace MyPackSpeech.SpeechRecognition
       }
 
       public static Semester? GetSemester(SemanticValue semantics, Semester? sem = null)
-      {         
+      {
          if (semantics.ContainsKey(Slots.Semester.ToString()))
          {
             sem = (Semester)Enum.Parse(typeof(Semester), semantics[Slots.Semester.ToString()].Value.ToString(), true);
          }
-         
+
          return sem;
       }
 
@@ -59,7 +59,7 @@ namespace MyPackSpeech.SpeechRecognition
       {
          if (semantics.ContainsKey(Slots.Year.ToString()))
             year = int.Parse(semantics[Slots.Year.ToString()].Value.ToString());
-         
+
          return year;
       }
 
@@ -77,7 +77,7 @@ namespace MyPackSpeech.SpeechRecognition
          return missing;
       }
 
-      public static List<Slots> ValidateCourse(SemanticValue course)
+      public static List<Slots> ValidateCourse(SemanticValue course, bool ignoreSemester = false)
       {
          List<Slots> missing = new List<Slots>();
 
@@ -89,19 +89,20 @@ namespace MyPackSpeech.SpeechRecognition
          {
             missing.Add(Slots.Number);
          }
-         if (!course.ContainsKey(Slots.Semester.ToString())
-            && !ActionManager.Instance.CurrentSemester.HasValue)
+         if (!ignoreSemester)
          {
-            missing.Add(Slots.Semester);
+
+            if (!course.ContainsKey(Slots.Semester.ToString()) && !ActionManager.Instance.CurrentSemester.HasValue)
+            {
+               missing.Add(Slots.Semester);
+            }
+            if (!course.ContainsKey(Slots.Year.ToString()) && !ActionManager.Instance.CurrentYear.HasValue)
+            {
+               missing.Add(Slots.Year);
+            }
          }
-         if (!course.ContainsKey(Slots.Year.ToString())
-            && !ActionManager.Instance.CurrentYear.HasValue)
-         {
-            missing.Add(Slots.Year);
-         }
+
          return missing;
       }
-
-
    }
 }
