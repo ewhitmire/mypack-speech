@@ -34,6 +34,22 @@ namespace MyPackSpeech
          if (req != null)
          {
             this.req = req;
+            updateContent();
+
+         }
+         ActionManager.Instance.SemesterChanged += ActionManager_SemesterChanged;
+      }
+
+      void ActionManager_SemesterChanged(object sender, EventArgs e)
+      {
+         updateContent();
+      }
+
+      private void updateContent()
+      {
+
+         if (req != null)
+         {
             IEnumerable<Course> courseList = CourseCatalog.Instance.GetCourses(req.CourseRequirement);
             this.courses.Content = CourseCatalog.FormatCourseList(courseList);
             this.reqName.Content = req.Name;
@@ -45,7 +61,6 @@ namespace MyPackSpeech
             {
                this.fulfillment.Content = "Not fulfilled";
             }
-
          }
       }
    }
