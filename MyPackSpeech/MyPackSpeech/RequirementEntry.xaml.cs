@@ -37,10 +37,10 @@ namespace MyPackSpeech
             updateContent();
 
          }
-         ActionManager.Instance.SemesterChanged += ActionManager_SemesterChanged;
+         ActionManager.Instance.CurrStudent.ScheduleChanged += Student_ScheduleChanged;
       }
 
-      void ActionManager_SemesterChanged(object sender, EventArgs e)
+      void Student_ScheduleChanged(object sender, EventArgs e)
       {
          updateContent();
       }
