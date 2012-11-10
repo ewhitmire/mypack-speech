@@ -56,10 +56,12 @@ namespace MyPackSpeech
             if (req.Fulfillment != null)
             {
                this.fulfillment.Content = req.Fulfillment.ToString();
+               this.fulfillment.Foreground = Brushes.Green;
             }
             else
             {
                this.fulfillment.Content = "Not fulfilled";
+               this.fulfillment.Foreground = Brushes.Red;
             }
          }
       }
