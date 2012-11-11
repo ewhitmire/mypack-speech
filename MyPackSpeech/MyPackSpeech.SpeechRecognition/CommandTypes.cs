@@ -18,6 +18,8 @@ namespace MyPackSpeech.SpeechRecognition
                return new RemoveAction();
             case CommandTypes.Move:
                return new MoveAction();
+            case CommandTypes.SetSemester:
+               return new SetSemesterAction();
             case CommandTypes.Show:
             default:
                break;

@@ -7,26 +7,21 @@ using MyPackSpeech.DataManager.Data;
 
 namespace MyPackSpeech.SpeechRecognition.Actions
 {
-   class AddAction : IAction
+   class AddAction : BaseAction
    {
-      public Student Student { get; private set; }
       public ScheduledCourse Course { get; private set; }
-      private SemanticValue semantics = null;
-      public void Inform(SemanticValue sem, Student student)
+
+      override public bool Perform()
       {
-         Student = student;
-         semantics = sem;
-      }
-      public bool Perform()
-      {
-         List<Slots> missing = CourseConstructor.ValidateCourse(semantics);
+         List<Slots> missing = CourseConstructor.ContainsScheduledCourseData(Semantics);
 
          if (missing.Count > 0)
          {
-            ActionManager.Instance.PromptForMissing(semantics, missing);
+            PromptForMissing(Semantics, missing);
             return false;
          }
 
+<<<<<<< HEAD
          Course = CourseConstructor.ContructScheduledCourse(semantics);
          List<Course> missingClasses = Student.Schedule.GetMissingPreReqs(Course);
 
@@ -36,17 +31,26 @@ namespace MyPackSpeech.SpeechRecognition.Actions
             return false;
          }
          if (Course != null)
+=======
+         Course = CourseConstructor.ContructScheduledCourse(Semantics);
+         if (Course == null)
+         {
+            correctCourse();
+            return false;
+         }
+         else
+>>>>>>> 03818ec7ba910144c055d681a66eda66a454f48a
          {
             switch (Course.Semester) { 
                case Semester.Fall:
                   if (!Course.Course.fall) {
-                     ActionManager.Instance.notOffered(semantics, Course.Semester);
+                     ActionManager.Instance.notOffered(Semantics, Course.Semester);
                      return false;
                   }
                   break;
                case Semester.Spring:
                   if (!Course.Course.spring) {
-                     ActionManager.Instance.notOffered(semantics, Course.Semester);
+                     ActionManager.Instance.notOffered(Semantics, Course.Semester);
                      return false;
                   }
                   break;
@@ -58,10 +62,60 @@ namespace MyPackSpeech.SpeechRecognition.Actions
             Student.AddCourse(Course);
             return true;
          }
-         return false;
+      }
+      protected override bool ValidateCurrentData()
+      {
+         bool allGood = base.ValidateCurrentData();
+         if (CourseConstructor.ContainsCourseData(Semantics).Count == 0)
+         {
+            if (!CourseConstructor.IsCourseDataValid(Semantics))
+            {
+               correctCourse();
+               allGood = false;
+            }
+         }
+         return allGood;
+      }
+      private void correctCourse()
+      {
+         String course = MakeCourseNameForSpeech(Semantics);
+         RecoManager.Instance.Say(course + " is not a valid course");
+         Semantics.Remove(Slots.Department.ToString());
+         Semantics.Remove(Slots.Number.ToString());
+
+      }
+      override public void GiveConfirmation()
+      {
+         String course = MakeCourseNameForSpeech(Semantics);
+         RecoManager.Instance.Say("Ok, I added "+course);
+      }
+      override protected void PromptForMissing(SemanticValueDict semantics, List<Slots> missing)
+      {
+         if (missing.Count == 4)
+         {
+            RecoManager.Instance.Say("What would you like to take?");
+         }
+         else
+         {
+            if (missing.Contains(Slots.Semester) || missing.Contains(Slots.Year))
+            {
+               RecoManager.Instance.Say("When would you like to take this course?");
+            }
+            if (missing.Contains(Slots.Department))
+            {
+               if (missing.Contains(Slots.Number))
+               {
+                  RecoManager.Instance.Say("Which course was that?");
+               }
+               else
+               {
+                  RecoManager.Instance.Say("What department is this course in?");
+               }
+            }
+         }
       }
 
-      public void Undo()
+      override public void Undo()
       {
          if (Course != null)
             Student.Schedule.Courses.Remove(Course);

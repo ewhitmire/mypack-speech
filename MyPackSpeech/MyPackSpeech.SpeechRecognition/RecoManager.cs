@@ -39,6 +39,13 @@ namespace MyPackSpeech.SpeechRecognition
          recognitionEngine.LoadGrammar(grammar.grammar);
          recognitionEngine.SetInputToDefaultAudioDevice();
          recognitionEngine.RecognizeAsync(RecognizeMode.Multiple);
+
+         reader.SpeakCompleted += reader_SpeakCompleted;
+      }
+
+      void reader_SpeakCompleted(object sender, SpeakCompletedEventArgs e)
+      {
+         StartSpeechReco();
       }
 
       public void StopSpeechReco()
@@ -46,6 +53,7 @@ namespace MyPackSpeech.SpeechRecognition
          recognitionEngine.SpeechRecognitionRejected -= recognitionEngine_SpeechRejected;
          recognitionEngine.SpeechRecognized -= recognitionEngine_SpeechRecognized;
          isSpeechRecoActive = false;
+         Console.WriteLine("Speech stopped");
       }
 
       public void StartSpeechReco()
@@ -55,6 +63,7 @@ namespace MyPackSpeech.SpeechRecognition
             //recognitionEngine.SpeechRecognitionRejected += recognitionEngine_SpeechRejected;
             recognitionEngine.SpeechRecognized += recognitionEngine_SpeechRecognized;
             isSpeechRecoActive = true;
+            Console.WriteLine("Speech started");
          }
       }
 
@@ -93,6 +102,13 @@ namespace MyPackSpeech.SpeechRecognition
       public Grammar AddCourseGrammar()
       {
          return new Grammar("");
+      }
+
+      internal void Say(string speech)
+      {
+         reader.SpeakAsyncCancelAll();
+         StopSpeechReco();
+         reader.SpeakAsync(speech);
       }
    }
 }
