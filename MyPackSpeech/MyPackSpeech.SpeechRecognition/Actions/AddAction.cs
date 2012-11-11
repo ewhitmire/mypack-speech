@@ -28,6 +28,13 @@ namespace MyPackSpeech.SpeechRecognition.Actions
          }
 
          Course = CourseConstructor.ContructScheduledCourse(semantics);
+         List<Course> missingClasses = Student.Schedule.GetMissingPreReqs(Course);
+
+         if (missingClasses.Count > 0)
+         {
+            ActionManager.Instance.PromptForPreReqs(missingClasses);
+            return false;
+         }
          if (Course != null)
          {
             switch (Course.Semester) { 

@@ -165,5 +165,10 @@ namespace MyPackSpeech
       #region student
       public Student CurrStudent { get; private set; }
       #endregion
+
+      internal void PromptForPreReqs(List<Course> missingClasses)
+      {
+         throw new NotImplementedException();
+      }
    }
 }

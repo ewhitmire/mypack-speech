@@ -66,6 +66,7 @@
     <Compile Include="Data\Filter\Filter.cs" />
     <Compile Include="Data\Filter\IFilter.cs" />
     <Compile Include="Data\IKeywordProvider.cs" />
+    <Compile Include="Data\PrereqBuilder.cs" />
     <Compile Include="Data\ScheduledCourse.cs" />
     <Compile Include="DegreeCatalog.cs" />
     <Compile Include="Utils.cs" />

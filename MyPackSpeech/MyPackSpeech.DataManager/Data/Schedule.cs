@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
@@ -14,6 +15,12 @@ namespace MyPackSpeech.DataManager.Data
       {
          Student = student;
          Courses = new ObservableCollection<ScheduledCourse>();
+      }
+
+      public List<Course> GetMissingPreReqs(ScheduledCourse course)
+      {
+         //TODO: BrianR get prereqs using course requirements and registered courses
+         return new List<Course>();
       }
    }
 }

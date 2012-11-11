@@ -9,7 +9,7 @@ namespace MyPackSpeech.DataManager.Data.Filter
    {
       public IFilter<T> LHS { get; private set; }
       public IFilter<T> RHS { get; private set; }
-
+      
       protected LogicalFilterBase(IFilter<T> lhs, IFilter<T> rhs)
       {
          LHS = lhs;

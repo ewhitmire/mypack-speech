@@ -19,6 +19,7 @@ namespace MyPackSpeech.DataManager.Data
       public string Name { get; private set; }
       public Boolean spring;
       public Boolean fall;
+
       [Browsable(false)]
       public string Description { get; private set; }
       public string DescriptionWrap
@@ -43,7 +44,7 @@ namespace MyPackSpeech.DataManager.Data
          }
       }
       [Browsable( false)]
-      public List<CourseFilter> Prerequisites { get; private set; }
+      public List<IFilter<Course>> Prerequisites { get; private set; }
 
       [DisplayName("Prereqs")]
       public string PrereqDesc
@@ -53,7 +54,8 @@ namespace MyPackSpeech.DataManager.Data
             return string.Join(", ", Prerequisites.Select(p => p.ToString()));
          }
       }
-      public Course(Department dept, string name, int number, string desc, params CourseFilter[] prereqs)
+
+      public Course(Department dept, string name, int number, string desc, params IFilter<Course>[] prereqs)
       {
          checkArguments(dept, number);
 
@@ -61,7 +63,7 @@ namespace MyPackSpeech.DataManager.Data
          Number = number;
          Name = name;
          Description = desc ?? string.Empty;
-         Prerequisites = new List<CourseFilter>(prereqs);
+         Prerequisites = new List<IFilter<Course>>(prereqs);
 
          setKeyWords();
       }
