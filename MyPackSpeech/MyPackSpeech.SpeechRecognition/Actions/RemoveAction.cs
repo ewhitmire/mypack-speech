@@ -13,16 +13,16 @@ namespace MyPackSpeech.SpeechRecognition.Actions
 
       override public bool Perform()
       {
-         List<Slots> missing = CourseConstructor.ContainsScheduledCourseData(semantics);
+         List<Slots> missing = CourseConstructor.ContainsScheduledCourseData(Semantics);
 
 
 			if (missing.Count > 0)
 			{
-				PromptForMissing(semantics, missing);
+				PromptForMissing(Semantics, missing);
 				return false;
 			}
 
-         ScheduledCourse sCourse= CourseConstructor.ContructScheduledCourse(semantics);
+         ScheduledCourse sCourse= CourseConstructor.ContructScheduledCourse(Semantics);
          Course = Student.Schedule.Courses.Where(c => c.Equals(sCourse)).FirstOrDefault();
 		   if (Course != null)
 		   {

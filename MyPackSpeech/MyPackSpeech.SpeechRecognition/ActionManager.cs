@@ -125,8 +125,13 @@ namespace MyPackSpeech
       {
          bool callEvent = false;
          IAction action = cmd.GetAction();
-         if (currentWorkingAction == null || currentWorkingAction.GetType().Equals(action.GetType()))
+         if (currentWorkingAction == null)
          {
+            currentWorkingAction = action;
+         }
+         else if (currentWorkingAction.GetType().Equals(action.GetType()) || currentWorkingAction is UnknownAction)
+         {
+            action.Inform(currentWorkingAction.Semantics, CurrStudent);
             currentWorkingAction = action;
          }
          callEvent = InformAndPerformCurrentAction(semantics);
@@ -136,19 +141,20 @@ namespace MyPackSpeech
       private bool InformAndPerformCurrentAction(SemanticValueDict semantics)
       {
          bool callEvent = false;
-         if (currentWorkingAction != null)
+         if (currentWorkingAction == null)
          {
-            callEvent = currentWorkingAction.Inform(semantics, CurrStudent);
+            currentWorkingAction = new UnknownAction();
+         }
+         callEvent = currentWorkingAction.Inform(semantics, CurrStudent);
+         if (callEvent)
+         {
+            callEvent = currentWorkingAction.Perform();
+            //don't push events that didn't work
             if (callEvent)
             {
-               callEvent = currentWorkingAction.Perform();
-               //don't push events that didn't work
-               if (callEvent)
-               {
-                  actionHistory.Push(currentWorkingAction);
-                  currentWorkingAction.GiveConfirmation();
-                  currentWorkingAction = null;
-               }
+               actionHistory.Push(currentWorkingAction);
+               currentWorkingAction.GiveConfirmation();
+               currentWorkingAction = null;
             }
          }
          return callEvent;

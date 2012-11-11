@@ -13,15 +13,15 @@ namespace MyPackSpeech.SpeechRecognition.Actions
 
       override public bool Perform()
       {
-         List<Slots> missing = CourseConstructor.ContainsScheduledCourseData(semantics);
+         List<Slots> missing = CourseConstructor.ContainsScheduledCourseData(Semantics);
 
          if (missing.Count > 0)
          {
-            PromptForMissing(semantics, missing);
+            PromptForMissing(Semantics, missing);
             return false;
          }
 
-         Course = CourseConstructor.ContructScheduledCourse(semantics);
+         Course = CourseConstructor.ContructScheduledCourse(Semantics);
          if (Course == null)
          {
             correctCourse();
@@ -32,13 +32,13 @@ namespace MyPackSpeech.SpeechRecognition.Actions
             switch (Course.Semester) { 
                case Semester.Fall:
                   if (!Course.Course.fall) {
-                     ActionManager.Instance.notOffered(semantics, Course.Semester);
+                     ActionManager.Instance.notOffered(Semantics, Course.Semester);
                      return false;
                   }
                   break;
                case Semester.Spring:
                   if (!Course.Course.spring) {
-                     ActionManager.Instance.notOffered(semantics, Course.Semester);
+                     ActionManager.Instance.notOffered(Semantics, Course.Semester);
                      return false;
                   }
                   break;
@@ -54,9 +54,9 @@ namespace MyPackSpeech.SpeechRecognition.Actions
       protected override bool ValidateCurrentData()
       {
          bool allGood = base.ValidateCurrentData();
-         if (CourseConstructor.ContainsCourseData(semantics).Count == 0)
+         if (CourseConstructor.ContainsCourseData(Semantics).Count == 0)
          {
-            if (!CourseConstructor.IsCourseDataValid(semantics))
+            if (!CourseConstructor.IsCourseDataValid(Semantics))
             {
                correctCourse();
                allGood = false;
@@ -66,15 +66,15 @@ namespace MyPackSpeech.SpeechRecognition.Actions
       }
       private void correctCourse()
       {
-         String course = MakeCourseNameForSpeech(semantics);
+         String course = MakeCourseNameForSpeech(Semantics);
          RecoManager.Instance.Say(course + " is not a valid course");
-         semantics.Remove(Slots.Department.ToString());
-         semantics.Remove(Slots.Number.ToString());
+         Semantics.Remove(Slots.Department.ToString());
+         Semantics.Remove(Slots.Number.ToString());
 
       }
       override public void GiveConfirmation()
       {
-         String course = MakeCourseNameForSpeech(semantics);
+         String course = MakeCourseNameForSpeech(Semantics);
          RecoManager.Instance.Say("Ok, I added "+course);
       }
       override protected void PromptForMissing(SemanticValueDict semantics, List<Slots> missing)

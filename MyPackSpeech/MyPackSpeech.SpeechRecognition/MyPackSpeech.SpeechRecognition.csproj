@@ -51,6 +51,7 @@
     <Compile Include="Actions\MoveAction.cs" />
     <Compile Include="Actions\RemoveAction.cs" />
     <Compile Include="Actions\SetSemesterAction.cs" />
+    <Compile Include="Actions\UnknownAction.cs" />
     <Compile Include="CommandGrammar.cs" />
     <Compile Include="CommandTypes.cs" />
     <Compile Include="Actions\IAction.cs" />

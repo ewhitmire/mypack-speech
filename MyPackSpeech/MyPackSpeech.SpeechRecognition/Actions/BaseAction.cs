@@ -10,20 +10,20 @@ namespace MyPackSpeech.SpeechRecognition.Actions
    {
       public DataManager.Data.Student Student { get; protected set; }
 
-      protected SemanticValueDict semantics = null;
+      public SemanticValueDict Semantics { get; protected set;}
 
       public bool Inform(SemanticValueDict sem, Student student)
       {
          Student = student;
-         if (semantics == null)
+         if (Semantics == null)
          {
-            semantics = sem;
+            Semantics = sem;
          }
          else
          {
             foreach (KeyValuePair<String, SemanticValueDict> pair in sem)
             {
-               semantics[pair.Key] = pair.Value;
+               Semantics[pair.Key] = pair.Value;
             }
          }
 
@@ -39,7 +39,7 @@ namespace MyPackSpeech.SpeechRecognition.Actions
          RecoManager.Instance.Say("OK");
       }
 
-      protected static String MakeCourseNameForSpeech(SemanticValueDict semantics)
+      public static String MakeCourseNameForSpeech(SemanticValueDict semantics)
       {
 
          String dept = String.Join(" ", semantics.GetSlot(Slots.Department).ToCharArray());

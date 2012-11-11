@@ -17,10 +17,10 @@ namespace MyPackSpeech.SpeechRecognition.Actions
 
          if (missing.Count > 0)
          {
-            PromptForMissing(semantics, missing);
+            PromptForMissing(Semantics, missing);
             return false;
          }
-         ActionManager.Instance.SetSemester(semantics);
+         ActionManager.Instance.SetSemester(Semantics);
                 
          return false;
       }
