@@ -34,6 +34,19 @@ namespace MyPackSpeech.SpeechRecognition.Actions
 
       public abstract bool Perform();
 
+      public virtual void GiveConfirmation()
+      {
+         RecoManager.Instance.Say("OK");
+      }
+
+      protected static String MakeCourseNameForSpeech(SemanticValueDict semantics)
+      {
+
+         String dept = String.Join(" ", semantics.GetSlot(Slots.Department).ToCharArray());
+         String number = semantics.GetSlot(Slots.Number);
+         return dept + " " + number;
+      }
+
       protected virtual void PromptForMissing(SemanticValueDict semantics, List<Slots> missing)
       {
          if (missing.Count == 4)

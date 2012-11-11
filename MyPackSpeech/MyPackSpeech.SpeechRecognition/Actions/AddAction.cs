@@ -66,15 +66,17 @@ namespace MyPackSpeech.SpeechRecognition.Actions
       }
       private void correctCourse()
       {
-         //RecoManager.Instance.SayCancelAll();
-         String dept = String.Join(".", semantics.GetSlot(Slots.Department).Split());
-         String number = semantics.GetSlot(Slots.Number);
-         RecoManager.Instance.Say(dept + " " + number + " is not a valid course");
+         String course = MakeCourseNameForSpeech(semantics);
+         RecoManager.Instance.Say(course + " is not a valid course");
          semantics.Remove(Slots.Department.ToString());
          semantics.Remove(Slots.Number.ToString());
 
       }
-
+      override public void GiveConfirmation()
+      {
+         String course = MakeCourseNameForSpeech(semantics);
+         RecoManager.Instance.Say("Ok, I added "+course);
+      }
       override protected void PromptForMissing(SemanticValueDict semantics, List<Slots> missing)
       {
          if (missing.Count == 4)

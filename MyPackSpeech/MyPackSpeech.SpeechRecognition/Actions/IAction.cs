@@ -13,5 +13,6 @@ namespace MyPackSpeech.SpeechRecognition
       bool Inform(SemanticValueDict sem, Student student);
       bool Perform();
       void Undo();
+      void GiveConfirmation();
    }
 }

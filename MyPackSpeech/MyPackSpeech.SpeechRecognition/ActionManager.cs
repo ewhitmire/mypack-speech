@@ -146,6 +146,7 @@ namespace MyPackSpeech
                if (callEvent)
                {
                   actionHistory.Push(currentWorkingAction);
+                  currentWorkingAction.GiveConfirmation();
                   currentWorkingAction = null;
                }
             }
