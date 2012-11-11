@@ -7,28 +7,27 @@ using MyPackSpeech.DataManager.Data;
 
 namespace MyPackSpeech.SpeechRecognition.Actions
 {
-   class AddAction : IAction
+   class AddAction : BaseAction
    {
-      public Student Student { get; private set; }
       public ScheduledCourse Course { get; private set; }
-      private SemanticValue semantics = null;
-      public void Inform(SemanticValue sem, Student student)
+
+      override public bool Perform()
       {
-         Student = student;
-         semantics = sem;
-      }
-      public bool Perform()
-      {
-         List<Slots> missing = CourseConstructor.ValidateCourse(semantics);
+         List<Slots> missing = CourseConstructor.ContainsScheduledCourseData(semantics);
 
          if (missing.Count > 0)
          {
-            ActionManager.Instance.PromptForMissing(semantics, missing);
+            PromptForMissing(semantics, missing);
             return false;
          }
 
          Course = CourseConstructor.ContructScheduledCourse(semantics);
-         if (Course != null)
+         if (Course == null)
+         {
+            correctCourse();
+            return false;
+         }
+         else
          {
             switch (Course.Semester) { 
                case Semester.Fall:
@@ -51,10 +50,58 @@ namespace MyPackSpeech.SpeechRecognition.Actions
             Student.AddCourse(Course);
             return true;
          }
-         return false;
+      }
+      protected override bool ValidateCurrentData()
+      {
+         bool allGood = base.ValidateCurrentData();
+         if (CourseConstructor.ContainsCourseData(semantics).Count == 0)
+         {
+            if (!CourseConstructor.IsCourseDataValid(semantics))
+            {
+               correctCourse();
+               allGood = false;
+            }
+         }
+         return allGood;
+      }
+      private void correctCourse()
+      {
+         //RecoManager.Instance.SayCancelAll();
+         String dept = String.Join(".", semantics.GetSlot(Slots.Department).Split());
+         String number = semantics.GetSlot(Slots.Number);
+         RecoManager.Instance.Say(dept + " " + number + " is not a valid course");
+         semantics.Remove(Slots.Department.ToString());
+         semantics.Remove(Slots.Number.ToString());
+
       }
 
-      public void Undo()
+      override protected void PromptForMissing(SemanticValueDict semantics, List<Slots> missing)
+      {
+         if (missing.Count == 4)
+         {
+            RecoManager.Instance.Say("What would you like to take?");
+         }
+         else
+         {
+            if (missing.Contains(Slots.Semester) || missing.Contains(Slots.Year))
+            {
+               RecoManager.Instance.Say("When would you like to take this course?");
+            }
+            if (missing.Contains(Slots.Department))
+            {
+               if (missing.Contains(Slots.Number))
+               {
+                  RecoManager.Instance.Say("Which course was that?");
+               }
+               else
+               {
+                  RecoManager.Instance.Say("What department is this course in?");
+               }
+            }
+         }
+      }
+
+      override public void Undo()
       {
          if (Course != null)
             Student.Schedule.Courses.Remove(Course);

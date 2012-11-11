@@ -10,7 +10,7 @@ namespace MyPackSpeech.SpeechRecognition
    public interface IAction
    {
       Student Student { get; }
-      void Inform(SemanticValue sem, Student student);
+      bool Inform(SemanticValueDict sem, Student student);
       bool Perform();
       void Undo();
    }

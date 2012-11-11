@@ -11,7 +11,7 @@ namespace MyPackSpeech.SpeechRecognition
 {
    public static class CourseConstructor
    {
-      public static Course ContructCourse(SemanticValue semantics)
+      public static Course ContructCourse(SemanticValueDict semantics)
       {
          String Department = semantics[Slots.Department.ToString()].Value.ToString();
          int Number = (int)semantics[Slots.Number.ToString()].Value;
@@ -26,7 +26,7 @@ namespace MyPackSpeech.SpeechRecognition
       /// </summary>
       /// <param name="semantics">The semantics.</param>
       /// <returns></returns>
-      public static ScheduledCourse ContructScheduledCourse(SemanticValue semantics)
+      public static ScheduledCourse ContructScheduledCourse(SemanticValueDict semantics)
       {
          Course course = ContructCourse(semantics);
          if (course == null)
@@ -45,7 +45,7 @@ namespace MyPackSpeech.SpeechRecognition
          return sCourse;
       }
 
-      public static Semester? GetSemester(SemanticValue semantics, Semester? sem = null)
+      public static Semester? GetSemester(SemanticValueDict semantics, Semester? sem = null)
       {         
          if (semantics.ContainsKey(Slots.Semester.ToString()))
          {
@@ -55,7 +55,7 @@ namespace MyPackSpeech.SpeechRecognition
          return sem;
       }
 
-      public static int? GetYear(SemanticValue semantics, int? year = null)
+      public static int? GetYear(SemanticValueDict semantics, int? year = null)
       {
          if (semantics.ContainsKey(Slots.Year.ToString()))
             year = int.Parse(semantics[Slots.Year.ToString()].Value.ToString());
@@ -63,7 +63,7 @@ namespace MyPackSpeech.SpeechRecognition
          return year;
       }
 
-      public static List<Slots> ValidateExistingCourse(SemanticValue course)
+      public static List<Slots> ContainsCourseData(SemanticValueDict course)
       {
          List<Slots> missing = new List<Slots>();
          if (!course.ContainsKey(Slots.Department.ToString()))
@@ -77,7 +77,7 @@ namespace MyPackSpeech.SpeechRecognition
          return missing;
       }
 
-      public static List<Slots> ValidateCourse(SemanticValue course)
+      public static List<Slots> ContainsScheduledCourseData(SemanticValueDict course)
       {
          List<Slots> missing = new List<Slots>();
 
@@ -103,5 +103,12 @@ namespace MyPackSpeech.SpeechRecognition
       }
 
 
+      internal static bool IsCourseDataValid(SemanticValueDict semantics)
+      {
+         String dept = semantics.GetSlot(Slots.Department);
+         String num = semantics.GetSlot(Slots.Number);
+         IEnumerable<Course> courses = CourseCatalog.Instance.Courses.Where(c => c.Dept.Abv.Equals(dept) && c.Number.Equals(int.Parse(num)));
+         return courses.Count() > 0;
+      }
    }
 }

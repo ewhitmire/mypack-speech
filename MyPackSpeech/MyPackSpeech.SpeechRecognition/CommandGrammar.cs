@@ -39,7 +39,7 @@ namespace MyPackSpeech.SpeechRecognition
       private void buildCommonGrammars()
       {
          this.pleasantries = new Choices("I'd like a", "I'd like to", "I would like to",
-             "I want to", "Would you", "Would you please", "please");
+             "I want to", "Would you", "Would you please", "please", "How about");
 
          this.semester = buildSemesterGrammar();
          this.course = buildCourseGrammar();
@@ -181,6 +181,9 @@ namespace MyPackSpeech.SpeechRecognition
          commandChoices.Add(error);
          commandChoices.Add(setSemester);
 
+         commandChoices.Add(course);
+         //commandChoices.Add(semester);
+
          //GrammarBuilder swap = swapCommand();
          //commandChoices.Add(swap);
          
@@ -205,7 +208,7 @@ namespace MyPackSpeech.SpeechRecognition
          // put the whole command together
          GrammarBuilder finalCommand = new GrammarBuilder();
          finalCommand.Append(this.pleasantries, 0, 1);
-         finalCommand.Append(commandSemKey);
+         finalCommand.Append(commandSemKey, 0, 1);
          finalCommand.Append(this.semester);
 
          return finalCommand;
@@ -249,7 +252,7 @@ namespace MyPackSpeech.SpeechRecognition
          GrammarBuilder finalCommand = new GrammarBuilder();
          finalCommand.Append(this.pleasantries, 0, 1);
          finalCommand.Append(commandSemKey);
-         finalCommand.Append(this.course);
+         finalCommand.Append(this.course, 0, 1);
          finalCommand.Append(this.semester, 0, 1);
 
          return finalCommand;
@@ -271,8 +274,8 @@ namespace MyPackSpeech.SpeechRecognition
          GrammarBuilder finalCommand = new GrammarBuilder();
          finalCommand.Append(this.pleasantries, 0, 1);
          finalCommand.Append(commandSemKey);
-         finalCommand.Append(this.course);
-         finalCommand.Append(this.semester);
+         finalCommand.Append(this.course, 0, 1);
+         finalCommand.Append(this.semester, 0, 1);
 
          return finalCommand;
       }
@@ -292,9 +295,9 @@ namespace MyPackSpeech.SpeechRecognition
          GrammarBuilder finalCommand = new GrammarBuilder();
          finalCommand.Append(this.pleasantries, 0, 1);
          finalCommand.Append(commandSemKey);
-         finalCommand.Append(this.course);
+         finalCommand.Append(this.course, 0, 1);
          finalCommand.Append(preps, 0, 1);
-         finalCommand.Append(this.semester);
+         finalCommand.Append(this.semester, 0, 1);
 
          return finalCommand;
       }

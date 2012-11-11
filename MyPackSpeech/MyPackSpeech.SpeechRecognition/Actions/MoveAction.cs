@@ -7,26 +7,18 @@ using MyPackSpeech.DataManager.Data;
 
 namespace MyPackSpeech.SpeechRecognition.Actions
 {
-   class MoveAction : IAction
+   class MoveAction : BaseAction
    {
-      public Student Student { get; private set; }
       public ScheduledCourse Course { get; private set; }
       public ScheduledCourse OldCourse { get; private set; }
-      private SemanticValue semantics = null;
-
-      public void Inform(SemanticValue sem, Student student)
+      
+      override public bool Perform()
       {
-         Student = student;
-         semantics = sem;
-      }
-
-      public bool Perform()
-      {
-         List<Slots> missing = CourseConstructor.ValidateCourse(semantics);
+         List<Slots> missing = CourseConstructor.ContainsScheduledCourseData(semantics);
 
          if (missing.Count > 0)
          {
-            ActionManager.Instance.PromptForMissing(semantics, missing);
+            PromptForMissing(semantics, missing);
             return false;
          }
 
@@ -40,12 +32,17 @@ namespace MyPackSpeech.SpeechRecognition.Actions
          return false;
       }
 
-      public void Undo()
+      override public void Undo()
       {
          if (Course != null)
             Student.Schedule.Courses.Remove(Course);
          if (OldCourse != null)
             Student.AddCourse(OldCourse);
       }
+
+      override protected void PromptForMissing(SemanticValueDict semantics, List<Slots> missing)
+      {
+         
+      }    
    }
 }

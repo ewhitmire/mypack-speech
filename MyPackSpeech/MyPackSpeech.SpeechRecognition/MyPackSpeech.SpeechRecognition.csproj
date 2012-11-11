@@ -47,13 +47,16 @@
   <ItemGroup>
     <Compile Include="ActionManager.cs" />
     <Compile Include="Actions\AddAction.cs" />
+    <Compile Include="Actions\BaseAction.cs" />
     <Compile Include="Actions\MoveAction.cs" />
     <Compile Include="Actions\RemoveAction.cs" />
+    <Compile Include="Actions\SetSemesterAction.cs" />
     <Compile Include="CommandGrammar.cs" />
     <Compile Include="CommandTypes.cs" />
     <Compile Include="Actions\IAction.cs" />
     <Compile Include="CourseConstructor.cs" />
     <Compile Include="RecoManager.cs" />
+    <Compile Include="SemanticValueDict.cs" />
     <Compile Include="Slots.cs" />
     <Compile Include="TextToSpeech.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
