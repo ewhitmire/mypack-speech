@@ -13,7 +13,7 @@ namespace MyPackSpeech.SpeechRecognition.Actions
 
       override public bool Perform()
       {
-         List<Slots> missing = CourseConstructor.ContainsScheduledCourseData(Semantics);
+         List<Slots> missing = CourseConstructor.ContainsScheduledCourseData(Semantics, true);
 
 
 			if (missing.Count > 0)
@@ -23,12 +23,15 @@ namespace MyPackSpeech.SpeechRecognition.Actions
 			}
 
          ScheduledCourse sCourse= CourseConstructor.ContructScheduledCourse(Semantics);
+
          Course = Student.Schedule.Courses.Where(c => c.Equals(sCourse)).FirstOrDefault();
-		   if (Course != null)
-		   {
-			   Student.RemoveCourse(Course);
+
+         if (Course != null)
+         {
+            Student.RemoveCourse(Course);
             return true;
-		   }
+         }
+
          return false;
       }
 

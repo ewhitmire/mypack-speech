@@ -72,18 +72,18 @@ namespace MyPackSpeech.SpeechRecognition
          tries++;
          RecognitionResult result = e.Result;
          string rejected = "Rejected: " + (result == null ? string.Empty : result.Text + " " + result.Confidence);
-         recognitionEngine.RecognizeAsyncStop();
+         //recognitionEngine.RecognizeAsyncStop();
 
-         if (tries < 2)
-         {
-            reader.Speak("I'm sorry, I didn't understand you.");
-         }
-         else
-         {
-            //reader.Speak("That may not be a valid command.  Try saying something like. I would like to Add CSC 5 91 to my fall semester 2012.");
-         }
+         //if (tries < 2)
+         //{
+         //   reader.Speak("I'm sorry, I didn't understand you.");
+         //}
+         //else
+         //{
+         //   reader.Speak("That may not be a valid command.  Try saying something like. I would like to Add CSC 5 91 to my fall semester 2012.");
+         //}
 
-         recognitionEngine.RecognizeAsync(RecognizeMode.Multiple);
+         //recognitionEngine.RecognizeAsync(RecognizeMode.Multiple);
          System.Console.WriteLine(rejected);
       }
 
