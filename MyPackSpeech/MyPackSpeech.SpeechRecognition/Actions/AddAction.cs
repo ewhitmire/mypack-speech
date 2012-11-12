@@ -21,8 +21,7 @@ namespace MyPackSpeech.SpeechRecognition.Actions
             return false;
          }
 
-<<<<<<< HEAD
-         Course = CourseConstructor.ContructScheduledCourse(semantics);
+         Course = CourseConstructor.ContructScheduledCourse(Semantics);
          List<Course> missingClasses = Student.Schedule.GetMissingPreReqs(Course);
 
          if (missingClasses.Count > 0)
@@ -30,16 +29,13 @@ namespace MyPackSpeech.SpeechRecognition.Actions
             ActionManager.Instance.PromptForPreReqs(missingClasses);
             return false;
          }
-         if (Course != null)
-=======
-         Course = CourseConstructor.ContructScheduledCourse(Semantics);
+         
          if (Course == null)
          {
             correctCourse();
             return false;
          }
          else
->>>>>>> 03818ec7ba910144c055d681a66eda66a454f48a
          {
             switch (Course.Semester) { 
                case Semester.Fall:
@@ -76,14 +72,15 @@ namespace MyPackSpeech.SpeechRecognition.Actions
          }
          return allGood;
       }
+
       private void correctCourse()
       {
          String course = MakeCourseNameForSpeech(Semantics);
          RecoManager.Instance.Say(course + " is not a valid course");
          Semantics.Remove(Slots.Department.ToString());
          Semantics.Remove(Slots.Number.ToString());
-
       }
+
       override public void GiveConfirmation()
       {
          String course = MakeCourseNameForSpeech(Semantics);
