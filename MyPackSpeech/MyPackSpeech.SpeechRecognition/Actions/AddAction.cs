@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Speech.Recognition;
 using MyPackSpeech.DataManager.Data;
+using MyPackSpeech.DataManager.Data.Filter;
 
 namespace MyPackSpeech.SpeechRecognition.Actions
 {
@@ -22,7 +23,7 @@ namespace MyPackSpeech.SpeechRecognition.Actions
          }
 
          Course = CourseConstructor.ContructScheduledCourse(Semantics);
-         List<Course> missingClasses = Student.Schedule.GetMissingPreReqs(Course);
+		 List<IFilter<Course>> missingClasses = Student.Schedule.GetMissingPreReqs(Course);
 
          if (missingClasses.Count > 0)
          {

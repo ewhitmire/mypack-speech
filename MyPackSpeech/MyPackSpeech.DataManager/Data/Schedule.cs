@@ -18,20 +18,20 @@ namespace MyPackSpeech.DataManager.Data
          Courses = new ObservableCollection<ScheduledCourse>();
       }
 
-      public List<Course> GetMissingPreReqs(ScheduledCourse course)
+      public List<IFilter<Course>> GetMissingPreReqs(ScheduledCourse course)
       {
-         List<Course> missing = new List<Course>();
+		  List<IFilter<Course>> missing = new List<IFilter<Course>>();
          //TODO: BrianR get prereqs using course requirements and registered courses
-         
-         foreach (var prereq in course.Course.Prerequisites)
-         {
-            int count = Courses.Where(c => prereq.Matches(c.Course)).Count();
-
-            if (count > 0)
-            {
-               addPreReqToMissing(prereq);
-            }
-         }
+		  foreach (var prereq in course.Course.Prerequisites)
+		  {
+			  var matches = from c in Courses
+							where prereq.Matches(c.Course)
+							select c.Course;
+			  if (matches.Count() == 0)
+			  {
+				  missing.Add(prereq);
+			  }
+		  }
 
          return missing;
       }
