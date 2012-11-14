@@ -8,6 +8,7 @@ using MyPackSpeech.SpeechRecognition;
 using MyPackSpeech.SpeechRecognition.Actions;
 using MyPackSpeech.DataManager.Data;
 using MyPackSpeech.DataManager;
+using MyPackSpeech.DataManager.Data.Filter;
 
 namespace MyPackSpeech
 {
@@ -190,9 +191,10 @@ namespace MyPackSpeech
       public Student CurrStudent { get; private set; }
       #endregion
 
-      internal void PromptForPreReqs(List<Course> missingClasses)
+      public void PromptForPreReqs(List<IFilter<Course>> missing)
       {
-         throw new NotImplementedException();
+		  string message = string.Join(",", missing.Select(m=>m.ToString()).ToArray());
+		  System.Windows.MessageBox.Show(message);
       }
    }
 }
