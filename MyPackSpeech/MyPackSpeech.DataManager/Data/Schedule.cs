@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using MyPackSpeech.DataManager.Data.Filter;
 
 namespace MyPackSpeech.DataManager.Data
 {
@@ -19,8 +20,24 @@ namespace MyPackSpeech.DataManager.Data
 
       public List<Course> GetMissingPreReqs(ScheduledCourse course)
       {
+         List<Course> missing = new List<Course>();
          //TODO: BrianR get prereqs using course requirements and registered courses
-         return new List<Course>();
+         
+         foreach (var prereq in course.Course.Prerequisites)
+         {
+            int count = Courses.Where(c => prereq.Matches(c.Course)).Count();
+
+            if (count > 0)
+            {
+               addPreReqToMissing(prereq);
+            }
+         }
+
+         return missing;
+      }
+
+      private void addPreReqToMissing(IFilter<Course> prereq)
+      {
       }
    }
 }
