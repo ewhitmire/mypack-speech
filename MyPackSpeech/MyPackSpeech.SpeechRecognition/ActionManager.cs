@@ -188,8 +188,8 @@ namespace MyPackSpeech
 
       public void PromptForPreReqs(List<IFilter<Course>> missing)
       {
-		  string message = string.Join(",", missing.Select(m=>m.ToString()).ToArray());
-		  System.Windows.MessageBox.Show(message);
+		  string message = string.Join("\n", missing.Select(m=>m.ToString()).ToArray());
+        System.Windows.MessageBox.Show(message, "Missing Prerequisites");
       }
    }
 }
