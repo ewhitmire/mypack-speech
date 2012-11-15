@@ -191,10 +191,19 @@ namespace MyPackSpeech
       public Student CurrStudent { get; private set; }
       #endregion
 
-      public void PromptForPreReqs(List<IFilter<Course>> missing)
+      public void InformPreReqs(Course course, List<IFilter<Course>> missing)
       {
-         string message = string.Join("\n", missing.Select(m => m.ToString()).ToArray());
-         System.Windows.MessageBox.Show(message, "Missing Prerequisites");
+         OnMissingPreReqs(course, missing);
+      }
+
+      private event EventHandler<MissingPrereqArgs> missingPrereqs;
+      public event EventHandler<MissingPrereqArgs> MissingPrereqs { add { missingPrereqs += value; } remove { missingPrereqs -= value; } }
+
+      private void OnMissingPreReqs(Course course, List<IFilter<Course>> missing)
+      {
+         var evt = missingPrereqs;
+         if (evt != null)
+            evt(this, new MissingPrereqArgs(course, missing));
       }
    }
 }

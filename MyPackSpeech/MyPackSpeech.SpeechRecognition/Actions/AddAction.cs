@@ -23,14 +23,14 @@ namespace MyPackSpeech.SpeechRecognition.Actions
          }
 
          Course = CourseConstructor.ContructScheduledCourse(Semantics);
-		 List<IFilter<Course>> missingClasses = Student.Schedule.GetMissingPreReqs(Course);
+         List<IFilter<Course>> missingClasses = Student.Schedule.GetMissingPreReqs(Course);
 
          if (missingClasses.Count > 0)
          {
-            ActionManager.Instance.PromptForPreReqs(missingClasses);
+            ActionManager.Instance.InformPreReqs(Course.Course, missingClasses);
             return false;
          }
-         
+
          if (Course == null)
          {
             correctCourse();
@@ -38,15 +38,18 @@ namespace MyPackSpeech.SpeechRecognition.Actions
          }
          else
          {
-            switch (Course.Semester) { 
+            switch (Course.Semester)
+            {
                case Semester.Fall:
-                  if (!Course.Course.fall) {
+                  if (!Course.Course.fall)
+                  {
                      ActionManager.Instance.notOffered(Semantics, Course.Semester);
                      return false;
                   }
                   break;
                case Semester.Spring:
-                  if (!Course.Course.spring) {
+                  if (!Course.Course.spring)
+                  {
                      ActionManager.Instance.notOffered(Semantics, Course.Semester);
                      return false;
                   }
@@ -85,7 +88,7 @@ namespace MyPackSpeech.SpeechRecognition.Actions
       override public void GiveConfirmation()
       {
          String course = MakeCourseNameForSpeech(Semantics);
-         RecoManager.Instance.Say("Ok, I added "+course);
+         RecoManager.Instance.Say("Ok, I added " + course);
       }
       override protected void PromptForMissing(SemanticValueDict semantics, List<Slots> missing)
       {

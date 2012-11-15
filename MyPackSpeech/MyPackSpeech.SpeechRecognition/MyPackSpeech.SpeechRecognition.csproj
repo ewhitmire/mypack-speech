@@ -56,6 +56,7 @@
     <Compile Include="CommandTypes.cs" />
     <Compile Include="Actions\IAction.cs" />
     <Compile Include="CourseConstructor.cs" />
+    <Compile Include="MissingPrereqArgs.cs" />
     <Compile Include="RecoManager.cs" />
     <Compile Include="SemanticValueDict.cs" />
     <Compile Include="Slots.cs" />
