@@ -22,7 +22,7 @@ namespace MyPackSpeech.SpeechRecognition.Actions
             return false;
          }
 
-         
+         Course = CourseConstructor.ContructScheduledCourse(Semantics);         
 
          if (Course == null)
          {
@@ -31,7 +31,6 @@ namespace MyPackSpeech.SpeechRecognition.Actions
          }
          else
          {
-            Course = CourseConstructor.ContructScheduledCourse(Semantics);
             List<IFilter<Course>> missingClasses = Student.Schedule.GetMissingPreReqs(Course);
 
             if (missingClasses.Count > 0)
