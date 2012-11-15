@@ -141,7 +141,7 @@ namespace MyPackSpeech
             currentWorkingAction = action;
          }
          callEvent = InformAndPerformCurrentAction(semantics);
-         
+
          return callEvent;
       }
       private bool InformAndPerformCurrentAction(SemanticValueDict semantics)
@@ -193,8 +193,8 @@ namespace MyPackSpeech
 
       public void PromptForPreReqs(List<IFilter<Course>> missing)
       {
-		  string message = string.Join("\n", missing.Select(m=>m.ToString()).ToArray());
-        System.Windows.MessageBox.Show(message, "Missing Prerequisites");
+         string message = string.Join("\n", missing.Select(m => m.ToString()).ToArray());
+         System.Windows.MessageBox.Show(message, "Missing Prerequisites");
       }
    }
 }
