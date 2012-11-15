@@ -24,7 +24,7 @@ namespace MyPackSpeech.SpeechRecognition
          {
             return ActionManager.Instance.CurrentCourse;
          }
-
+         return null;
       }
 
       /// <summary>

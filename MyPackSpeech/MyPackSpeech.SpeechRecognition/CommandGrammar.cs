@@ -16,7 +16,7 @@ namespace MyPackSpeech.SpeechRecognition
       private List<Course> classList;
       private List<Department> depts;
       private GrammarBuilder semester;
-      private GrammarBuilder course;
+      private Choices course;
       private Choices pleasantries;
 
 
@@ -45,7 +45,7 @@ namespace MyPackSpeech.SpeechRecognition
          this.course = buildCourseGrammar();
       }
 
-      private GrammarBuilder buildCourseGrammar()
+      private Choices buildCourseGrammar()
       {
 
          SemanticResultKey anaphora = new SemanticResultKey(Slots.CourseAnaphora.ToString(), new SemanticResultValue("it", "it"));
@@ -82,9 +82,8 @@ namespace MyPackSpeech.SpeechRecognition
          Choices courseOrAnaphora = new Choices();
          courseOrAnaphora.Add(course);
          courseOrAnaphora.Add(anaphora);
-         courseGrammar.Append(courseOrAnaphora);
 
-         return courseGrammar;
+         return courseOrAnaphora;
       }
 
       private GrammarBuilder buildCourseGrammarNested()
