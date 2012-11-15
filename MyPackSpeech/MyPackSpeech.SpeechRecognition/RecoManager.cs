@@ -50,6 +50,7 @@ namespace MyPackSpeech.SpeechRecognition
 
       public void StopSpeechReco()
       {
+         reader.SpeakAsyncCancelAll();
          recognitionEngine.SpeechRecognitionRejected -= recognitionEngine_SpeechRejected;
          recognitionEngine.SpeechRecognized -= recognitionEngine_SpeechRecognized;
          isSpeechRecoActive = false;
@@ -106,7 +107,7 @@ namespace MyPackSpeech.SpeechRecognition
 
       internal void Say(string speech)
       {
-         reader.SpeakAsyncCancelAll();
+         
          StopSpeechReco();
          reader.SpeakAsync(speech);
       }

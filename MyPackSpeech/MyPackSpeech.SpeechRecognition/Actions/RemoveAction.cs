@@ -37,7 +37,10 @@ namespace MyPackSpeech.SpeechRecognition.Actions
 
       override protected void PromptForMissing(SemanticValueDict semantics, List<Slots> missing)
       {
-         
+         if (missing.Contains(Slots.Department) || missing.Contains(Slots.Number))
+         {
+            RecoManager.Instance.Say("What course are you trying to remove?");
+         }
       }
 
 

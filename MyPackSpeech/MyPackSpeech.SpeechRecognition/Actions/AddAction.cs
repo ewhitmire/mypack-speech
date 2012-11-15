@@ -22,14 +22,7 @@ namespace MyPackSpeech.SpeechRecognition.Actions
             return false;
          }
 
-         Course = CourseConstructor.ContructScheduledCourse(Semantics);
-         List<IFilter<Course>> missingClasses = Student.Schedule.GetMissingPreReqs(Course);
-
-         if (missingClasses.Count > 0)
-         {
-            ActionManager.Instance.InformPreReqs(Course.Course, missingClasses);
-            return false;
-         }
+         
 
          if (Course == null)
          {
@@ -38,29 +31,40 @@ namespace MyPackSpeech.SpeechRecognition.Actions
          }
          else
          {
-            switch (Course.Semester)
+            Course = CourseConstructor.ContructScheduledCourse(Semantics);
+            List<IFilter<Course>> missingClasses = Student.Schedule.GetMissingPreReqs(Course);
+
+            if (missingClasses.Count > 0)
             {
-               case Semester.Fall:
-                  if (!Course.Course.fall)
-                  {
-                     ActionManager.Instance.notOffered(Semantics, Course.Semester);
-                     return false;
-                  }
-                  break;
-               case Semester.Spring:
-                  if (!Course.Course.spring)
-                  {
-                     ActionManager.Instance.notOffered(Semantics, Course.Semester);
-                     return false;
-                  }
-                  break;
-               default:
-                  return false;
-
+               ActionManager.Instance.InformPreReqs(Course.Course, missingClasses);
+               return false;
             }
+            else
+            {
+               switch (Course.Semester)
+               {
+                  case Semester.Fall:
+                     if (!Course.Course.fall)
+                     {
+                        ActionManager.Instance.notOffered(Semantics, Course.Semester);
+                        return false;
+                     }
+                     break;
+                  case Semester.Spring:
+                     if (!Course.Course.spring)
+                     {
+                        ActionManager.Instance.notOffered(Semantics, Course.Semester);
+                        return false;
+                     }
+                     break;
+                  default:
+                     return false;
 
-            Student.AddCourse(Course);
-            return true;
+               }
+
+               Student.AddCourse(Course);
+               return true;
+            }
          }
       }
       protected override bool ValidateCurrentData()

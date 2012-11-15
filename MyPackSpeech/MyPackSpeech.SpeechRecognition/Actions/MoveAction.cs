@@ -48,7 +48,7 @@ namespace MyPackSpeech.SpeechRecognition.Actions
          }
          else if (missing.Contains(Slots.Semester) || missing.Contains(Slots.Year))
          {
-            RecoManager.Instance.Say("When you would like to take this course?");
+            RecoManager.Instance.Say("When would you like to take this course?");
          }
       }    
    }
