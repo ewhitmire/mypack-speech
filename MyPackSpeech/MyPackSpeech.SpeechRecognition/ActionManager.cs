@@ -50,10 +50,10 @@ namespace MyPackSpeech
       private IAction currentWorkingAction = null;
       public Semester? CurrentSemester { get; private set; }
       public int? CurrentYear { get; private set; }
+      public Course CurrentCourse { get; private set; }
 
       public void ProcessResult(RecognitionResult result)
       {
-
          SemanticValueDict semantics = SemanticValueDict.FromSemanticValue(result.Semantics);
          if (semantics.ContainsKey("command"))
          {
@@ -67,7 +67,7 @@ namespace MyPackSpeech
 
       private void ProcessSupplemental(SemanticValueDict semantics)
       {
-         SetSemester(semantics);
+         SetContext(semantics);
          InformAndPerformCurrentAction(semantics);
       }
 
@@ -99,10 +99,10 @@ namespace MyPackSpeech
             actionDetected(this, args);
             RecoManager.Instance.Say("Ok");
          }
-         SetSemester(semantics);
+         SetContext(semantics);
       }
 
-      public void SetSemester(SemanticValueDict semantics)
+      public void SetContext(SemanticValueDict semantics)
       {
          Semester? semester = CourseConstructor.GetSemester(semantics);
          if (semester.HasValue)
@@ -113,6 +113,11 @@ namespace MyPackSpeech
 
          if (semester.HasValue || year.HasValue)
             OnSemesterChanged();
+
+         if (CourseConstructor.ContainsCourseData(semantics).Count == 0)
+         {
+            CurrentCourse = CourseConstructor.ContructCourse(semantics);
+         }
       }
 
       private void OnSemesterChanged()
@@ -126,7 +131,7 @@ namespace MyPackSpeech
       {
          bool callEvent = false;
          IAction action = cmd.GetAction();
-         if (currentWorkingAction == null)
+         if (currentWorkingAction == null || !currentWorkingAction.GetType().Equals(action.GetType()))
          {
             currentWorkingAction = action;
          }

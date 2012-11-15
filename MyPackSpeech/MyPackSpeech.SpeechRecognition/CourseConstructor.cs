@@ -13,11 +13,18 @@ namespace MyPackSpeech.SpeechRecognition
    {
       public static Course ContructCourse(SemanticValueDict semantics)
       {
-         String Department = semantics[Slots.Department.ToString()].Value.ToString();
-         int Number = (int)semantics[Slots.Number.ToString()].Value;
+         if (semantics[Slots.Department.ToString()] != null && semantics[Slots.Number.ToString()] != null)
+         {
+            String Department = semantics[Slots.Department.ToString()].Value.ToString();
+            int Number = (int)semantics[Slots.Number.ToString()].Value;
+            IFilter<Course> filter = CourseFilter.DeptAbv(Department).And(CourseFilter.Number(Number, Operator.EQ));
+            return CourseCatalog.Instance.GetCourses(filter).FirstOrDefault();
+         }
+         else if (ActionManager.Instance.CurrentCourse != null)
+         {
+            return ActionManager.Instance.CurrentCourse;
+         }
 
-         IFilter<Course> filter = CourseFilter.DeptAbv(Department).And(CourseFilter.Number(Number, Operator.EQ));
-         return CourseCatalog.Instance.GetCourses(filter).FirstOrDefault();
       }
 
       /// <summary>
@@ -66,13 +73,16 @@ namespace MyPackSpeech.SpeechRecognition
       public static List<Slots> ContainsCourseData(SemanticValueDict course)
       {
          List<Slots> missing = new List<Slots>();
-         if (!course.ContainsKey(Slots.Department.ToString()))
+         if (ActionManager.Instance.CurrentCourse != null)
          {
-            missing.Add(Slots.Department);
-         }
-         if (!course.ContainsKey(Slots.Number.ToString()))
-         {
-            missing.Add(Slots.Department);
+            if (!course.ContainsKey(Slots.Department.ToString()))
+            {
+               missing.Add(Slots.Department);
+            }
+            if (!course.ContainsKey(Slots.Number.ToString()))
+            {
+               missing.Add(Slots.Number);
+            }
          }
          return missing;
       }
@@ -81,13 +91,16 @@ namespace MyPackSpeech.SpeechRecognition
       {
          List<Slots> missing = new List<Slots>();
 
-         if (!course.ContainsKey(Slots.Department.ToString()))
+         if (ActionManager.Instance.CurrentCourse != null)
          {
-            missing.Add(Slots.Department);
-         }
-         if (!course.ContainsKey(Slots.Number.ToString()))
-         {
-            missing.Add(Slots.Number);
+            if (!course.ContainsKey(Slots.Department.ToString()))
+            {
+               missing.Add(Slots.Department);
+            }
+            if (!course.ContainsKey(Slots.Number.ToString()))
+            {
+               missing.Add(Slots.Number);
+            }
          }
          if (!ignoreSemester)
          {

@@ -20,7 +20,7 @@ namespace MyPackSpeech.SpeechRecognition.Actions
             PromptForMissing(Semantics, missing);
             return false;
          }
-         ActionManager.Instance.SetSemester(Semantics);
+         ActionManager.Instance.SetContext(Semantics);
                 
          return false;
       }

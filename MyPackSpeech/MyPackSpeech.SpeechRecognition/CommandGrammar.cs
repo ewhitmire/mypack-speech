@@ -47,6 +47,10 @@ namespace MyPackSpeech.SpeechRecognition
 
       private GrammarBuilder buildCourseGrammar()
       {
+
+         SemanticResultKey anaphora = new SemanticResultKey(Slots.CourseAnaphora.ToString(), new SemanticResultValue("it", "it"));
+
+
          //Class: a class, this class, that class, that other class
          Choices deptChoices = new Choices();
          SemanticResultValue deptsRV;
@@ -73,7 +77,14 @@ namespace MyPackSpeech.SpeechRecognition
          course.Append(deptSemKey);
          course.Append(numbersSemKey);
 
-         return course;
+
+         GrammarBuilder courseGrammar = new GrammarBuilder();
+         Choices courseOrAnaphora = new Choices();
+         courseOrAnaphora.Add(course);
+         courseOrAnaphora.Add(anaphora);
+         courseGrammar.Append(courseOrAnaphora);
+
+         return courseGrammar;
       }
 
       private GrammarBuilder buildCourseGrammarNested()
