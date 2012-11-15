@@ -42,7 +42,14 @@ namespace MyPackSpeech.SpeechRecognition.Actions
 
       override protected void PromptForMissing(SemanticValueDict semantics, List<Slots> missing)
       {
-         
+         if (missing.Contains(Slots.Department) || missing.Contains(Slots.Number))
+         {
+            RecoManager.Instance.Say("What course are you trying to move?");
+         }
+         else if (missing.Contains(Slots.Semester) || missing.Contains(Slots.Year))
+         {
+            RecoManager.Instance.Say("When you would like to take this course?");
+         }
       }    
    }
 }
