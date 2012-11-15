@@ -13,7 +13,7 @@ namespace MyPackSpeech.SpeechRecognition
    {
       public static Course ContructCourse(SemanticValueDict semantics)
       {
-         if (semantics[Slots.Department.ToString()] != null && semantics[Slots.Number.ToString()] != null)
+         if (semantics.ContainsKey(Slots.Department.ToString()) && semantics.ContainsKey(Slots.Number.ToString()))
          {
             String Department = semantics[Slots.Department.ToString()].Value.ToString();
             int Number = (int)semantics[Slots.Number.ToString()].Value;
@@ -73,7 +73,7 @@ namespace MyPackSpeech.SpeechRecognition
       public static List<Slots> ContainsCourseData(SemanticValueDict course)
       {
          List<Slots> missing = new List<Slots>();
-         if (ActionManager.Instance.CurrentCourse != null)
+         if (ActionManager.Instance.CurrentCourse == null)
          {
             if (!course.ContainsKey(Slots.Department.ToString()))
             {
@@ -91,7 +91,7 @@ namespace MyPackSpeech.SpeechRecognition
       {
          List<Slots> missing = new List<Slots>();
 
-         if (ActionManager.Instance.CurrentCourse != null)
+         if (ActionManager.Instance.CurrentCourse == null)
          {
             if (!course.ContainsKey(Slots.Department.ToString()))
             {

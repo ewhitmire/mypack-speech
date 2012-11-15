@@ -194,6 +194,7 @@ namespace MyPackSpeech
       public void InformPreReqs(Course course, List<IFilter<Course>> missing)
       {
          OnMissingPreReqs(course, missing);
+         RecoManager.Instance.Say("You are missing prerequisites for " + course.ToString());
       }
 
       private event EventHandler<MissingPrereqArgs> missingPrereqs;

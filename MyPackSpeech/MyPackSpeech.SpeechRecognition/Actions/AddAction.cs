@@ -68,7 +68,7 @@ namespace MyPackSpeech.SpeechRecognition.Actions
          bool allGood = base.ValidateCurrentData();
          if (CourseConstructor.ContainsCourseData(Semantics).Count == 0)
          {
-            if (!CourseConstructor.IsCourseDataValid(Semantics))
+            if (ActionManager.Instance.CurrentCourse == null && !CourseConstructor.IsCourseDataValid(Semantics))
             {
                correctCourse();
                allGood = false;
@@ -87,9 +87,10 @@ namespace MyPackSpeech.SpeechRecognition.Actions
 
       override public void GiveConfirmation()
       {
-         String course = MakeCourseNameForSpeech(Semantics);
+         String course = MakeCourseNameForSpeech(Course.Course);
          RecoManager.Instance.Say("Ok, I added " + course);
       }
+
       override protected void PromptForMissing(SemanticValueDict semantics, List<Slots> missing)
       {
          if (missing.Count == 4)
