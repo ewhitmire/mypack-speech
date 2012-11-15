@@ -50,7 +50,7 @@ namespace MyPackSpeech
       private IAction currentWorkingAction = null;
       public Semester? CurrentSemester { get; private set; }
       public int? CurrentYear { get; private set; }
-      public Course? CurrentCourse { get; private set; }
+      public Course CurrentCourse { get; private set; }
 
       public void ProcessResult(RecognitionResult result)
       {
@@ -116,7 +116,7 @@ namespace MyPackSpeech
 
          if (CourseConstructor.ContainsCourseData(semantics).Count == 0)
          {
-            CurrentSemester = CourseConstructor.ContructCourse(semantics);
+            CurrentCourse = CourseConstructor.ContructCourse(semantics);
          }
       }
 
@@ -131,7 +131,7 @@ namespace MyPackSpeech
       {
          bool callEvent = false;
          IAction action = cmd.GetAction();
-         if (currentWorkingAction == null)
+         if (currentWorkingAction == null || !currentWorkingAction.GetType().Equals(action.GetType()))
          {
             currentWorkingAction = action;
          }

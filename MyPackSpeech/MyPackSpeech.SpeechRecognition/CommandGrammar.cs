@@ -48,8 +48,7 @@ namespace MyPackSpeech.SpeechRecognition
       private GrammarBuilder buildCourseGrammar()
       {
 
-
-         SemanticResultKey anaphora = new SemanticResultKey(Slots.Department.ToString(), new SemanticResultValue("it", "it"));
+         SemanticResultKey anaphora = new SemanticResultKey(Slots.CourseAnaphora.ToString(), new SemanticResultValue("it", "it"));
 
 
          //Class: a class, this class, that class, that other class
