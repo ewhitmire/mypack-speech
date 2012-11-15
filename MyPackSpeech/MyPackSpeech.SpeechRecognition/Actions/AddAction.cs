@@ -84,9 +84,10 @@ namespace MyPackSpeech.SpeechRecognition.Actions
 
       override public void GiveConfirmation()
       {
-         String course = MakeCourseNameForSpeech(Semantics);
+         String course = MakeCourseNameForSpeech(Course.Course);
          RecoManager.Instance.Say("Ok, I added "+course);
       }
+
       override protected void PromptForMissing(SemanticValueDict semantics, List<Slots> missing)
       {
          if (missing.Count == 4)

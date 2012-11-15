@@ -41,9 +41,22 @@ namespace MyPackSpeech.SpeechRecognition.Actions
 
       public static String MakeCourseNameForSpeech(SemanticValueDict semantics)
       {
+         if (semantics.ContainsKey(Slots.Department.ToString()) && semantics.ContainsKey(Slots.Number.ToString()))
+         {
+            String dept = String.Join(" ", semantics.GetSlot(Slots.Department).ToCharArray());
+            String number = semantics.GetSlot(Slots.Number);
+            return dept + " " + number;
+         }
+         else
+         {
+            return "this";
+         }
+      }
 
-         String dept = String.Join(" ", semantics.GetSlot(Slots.Department).ToCharArray());
-         String number = semantics.GetSlot(Slots.Number);
+      public static String MakeCourseNameForSpeech(Course course)
+      {
+         String dept = String.Join(" ", course.DeptAbv.ToCharArray());
+         String number = course.Number.ToString();
          return dept + " " + number;
       }
 
