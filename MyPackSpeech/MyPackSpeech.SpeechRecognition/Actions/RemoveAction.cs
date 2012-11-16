@@ -22,9 +22,9 @@ namespace MyPackSpeech.SpeechRecognition.Actions
 				return false;
 			}
 
-         ScheduledCourse sCourse= CourseConstructor.ContructScheduledCourse(Semantics);
+         Course sCourse= CourseConstructor.ContructCourse(Semantics);
 
-         Course = Student.Schedule.Courses.Where(c => c.Equals(sCourse)).FirstOrDefault();
+         Course = Student.Schedule.Courses.Where(c => c.Course.Equals(sCourse)).FirstOrDefault();
 
          if (Course != null)
          {
