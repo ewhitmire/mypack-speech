@@ -11,6 +11,8 @@ namespace MyPackSpeech.SpeechRecognition
       Number,
       Semester,
       Year,
-      CourseAnaphora
+      CourseAnaphora,
+      Requirement,
+      Command
    }
 }

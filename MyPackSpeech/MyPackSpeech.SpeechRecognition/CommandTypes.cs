@@ -20,6 +20,8 @@ namespace MyPackSpeech.SpeechRecognition
                return new MoveAction();
             case CommandTypes.SetSemester:
                return new SetSemesterAction();
+            case CommandTypes.Inquire:
+               return new InquireAction();
             case CommandTypes.Show:
             default:
                break;
@@ -36,6 +38,7 @@ namespace MyPackSpeech.SpeechRecognition
       Swap,
       Undo,
       Show,
-      SetSemester
+      SetSemester,
+      Inquire
    }
 }

@@ -16,6 +16,7 @@ namespace MyPackSpeech.SpeechRecognition
       private CommandGrammar grammar;
       private int tries = 0;
       private bool isSpeechRecoActive = false;
+      private bool isSpeechRecoStarted = false;
 
       public delegate void SpeechRecognizedHandler(object sender, SpeechRecognizedEventArgs ca);
       public event SpeechRecognizedHandler SpeechRecognized;
@@ -38,34 +39,60 @@ namespace MyPackSpeech.SpeechRecognition
          grammar = new CommandGrammar(CourseCatalog.Instance.Courses);
          recognitionEngine.LoadGrammar(grammar.grammar);
          recognitionEngine.SetInputToDefaultAudioDevice();
-         recognitionEngine.RecognizeAsync(RecognizeMode.Multiple);
 
+         recognitionEngine.SpeechRecognitionRejected += recognitionEngine_SpeechRejected;
+         recognitionEngine.SpeechRecognized += recognitionEngine_SpeechRecognized;
          reader.SpeakCompleted += reader_SpeakCompleted;
+         recognitionEngine.RecognizeCompleted += recognitionEngine_RecognizeCompleted;
+      }
+
+      void recognitionEngine_RecognizeCompleted(object sender, RecognizeCompletedEventArgs e)
+      {
+         if (!isSpeechRecoActive && e.Cancelled)
+         {
+            recognitionEngine.SetInputToNull();
+         }
       }
 
       void reader_SpeakCompleted(object sender, SpeakCompletedEventArgs e)
       {
-         StartSpeechReco();
+         ResumeSpeechReco();
       }
 
+      public void PauseSpeechReco()
+      {
+         if (isSpeechRecoStarted)
+         {
+            reader.SpeakAsyncCancelAll();
+            recognitionEngine.RecognizeAsyncCancel();
+            isSpeechRecoStarted = false;
+            Console.WriteLine("Speech stopped");
+         }
+      }
+
+      public void ResumeSpeechReco()
+      {
+         if (!isSpeechRecoStarted && isSpeechRecoActive)
+         {
+            recognitionEngine.RecognizeAsync(RecognizeMode.Multiple);
+            isSpeechRecoStarted = true;
+            Console.WriteLine("Speech started");
+         }
+      }
       public void StopSpeechReco()
       {
-         reader.SpeakAsyncCancelAll();
-         recognitionEngine.SpeechRecognitionRejected -= recognitionEngine_SpeechRejected;
-         recognitionEngine.SpeechRecognized -= recognitionEngine_SpeechRecognized;
          isSpeechRecoActive = false;
-         Console.WriteLine("Speech stopped");
+         PauseSpeechReco();
       }
 
       public void StartSpeechReco()
       {
-         if (!isSpeechRecoActive)
+         if (!isSpeechRecoStarted)
          {
-            //recognitionEngine.SpeechRecognitionRejected += recognitionEngine_SpeechRejected;
-            recognitionEngine.SpeechRecognized += recognitionEngine_SpeechRecognized;
-            isSpeechRecoActive = true;
-            Console.WriteLine("Speech started");
+            recognitionEngine.SetInputToDefaultAudioDevice();
          }
+         isSpeechRecoActive = true;
+         ResumeSpeechReco();
       }
 
       private void recognitionEngine_SpeechRejected(object sender, SpeechRecognitionRejectedEventArgs e)
@@ -108,8 +135,17 @@ namespace MyPackSpeech.SpeechRecognition
       internal void Say(string speech)
       {
          
-         StopSpeechReco();
+         PauseSpeechReco();
          reader.SpeakAsync(speech);
+         Console.WriteLine(speech);
+      }
+
+      public void TestText(string speech)
+      {
+         if (!isSpeechRecoActive)
+         {
+            recognitionEngine.EmulateRecognizeAsync(speech);
+         }
       }
    }
 }

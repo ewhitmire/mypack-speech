@@ -4,11 +4,18 @@
         xmlns:my="clr-namespace:MyPackSpeech"
         Title="ChartWindow" Height="300" Width="300">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="223*"/>
+            <ColumnDefinition Width="69*"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="119*"/>
-            <RowDefinition Height="150*"/>
+            <RowDefinition Height="121*"/>
+            <RowDefinition Height="23"/>
+            <RowDefinition Height="125*"/>
         </Grid.RowDefinitions>
-        <my:PhraseChart Margin="10"/>
-        <TextBox x:Name="debugOutput" Margin="10" Grid.Row="1" />
+        <my:PhraseChart Margin="10" Grid.ColumnSpan="2"/>
+        <TextBox x:Name="debugOutput" Grid.Row="2" Grid.ColumnSpan="2" />
+        <TextBox x:Name="debugSpeech" TextWrapping="Wrap" Text="TextBox" Grid.Row="1"/>
+        <Button x:Name="debugSpeechBtn" Content="Test" Grid.Row="1" Click="debugSpeechBtn_Click" IsDefault="True" Grid.Column="1"/>
     </Grid>
 </Window>

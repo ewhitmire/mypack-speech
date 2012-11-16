@@ -13,6 +13,12 @@ namespace MyPackSpeech.DataManager.Data
       {
          return Requirements.Select(r => r.Category).Distinct().ToList();
       }
+
+      public IEnumerable<DegreeRequirement> GetRequirementsForCategory(DegreeRequirementCategory cat)
+      {
+         return Requirements.Where<DegreeRequirement>(r => r.Category.Equals(cat));
+      }
+
       public String Name { get; private set; }
 
       public DegreeProgram(String degreeName)

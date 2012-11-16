@@ -55,7 +55,7 @@ namespace MyPackSpeech
       public void ProcessResult(RecognitionResult result)
       {
          SemanticValueDict semantics = SemanticValueDict.FromSemanticValue(result.Semantics);
-         if (semantics.ContainsKey("command"))
+         if (semantics.ContainsKey(Slots.Command.ToString()))
          {
             ProcessCommand(semantics);
          }
@@ -73,7 +73,7 @@ namespace MyPackSpeech
 
       private void ProcessCommand(SemanticValueDict semantics)
       {
-         CommandTypes cmd = (CommandTypes)(semantics["command"].Value);
+         CommandTypes cmd = (CommandTypes)(semantics[Slots.Command.ToString()].Value);
          bool callEvent = false;
 
          switch (cmd)
@@ -82,6 +82,7 @@ namespace MyPackSpeech
             case CommandTypes.Remove:
             case CommandTypes.Move:
             case CommandTypes.SetSemester:
+            case CommandTypes.Inquire:
                callEvent = doCourseRegistrationAction(semantics, cmd);
                break;
             case CommandTypes.Undo:

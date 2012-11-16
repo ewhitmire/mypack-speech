@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MyPackSpeech.SpeechRecognition;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -30,6 +31,12 @@ namespace MyPackSpeech
          {
             instance.debugOutput.AppendText(message+"\n");
          }
+      }
+
+      private void debugSpeechBtn_Click(object sender, RoutedEventArgs e)
+      {
+         RecoManager.Instance.TestText(debugSpeech.Text);
+         debugSpeech.Text = "";
       }
 	}
 }
