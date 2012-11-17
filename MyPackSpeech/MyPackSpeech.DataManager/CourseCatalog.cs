@@ -168,6 +168,13 @@ namespace MyPackSpeech.DataManager
 
       public List<string> getPreReqs(string[] reqString)
       {
+         // two changes that were manually made to CSC.json
+         // CSC 112:
+         // 'E115' becomes 'E 115'
+         // CSC 512:
+         // 'CSC 314 and 333' becomes 'CSC 314 and CSC 333'
+
+
          //Splits to a list
          List<string> tokens = reqString.ToList();
 
@@ -179,15 +186,16 @@ namespace MyPackSpeech.DataManager
              tokens.Remove("");
           }
 
+          System.Console.Write("original: ");
          // Print original string
-          //for (int i = 1; i < tokens.Count; i++)
-          //{
-          //   string myString = tokens[i];
-          //   System.Console.Write("" + myString + " ");
+          for (int i = 1; i < tokens.Count; i++)
+          {
+             string myString = tokens[i];
+             System.Console.Write("" + myString + " ");
 
-          //}
+          }
 
-         //System.Console.WriteLine();
+         System.Console.WriteLine();
 
 
          // Filter out language
@@ -262,18 +270,18 @@ namespace MyPackSpeech.DataManager
          
          }
 
-         ////Print final string of classes
-         //if (classes.Count != 0)
-         //{
+         //Print final string of classes
+         if (classes.Count != 0)
+         {
 
-         //   for (int i = 0; i < classes.Count; i++)
-         //   {
-         //      System.Console.Write(classes[i] + " ");
-         //   }
+            for (int i = 0; i < classes.Count; i++)
+            {
+               System.Console.Write(classes[i] + " ");
+            }
 
-         //   System.Console.WriteLine();
-         //   System.Console.WriteLine();
-         //}
+            System.Console.WriteLine();
+            System.Console.WriteLine();
+         }
 
          //CourseFilter filter 
 
@@ -337,6 +345,7 @@ namespace MyPackSpeech.DataManager
                            preReqs = courseObject["prerequisites"].ToString();
                            //System.Console.WriteLine("preReqs: " + preReqs);
                            if(dept.Abv.Equals("CSC")){
+                              System.Console.WriteLine("CSC" + courseNumber);
                               Char[] delims = { ' ', '(', ')', ':', ';','.', ',', '/' };
                               this.getPreReqs(preReqs.Split(delims));
                            }
