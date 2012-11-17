@@ -102,7 +102,7 @@ namespace MyPackSpeech
 			foreach (RecognizedPhrase phrase in ca.Result.Alternates)
 			{
 
-            DebugWindow.Trace("Alternative: " + phrase.Text + " (" + phrase.Confidence + ")");
+            //DebugWindow.Trace("Alternative: " + phrase.Text + " (" + phrase.Confidence + ")");
 				DataPoint pAlt = new DataPoint(series);
 				pAlt.XValue = x;
 				pAlt.YValues = new double[] { phrase.Confidence };

@@ -304,6 +304,7 @@ namespace MyPackSpeech.DataManager
 
       private void LoadData()
       {
+         int duplicates = 0;
          Debug.WriteLine("Reading list of departments");
          using (StreamReader deparmentsReader = new StreamReader(DepartmentsList))
          {
@@ -340,6 +341,8 @@ namespace MyPackSpeech.DataManager
                         {
                            name = courseObject["name"].ToString();
                         }
+
+                        List<string> parsedPreReqs = null;
                         if (courseObject["prerequisites"] != null)
                         {
                            preReqs = courseObject["prerequisites"].ToString();
@@ -347,7 +350,7 @@ namespace MyPackSpeech.DataManager
                            if(dept.Abv.Equals("CSC")){
                               System.Console.WriteLine("CSC" + courseNumber);
                               Char[] delims = { ' ', '(', ')', ':', ';','.', ',', '/' };
-                              this.getPreReqs(preReqs.Split(delims));
+                              parsedPreReqs = getPreReqs(preReqs.Split(delims));
                            }
                         }
 
@@ -369,12 +372,19 @@ namespace MyPackSpeech.DataManager
                            //   System.Console.WriteLine(offeredInfall + ":Fall: " + dept.Abv + courseNumber);
                         }
 
-                        Course course = new Course(dept, name, courseNumber, description);
+                        IFilter<Course>[] prereqFilters = PrereqBuilder.GetPreReqFilters(parsedPreReqs);
+                        Course course = new Course(dept, name, courseNumber, description, prereqFilters);
                         course.spring = spring;
                         course.fall = fall;
+
+
                         if (!Courses.Contains(course))
                         {
                            Courses.Add(course);
+                        }
+                        else
+                        {
+                           duplicates++;
                         }
                      }
                   }
@@ -382,6 +392,7 @@ namespace MyPackSpeech.DataManager
             }
          }
       }
+
       private void OnFilterChanged()
       {
          clearFilteredCourses();
@@ -393,7 +404,6 @@ namespace MyPackSpeech.DataManager
 
       public static String FormatCourseList(IEnumerable<Course> courseList)
       {
-
          if (courseList.Count() <= 3)
          {
             return String.Join(", ", courseList.Select(c => c.ToString()));

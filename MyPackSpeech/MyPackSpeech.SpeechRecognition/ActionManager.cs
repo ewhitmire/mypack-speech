@@ -8,6 +8,7 @@ using MyPackSpeech.SpeechRecognition;
 using MyPackSpeech.SpeechRecognition.Actions;
 using MyPackSpeech.DataManager.Data;
 using MyPackSpeech.DataManager;
+using MyPackSpeech.DataManager.Data.Filter;
 
 namespace MyPackSpeech
 {
@@ -37,6 +38,7 @@ namespace MyPackSpeech
          }
       }
 
+
       // event declaration 
       private event EventHandler<ActionDetectedEventArgs> actionDetected;
       private event EventHandler semesterChanged;
@@ -44,30 +46,34 @@ namespace MyPackSpeech
       public event EventHandler<ActionDetectedEventArgs> ActionDetected { add { actionDetected += value; } remove { actionDetected -= value; } }
       public event EventHandler SemesterChanged { add { semesterChanged += value; } remove { semesterChanged -= value; } }
 
-      Stack<IAction> actionHistory = new Stack<IAction>();
+      private Stack<IAction> actionHistory = new Stack<IAction>();
+      private IAction currentWorkingAction = null;
       public Semester? CurrentSemester { get; private set; }
       public int? CurrentYear { get; private set; }
+      public Course CurrentCourse { get; private set; }
 
       public void ProcessResult(RecognitionResult result)
       {
-         if (result.Semantics.ContainsKey("command"))
+         SemanticValueDict semantics = SemanticValueDict.FromSemanticValue(result.Semantics);
+         if (semantics.ContainsKey(Slots.Command.ToString()))
          {
-            ProcessCommand(result);
+            ProcessCommand(semantics);
          }
          else
          {
-            ProcessSupplemental(result);
+            ProcessSupplemental(semantics);
          }
       }
 
-      private void ProcessSupplemental(RecognitionResult result)
+      private void ProcessSupplemental(SemanticValueDict semantics)
       {
-         throw new NotImplementedException();
+         SetContext(semantics);
+         InformAndPerformCurrentAction(semantics);
       }
 
-      private void ProcessCommand(RecognitionResult result)
+      private void ProcessCommand(SemanticValueDict semantics)
       {
-         CommandTypes cmd = (CommandTypes)(result.Semantics["command"].Value);
+         CommandTypes cmd = (CommandTypes)(semantics[Slots.Command.ToString()].Value);
          bool callEvent = false;
 
          switch (cmd)
@@ -75,13 +81,12 @@ namespace MyPackSpeech
             case CommandTypes.Add:
             case CommandTypes.Remove:
             case CommandTypes.Move:
-               callEvent = doCourseRegistrationAction(result, cmd);
+            case CommandTypes.SetSemester:
+            case CommandTypes.Inquire:
+               callEvent = doCourseRegistrationAction(semantics, cmd);
                break;
             case CommandTypes.Undo:
                callEvent = doUndoComnmand(callEvent);
-               break;
-            case CommandTypes.SetSemester:
-               setSemester(result);
                break;
             case CommandTypes.Swap:
             case CommandTypes.Show:
@@ -93,21 +98,27 @@ namespace MyPackSpeech
          {
             ActionDetectedEventArgs args = new ActionDetectedEventArgs(cmd, CurrStudent);
             actionDetected(this, args);
-            RecoManager.Instance.reader.SpeakAsync("Ok");
+            RecoManager.Instance.Say("Ok");
          }
+         SetContext(semantics);
       }
 
-      private void setSemester(RecognitionResult result)
+      public void SetContext(SemanticValueDict semantics)
       {
-         Semester? semester = CourseConstructor.GetSemester(result.Semantics);
+         Semester? semester = CourseConstructor.GetSemester(semantics);
          if (semester.HasValue)
             CurrentSemester = semester.Value;
-         int? year = CourseConstructor.GetYear(result.Semantics);
+         int? year = CourseConstructor.GetYear(semantics);
          if (year.HasValue)
             CurrentYear = year.Value;
 
          if (semester.HasValue || year.HasValue)
             OnSemesterChanged();
+
+         if (CourseConstructor.ContainsCourseData(semantics).Count == 0)
+         {
+            CurrentCourse = CourseConstructor.ContructCourse(semantics);
+         }
       }
 
       private void OnSemesterChanged()
@@ -117,21 +128,44 @@ namespace MyPackSpeech
             evt(this, EventArgs.Empty);
       }
 
-      private bool doCourseRegistrationAction(RecognitionResult result, CommandTypes cmd)
+      private bool doCourseRegistrationAction(SemanticValueDict semantics, CommandTypes cmd)
       {
          bool callEvent = false;
          IAction action = cmd.GetAction();
-         if (action!=null)
+         if (currentWorkingAction == null || !currentWorkingAction.GetType().Equals(action.GetType()))
          {
-            action.Inform(result.Semantics, CurrStudent);
-            callEvent = action.Perform();
+            currentWorkingAction = action;
+         }
+         else if (currentWorkingAction.GetType().Equals(action.GetType()) || currentWorkingAction is UnknownAction)
+         {
+            action.Inform(currentWorkingAction.Semantics, CurrStudent);
+            currentWorkingAction = action;
+         }
+         callEvent = InformAndPerformCurrentAction(semantics);
+
+         return callEvent;
+      }
+      private bool InformAndPerformCurrentAction(SemanticValueDict semantics)
+      {
+         bool callEvent = false;
+         if (currentWorkingAction == null)
+         {
+            currentWorkingAction = new UnknownAction();
+         }
+         callEvent = currentWorkingAction.Inform(semantics, CurrStudent);
+         if (callEvent)
+         {
+            callEvent = currentWorkingAction.Perform();
             //don't push events that didn't work
             if (callEvent)
-               actionHistory.Push(action);
+            {
+               actionHistory.Push(currentWorkingAction);
+               currentWorkingAction.GiveConfirmation();
+               currentWorkingAction = null;
+            }
          }
          return callEvent;
       }
-
       private bool doUndoComnmand(bool callEvent)
       {
          if (actionHistory.Count > 0)
@@ -143,19 +177,11 @@ namespace MyPackSpeech
          return callEvent;
       }
 
-      public void PromptForMissing(SemanticValue context, List<Slots> missing)
+      public void notOffered(SemanticValueDict context, Semester semester)
       {
-         RecoManager.Instance.reader.SpeakAsyncCancelAll();
-         foreach (Slots s in missing)
-         {
-            RecoManager.Instance.reader.SpeakAsync("I don't know the " + s.ToString());
-         }
-      }
+         //RecoManager.Instance.SayCancelAll();
 
-      public void notOffered(SemanticValue context, Semester semester) {
-         //RecoManager.Instance.reader.SpeakAsyncCancelAll();
-
-         RecoManager.Instance.reader.SpeakAsync("That class is not available in the " + semester.ToString());
+         RecoManager.Instance.Say("That class is not available in the " + semester.ToString());
       }
 
       protected ActionManager()
@@ -165,5 +191,23 @@ namespace MyPackSpeech
       #region student
       public Student CurrStudent { get; private set; }
       #endregion
+
+      public void InformPreReqs(Course course, List<IFilter<Course>> missing)
+      {
+         OnMissingPreReqs(course, missing);
+         RecoManager.Instance.Say("You are missing prerequisites for " + course.ToString());
+      }
+
+      private event EventHandler<MissingPrereqArgs> missingPrereqs;
+      public event EventHandler<MissingPrereqArgs> MissingPrereqs { add { missingPrereqs += value; } remove { missingPrereqs -= value; } }
+
+      private void OnMissingPreReqs(Course course, List<IFilter<Course>> missing)
+      {
+         var evt = missingPrereqs;
+         if (evt != null)
+            evt(this, new MissingPrereqArgs(course, missing));
+      }
+
+
    }
 }

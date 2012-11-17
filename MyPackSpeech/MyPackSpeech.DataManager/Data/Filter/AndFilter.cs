@@ -19,7 +19,20 @@ namespace MyPackSpeech.DataManager.Data.Filter
 
       public override string ToString()
       {
-         return String.Format("{0} && {1}", LHS, RHS);
+         Filter<T> lhs = LHS as Filter<T>;
+         Filter<T> rhs = RHS as Filter<T>;
+         if (lhs != null && rhs != null)
+         {
+            //special print for dept abv and course number
+            if (lhs.PropertyName == CourseFilter.DeptAbvProperty && rhs.PropertyName == CourseFilter.CourseNumberProperty)
+            {
+               if (lhs.Op == Operator.EQ && rhs.Op == Operator.EQ)
+               {
+                  return string.Format("{0} {1}", lhs.StrCriteria, rhs.IntCriteria);
+               }
+            }
+         }
+         return String.Format("({0}) && ({1})", LHS, RHS);
       }
    }
 }

@@ -40,6 +40,12 @@ namespace MyPackSpeech
       void MainWindow_Loaded(object sender, RoutedEventArgs e)
       {
          showDebugWindow();
+         ActionManager.Instance.MissingPrereqs += Instance_MissingPrereqs;
+      }
+
+      void Instance_MissingPrereqs(object sender, MissingPrereqArgs e)
+      {
+         infoBox.Text = "Missing Prerequisites for " + e.Course + "\n" + String.Join("\n", e.Prereqs.Select(p => p.ToString()).ToArray());
       }
 
       protected override void OnClosed(EventArgs e)

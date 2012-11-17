@@ -7,30 +7,24 @@ using MyPackSpeech.DataManager.Data;
 
 namespace MyPackSpeech.SpeechRecognition.Actions
 {
-   class RemoveAction : IAction
+   class RemoveAction : BaseAction
    {
-      public Student Student { get; private set; }
-      public ScheduledCourse Course { get; private set; }
-      private SemanticValue semantics = null;
+		public ScheduledCourse Course { get; private set; }
 
-      public void Inform(SemanticValue sem, Student student)
+      override public bool Perform()
       {
-         Student = student;
-         semantics = sem;
-      }
+         List<Slots> missing = CourseConstructor.ContainsScheduledCourseData(Semantics, true);
 
-      public bool Perform()
-      {
-         List<Slots> missing = CourseConstructor.ValidateCourse(semantics, true);
 
-         if (missing.Count > 0)
-         {
-            ActionManager.Instance.PromptForMissing(semantics, missing);
-            return false;
-         }
+			if (missing.Count > 0)
+			{
+				PromptForMissing(Semantics, missing);
+				return false;
+			}
 
-         ScheduledCourse sCourse = CourseConstructor.ContructScheduledCourse(semantics);
-         Course = Student.Schedule.Courses.Where(c => c.Equals(sCourse)).FirstOrDefault();
+         Course sCourse= CourseConstructor.ContructCourse(Semantics);
+
+         Course = Student.Schedule.Courses.Where(c => c.Course.Equals(sCourse)).FirstOrDefault();
 
          if (Course != null)
          {
@@ -41,13 +35,21 @@ namespace MyPackSpeech.SpeechRecognition.Actions
          return false;
       }
 
-
-      public void Undo()
+      override protected void PromptForMissing(SemanticValueDict semantics, List<Slots> missing)
       {
-         if (Course != null)
+         if (missing.Contains(Slots.Department) || missing.Contains(Slots.Number))
          {
-            Student.AddCourse(Course);
+            RecoManager.Instance.Say("What course are you trying to remove?");
          }
       }
-   }
+
+
+      override public void Undo()
+		{
+			if (Course != null)
+			{
+				Student.AddCourse(Course);
+			}
+		}
+	}
 }

@@ -96,7 +96,7 @@ namespace MyPackSpeech.DataManager.Data
 	  public void RemoveCourse(ScheduledCourse Course)
 	  {
 		  Schedule.Courses.Remove(Course);
-        DegreeRequirement req = Degree.Requirements.Where(c => c.Fulfillment.Equals(Course)).FirstOrDefault();
+        DegreeRequirement req = Degree.Requirements.Where(c => Course.Equals(c.Fulfillment)).FirstOrDefault();
         if (req != null)
         {
            req.Fulfillment = null;

@@ -14,16 +14,12 @@ namespace MyPackSpeech.DataManager.Data.Filter
 
       public override bool Matches(T item)
       {
-         if (LHS == null || RHS == null)
-         {
-            System.Console.WriteLine("yo");
-         }
-         return LHS.Matches(item) || RHS.Matches(item);
+        return LHS.Matches(item) || RHS.Matches(item);
       }
 
       public override string ToString()
       {
-         return String.Format("{0} || {1}", LHS, RHS);
+         return String.Format("({0}) || ({1})", LHS, RHS);
       }
    }
 }
