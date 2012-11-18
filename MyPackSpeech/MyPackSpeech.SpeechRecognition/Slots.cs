@@ -13,6 +13,7 @@ namespace MyPackSpeech.SpeechRecognition
       Year,
       CourseAnaphora,
       Requirement,
+      CourseName,
       Command
    }
 }

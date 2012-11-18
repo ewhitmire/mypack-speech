@@ -14,6 +14,7 @@ namespace MyPackSpeech.SpeechRecognition.Actions
          if (!Semantics.ContainsKey(Slots.Requirement.ToString()))
          {
             // What do I need to graduate?
+            return true;
          }
 
          String reqName = Semantics.GetSlot(Slots.Requirement);

@@ -81,10 +81,19 @@ namespace MyPackSpeech.SpeechRecognition
          course.Append(numbersSemKey);
 
 
+
+         Choices courseNameChoices = new Choices();
+         foreach (Course c in CourseCatalog.Instance.Courses)
+         {
+            courseNameChoices.Add(new SemanticResultValue(c.Name, c.ToString()));
+         }
+         SemanticResultKey courseNameKey = new SemanticResultKey(Slots.CourseName.ToString(), courseNameChoices);
+
          GrammarBuilder courseGrammar = new GrammarBuilder();
          Choices courseOrAnaphora = new Choices();
          courseOrAnaphora.Add(course);
          courseOrAnaphora.Add(anaphora);
+         courseOrAnaphora.Add(courseNameKey);
 
          return courseOrAnaphora;
       }
@@ -387,6 +396,8 @@ namespace MyPackSpeech.SpeechRecognition
          commands.Add(new SemanticResultValue("which", (int)CommandTypes.Inquire));
          commands.Add(new SemanticResultValue("how many", (int)CommandTypes.Inquire));
          commands.Add(new SemanticResultValue("are there any", (int)CommandTypes.Inquire));
+         commands.Add(new SemanticResultValue("what are my", (int)CommandTypes.Inquire));
+         commands.Add(new SemanticResultValue("what are the", (int)CommandTypes.Inquire));
          SemanticResultKey commandSemKey = new SemanticResultKey(Slots.Command.ToString(), commands);
 
 

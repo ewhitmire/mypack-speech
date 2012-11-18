@@ -13,7 +13,13 @@ namespace MyPackSpeech.SpeechRecognition
    {
       public static Course ContructCourse(SemanticValueDict semantics)
       {
-         if (semantics.ContainsKey(Slots.Department.ToString()) && semantics.ContainsKey(Slots.Number.ToString()))
+         if (semantics.HasSlot(Slots.CourseName))
+         {
+            String courseName = semantics.GetSlot(Slots.CourseName);
+            Course course = CourseCatalog.Instance.Courses.Find(c => c.ToString().Equals(courseName));
+            return course;
+         }
+         else if (semantics.HasSlot(Slots.Department) && semantics.HasSlot(Slots.Number))
          {
             String Department = semantics[Slots.Department.ToString()].Value.ToString();
             int Number = (int)semantics[Slots.Number.ToString()].Value;
@@ -73,7 +79,7 @@ namespace MyPackSpeech.SpeechRecognition
       public static List<Slots> ContainsCourseData(SemanticValueDict course)
       {
          List<Slots> missing = new List<Slots>();
-         if (ActionManager.Instance.CurrentCourse == null)
+         if (ActionManager.Instance.CurrentCourse == null && !course.HasSlot(Slots.CourseName))
          {
             if (!course.ContainsKey(Slots.Department.ToString()))
             {
@@ -89,22 +95,9 @@ namespace MyPackSpeech.SpeechRecognition
 
       public static List<Slots> ContainsScheduledCourseData(SemanticValueDict course, bool ignoreSemester = false)
       {
-         List<Slots> missing = new List<Slots>();
-
-         if (ActionManager.Instance.CurrentCourse == null)
-         {
-            if (!course.ContainsKey(Slots.Department.ToString()))
-            {
-               missing.Add(Slots.Department);
-            }
-            if (!course.ContainsKey(Slots.Number.ToString()))
-            {
-               missing.Add(Slots.Number);
-            }
-         }
+         List<Slots> missing = ContainsCourseData(course);
          if (!ignoreSemester)
          {
-
             if (!course.ContainsKey(Slots.Semester.ToString()) && !ActionManager.Instance.CurrentSemester.HasValue)
             {
                missing.Add(Slots.Semester);
@@ -120,10 +113,17 @@ namespace MyPackSpeech.SpeechRecognition
 
       internal static bool IsCourseDataValid(SemanticValueDict semantics)
       {
-         String dept = semantics.GetSlot(Slots.Department);
-         String num = semantics.GetSlot(Slots.Number);
-         IEnumerable<Course> courses = CourseCatalog.Instance.Courses.Where(c => c.Dept.Abv.Equals(dept) && c.Number.Equals(int.Parse(num)));
-         return courses.Count() > 0;
+         if (semantics.HasSlot(Slots.CourseName))
+         {
+            return true;
+         }
+         else
+         {
+            String dept = semantics.GetSlot(Slots.Department);
+            String num = semantics.GetSlot(Slots.Number);
+            IEnumerable<Course> courses = CourseCatalog.Instance.Courses.Where(c => c.Dept.Abv.Equals(dept) && c.Number.Equals(int.Parse(num)));
+            return courses.Count() > 0;
+         }
       }
    }
 }
