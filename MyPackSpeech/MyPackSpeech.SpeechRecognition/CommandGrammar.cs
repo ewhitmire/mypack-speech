@@ -362,6 +362,8 @@ namespace MyPackSpeech.SpeechRecognition
          commands.Add(new SemanticResultValue("which", (int)CommandTypes.Inquire));
          commands.Add(new SemanticResultValue("how many", (int)CommandTypes.Inquire));
          commands.Add(new SemanticResultValue("are there any", (int)CommandTypes.Inquire));
+         commands.Add(new SemanticResultValue("what are my", (int)CommandTypes.Inquire));
+         commands.Add(new SemanticResultValue("what are the", (int)CommandTypes.Inquire));
          SemanticResultKey commandSemKey = new SemanticResultKey(Slots.Command.ToString(), commands);
 
 
