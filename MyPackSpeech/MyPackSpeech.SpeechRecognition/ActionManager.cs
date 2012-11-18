@@ -78,13 +78,11 @@ namespace MyPackSpeech
 
          switch (cmd)
          {
+            case CommandTypes.Bookmark:
             case CommandTypes.Add:
             case CommandTypes.Remove:
             case CommandTypes.Move:
             case CommandTypes.SetSemester:
-            case CommandTypes.Bookmark:
-               SetInfoPane("Found a bookmark");
-               break;
             case CommandTypes.Inquire:
                callEvent = doCourseRegistrationAction(semantics, cmd);
                break;
