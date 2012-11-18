@@ -33,12 +33,16 @@ namespace MyPackSpeech.SpeechRecognition
 
       public String GetSlot(Slots s)
       {
-         if (!this.Keys.Contains(s.ToString()))
+         if (!HasSlot(s))
          {
             return null;
          }
          return this[s.ToString()].Value.ToString();
          
+      }
+      public bool HasSlot(Slots s)
+      {
+         return this.Keys.Contains(s.ToString());
       }
       public object Value;
    }
