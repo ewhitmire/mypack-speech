@@ -24,12 +24,18 @@ namespace MyPackSpeech.SpeechRecognition.Actions
 
          Course sCourse= CourseConstructor.ContructCourse(Semantics);
 
-         Course = Student.Schedule.Courses.Where(c => c.Course.Equals(sCourse)).FirstOrDefault();
 
-         if (Course != null)
+         if (sCourse != null)
          {
-            Student.RemoveCourse(Course);
-            return true;
+            if (!Student.Schedule.Contains(sCourse) && !Student.bookmarks.Contains(sCourse))
+            {
+               RecoManager.Instance.Say("You must add that course before attempting to remove it.");
+            }
+            else
+            {
+               Student.RemoveCourse(sCourse);
+               return true;
+            }
          }
 
          return false;

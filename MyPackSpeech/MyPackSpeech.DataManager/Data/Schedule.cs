@@ -18,6 +18,16 @@ namespace MyPackSpeech.DataManager.Data
          Courses = new ObservableCollection<ScheduledCourse>();
       }
 
+      public Boolean Contains(Course course){
+         foreach (ScheduledCourse myCourse in Courses) {
+            if (myCourse.Course.Equals(course)) {
+               return true;
+            }
+         }
+         return false;
+      }
+
+
       public List<IFilter<Course>> GetMissingPreReqs(ScheduledCourse course)
       {
          List<IFilter<Course>> missing = new List<IFilter<Course>>();

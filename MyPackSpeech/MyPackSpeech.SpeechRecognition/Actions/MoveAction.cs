@@ -24,6 +24,12 @@ namespace MyPackSpeech.SpeechRecognition.Actions
 
          Course = CourseConstructor.ContructScheduledCourse(Semantics);
          
+         if (!Student.Schedule.Contains(Course.Course)) {
+            RecoManager.Instance.Say("You must add that course to your schedule before moving it.");
+            return false;
+         }
+
+
          if (Course != null)
          {            
             OldCourse = Student.MoveCourse(Course);

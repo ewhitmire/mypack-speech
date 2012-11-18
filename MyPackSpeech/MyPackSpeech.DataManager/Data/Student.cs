@@ -81,7 +81,7 @@ namespace MyPackSpeech.DataManager.Data
 
          if (existing != null)
          {
-            RemoveCourse(existing);
+            RemoveCourse(existing.Course);
          }
 
          AddCourse(course);
@@ -114,15 +114,29 @@ namespace MyPackSpeech.DataManager.Data
             evt(this, EventArgs.Empty);
       
       }
-	  public void RemoveCourse(ScheduledCourse Course)
+	  public void RemoveCourse(Course Course)
 	  {
-		  Schedule.Courses.Remove(Course);
-        DegreeRequirement req = Degree.Requirements.Where(c => Course.Equals(c.Fulfillment)).FirstOrDefault();
-        if (req != null)
+
+        ScheduledCourse myCourse = Schedule.Courses.Where(c => c.Course.Equals(Course)).FirstOrDefault();
+        if (myCourse != null)
         {
-           req.Fulfillment = null;
+           Schedule.Courses.Remove(myCourse);
+           DegreeRequirement req = Degree.Requirements.Where(c => Course.Equals(c.Fulfillment)).FirstOrDefault();
+           if (req != null)
+           {
+              req.Fulfillment = null;
+           }
+           OnScheduleChanged();
         }
-		  OnScheduleChanged();
+        else
+        {
+           if(bookmarks.Contains(Course)){
+            RemoveBookmark(Course);
+           } 
+        }
+        
+
 	  }
+
    }
 }

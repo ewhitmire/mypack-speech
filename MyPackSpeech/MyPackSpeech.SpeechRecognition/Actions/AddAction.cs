@@ -123,7 +123,7 @@ namespace MyPackSpeech.SpeechRecognition.Actions
       override public void Undo()
       {
          if (Course != null)
-            Student.RemoveCourse(Course);
+            Student.RemoveCourse(Course.Course);
       }
    }
 }
