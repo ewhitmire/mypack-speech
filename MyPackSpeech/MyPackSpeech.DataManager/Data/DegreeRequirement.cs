@@ -44,5 +44,19 @@ namespace MyPackSpeech.DataManager.Data
 
          return CourseRequirement.ToString();
       }
+
+      public string ToSpeechString()
+      {
+         if (Name != null)
+         {
+            return Name;
+         }
+         IEnumerable<Course> courses = CourseCatalog.Instance.GetCourses(CourseRequirement);
+         if (courses.Count() == 1)
+         {
+            return courses.First().Name;
+         }
+         return Category.Name;
+      }
    }
 }

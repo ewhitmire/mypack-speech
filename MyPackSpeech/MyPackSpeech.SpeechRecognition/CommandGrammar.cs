@@ -112,6 +112,11 @@ namespace MyPackSpeech.SpeechRecognition
 
          Choices classWord = new Choices();
          classWord.Add("class");
+         classWord.Add("classes");
+         classWord.Add("course");
+         classWord.Add("courses");
+         classWord.Add("requirement");
+         classWord.Add("requirements");
 
          GrammarBuilder builder = new GrammarBuilder();
          builder.Append(reqKey);
@@ -378,21 +383,40 @@ namespace MyPackSpeech.SpeechRecognition
       private GrammarBuilder inquireCommand()
       {
          Choices commands = new Choices();
-         SemanticResultValue commandSRV;
-         commandSRV = new SemanticResultValue("what", (int)CommandTypes.Inquire);
-         commands.Add(commandSRV);
+         commands.Add(new SemanticResultValue("what", (int)CommandTypes.Inquire));
+         commands.Add(new SemanticResultValue("which", (int)CommandTypes.Inquire));
+         commands.Add(new SemanticResultValue("how many", (int)CommandTypes.Inquire));
+         commands.Add(new SemanticResultValue("are there any", (int)CommandTypes.Inquire));
          SemanticResultKey commandSemKey = new SemanticResultKey(Slots.Command.ToString(), commands);
 
-         Choices suffix = new Choices();
-         suffix.Add("can I take");
 
-         Choices preps = new Choices("to", "in");
+         Choices verb = new Choices();
+         verb.Add("can");
+         verb.Add("are");
+         verb.Add("should");
+         verb.Add("do");
+         verb.Add("that");
+
+         Choices suffix = new Choices();
+         suffix.Add("I take");
+         suffix.Add("there");
+         suffix.Add("I need");
+         suffix.Add("I need to take");
+         suffix.Add("I still need");
+         suffix.Add("I still need to take");
+
+         Choices graduate = new Choices();
+         graduate.Add("for graduation");
+         graduate.Add("to graduate");
+
          // put the whole command together
          GrammarBuilder finalCommand = new GrammarBuilder();
          finalCommand.Append(this.pleasantries, 0, 1);
          finalCommand.Append(commandSemKey);
          finalCommand.Append(this.reqs, 0, 1);
+         finalCommand.Append(verb, 0, 1);
          finalCommand.Append(suffix, 0, 1);
+         finalCommand.Append(graduate, 0, 1);
          return finalCommand;
       }
 
