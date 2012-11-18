@@ -13,7 +13,7 @@ namespace MyPackSpeech.SpeechRecognition.Actions
       {
          if (!Semantics.ContainsKey(Slots.Requirement.ToString()))
          {
-            return false;
+            // What do I need to graduate?
          }
 
          String reqName = Semantics.GetSlot(Slots.Requirement);
@@ -22,13 +22,39 @@ namespace MyPackSpeech.SpeechRecognition.Actions
          if (cat != null)
          {
             IEnumerable<DegreeRequirement> reqs = degree.GetRequirementsForCategory(cat);
-            String paneText = "";
-            foreach (DegreeRequirement req in reqs)
+            reqs = reqs.Where(r => r.Fulfillment == null);
+            if (reqs.Count() == 0)
             {
-               paneText += req.Name + "\n";
-
+               // all requirements fulfilled
+               RecoManager.Instance.Say("You have already fulfilled all of your "+cat.Name+" requirements");
             }
-            ActionManager.Instance.SetInfoPane(paneText);
+            else
+            {
+
+               String paneText = "";
+               foreach (DegreeRequirement req in reqs)
+               {
+                  paneText += req.Name + "\n";
+
+               }
+               ActionManager.Instance.SetInfoPane(paneText);
+
+               if (reqs.Count() > 5)
+               {
+                  RecoManager.Instance.Say("You still need " + reqs.Count() + " requirements.");
+               }
+               else if (reqs.Count() == 1)
+               {
+                  IEnumerable<Course> courses = CourseCatalog.Instance.GetCourses(reqs.First().CourseRequirement);
+                  IEnumerable<String> classNames = courses.Select<Course, String>(c => c.Name);
+                  RecoManager.Instance.Say("You have " + courses.Count() + " options for the "+reqs.First().ToSpeechString()+" requirement, including " + SpeechUtils.MakeSpeechList(classNames));
+               }
+               else
+               {
+                  IEnumerable<String> reqNames = reqs.Select<DegreeRequirement, String>(r => r.ToSpeechString());
+                  RecoManager.Instance.Say("You still need " + reqs.Count() + " requirements, including " + SpeechUtils.MakeSpeechList(reqNames));
+               }
+            }
          }
          else
          {
@@ -40,9 +66,25 @@ namespace MyPackSpeech.SpeechRecognition.Actions
                paneText += c.Name + "\n";
             }
             ActionManager.Instance.SetInfoPane(paneText);
+
+            if (courses.Count() > 5)
+            {
+               RecoManager.Instance.Say("You have " + courses.Count() + " options to fulfill the " + req.Name + " requirement");
+            }
+            else
+            {
+               IEnumerable<String> classNames = courses.Select<Course, String>(c => c.Name);
+
+               RecoManager.Instance.Say("You have " + courses.Count() + " options to fulfill the " + req.Name + " requirement, including " + SpeechUtils.MakeSpeechList(classNames));
+            }
          }
 
          return true;
+      }
+
+      public override void GiveConfirmation()
+      {
+         return;
       }
 
       public override void Undo()

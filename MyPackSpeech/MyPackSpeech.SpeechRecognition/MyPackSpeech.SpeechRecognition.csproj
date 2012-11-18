@@ -62,7 +62,7 @@
     <Compile Include="RecoManager.cs" />
     <Compile Include="SemanticValueDict.cs" />
     <Compile Include="Slots.cs" />
-    <Compile Include="TextToSpeech.cs" />
+    <Compile Include="SpeechUtils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
