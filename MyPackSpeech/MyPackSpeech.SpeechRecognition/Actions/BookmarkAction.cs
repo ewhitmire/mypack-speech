@@ -18,7 +18,8 @@ namespace MyPackSpeech.SpeechRecognition.Actions
 
          if (Course != null)
          {
-            RecoManager.Instance.Say("Ok, I bookmarked " + Course);
+
+            //RecoManager.Instance.Say("Ok, I bookmarked " + Course);
             Student.AddBookmark(Course);
             return true;
          }

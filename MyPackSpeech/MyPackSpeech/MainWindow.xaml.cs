@@ -29,8 +29,6 @@ namespace MyPackSpeech
    {
       DebugWindow debugWnd;
 
-      List<Course> bookmarked = new List<Course>();
-
       public MainWindow()
       {
          InitializeComponent();
@@ -42,12 +40,23 @@ namespace MyPackSpeech
          showDebugWindow();
          ActionManager.Instance.MissingPrereqs += Instance_MissingPrereqs;
          ActionManager.Instance.InfoPaneSet += ActionManager_InfoPaneSet;
+         ActionManager.Instance.CurrStudent.BookmarksChanged += Student_BookmarksChanged;
       }
 
+      void Student_BookmarksChanged(object sender, EventArgs e)
+      {
+         showBookmarks();
+      }
       void Instance_MissingPrereqs(object sender, MissingPrereqArgs e)
       {
          infoBox.Text = "Missing Prerequisites for " + e.Course + "\n" + String.Join("\n", e.Prereqs.Select(p => p.ToString()).ToArray());
       }
+
+      void ActionManager_BookmarksSet(object sender) {
+         
+      
+      }
+
       void ActionManager_InfoPaneSet(object sender, InfoPaneSetArgs e)
       {
          infoBox.Text = e.Text;
@@ -58,27 +67,17 @@ namespace MyPackSpeech
          base.OnClosed(e);
       }
 
-      public void addBookmark(Course course)
-      {
-         bookmarked.Add(course);
-         showBookmarks();
-      }
-
-      public void removeBookmark(Course course)
-      {
-
-         bookmarked.Remove(course);
-         showBookmarks();
-      }
 
       public void showBookmarks()
       {
          String marks = "";
+         List<Course> bookmarked = ActionManager.Instance.CurrStudent.bookmarks;
+
 
          for (int i = 0; i < bookmarked.Count; i++)
          {
             Course course = bookmarked[i];
-            marks += "" + course.Dept.Name + "(" + course.DeptAbv + ")" + " " + course.Number + "\n";
+            marks += "" + course.Dept.Name + "(" + course.DeptAbv + ")" + " " + course.Number + " - " + course.Name + "\n";
          }
 
          bookmarks.Text = marks;

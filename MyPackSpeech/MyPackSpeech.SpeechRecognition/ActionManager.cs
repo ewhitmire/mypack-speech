@@ -212,17 +212,6 @@ namespace MyPackSpeech
       private event EventHandler<InfoPaneSetArgs> infoPaneSet;
       public event EventHandler<InfoPaneSetArgs> InfoPaneSet { add { infoPaneSet += value; } remove { infoPaneSet -= value; } }
 
-      private event EventHandler<EventArgs> bookmarksSet;
-      public event EventHandler<EventArgs> BookmarksSet { add { bookmarksSet += value; } remove { bookmarksSet -= value; } }
-      
-      
-      public void updateBookmarks()
-      {
-         var evt = bookmarksSet;
-         if (evt != null)
-            evt(this, new EventArgs());
-
-      }
 
       public void SetInfoPane(String text)
       {
