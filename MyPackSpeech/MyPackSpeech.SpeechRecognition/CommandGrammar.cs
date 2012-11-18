@@ -81,10 +81,19 @@ namespace MyPackSpeech.SpeechRecognition
          course.Append(numbersSemKey);
 
 
+
+         Choices courseNameChoices = new Choices();
+         foreach (Course c in CourseCatalog.Instance.Courses)
+         {
+            courseNameChoices.Add(new SemanticResultValue(c.Name, c.ToString()));
+         }
+         SemanticResultKey courseNameKey = new SemanticResultKey(Slots.CourseName.ToString(), courseNameChoices);
+
          GrammarBuilder courseGrammar = new GrammarBuilder();
          Choices courseOrAnaphora = new Choices();
          courseOrAnaphora.Add(course);
          courseOrAnaphora.Add(anaphora);
+         courseOrAnaphora.Add(courseNameKey);
 
          return courseOrAnaphora;
       }
