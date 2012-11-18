@@ -36,7 +36,7 @@
         </Border>
         <TabControl Grid.Row="1" Margin="5,5,5,5" Grid.RowSpan="2">
             <TabItem Header="Semester View">
-                <local:SemesterView x:Name="semView"/>
+                <local:SemesterView x:Name="semView" Loaded="semView_Loaded"/>
             </TabItem>
             <TabItem Header="Requirements View">
                 <local:RequirementsView x:Name="reqView"/>
