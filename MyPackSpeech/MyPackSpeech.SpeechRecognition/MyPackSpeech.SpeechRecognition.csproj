@@ -48,6 +48,7 @@
     <Compile Include="ActionManager.cs" />
     <Compile Include="Actions\AddAction.cs" />
     <Compile Include="Actions\BaseAction.cs" />
+    <Compile Include="Actions\BookmarkAction.cs" />
     <Compile Include="Actions\InquireAction.cs" />
     <Compile Include="Actions\MoveAction.cs" />
     <Compile Include="Actions\RemoveAction.cs" />

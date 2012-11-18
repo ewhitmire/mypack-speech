@@ -79,6 +79,7 @@ namespace MyPackSpeech
          switch (cmd)
          {
             case CommandTypes.Add:
+            case CommandTypes.Bookmark:
             case CommandTypes.Remove:
             case CommandTypes.Move:
             case CommandTypes.SetSemester:

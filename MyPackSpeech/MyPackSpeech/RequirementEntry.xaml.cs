@@ -38,8 +38,11 @@ namespace MyPackSpeech
 
          }
          ActionManager.Instance.CurrStudent.ScheduleChanged += Student_ScheduleChanged;
+         ActionManager.Instance.CurrStudent.BookmarksChanged += Student_BookmarksChanged;
       }
-
+      void Student_BookmarksChanged(object sender, EventArgs e){
+         updateContent();
+      }
       void Student_ScheduleChanged(object sender, EventArgs e)
       {
          updateContent();

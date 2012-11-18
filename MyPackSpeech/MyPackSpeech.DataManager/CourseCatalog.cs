@@ -186,17 +186,6 @@ namespace MyPackSpeech.DataManager
              tokens.Remove("");
           }
 
-          System.Console.Write("original: ");
-         // Print original string
-          for (int i = 1; i < tokens.Count; i++)
-          {
-             string myString = tokens[i];
-             System.Console.Write("" + myString + " ");
-
-          }
-
-         System.Console.WriteLine();
-
 
          // Filter out language
          for (int i = 0; i < tokens.Count; i++) 
@@ -270,20 +259,6 @@ namespace MyPackSpeech.DataManager
          
          }
 
-         //Print final string of classes
-         if (classes.Count != 0)
-         {
-
-            for (int i = 0; i < classes.Count; i++)
-            {
-               System.Console.Write(classes[i] + " ");
-            }
-
-            System.Console.WriteLine();
-            System.Console.WriteLine();
-         }
-
-         //CourseFilter filter 
 
          try
          {
