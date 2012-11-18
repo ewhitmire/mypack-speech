@@ -82,6 +82,9 @@ namespace MyPackSpeech
             case CommandTypes.Remove:
             case CommandTypes.Move:
             case CommandTypes.SetSemester:
+            case CommandTypes.Bookmark:
+               SetInfoPane("Found a bookmark");
+               break;
             case CommandTypes.Inquire:
                callEvent = doCourseRegistrationAction(semantics, cmd);
                break;
@@ -210,6 +213,18 @@ namespace MyPackSpeech
       
       private event EventHandler<InfoPaneSetArgs> infoPaneSet;
       public event EventHandler<InfoPaneSetArgs> InfoPaneSet { add { infoPaneSet += value; } remove { infoPaneSet -= value; } }
+
+      private event EventHandler<InfoPaneSetArgs> bookmarksSet;
+      public event EventHandler<InfoPaneSetArgs> BookmarksSet { add { bookmarksSet += value; } remove { bookmarksSet -= value; } }
+      
+      
+      public void updateBookmarks()
+      {
+         var evt = bookmarksSet;
+         if (evt != null)
+            evt(this, new EventArgs());
+
+      }
 
       public void SetInfoPane(String text)
       {

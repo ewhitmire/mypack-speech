@@ -22,6 +22,8 @@ namespace MyPackSpeech.SpeechRecognition
                return new SetSemesterAction();
             case CommandTypes.Inquire:
                return new InquireAction();
+            case CommandTypes.Bookmark:
+               return new BookmarkAction();
             case CommandTypes.Show:
             default:
                break;
@@ -39,6 +41,7 @@ namespace MyPackSpeech.SpeechRecognition
       Undo,
       Show,
       SetSemester,
-      Inquire
+      Inquire,
+      Bookmark
    }
 }

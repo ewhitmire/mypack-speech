@@ -224,6 +224,7 @@ namespace MyPackSpeech.SpeechRecognition
          GrammarBuilder error = errorCommand();
          GrammarBuilder setSemester = semesterCommand();
          GrammarBuilder inquire = inquireCommand();
+         GrammarBuilder bookmark = bookmarkCommand();
 
          //now build the complete pattern...
          Choices commandChoices = new Choices();
@@ -233,8 +234,8 @@ namespace MyPackSpeech.SpeechRecognition
          commandChoices.Add(error);
          commandChoices.Add(setSemester);
          commandChoices.Add(inquire);
-
          commandChoices.Add(course);
+         commandChoices.Add(bookmark);
          //commandChoices.Add(semester);
 
          //GrammarBuilder swap = swapCommand();
@@ -307,6 +308,30 @@ namespace MyPackSpeech.SpeechRecognition
          finalCommand.Append(commandSemKey);
          finalCommand.Append(this.course, 0, 1);
          finalCommand.Append(this.semester, 0, 1);
+
+         return finalCommand;
+      }
+
+      private GrammarBuilder bookmarkCommand()
+      {
+         //<pleasantries> <command> <CLASS> <prep> <Time><year>
+         //Pleasantries: I'd like to, please, I want to, would you
+         //Command: Add, Remove
+         //Class: a class, this class, that class, that other class
+         //When: to Spring 2012
+
+         Choices commands = new Choices();
+         SemanticResultValue commandSRV;
+         commandSRV = new SemanticResultValue("bookmark", (int)CommandTypes.Bookmark);
+         commands.Add(commandSRV);
+         SemanticResultKey commandSemKey = new SemanticResultKey(Slots.Command.ToString(), commands);
+
+
+         // put the whole command together
+         GrammarBuilder finalCommand = new GrammarBuilder();
+         finalCommand.Append(this.pleasantries, 0, 1);
+         finalCommand.Append(commandSemKey);
+         finalCommand.Append(this.course, 0, 1);
 
          return finalCommand;
       }

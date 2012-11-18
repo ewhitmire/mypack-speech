@@ -69,7 +69,7 @@ namespace MyPackSpeech
 
 		private void setupEvents()
 		{
-			RecoManager.Instance.SpeechRecognized += Instance_SpeechRecognized;
+			RecoManager.Instance.SpeechRecognized  += Instance_SpeechRecognized;
 		}
 
 		void Instance_SpeechRecognized(object sender, SpeechRecognizedEventArgs ca)
