@@ -146,5 +146,10 @@ namespace MyPackSpeech
          }
       }
       #endregion
+
+      private void semView_Loaded(object sender, RoutedEventArgs e)
+      {
+
+      }
    }
 }

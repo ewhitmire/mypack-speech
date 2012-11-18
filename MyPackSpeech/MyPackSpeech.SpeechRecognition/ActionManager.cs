@@ -214,8 +214,8 @@ namespace MyPackSpeech
       private event EventHandler<InfoPaneSetArgs> infoPaneSet;
       public event EventHandler<InfoPaneSetArgs> InfoPaneSet { add { infoPaneSet += value; } remove { infoPaneSet -= value; } }
 
-      private event EventHandler<InfoPaneSetArgs> bookmarksSet;
-      public event EventHandler<InfoPaneSetArgs> BookmarksSet { add { bookmarksSet += value; } remove { bookmarksSet -= value; } }
+      private event EventHandler<EventArgs> bookmarksSet;
+      public event EventHandler<EventArgs> BookmarksSet { add { bookmarksSet += value; } remove { bookmarksSet -= value; } }
       
       
       public void updateBookmarks()
