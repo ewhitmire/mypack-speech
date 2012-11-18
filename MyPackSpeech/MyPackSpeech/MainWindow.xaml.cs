@@ -41,13 +41,17 @@ namespace MyPackSpeech
       {
          showDebugWindow();
          ActionManager.Instance.MissingPrereqs += Instance_MissingPrereqs;
+         ActionManager.Instance.InfoPaneSet += ActionManager_InfoPaneSet;
       }
 
       void Instance_MissingPrereqs(object sender, MissingPrereqArgs e)
       {
          infoBox.Text = "Missing Prerequisites for " + e.Course + "\n" + String.Join("\n", e.Prereqs.Select(p => p.ToString()).ToArray());
       }
-
+      void ActionManager_InfoPaneSet(object sender, InfoPaneSetArgs e)
+      {
+         infoBox.Text = e.Text;
+      }
       protected override void OnClosed(EventArgs e)
       {
          closeDebugWindow();

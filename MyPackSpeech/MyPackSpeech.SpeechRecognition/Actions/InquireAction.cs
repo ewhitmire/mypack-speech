@@ -22,21 +22,24 @@ namespace MyPackSpeech.SpeechRecognition.Actions
          if (cat != null)
          {
             IEnumerable<DegreeRequirement> reqs = degree.GetRequirementsForCategory(cat);
+            String paneText = "";
             foreach (DegreeRequirement req in reqs)
             {
-               Console.WriteLine(req.Name);
+               paneText += req.Name + "\n";
 
             }
+            ActionManager.Instance.SetInfoPane(paneText);
          }
          else
          {
             DegreeRequirement req = degree.Requirements.Find(r => reqName.Equals(r.Name));
             IEnumerable<Course> courses = CourseCatalog.Instance.GetCourses(req.CourseRequirement);
+            String paneText = "";
             foreach (Course c in courses)
             {
-               Console.WriteLine(c.Name);
-
+               paneText += c.Name + "\n";
             }
+            ActionManager.Instance.SetInfoPane(paneText);
          }
 
          return true;
@@ -44,7 +47,7 @@ namespace MyPackSpeech.SpeechRecognition.Actions
 
       public override void Undo()
       {
-         throw new NotImplementedException();
+         
       }
    }
 }

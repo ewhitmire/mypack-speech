@@ -207,7 +207,16 @@ namespace MyPackSpeech
          if (evt != null)
             evt(this, new MissingPrereqArgs(course, missing));
       }
+      
+      private event EventHandler<InfoPaneSetArgs> infoPaneSet;
+      public event EventHandler<InfoPaneSetArgs> InfoPaneSet { add { infoPaneSet += value; } remove { infoPaneSet -= value; } }
 
+      public void SetInfoPane(String text)
+      {
+         var evt = infoPaneSet;
+         if (evt != null)
+            evt(this, new InfoPaneSetArgs(text));
 
+      }
    }
 }
