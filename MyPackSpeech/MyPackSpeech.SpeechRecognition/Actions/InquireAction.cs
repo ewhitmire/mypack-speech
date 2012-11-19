@@ -35,9 +35,11 @@ namespace MyPackSpeech.SpeechRecognition.Actions
                String paneText = "";
                foreach (DegreeRequirement req in reqs)
                {
-                  paneText += req.Name + "\n";
+                  paneText += req.ToPrintedString() + "\n";
 
                }
+
+
                ActionManager.Instance.SetInfoPane(paneText);
 
                if (reqs.Count() > 5)
@@ -64,7 +66,7 @@ namespace MyPackSpeech.SpeechRecognition.Actions
             String paneText = "";
             foreach (Course c in courses)
             {
-               paneText += c.Name + "\n";
+               paneText += c.DeptAbv + c.Number + " - " + c.Name + "\n";
             }
             ActionManager.Instance.SetInfoPane(paneText);
 

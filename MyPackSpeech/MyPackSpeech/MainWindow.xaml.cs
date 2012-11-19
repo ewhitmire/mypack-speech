@@ -39,7 +39,6 @@ namespace MyPackSpeech
       void MainWindow_Loaded(object sender, RoutedEventArgs e)
       {
          showDebugWindow();
-         showPopUp();
          ActionManager.Instance.MissingPrereqs += Instance_MissingPrereqs;
          ActionManager.Instance.InfoPaneSet += ActionManager_InfoPaneSet;
          ActionManager.Instance.CurrStudent.BookmarksChanged += Student_BookmarksChanged;
@@ -66,6 +65,7 @@ namespace MyPackSpeech
       protected override void OnClosed(EventArgs e)
       {
          closeDebugWindow();
+         closePopUp();
          base.OnClosed(e);
       }
 
@@ -149,6 +149,13 @@ namespace MyPackSpeech
       }
       #endregion
 
+      private void closePopUp()
+      {
+         if (popUp != null)
+         {
+            popUp.Close();
+         }
+      }
       private void showPopUp()
       {
          if (popUp == null)
@@ -161,6 +168,11 @@ namespace MyPackSpeech
       private void semView_Loaded(object sender, RoutedEventArgs e)
       {
 
+      }
+
+      private void Button_Click_1(object sender, RoutedEventArgs e)
+      {
+         showPopUp();
       }
    }
 }
