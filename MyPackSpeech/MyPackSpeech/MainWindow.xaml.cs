@@ -28,6 +28,7 @@ namespace MyPackSpeech
    public partial class MainWindow : Window
    {
       DebugWindow debugWnd;
+      HelpWindow popUp;
 
       public MainWindow()
       {
@@ -38,6 +39,7 @@ namespace MyPackSpeech
       void MainWindow_Loaded(object sender, RoutedEventArgs e)
       {
          showDebugWindow();
+         showPopUp();
          ActionManager.Instance.MissingPrereqs += Instance_MissingPrereqs;
          ActionManager.Instance.InfoPaneSet += ActionManager_InfoPaneSet;
          ActionManager.Instance.CurrStudent.BookmarksChanged += Student_BookmarksChanged;
@@ -136,6 +138,7 @@ namespace MyPackSpeech
          }
       }
 
+
       private void showDebugWindow()
       {
          if (debugWnd == null)
@@ -145,6 +148,15 @@ namespace MyPackSpeech
          }
       }
       #endregion
+
+      private void showPopUp()
+      {
+         if (popUp == null)
+         {
+            popUp = new HelpWindow();
+            popUp.Show();
+         }
+      }
 
       private void semView_Loaded(object sender, RoutedEventArgs e)
       {

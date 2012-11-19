@@ -89,6 +89,9 @@ namespace MyPackSpeech
             case CommandTypes.Undo:
                callEvent = doUndoComnmand(callEvent);
                break;
+            case CommandTypes.Help:
+               beHelpful();
+               break;
             case CommandTypes.Swap:
             case CommandTypes.Show:
             default:
@@ -129,6 +132,12 @@ namespace MyPackSpeech
             evt(this, EventArgs.Empty);
       }
 
+      private void beHelpful() {
+         RecoManager.Instance.Say("If you would like to add a class, say something like, I would like to add CSC 591 to my Fall 2012 semester.");
+         RecoManager.Instance.Say("If you don't know what you would like to say, try what do I need to take to graduate?");
+      
+      
+      }
       private bool doCourseRegistrationAction(SemanticValueDict semantics, CommandTypes cmd)
       {
          bool callEvent = false;

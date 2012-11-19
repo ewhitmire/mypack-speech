@@ -25,6 +25,7 @@ namespace MyPackSpeech.SpeechRecognition
             case CommandTypes.Bookmark:
                return new BookmarkAction();
             case CommandTypes.Show:
+            case CommandTypes.Help:
             default:
                break;
          }
@@ -42,6 +43,7 @@ namespace MyPackSpeech.SpeechRecognition
       Show,
       SetSemester,
       Inquire,
-      Bookmark
+      Bookmark,
+      Help
    }
 }
