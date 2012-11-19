@@ -56,13 +56,14 @@ namespace MyPackSpeech.DataManager.Data
          }
       }
 
-      public Course(Department dept, string name, int number, string desc, params IFilter<Course>[] prereqs)
+      public Course(Department dept, string name, int number, string desc, int credits, params IFilter<Course>[] prereqs)
       {
          checkArguments(dept, number);
 
          Dept = dept;
          Number = number;
          Name = name;
+         Credits = credits;
          Description = desc ?? string.Empty;
          Prerequisites = new List<IFilter<Course>>(prereqs);
 

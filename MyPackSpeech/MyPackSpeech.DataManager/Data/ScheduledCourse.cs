@@ -25,7 +25,7 @@ namespace MyPackSpeech.DataManager.Data
          {
             if (Course != null)
             {
-               return 0;//Course.;
+               return Course.Credits;
             }
             return 0;
          }

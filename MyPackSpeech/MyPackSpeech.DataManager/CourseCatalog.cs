@@ -347,8 +347,14 @@ namespace MyPackSpeech.DataManager
                            //   System.Console.WriteLine(offeredInfall + ":Fall: " + dept.Abv + courseNumber);
                         }
 
+                        int credits = 0;
+                        if (courseObject["units"] != null)
+                        {
+                           int.TryParse(courseObject.Value<String>("units"), out credits);
+                        }
+
                         IFilter<Course>[] prereqFilters = PrereqBuilder.GetPreReqFilters(parsedPreReqs);
-                        Course course = new Course(dept, name, courseNumber, description, prereqFilters);
+                        Course course = new Course(dept, name, courseNumber, description, credits, prereqFilters);
                         course.spring = spring;
                         course.fall = fall;
 
