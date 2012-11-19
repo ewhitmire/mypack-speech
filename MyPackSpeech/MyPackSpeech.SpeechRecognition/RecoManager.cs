@@ -142,6 +142,11 @@ namespace MyPackSpeech.SpeechRecognition
 
       public void TestText(string speech)
       {
+         if (speech.Equals(""))
+         {
+            return;
+         }
+
          if (!isSpeechRecoActive)
          {
             recognitionEngine.EmulateRecognizeAsync(speech);

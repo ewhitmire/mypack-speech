@@ -1,10 +1,10 @@
 ﻿<Window x:Class="MyPackSpeech.HelpWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="HelpWindow" Height="563.35" Width="300">
-    <Grid>
-        <TextBox HorizontalAlignment="Left" Height="454" Margin="10,47,0,0" TextWrapping="Wrap" Text="Add a Class:&#xA;&#x9;Add CSC591&#xA;&#x9;Add CSC591 to Fall 2012&#xA;&#xA;Remove a Class:&#xA;&#x9;Remove CSC591&#xA;&#xA;Move a Class:&#xA;&#x9;Move CSC591 to Fall 2012&#xA;&#xA;Bookmark a class&#xA;&#x9;Bookmark CSC591&#xA;&#xA;Undo last action:&#xA;&#x9;Undo&#xA;&#x9;No&#xA;&#xD;&#xA;Help:&#xA;&#x9;Help&#xA;&#x9;I don't know what to say&#xA;&#xA;Ask about your requirements:&#xA;&#x9;What GEP requirements do I need?&#xD;&#xA;&#x9;What Engineering and Computer&#xD;&#xA;&#x9;    Science requirements do I need?&#xA;&#x9;&#xA;(See the requirements tab on the main window for a textual list)" VerticalAlignment="Top" Width="272"/>
+        Title="HelpWindow" Height="537.35" Width="300">
+    <Grid Margin="0,0,0,-3">
+        <TextBox HorizontalAlignment="Left" Height="411" Margin="10,47,0,0" TextWrapping="Wrap" Text="Add a Class:&#xA;&#x9;Add CSC591&#xA;&#x9;Add CSC591 to Fall 2012&#xA;&#xA;Remove a Class:&#xA;&#x9;Remove CSC591&#xA;&#xA;Move a Class:&#xA;&#x9;Move CSC591 to Fall 2012&#xA;&#xA;Bookmark a class&#xA;&#x9;Bookmark CSC591&#xA;&#xA;Undo last action:&#xA;&#x9;Undo&#xA;&#x9;No&#xA;&#xA;Ask about your requirements:&#xA;&#x9;What GEP requirements do I need?&#xA;&#x9;What Engineering and Computer&#xA;&#x9;    Science requirements do I need?&#xA;&#x9;&#xD;&#xA;&#xA;(See the requirements tab on the main window for a textual list)" VerticalAlignment="Top" Width="272"/>
         <Label x:Name="Label1" Content="Suggested Dialogue:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="272" FontWeight="Bold" FontSize="20"/>
-        <Button Content="Close" HorizontalAlignment="Left" Margin="109,508,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_1"/>
+        <Button Content="Close" HorizontalAlignment="Left" Margin="105,470,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_1"/>
     </Grid>
 </Window>

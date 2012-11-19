@@ -74,7 +74,7 @@ namespace MyPackSpeech.DataManager.Data
          for (int i = 1; i < orRequirements.Count; i++)
          {
             Course match = orRequirements[i];
-            str += "\n  OR " + match.DeptAbv + match.Number + " - " + match.Name;
+            str += "\n    or " + match.DeptAbv + match.Number + " - " + match.Name;
          }
          return str;
       
