@@ -28,8 +28,8 @@
         <local:SemesterControl x:Name="sem32" Margin="5,5,5,5" Grid.Column="2" Grid.Row="3"/>
         <local:SemesterControl x:Name="sem41" Margin="5,5,5,5" Grid.Column="1" Grid.Row="4"/>
         <local:SemesterControl x:Name="sem42" Margin="5,5,5,5" Grid.Column="2" Grid.Row="4"/>
-        <Label Content="Fall" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0"/>
-        <Label Content="Spring" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0"/>
+        <Label Content="Spring" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0"/>
+        <Label Content="Fall" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0"/>
         <Label Name="year1" Content="2012" Grid.Row="1" Grid.Column="0" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0">
             <Label.LayoutTransform>
                 <TransformGroup>

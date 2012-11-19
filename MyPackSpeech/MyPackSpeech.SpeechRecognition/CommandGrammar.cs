@@ -321,8 +321,8 @@ namespace MyPackSpeech.SpeechRecognition
       {
          Choices commands = new Choices();
          SemanticResultValue commandSRV;
-         commandSRV = new SemanticResultValue("no", (int)CommandTypes.Undo);
-         commands.Add(commandSRV);
+         //commandSRV = new SemanticResultValue("no", (int)CommandTypes.Undo);
+         //commands.Add(commandSRV);
          commandSRV = new SemanticResultValue("undo", (int)CommandTypes.Undo);
          commands.Add(commandSRV);
          SemanticResultKey commandSemKey = new SemanticResultKey(Slots.Command.ToString(), commands);
