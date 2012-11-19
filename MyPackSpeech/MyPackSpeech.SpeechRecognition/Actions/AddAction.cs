@@ -62,6 +62,7 @@ namespace MyPackSpeech.SpeechRecognition.Actions
                }
 
                Student.AddCourse(Course);
+               Student.RemoveBookmark(Course.Course);
                return true;
             }
          }
