@@ -19,7 +19,7 @@ namespace MyPackSpeech.SpeechRecognition
       private GrammarBuilder semester;
       private Choices course;
       private GrammarBuilder reqs;
-      private Choices pleasantries;
+      private GrammarBuilder pleasantries;
 
 
       public CommandGrammar()
@@ -40,12 +40,21 @@ namespace MyPackSpeech.SpeechRecognition
 
       private void buildCommonGrammars()
       {
-         this.pleasantries = new Choices("I'd like a", "I'd like to", "I would like to",
-             "I want to", "Would you", "Would you please", "please", "How about");
-
+         this.pleasantries = buildIntroGrammar();
          this.semester = buildSemesterGrammar();
          this.course = buildCourseGrammar();
          this.reqs = buildRequirementGrammars();
+      }
+
+      private GrammarBuilder buildIntroGrammar()
+      {
+         Choices starts = new Choices("I'd like a", "I'd like to", "I would like to",
+             "I want to", "Would you", "Would you please", "please", "How about", "Let's");
+
+         GrammarBuilder intro = new GrammarBuilder();
+         intro.Append("now", 0, 1);
+         intro.Append("starts");
+         return intro;
       }
 
       private Choices buildCourseGrammar()
@@ -60,6 +69,8 @@ namespace MyPackSpeech.SpeechRecognition
          for (int i = 0; i < this.depts.Count; i++)
          {
             deptsRV = new SemanticResultValue(this.depts[i].Abv, this.depts[i].Abv);
+            
+            //deptsRV = new SemanticResultValue(String.Join(".", this.depts[i].Abv.ToCharArray()), this.depts[i].Abv);
             deptChoices.Add(deptsRV);
 
             deptsRV = new SemanticResultValue(this.depts[i].Name, this.depts[i].Abv);

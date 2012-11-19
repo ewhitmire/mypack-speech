@@ -33,28 +33,38 @@ namespace MyPackSpeech.SpeechRecognition.Actions
             {
 
                String paneText = "";
-               foreach (DegreeRequirement req in reqs)
-               {
-                  paneText += req.Name + "\n";
-
-               }
-               ActionManager.Instance.SetInfoPane(paneText);
-
+               
                if (reqs.Count() > 5)
                {
                   RecoManager.Instance.Say("You still need " + reqs.Count() + " requirements.");
+                  foreach (DegreeRequirement req in reqs)
+                  {
+                     paneText += req.Name + "\n";
+                  }
                }
                else if (reqs.Count() == 1)
                {
                   IEnumerable<Course> courses = CourseCatalog.Instance.GetCourses(reqs.First().CourseRequirement);
                   IEnumerable<String> classNames = courses.Select<Course, String>(c => c.Name);
                   RecoManager.Instance.Say("You have " + courses.Count() + " options for the "+reqs.First().ToSpeechString()+" requirement, including " + SpeechUtils.MakeSpeechList(classNames));
+
+                  foreach (Course c in courses)
+                  {
+                     paneText += c.ToString() + "\n";
+                  }
                }
                else
                {
                   IEnumerable<String> reqNames = reqs.Select<DegreeRequirement, String>(r => r.ToSpeechString());
                   RecoManager.Instance.Say("You still need " + reqs.Count() + " requirements, including " + SpeechUtils.MakeSpeechList(reqNames));
+
+                  foreach (DegreeRequirement req in reqs)
+                  {
+                     paneText += req.Name + "\n";
+                  }
                }
+
+               ActionManager.Instance.SetInfoPane(paneText);
             }
          }
          else

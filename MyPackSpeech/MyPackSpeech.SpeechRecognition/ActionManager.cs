@@ -55,6 +55,10 @@ namespace MyPackSpeech
       public void ProcessResult(RecognitionResult result)
       {
          SemanticValueDict semantics = SemanticValueDict.FromSemanticValue(result.Semantics);
+         if (isJunkSpeech(semantics))
+         {
+            return;
+         }
          if (semantics.ContainsKey(Slots.Command.ToString()))
          {
             ProcessCommand(semantics);
@@ -63,6 +67,15 @@ namespace MyPackSpeech
          {
             ProcessSupplemental(semantics);
          }
+      }
+
+      private bool isJunkSpeech(SemanticValueDict semantics)
+      {
+         if (semantics.Count() == 1 && semantics.HasSlot(Slots.CourseAnaphora))
+         {
+            return true;
+         }
+         return false;
       }
 
       private void ProcessSupplemental(SemanticValueDict semantics)
