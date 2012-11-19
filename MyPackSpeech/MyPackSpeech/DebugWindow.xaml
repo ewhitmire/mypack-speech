@@ -15,7 +15,7 @@
         </Grid.RowDefinitions>
         <my:PhraseChart Margin="10" Grid.ColumnSpan="2"/>
         <TextBox x:Name="debugOutput" Grid.Row="2" Grid.ColumnSpan="2" />
-        <TextBox x:Name="debugSpeech" TextWrapping="Wrap" Text="TextBox" Grid.Row="1"/>
+        <TextBox x:Name="debugSpeech" TextWrapping="Wrap" Grid.Row="1"/>
         <Button x:Name="debugSpeechBtn" Content="Test" Grid.Row="1" Click="debugSpeechBtn_Click" IsDefault="True" Grid.Column="1"/>
     </Grid>
 </Window>

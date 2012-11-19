@@ -28,6 +28,7 @@ namespace MyPackSpeech.SpeechRecognition.Actions
             {
                // all requirements fulfilled
                RecoManager.Instance.Say("You have already fulfilled all of your "+cat.Name+" requirements");
+               ActionManager.Instance.SetInfoPane("");
             }
             else
             {
@@ -36,7 +37,6 @@ namespace MyPackSpeech.SpeechRecognition.Actions
                foreach (DegreeRequirement req in reqs)
                {
                   paneText += req.ToPrintedString() + "\n";
-
                }
 
 

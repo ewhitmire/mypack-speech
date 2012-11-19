@@ -29,6 +29,7 @@ namespace MyPackSpeech
    {
       DebugWindow debugWnd;
       HelpWindow popUp;
+      StartScreen starter;
 
       public MainWindow()
       {
@@ -39,6 +40,7 @@ namespace MyPackSpeech
       void MainWindow_Loaded(object sender, RoutedEventArgs e)
       {
          showDebugWindow();
+         showStartScreen();
          ActionManager.Instance.MissingPrereqs += Instance_MissingPrereqs;
          ActionManager.Instance.InfoPaneSet += ActionManager_InfoPaneSet;
          ActionManager.Instance.CurrStudent.BookmarksChanged += Student_BookmarksChanged;
@@ -154,6 +156,7 @@ namespace MyPackSpeech
          if (popUp != null)
          {
             popUp.Close();
+            popUp = null;
          }
       }
       private void showPopUp()
@@ -163,6 +166,15 @@ namespace MyPackSpeech
             popUp = new HelpWindow();
             popUp.Show();
          }
+      }
+
+      private void showStartScreen() {
+         if (starter == null) {
+            starter = new StartScreen();
+            starter.Show();
+         
+         }
+         
       }
 
       private void semView_Loaded(object sender, RoutedEventArgs e)
