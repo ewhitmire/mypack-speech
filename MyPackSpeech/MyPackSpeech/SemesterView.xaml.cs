@@ -31,19 +31,14 @@ namespace MyPackSpeech
       }
       private void InitGrids()
       {
-         sem11.SetSemester(Semester.Spring, startYear);
-         sem12.SetSemester(Semester.Fall, startYear);
-         sem21.SetSemester(Semester.Spring, startYear + 1);
-         sem22.SetSemester(Semester.Fall, startYear + 1);
-         sem31.SetSemester(Semester.Spring, startYear + 2);
-         sem32.SetSemester(Semester.Fall, startYear + 2);
-         sem41.SetSemester(Semester.Spring, startYear + 3);
-         sem42.SetSemester(Semester.Fall, startYear + 3);
-
-         year1.Content = startYear;
-         year2.Content = startYear + 1;
-         year3.Content = startYear + 2;
-         year4.Content = startYear + 3;
+         sem11.SetSemester(Semester.Fall, startYear);
+         sem12.SetSemester(Semester.Spring, startYear + 1);
+         sem21.SetSemester(Semester.Fall, startYear + 1);
+         sem22.SetSemester(Semester.Spring, startYear + 2);
+         sem31.SetSemester(Semester.Fall, startYear + 2);
+         sem32.SetSemester(Semester.Spring, startYear + 3);
+         sem41.SetSemester(Semester.Fall, startYear + 3);
+         sem42.SetSemester(Semester.Spring, startYear + 4);
       }
    }
 }

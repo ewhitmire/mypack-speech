@@ -56,7 +56,8 @@ namespace MyPackSpeech
       {
          this.sem = sem;
          this.year = year;
-         //this.title.Content = sem.ToString() + " " + year.ToString();
+         this.sem_year_label.Content = sem.ToString() + " " + year.ToString();
+              
       }
       private void SemesterFilter(object sender, FilterEventArgs e)
       {

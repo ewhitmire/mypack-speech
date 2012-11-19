@@ -9,8 +9,13 @@
             <CollectionViewSource x:Name="viewSource" x:Key="viewSource" Filter="SemesterFilter"/>
     </UserControl.Resources>
     <Grid Margin="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="27"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
         <DataGrid x:Name="data" ItemsSource="{Binding Source={StaticResource viewSource}}" AutoGenerateColumns="True"
-                   AutoGeneratingColumn="data_AutoGeneratingColumn" Margin="0" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" />
+                   AutoGeneratingColumn="data_AutoGeneratingColumn" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Grid.Row="1" />
+        <Label x:Name="sem_year_label" Content="Spring 2012"/>
 
     </Grid>
 </UserControl>

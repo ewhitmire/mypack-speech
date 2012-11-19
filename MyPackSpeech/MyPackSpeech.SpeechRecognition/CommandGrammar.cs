@@ -275,11 +275,9 @@ namespace MyPackSpeech.SpeechRecognition
       {
          //<pleasantries> <command> <Semester>? <Year>?
          Choices commands = new Choices();
-         SemanticResultValue commandSRV;
-         commandSRV = new SemanticResultValue("set semester", (int)CommandTypes.SetSemester);
-         commands.Add(commandSRV);
-         commandSRV = new SemanticResultValue("semester", (int)CommandTypes.SetSemester);
-         commands.Add(commandSRV);
+         commands.Add(new SemanticResultValue("set semester", (int)CommandTypes.SetSemester));
+         commands.Add(new SemanticResultValue("semester", (int)CommandTypes.SetSemester));
+         commands.Add(new SemanticResultValue("go to", (int)CommandTypes.SetSemester));
          SemanticResultKey commandSemKey = new SemanticResultKey(Slots.Command.ToString(), commands);
 
          // put the whole command together

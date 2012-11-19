@@ -19,6 +19,7 @@ namespace MyPackSpeech.DataManager.Data
       public string Name { get; private set; }
       public Boolean spring;
       public Boolean fall;
+      public int Credits;
 
       [Browsable(false)]
       public string Description { get; private set; }
