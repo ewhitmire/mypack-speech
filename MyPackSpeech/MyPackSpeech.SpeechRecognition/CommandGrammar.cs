@@ -245,6 +245,8 @@ namespace MyPackSpeech.SpeechRecognition
          GrammarBuilder setSemester = semesterCommand();
          GrammarBuilder inquire = inquireCommand();
          GrammarBuilder bookmark = bookmarkCommand();
+         GrammarBuilder help = helpCommand();
+
 
          //now build the complete pattern...
          Choices commandChoices = new Choices();
@@ -256,6 +258,7 @@ namespace MyPackSpeech.SpeechRecognition
          commandChoices.Add(inquire);
          commandChoices.Add(course);
          commandChoices.Add(bookmark);
+         commandChoices.Add(help);
          //commandChoices.Add(semester);
 
          //GrammarBuilder swap = swapCommand();
@@ -286,6 +289,32 @@ namespace MyPackSpeech.SpeechRecognition
          finalCommand.Append(this.semester);
 
          return finalCommand;
+      }
+
+      private GrammarBuilder helpCommand()
+      {
+         Choices commands = new Choices();
+         SemanticResultValue commandSRV;
+         commandSRV = new SemanticResultValue("Help", (int)CommandTypes.Help);
+         commands.Add(commandSRV);
+         commandSRV = new SemanticResultValue("Help me", (int)CommandTypes.Help);
+         commands.Add(commandSRV);
+         commandSRV = new SemanticResultValue("What do I do", (int)CommandTypes.Help);
+         commands.Add(commandSRV);
+         commandSRV = new SemanticResultValue("I don't know what to say", (int)CommandTypes.Help);
+         commands.Add(commandSRV);
+         commandSRV = new SemanticResultValue("I do not know what to say", (int)CommandTypes.Help);
+         commands.Add(commandSRV);
+
+
+         SemanticResultKey commandSemKey = new SemanticResultKey(Slots.Command.ToString(), commands);
+
+         // put the whole command together
+         GrammarBuilder finalCommand = new GrammarBuilder();
+         finalCommand.Append(commandSemKey);
+
+         return finalCommand;      
+      
       }
 
       private GrammarBuilder errorCommand()

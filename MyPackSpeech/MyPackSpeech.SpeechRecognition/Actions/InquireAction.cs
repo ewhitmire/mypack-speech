@@ -33,14 +33,13 @@ namespace MyPackSpeech.SpeechRecognition.Actions
             {
 
                String paneText = "";
-               
+               foreach (DegreeRequirement req in reqs)
+               {
+                  paneText += req.ToPrintedString() + "\n";
+               }
                if (reqs.Count() > 5)
                {
                   RecoManager.Instance.Say("You still need " + reqs.Count() + " requirements.");
-                  foreach (DegreeRequirement req in reqs)
-                  {
-                     paneText += req.Name + "\n";
-                  }
                }
                else if (reqs.Count() == 1)
                {
@@ -48,20 +47,11 @@ namespace MyPackSpeech.SpeechRecognition.Actions
                   IEnumerable<String> classNames = courses.Select<Course, String>(c => c.Name);
                   RecoManager.Instance.Say("You have " + courses.Count() + " options for the "+reqs.First().ToSpeechString()+" requirement, including " + SpeechUtils.MakeSpeechList(classNames));
 
-                  foreach (Course c in courses)
-                  {
-                     paneText += c.ToString() + "\n";
-                  }
                }
                else
                {
                   IEnumerable<String> reqNames = reqs.Select<DegreeRequirement, String>(r => r.ToSpeechString());
                   RecoManager.Instance.Say("You still need " + reqs.Count() + " requirements, including " + SpeechUtils.MakeSpeechList(reqNames));
-
-                  foreach (DegreeRequirement req in reqs)
-                  {
-                     paneText += req.Name + "\n";
-                  }
                }
 
                ActionManager.Instance.SetInfoPane(paneText);
@@ -74,7 +64,7 @@ namespace MyPackSpeech.SpeechRecognition.Actions
             String paneText = "";
             foreach (Course c in courses)
             {
-               paneText += c.Name + "\n";
+               paneText += c.DeptAbv + c.Number + " - " + c.Name + "\n";
             }
             ActionManager.Instance.SetInfoPane(paneText);
 

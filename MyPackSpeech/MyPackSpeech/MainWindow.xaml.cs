@@ -28,6 +28,7 @@ namespace MyPackSpeech
    public partial class MainWindow : Window
    {
       DebugWindow debugWnd;
+      HelpWindow popUp;
 
       public MainWindow()
       {
@@ -64,6 +65,7 @@ namespace MyPackSpeech
       protected override void OnClosed(EventArgs e)
       {
          closeDebugWindow();
+         closePopUp();
          base.OnClosed(e);
       }
 
@@ -136,6 +138,7 @@ namespace MyPackSpeech
          }
       }
 
+
       private void showDebugWindow()
       {
          if (debugWnd == null)
@@ -146,9 +149,30 @@ namespace MyPackSpeech
       }
       #endregion
 
+      private void closePopUp()
+      {
+         if (popUp != null)
+         {
+            popUp.Close();
+         }
+      }
+      private void showPopUp()
+      {
+         if (popUp == null)
+         {
+            popUp = new HelpWindow();
+            popUp.Show();
+         }
+      }
+
       private void semView_Loaded(object sender, RoutedEventArgs e)
       {
 
+      }
+
+      private void Button_Click_1(object sender, RoutedEventArgs e)
+      {
+         showPopUp();
       }
    }
 }
