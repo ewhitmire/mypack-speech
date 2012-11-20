@@ -70,8 +70,11 @@ namespace MyPackSpeech.DataManager.Data
 
       public void RemoveBookmark(Course course)
       {
-         this.bookmarks.Remove(course);
-         OnBookmarksChanged();
+         if (bookmarks.Contains(course))
+         {
+            this.bookmarks.Remove(course);
+            OnBookmarksChanged();
+         }
       }
 
       public ScheduledCourse MoveCourse(ScheduledCourse course)

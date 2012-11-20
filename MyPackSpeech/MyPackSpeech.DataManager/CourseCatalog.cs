@@ -390,13 +390,15 @@ namespace MyPackSpeech.DataManager
 
       public static String FormatCourseList(IEnumerable<Course> courseList)
       {
-         if (courseList.Count() <= 3)
+         List<Course> courses = courseList.ToList();
+         
+         if (courses.Count <= 3)
          {
-            return String.Join(", ", courseList.Select(c => c.ToString()));
+            return String.Join(", ", courses.Select(c => c.ToString()));
          }
          else
          {
-            return String.Join(", ", courseList.Select(c => c.ToString()).Take(3))+" ...";
+            return String.Join(", ", courses.Select(c => c.ToString()).Take(3)) + " ...";
          }
       }
    }
