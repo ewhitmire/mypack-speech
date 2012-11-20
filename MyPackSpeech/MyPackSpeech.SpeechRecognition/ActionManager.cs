@@ -139,7 +139,10 @@ namespace MyPackSpeech
          if (CourseConstructor.SemanticsContainsCourseData(semantics).Count == 0)
          {
             CurrentCourse = CourseConstructor.ContructCourse(semantics);
-            SetInfoPane(CurrentCourse.DeptAbv + CurrentCourse.Number + "\n" + CurrentCourse.Description);
+            if (CurrentCourse != null)
+            {
+               SetInfoPane(CurrentCourse.DeptAbv + CurrentCourse.Number + "\n" + CurrentCourse.Description);
+            }
          }
       }
 
