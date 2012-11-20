@@ -31,6 +31,7 @@ namespace MyPackSpeech
             foreach (DegreeRequirementCategory cat in degree.GetCategories())
             {
                TreeViewItem categoryChild = new TreeViewItem();
+               categoryChild.IsExpanded = true;
                categoryChild.Header = cat.Name;
                reqTree.Items.Add(categoryChild);
                IEnumerable<DegreeRequirement> reqs = degree.Requirements.Where<DegreeRequirement>(r => r.Category.Equals(cat));

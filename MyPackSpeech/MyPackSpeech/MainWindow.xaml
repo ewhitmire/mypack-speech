@@ -24,11 +24,11 @@
                 <MenuItem Header="Load _Student" Click="loadStudent_Click"/>
             </MenuItem>
         </Menu>
-        <TabControl Grid.Row="1" Margin="5,5,5,5">
-            <TabItem Header="Semester View">
+        <TabControl x:Name="tabs" Grid.Row="1" Margin="5,5,5,5">
+            <TabItem x:Name="Semester" Header="Semester View">
                 <local:SemesterView x:Name="semView" Loaded="semView_Loaded"/>
             </TabItem>
-            <TabItem Header="Requirements View">
+            <TabItem x:Name="Requirements" Header="Requirements View">
                 <local:RequirementsView x:Name="reqView"/>
             </TabItem>
         </TabControl>

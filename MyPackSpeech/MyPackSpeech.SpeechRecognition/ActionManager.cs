@@ -97,6 +97,7 @@ namespace MyPackSpeech
             case CommandTypes.Move:
             case CommandTypes.SetSemester:
             case CommandTypes.Inquire:
+            case CommandTypes.View:
                callEvent = doCourseRegistrationAction(semantics, cmd);
                break;
             case CommandTypes.Undo:
@@ -241,6 +242,16 @@ namespace MyPackSpeech
          if (evt != null)
             evt(this, new InfoPaneSetArgs(text));
 
+      }
+
+      private event EventHandler<ViewChangeArgs> onViewChange;
+      public event EventHandler<ViewChangeArgs> OnViewChange { add { onViewChange += value; } remove { onViewChange -= value; } }
+
+      internal void SwitchView(Views view)
+      {
+         var evt = onViewChange;
+         if (evt != null)
+            evt(this, new ViewChangeArgs(view));
       }
    }
 }

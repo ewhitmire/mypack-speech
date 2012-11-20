@@ -14,6 +14,12 @@ namespace MyPackSpeech.SpeechRecognition
       CourseAnaphora,
       Requirement,
       CourseName,
+      ViewName,
       Command
+   }
+   public enum Views
+   {
+      Requirements,
+      Semester
    }
 }

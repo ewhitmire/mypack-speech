@@ -105,7 +105,18 @@ namespace MyPackSpeech.SpeechRecognition.Actions
          {
             if (missing.Contains(Slots.Semester) || missing.Contains(Slots.Year))
             {
-               RecoManager.Instance.Say("When would you like to take this course?");
+               if (!missing.Contains(Slots.Semester))
+               {
+                  RecoManager.Instance.Say("In what year would you like to take this course?");
+               }
+               else if (!missing.Contains(Slots.Year))
+               {
+                  RecoManager.Instance.Say("In which semester would you like to take this course?");
+               }
+               else
+               {
+                  RecoManager.Instance.Say("When would you like to take this course?");
+               }
             }
             if (missing.Contains(Slots.Department))
             {

@@ -44,6 +44,12 @@ namespace MyPackSpeech
          ActionManager.Instance.MissingPrereqs += Instance_MissingPrereqs;
          ActionManager.Instance.InfoPaneSet += ActionManager_InfoPaneSet;
          ActionManager.Instance.CurrStudent.BookmarksChanged += Student_BookmarksChanged;
+         ActionManager.Instance.OnViewChange += ActionManager_OnViewChange;
+      }
+
+      private void ActionManager_OnViewChange(object sender, ViewChangeArgs e)
+      {
+         tabs.SelectedItem = (TabItem)tabs.FindName(e.view.ToString());
       }
 
       void Student_BookmarksChanged(object sender, EventArgs e)
@@ -55,17 +61,11 @@ namespace MyPackSpeech
          infoBox.SetText("Missing Prerequisites for " + e.Course + "\n" + String.Join("\n", e.Prereqs.Select(p => p.ToString()).ToArray()));
       }
 
-      void ActionManager_BookmarksSet(object sender) {
-         
-      
-      }
-
       void ActionManager_InfoPaneSet(object sender, InfoPaneSetArgs e)
       {
          infoBox.SetText(e.Text);
-         //infoBox.Background = Brushes.LightSteelBlue;
-         //flashInfoPane.Begin();
       }
+
       protected override void OnClosed(EventArgs e)
       {
          closeDebugWindow();
