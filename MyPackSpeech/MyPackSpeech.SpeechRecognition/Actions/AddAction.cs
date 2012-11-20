@@ -40,6 +40,13 @@ namespace MyPackSpeech.SpeechRecognition.Actions
             }
             else
             {
+               if ((Course.Year < 2012 || Course.Year > 2016) ||
+                  (Course.Year == 2012 && Course.Semester == Semester.Spring) ||
+                  (Course.Year == 2016 && Course.Semester == Semester.Fall)) {
+                  RecoManager.Instance.Say("That semseter is outside of the current range.");
+                  return false;
+               }
+
                switch (Course.Semester)
                {
                   case Semester.Fall:
