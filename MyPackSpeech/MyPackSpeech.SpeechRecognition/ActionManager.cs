@@ -89,6 +89,8 @@ namespace MyPackSpeech
          CommandTypes cmd = (CommandTypes)(semantics[Slots.Command.ToString()].Value);
          bool callEvent = false;
 
+         SetContext(semantics);
+
          switch (cmd)
          {
             case CommandTypes.Bookmark:
@@ -121,7 +123,6 @@ namespace MyPackSpeech
             actionDetected(this, args);
             RecoManager.Instance.Say("Ok");
          }
-         SetContext(semantics);
       }
 
       public void SetContext(SemanticValueDict semantics)
