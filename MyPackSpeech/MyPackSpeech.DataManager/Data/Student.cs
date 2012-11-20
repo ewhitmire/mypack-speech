@@ -56,6 +56,7 @@ namespace MyPackSpeech.DataManager.Data
             if (req.CourseRequirement.Matches(course.Course))
             {
                req.Fulfillment = course;
+               break;
             }
          }
          OnScheduleChanged();
