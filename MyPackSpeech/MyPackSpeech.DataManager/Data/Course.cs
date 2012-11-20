@@ -56,13 +56,14 @@ namespace MyPackSpeech.DataManager.Data
          }
       }
 
-      public Course(Department dept, string name, int number, string desc, params IFilter<Course>[] prereqs)
+      public Course(Department dept, string name, int number, string desc, int credits, params IFilter<Course>[] prereqs)
       {
          checkArguments(dept, number);
 
          Dept = dept;
          Number = number;
          Name = name;
+         Credits = credits;
          Description = desc ?? string.Empty;
          Prerequisites = new List<IFilter<Course>>(prereqs);
 
@@ -100,6 +101,30 @@ namespace MyPackSpeech.DataManager.Data
       public override int GetHashCode()
       {
          return Dept.GetHashCode() ^ Number;
+      }
+
+      public List<IFilter<Course>> GetAllPrereqs()
+      {
+         List<IFilter<Course>> results = new List<IFilter<Course>>();
+         foreach (var filter in Prerequisites)
+         {
+            results.Add(filter);
+            foreach (var course in CourseCatalog.Instance.GetCourses(filter))
+            {
+               foreach (var prereq in course.GetAllPrereqs())
+               {
+                  if (!results.Contains(prereq))
+                     results.Add(prereq);
+                  else
+                  {
+                     int match = 1;
+                  }
+               }
+            }
+         }
+         results = results.Distinct().ToList();
+         return results;
+
       }
 
       #region IKeywordProvider

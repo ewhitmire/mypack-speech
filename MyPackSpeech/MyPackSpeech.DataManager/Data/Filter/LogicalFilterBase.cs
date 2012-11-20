@@ -36,5 +36,27 @@ namespace MyPackSpeech.DataManager.Data.Filter
       {
          return new NotFilter<T>(this);
       }
+
+      public override bool Equals(object obj)
+      {
+         return Equals(this, obj as LogicalFilterBase<T>);
+      }
+
+      public bool Equals(IFilter<T> x, IFilter<T> y)
+      {
+         LogicalFilterBase<T> xFilter = x as LogicalFilterBase<T>;
+         LogicalFilterBase<T> yFilter = y as LogicalFilterBase<T>;
+
+         if (xFilter == null || yFilter == null)
+            return false;
+
+         return xFilter.LHS.Equals(yFilter.LHS)
+            &&  xFilter.RHS.Equals(yFilter.RHS);
+      }
+
+      public int GetHashCode(IFilter<T> obj)
+      {
+         return obj.GetHashCode();
+      }
    }
 }

@@ -85,5 +85,48 @@ namespace MyPackSpeech.DataManager.Data.Filter
             : StrCriteria;
          return String.Format("{0} {1} {2}", PropertyName, Utils.GetDescription(Op.GetType(), Op.ToString()), crit);
       }
+
+      public override bool Equals(object obj)
+      {
+         return Equals(this, obj as Filter<T>);
+      }
+
+      public bool Equals(IFilter<T> x, IFilter<T> y)
+      {
+         Filter<T> xFilter = x as Filter<T>;
+         Filter<T> yFilter = y as Filter<T>;
+
+         if (xFilter != null && yFilter != null)
+         {
+            return xFilter.Op == yFilter.Op && xFilter.StrCriteria == yFilter.StrCriteria && xFilter.IntCriteria == yFilter.IntCriteria && xFilter.PropertyName == yFilter.PropertyName;
+         }
+
+         return false;
+      }
+
+      public int GetHashCode(IFilter<T> obj)
+      {
+         return base.GetHashCode();
+      }
+
+      public static string PrettyString(IFilter<Course> req)
+      {
+         IEnumerable<Course> courses = CourseCatalog.Instance.GetCourses(req);
+
+         if (courses.Count() == 1)
+         {
+            Course match = courses.First();
+            return match.DeptAbv + match.Number + " - " + match.Name;
+         }
+
+         List<Course> orRequirements = courses.ToList();
+         string str = "        " + orRequirements[0].DeptAbv + orRequirements[0].Number + " - " + orRequirements[0].Name;
+         for (int i = 1; i < orRequirements.Count; i++)
+         {
+            Course match = orRequirements[i];
+            str += "\n    or " + match.DeptAbv + match.Number + " - " + match.Name;
+         }
+         return str;
+      }
    }
 }
