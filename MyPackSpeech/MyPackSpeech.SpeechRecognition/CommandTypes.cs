@@ -26,8 +26,9 @@ namespace MyPackSpeech.SpeechRecognition
                return new BookmarkAction();
             case CommandTypes.View:
                return new ViewAction();
-            case CommandTypes.Show:
             case CommandTypes.Help:
+               return new HelpAction();
+            case CommandTypes.Show:
             default:
                break;
          }

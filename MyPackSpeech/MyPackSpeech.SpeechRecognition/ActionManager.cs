@@ -104,6 +104,9 @@ namespace MyPackSpeech
                callEvent = doUndoComnmand(callEvent);
                break;
             case CommandTypes.Help:
+               IAction action = cmd.GetAction();
+               if (action != null)
+                  action.Perform();
                beHelpful();
                break;
             case CommandTypes.Swap:
@@ -248,11 +251,21 @@ namespace MyPackSpeech
       private event EventHandler<ViewChangeArgs> onViewChange;
       public event EventHandler<ViewChangeArgs> OnViewChange { add { onViewChange += value; } remove { onViewChange -= value; } }
 
-      internal void SwitchView(Views view)
+      public void SwitchView(Views view)
       {
          var evt = onViewChange;
          if (evt != null)
             evt(this, new ViewChangeArgs(view));
+      }
+
+      private event EventHandler onShowHelp;
+      public event EventHandler OnShowHelp { add { onShowHelp += value; } remove { onShowHelp -= value; } }
+
+      public void ShowHelp()
+      {
+         var evt = onShowHelp;
+         if (evt != null)
+            evt(this, EventArgs.Empty);
       }
    }
 }

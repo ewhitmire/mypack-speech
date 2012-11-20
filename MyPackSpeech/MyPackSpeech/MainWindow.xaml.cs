@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Documents;
 using MyPackSpeech.DataManager.Data;
 using MyPackSpeech.DataManager.Data.Filter;
@@ -32,6 +33,12 @@ namespace MyPackSpeech
          ActionManager.Instance.InfoPaneSet += ActionManager_InfoPaneSet;
          ActionManager.Instance.CurrStudent.BookmarksChanged += Student_BookmarksChanged;
          ActionManager.Instance.OnViewChange += ActionManager_OnViewChange;
+         ActionManager.Instance.OnShowHelp += Instance_OnShowHelp;
+      }
+
+      void Instance_OnShowHelp(object sender, EventArgs e)
+      {
+         showHelp();
       }
 
       private void ActionManager_OnViewChange(object sender, ViewChangeArgs e)
@@ -148,7 +155,7 @@ namespace MyPackSpeech
             popUp = null;
          }
       }
-      private void showPopUp()
+      private void showHelp()
       {
          if (popUp == null)
          {
@@ -174,7 +181,7 @@ namespace MyPackSpeech
 
       private void Button_Click_1(object sender, RoutedEventArgs e)
       {
-         showPopUp();
+         showHelp();
       }
    }
 }
