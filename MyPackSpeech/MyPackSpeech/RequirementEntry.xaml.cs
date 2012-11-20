@@ -34,6 +34,8 @@ namespace MyPackSpeech
          if (req != null)
          {
             this.req = req;
+            IEnumerable<Course> courseList = CourseCatalog.Instance.GetCourses(req.CourseRequirement);
+            this.courses.Content = CourseCatalog.FormatCourseList(courseList);
             updateContent();
 
          }
@@ -53,8 +55,6 @@ namespace MyPackSpeech
 
          if (req != null)
          {
-            IEnumerable<Course> courseList = CourseCatalog.Instance.GetCourses(req.CourseRequirement);
-            this.courses.Content = CourseCatalog.FormatCourseList(courseList);
             this.reqName.Content = req.Name;
             if (req.Fulfillment != null)
             {
