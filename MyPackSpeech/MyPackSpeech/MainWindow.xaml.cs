@@ -19,6 +19,7 @@ using System.Collections.ObjectModel;
 using System.Speech.Recognition;
 using System.Speech.Synthesis;
 using System.Windows.Forms;
+using MyPackSpeech.DataManager.Data.Filter;
 
 namespace MyPackSpeech
 {
@@ -52,7 +53,7 @@ namespace MyPackSpeech
       }
       void Instance_MissingPrereqs(object sender, MissingPrereqArgs e)
       {
-         infoBox.Text = "Missing Prerequisites for " + e.Course + "\n" + String.Join("\n", e.Prereqs.Select(p => p.ToString()).ToArray());
+         infoBox.Text = "Missing Prerequisites for " + e.Course + "\n" + String.Join("\n", e.Prereqs.Select(p => Filter<Course>.PrettyString(p)).ToArray());
       }
 
       void ActionManager_BookmarksSet(object sender) {

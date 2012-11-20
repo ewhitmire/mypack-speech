@@ -36,10 +36,12 @@ namespace MyPackSpeech.DataManager.Data
             else if (isOr(tok))
             {
                doOr = true;
+               dept = null;
             }
             else if (isAnd(tok))
             {
                add = true;
+               dept = null;
             }
             else
             {
@@ -57,7 +59,6 @@ namespace MyPackSpeech.DataManager.Data
                }
                filter = null;
                doOr = false;
-               dept = null;
                add = false;
             }
          }

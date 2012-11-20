@@ -38,5 +38,15 @@ namespace MyPackSpeech.DataManager.Data.Filter
       {
          return String.Format("!({0})", Criteria);
       }
+
+      public bool Equals(IFilter<T> x, IFilter<T> y)
+      {
+         return x.Equals(y);
+      }
+
+      public int GetHashCode(IFilter<T> obj)
+      {
+         return obj.GetHashCode();
+      }
    }
 }

@@ -353,6 +353,11 @@ namespace MyPackSpeech.DataManager
                            int.TryParse(courseObject.Value<String>("units"), out credits);
                         }
 
+                        if (dept.Abv == "CSC" && courseNumber == 246)
+                        {
+                           int foo = 0;
+                           foo++;
+                        }
                         IFilter<Course>[] prereqFilters = PrereqBuilder.GetPreReqFilters(parsedPreReqs);
                         Course course = new Course(dept, name, courseNumber, description, credits, prereqFilters);
                         course.spring = spring;
