@@ -261,10 +261,7 @@ namespace MyPackSpeech.SpeechRecognition
          commandChoices.Add(bookmark);
          commandChoices.Add(help);
          commandChoices.Add(view);
-         //commandChoices.Add(semester);
 
-         //GrammarBuilder swap = swapCommand();
-         //commandChoices.Add(swap);
          
          GrammarBuilder systemRequest = new GrammarBuilder();
          systemRequest.Append(commandChoices);

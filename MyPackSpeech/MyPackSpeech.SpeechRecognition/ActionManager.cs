@@ -133,7 +133,7 @@ namespace MyPackSpeech
          if (semester.HasValue || year.HasValue)
             OnSemesterChanged();
 
-         if (CourseConstructor.ContainsCourseData(semantics).Count == 0)
+         if (CourseConstructor.SemanticsContainsCourseData(semantics).Count == 0)
          {
             CurrentCourse = CourseConstructor.ContructCourse(semantics);
             SetInfoPane(CurrentCourse.DeptAbv + CurrentCourse.Number + "\n" + CurrentCourse.Description);

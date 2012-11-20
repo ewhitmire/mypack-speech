@@ -37,7 +37,10 @@ namespace MyPackSpeech.SpeechRecognition
          reader = new SpeechSynthesizer();
          recognitionEngine = new SpeechRecognitionEngine();
          grammar = new CommandGrammar(CourseCatalog.Instance.Courses);
-         recognitionEngine.LoadGrammar(grammar.grammar);
+         if (grammar.grammar != null)
+         {
+            recognitionEngine.LoadGrammar(grammar.grammar);
+         }
          recognitionEngine.SetInputToDefaultAudioDevice();
 
          recognitionEngine.SpeechRecognitionRejected += recognitionEngine_SpeechRejected;

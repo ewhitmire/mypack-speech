@@ -76,10 +76,10 @@ namespace MyPackSpeech.SpeechRecognition
          return year;
       }
 
-      public static List<Slots> ContainsCourseData(SemanticValueDict course)
+      public static List<Slots> SemanticsContainsCourseData(SemanticValueDict course)
       {
          List<Slots> missing = new List<Slots>();
-         if (ActionManager.Instance.CurrentCourse == null && !course.HasSlot(Slots.CourseName))
+         if (!course.HasSlot(Slots.CourseName))
          {
             if (!course.ContainsKey(Slots.Department.ToString()))
             {
@@ -91,6 +91,15 @@ namespace MyPackSpeech.SpeechRecognition
             }
          }
          return missing;
+      }
+
+      public static List<Slots> ContainsCourseData(SemanticValueDict course)
+      {
+         if (ActionManager.Instance.CurrentCourse == null)
+         {
+            return SemanticsContainsCourseData(course);
+         }
+         return new List<Slots>();
       }
 
       public static List<Slots> ContainsScheduledCourseData(SemanticValueDict course, bool ignoreSemester = false)

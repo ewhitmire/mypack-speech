@@ -113,8 +113,11 @@ namespace MyPackSpeech.DataManager
             String[] data = courseName.Split(' ');
 
             Department dept = CourseCatalog.Instance.GetDepartment(data[0]);
-            int number = int.Parse(data[1]);
-            c = CourseFilter.DeptName(dept.Name).And(CourseFilter.Number(number));
+            if (dept != null)
+            {
+               int number = int.Parse(data[1]);
+               c = CourseFilter.DeptName(dept.Name).And(CourseFilter.Number(number));
+            }
          }
          else if (json["id"] != null)
          {
