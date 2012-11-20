@@ -164,8 +164,10 @@ namespace MyPackSpeech
          if (popUp == null)
          {
             popUp = new HelpWindow();
-            popUp.Show();
+            popUp.Closed += (sender, e) => popUp = null;
          }
+
+         popUp.Show();
       }
 
       private void showStartScreen() {
