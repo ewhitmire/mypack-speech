@@ -9,7 +9,7 @@ using System.IO;
 
 namespace MyPackSpeech.DataManager.Data
 {
-   public class Course : IKeywordProvider
+   public class Course : IKeywordProvider, IComparable, IComparable<Course>
    {
       public const string KeyWordFile = "keywords.txt";
       public Department Dept { get; private set; }
@@ -115,10 +115,6 @@ namespace MyPackSpeech.DataManager.Data
                {
                   if (!results.Contains(prereq))
                      results.Add(prereq);
-                  else
-                  {
-                     int match = 1;
-                  }
                }
             }
          }
@@ -143,5 +139,18 @@ namespace MyPackSpeech.DataManager.Data
             : 0;
       }
       #endregion IKeywordProvider
+
+      int IComparable.CompareTo(object obj)
+      {
+         return CompareTo(obj as Course);
+      }
+
+      public int CompareTo(Course other)
+      {
+         int cmp = Dept.Abv.CompareTo(other.Dept.Abv);
+         if (cmp == 0)
+            cmp = Number.CompareTo(other.Number);
+         return cmp;
+      }
    }
 }

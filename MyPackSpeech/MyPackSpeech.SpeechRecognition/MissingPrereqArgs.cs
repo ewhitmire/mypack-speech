@@ -17,6 +17,8 @@ namespace MyPackSpeech.SpeechRecognition
       public MissingPrereqArgs(Course course, List<IFilter<Course>> prereqs)
       {
          this.prereqs = course.GetAllPrereqs().Distinct().ToList();
+         this.prereqs.Sort();
+         //this.prereqs.Reverse();
          this.Course = course;
       }
    }

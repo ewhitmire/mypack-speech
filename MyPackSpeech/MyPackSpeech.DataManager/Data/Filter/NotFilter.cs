@@ -48,5 +48,10 @@ namespace MyPackSpeech.DataManager.Data.Filter
       {
          return obj.GetHashCode();
       }
+
+      public int CompareTo(IFilter<T> other)
+      {
+         return -1 * Criteria.CompareTo(other);
+      }
    }
 }
