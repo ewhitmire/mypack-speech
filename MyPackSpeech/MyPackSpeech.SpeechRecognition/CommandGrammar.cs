@@ -204,8 +204,8 @@ namespace MyPackSpeech.SpeechRecognition
          // year
          Choices years = new Choices();
          SemanticResultValue yearRV;
-         int currentYear = 2012;
-         for (int year = currentYear; year < currentYear + 6; year++)
+         //int currentYear = 2012;
+         for (int year = 2000; year < 2020; year++)
          {
             yearRV = new SemanticResultValue(year.ToString(), year.ToString());
             years.Add(yearRV);

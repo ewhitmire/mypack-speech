@@ -103,6 +103,30 @@ namespace MyPackSpeech.DataManager.Data
          return Dept.GetHashCode() ^ Number;
       }
 
+      public List<IFilter<Course>> GetAllPrereqs()
+      {
+         List<IFilter<Course>> results = new List<IFilter<Course>>();
+         foreach (var filter in Prerequisites)
+         {
+            results.Add(filter);
+            foreach (var course in CourseCatalog.Instance.GetCourses(filter))
+            {
+               foreach (var prereq in course.GetAllPrereqs())
+               {
+                  if (!results.Contains(prereq))
+                     results.Add(prereq);
+                  else
+                  {
+                     int match = 1;
+                  }
+               }
+            }
+         }
+         results = results.Distinct().ToList();
+         return results;
+
+      }
+
       #region IKeywordProvider
       [Browsable(false)]
       public List<string> KeyWords { get; private set; }

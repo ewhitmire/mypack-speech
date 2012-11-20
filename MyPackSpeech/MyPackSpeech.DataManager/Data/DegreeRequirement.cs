@@ -59,25 +59,9 @@ namespace MyPackSpeech.DataManager.Data
          return Category.Name;
       }
 
-      public string ToPrintedString() {
-
-         IEnumerable<Course> courses = CourseCatalog.Instance.GetCourses(CourseRequirement);
-         
-         if (courses.Count() == 1)
-         {
-            Course match = courses.First();
-            return match.DeptAbv + match.Number + " - " + match.Name;
-         }
-
-         List<Course> orRequirements = courses.ToList();
-         string str = "        " + orRequirements[0].DeptAbv + orRequirements[0].Number + " - " + orRequirements[0].Name;
-         for (int i = 1; i < orRequirements.Count; i++)
-         {
-            Course match = orRequirements[i];
-            str += "\n    or " + match.DeptAbv + match.Number + " - " + match.Name;
-         }
-         return str;
-      
+      public string ToPrintedString() 
+      {
+         return Filter<Course>.PrettyString(CourseRequirement);
       }
    }
 }
