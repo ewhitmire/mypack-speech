@@ -61,6 +61,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="BlinkBox.xaml.cs">
+      <DependentUpon>BlinkBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="HelpWindow.xaml.cs">
       <DependentUpon>HelpWindow.xaml</DependentUpon>
     </Compile>
@@ -87,6 +90,10 @@
     <Compile Include="PhraseChart.xaml.cs">
       <DependentUpon>PhraseChart.xaml</DependentUpon>
     </Compile>
+    <Page Include="BlinkBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="DebugWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

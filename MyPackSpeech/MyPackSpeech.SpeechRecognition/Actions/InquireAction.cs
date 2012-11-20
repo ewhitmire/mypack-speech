@@ -27,7 +27,6 @@ namespace MyPackSpeech.SpeechRecognition.Actions
 
             if (reqs.Count() == 0)
             {
-
                RecoManager.Instance.Say("You have fulfilled all of your requirements.");
             }
             else if (reqs.Count() > 5)
