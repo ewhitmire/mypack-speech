@@ -32,9 +32,8 @@
                 <local:RequirementsView x:Name="reqView"/>
             </TabItem>
         </TabControl>
-        <CheckBox x:Name="isSpeechOn" Content="Speech Recognition On" HorizontalAlignment="Left" Margin="613,6,0,0" Grid.Row="1" VerticalAlignment="Top" Checked="isSpeechOn_Checked" Unchecked="isSpeechOn_Unchecked"/>
-        <Button Content="Help" HorizontalAlignment="Left" Margin="228,3,0,0" VerticalAlignment="Top" Width="75" Grid.Row="1" Grid.Column="1" Click="Button_Click_1"/>
-        <Grid Grid.Column="1"  Grid.Row="1" Margin="0,27,0,0">
+        <CheckBox x:Name="isSpeechOn" Content="Speech Recognition On" HorizontalAlignment="Right" Grid.Row="1" VerticalAlignment="Top" Checked="isSpeechOn_Checked" Unchecked="isSpeechOn_Unchecked" Margin="0,6,6,0" Padding="4,-1,0,0"/>
+        <Grid Grid.Column="1"  Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="25"/>
                 <RowDefinition Height="2*"/>
@@ -42,6 +41,8 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <Label Content="Info" Grid.Row="0" Height="25" x:Name="RequirementsLabel" />
+            <Button Content="Help" HorizontalAlignment="Right" VerticalAlignment="Top" Width="75" Click="Button_Click_1" BorderThickness="1" Margin="0,3,0,0"/>
+
             <local:BlinkBox x:Name="infoBox" Grid.Row="1" />
 
             <Label Content="Bookmarks" Grid.Row="2" Name="BookmarksLabel"/>

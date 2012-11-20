@@ -29,7 +29,6 @@ namespace MyPackSpeech
       {
          showDebugWindow();
          showStartScreen();
-         Console.WriteLine(DegreeCatalog.Instance.Degrees.Count());
          ActionManager.Instance.MissingPrereqs += Instance_MissingPrereqs;
          ActionManager.Instance.InfoPaneSet += ActionManager_InfoPaneSet;
          ActionManager.Instance.CurrStudent.BookmarksChanged += Student_BookmarksChanged;
