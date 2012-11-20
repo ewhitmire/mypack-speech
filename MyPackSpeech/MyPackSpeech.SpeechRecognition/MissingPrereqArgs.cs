@@ -18,7 +18,21 @@ namespace MyPackSpeech.SpeechRecognition
       {
          this.prereqs = course.GetAllPrereqs().Distinct().ToList();
          this.prereqs.Sort();
-         //this.prereqs.Reverse();
+
+         List<IFilter<Course>> missing = new List<IFilter<Course>>();
+         //TODO: BrianR get prereqs using course requirements and registered courses
+         foreach (var prereq in prereqs)
+         {
+            int count = (from c in ActionManager.Instance.CurrStudent.Schedule.Courses
+                         where prereq.Matches(c.Course)
+                         select c.Course).Count();
+            if (count == 0)
+            {
+               missing.Add(prereq);
+            }
+         }
+
+         this.prereqs = missing;
          this.Course = course;
       }
    }
