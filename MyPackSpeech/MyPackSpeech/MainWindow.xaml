@@ -8,8 +8,7 @@
 
         <Grid.RowDefinitions>
             <RowDefinition Height="20"/>
-            <RowDefinition Height="10*" />
-            <RowDefinition Height="5*"/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
 			<ColumnDefinition Width="10*" />
@@ -25,16 +24,7 @@
                 <MenuItem Header="Load _Student" Click="loadStudent_Click"/>
             </MenuItem>
         </Menu>
-        <Label Content="Info" Grid.Row="1" Height="25" HorizontalAlignment="Left" Name="RequirementsLabel" VerticalAlignment="Top" Grid.Column="1" />
-        <Border BorderBrush="Silver" BorderThickness="1" Grid.Column="1" Grid.Row="1" Margin="5,28,5,2" Name="border3">
-            <TextBox x:Name="infoBox" IsEnabled="False"/>
-        </Border>
-        
-        <Label Content="Bookmarks" Grid.Row="2" Height="25" HorizontalAlignment="Left" Name="BookmarksLabel" VerticalAlignment="Top" Grid.Column="1" />
-        <Border BorderBrush="Silver" BorderThickness="1" Grid.Column="1" Grid.Row="2" Margin="5,25,5,5" Name="border4">
-            <TextBox Name="bookmarks" IsReadOnly="True" IsEnabled="False" FontSize="10" />
-        </Border>
-        <TabControl Grid.Row="1" Margin="5,5,5,5" Grid.RowSpan="2">
+        <TabControl Grid.Row="1" Margin="5,5,5,5">
             <TabItem Header="Semester View">
                 <local:SemesterView x:Name="semView" Loaded="semView_Loaded"/>
             </TabItem>
@@ -44,5 +34,19 @@
         </TabControl>
         <CheckBox x:Name="isSpeechOn" Content="Speech Recognition On" HorizontalAlignment="Left" Margin="613,6,0,0" Grid.Row="1" VerticalAlignment="Top" Checked="isSpeechOn_Checked" Unchecked="isSpeechOn_Unchecked"/>
         <Button Content="Help" HorizontalAlignment="Left" Margin="228,3,0,0" VerticalAlignment="Top" Width="75" Grid.Row="1" Grid.Column="1" Click="Button_Click_1"/>
+        <Grid Grid.Column="1"  Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="25"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Label Content="Info" Grid.Row="0" Height="25" x:Name="RequirementsLabel" />
+            <local:BlinkBox x:Name="infoBox" Grid.Row="1" />
+
+            <Label Content="Bookmarks" Grid.Row="2" Name="BookmarksLabel"/>
+            <local:BlinkBox x:Name="bookmarks" Grid.Row="3" FontSize="10" />
+
+        </Grid>
     </Grid>
 </Window>

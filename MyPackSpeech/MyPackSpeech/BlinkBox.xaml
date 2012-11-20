@@ -1,0 +1,32 @@
+﻿<UserControl x:Class="MyPackSpeech.BlinkBox"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <TextBox x:Name="contentBox" TextWrapping="Wrap" Text="" ScrollViewer.VerticalScrollBarVisibility="Auto" IsReadOnly="True">
+
+            <TextBox.Triggers>
+                <EventTrigger RoutedEvent="TextBox.TextChanged">
+                    <BeginStoryboard>
+                        <Storyboard Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)">
+                            <ColorAnimation 
+                                  To="LightSteelBlue"
+                                    AutoReverse="True"
+                                    RepeatBehavior="2x"
+                                  Duration="0:0:.5">
+                                <ColorAnimation.EasingFunction>
+                                    <CircleEase  EasingMode='EaseOut' />
+                                </ColorAnimation.EasingFunction>
+                            </ColorAnimation>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </TextBox.Triggers>
+
+        </TextBox>
+
+    </Grid>
+</UserControl>

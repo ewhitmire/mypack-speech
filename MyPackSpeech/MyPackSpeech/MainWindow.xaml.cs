@@ -53,7 +53,7 @@ namespace MyPackSpeech
       }
       void Instance_MissingPrereqs(object sender, MissingPrereqArgs e)
       {
-         infoBox.Text = "Missing Prerequisites for " + e.Course + "\n" + String.Join("\n", e.Prereqs.Select(p => Filter<Course>.PrettyString(p)).ToArray());
+         infoBox.SetText("Missing Prerequisites for " + e.Course + "\n" + String.Join("\n", e.Prereqs.Select(p => p.ToString()).ToArray()));
       }
 
       void ActionManager_BookmarksSet(object sender) {
@@ -63,7 +63,9 @@ namespace MyPackSpeech
 
       void ActionManager_InfoPaneSet(object sender, InfoPaneSetArgs e)
       {
-         infoBox.Text = e.Text;
+         infoBox.SetText(e.Text);
+         //infoBox.Background = Brushes.LightSteelBlue;
+         //flashInfoPane.Begin();
       }
       protected override void OnClosed(EventArgs e)
       {
@@ -85,13 +87,13 @@ namespace MyPackSpeech
             marks += "" + course.Dept.Name + "(" + course.DeptAbv + ")" + " " + course.Number + " - " + course.Name + "\n";
          }
 
-         bookmarks.Text = marks;
+         bookmarks.SetText(marks);
       }
 
       public void showInfo(Course course)
       {
-         infoBox.Text = "" + course.Dept.Name + "(" + course.DeptAbv + ")" + " " + course.Number + "\n" +
-             course.Description;
+         infoBox.SetText("" + course.Dept.Name + "(" + course.DeptAbv + ")" + " " + course.Number + "\n" +
+             course.Description);
       }
 
       private void Load_Click(object sender, RoutedEventArgs e)
