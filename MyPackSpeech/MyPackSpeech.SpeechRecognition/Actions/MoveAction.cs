@@ -35,6 +35,15 @@ namespace MyPackSpeech.SpeechRecognition.Actions
             return false;
          }
 
+         if ((Course.Year < 2012 || Course.Year > 2016) ||
+            (Course.Year == 2012 && Course.Semester == Semester.Spring) ||
+            (Course.Year == 2016 && Course.Semester == Semester.Fall))
+         {
+            RecoManager.Instance.Say("That semseter is outside of the current range.");
+            return false;
+         }
+
+
          OldCourse = Student.MoveCourse(Course);
          return true;
       }

@@ -24,6 +24,8 @@ namespace MyPackSpeech.SpeechRecognition
                return new InquireAction();
             case CommandTypes.Bookmark:
                return new BookmarkAction();
+            case CommandTypes.View:
+               return new ViewAction();
             case CommandTypes.Show:
             case CommandTypes.Help:
             default:
@@ -44,6 +46,7 @@ namespace MyPackSpeech.SpeechRecognition
       SetSemester,
       Inquire,
       Bookmark,
+      View,
       Help
    }
 }

@@ -20,9 +20,49 @@ namespace MyPackSpeech.SpeechRecognition.Actions
             PromptForMissing(Semantics, missing);
             return false;
          }
+
+         if (!isInRange()) {
+            return false;
+         }
+
+
+
+
          ActionManager.Instance.SetContext(Semantics);
                 
          return false;
+      }
+
+
+      private Boolean isInRange()
+      {
+
+         Semester currentSemester;
+         int currentYear;
+         currentSemester = Semester.Summer;
+         Semester? semester = CourseConstructor.GetSemester(Semantics);
+         if (semester.HasValue)
+         {
+            currentSemester = semester.Value;
+         }
+         currentYear = 0;
+         int? year = CourseConstructor.GetYear(Semantics);
+         if (year.HasValue)
+         {
+            currentYear = year.Value;
+         }
+
+         if ((currentSemester == Semester.Summer) ||
+            (currentYear < 2012 || currentYear > 2016) ||
+            (currentYear == 2012 && currentSemester == Semester.Spring) ||
+            (currentYear == 2016 && currentSemester == Semester.Fall))
+         {
+            RecoManager.Instance.Say("That semseter is outside of the current range.");
+            return false;
+         }
+         return true;
+
+
       }
 
       override protected void PromptForMissing(SemanticValueDict semantics, List<Slots> missing)

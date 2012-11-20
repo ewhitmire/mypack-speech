@@ -53,7 +53,7 @@ namespace MyPackSpeech.SpeechRecognition
 
          GrammarBuilder intro = new GrammarBuilder();
          intro.Append("now", 0, 1);
-         intro.Append("starts");
+         intro.Append(starts);
          return intro;
       }
 
@@ -204,8 +204,8 @@ namespace MyPackSpeech.SpeechRecognition
          // year
          Choices years = new Choices();
          SemanticResultValue yearRV;
-         int currentYear = 2012;
-         for (int year = currentYear; year < currentYear + 6; year++)
+         //int currentYear = 2012;
+         for (int year = 2000; year < 2020; year++)
          {
             yearRV = new SemanticResultValue(year.ToString(), year.ToString());
             years.Add(yearRV);
@@ -246,6 +246,7 @@ namespace MyPackSpeech.SpeechRecognition
          GrammarBuilder inquire = inquireCommand();
          GrammarBuilder bookmark = bookmarkCommand();
          GrammarBuilder help = helpCommand();
+         GrammarBuilder view = viewCommand();
 
 
          //now build the complete pattern...
@@ -259,6 +260,7 @@ namespace MyPackSpeech.SpeechRecognition
          commandChoices.Add(course);
          commandChoices.Add(bookmark);
          commandChoices.Add(help);
+         commandChoices.Add(view);
          //commandChoices.Add(semester);
 
          //GrammarBuilder swap = swapCommand();
@@ -469,5 +471,28 @@ namespace MyPackSpeech.SpeechRecognition
          return finalCommand;
       }
 
+      private GrammarBuilder viewCommand()
+      {
+         Choices commands = new Choices();
+         commands.Add(new SemanticResultValue("view", (int)CommandTypes.View));
+         SemanticResultKey commandSemKey = new SemanticResultKey(Slots.Command.ToString(), commands);
+
+         Choices preCommand = new Choices();
+         preCommand.Add("switch to");
+
+         Choices views = new Choices();
+         views.Add(new SemanticResultValue("semester", (int)Views.Semester));
+         views.Add(new SemanticResultValue("requirements", (int)Views.Requirements));
+
+         SemanticResultKey viewSemKey = new SemanticResultKey(Slots.ViewName.ToString(), views);
+
+         // put the whole command together
+         GrammarBuilder finalCommand = new GrammarBuilder();
+         finalCommand.Append(this.pleasantries, 0, 1);
+         finalCommand.Append(preCommand, 0, 1);
+         finalCommand.Append(viewSemKey);
+         finalCommand.Append(commandSemKey);
+         return finalCommand;
+      }
    }
 }
