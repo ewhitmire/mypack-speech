@@ -1,25 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using Microsoft.Win32;
-using MyPackSpeech.SpeechRecognition;
-using MyPackSpeech.DataManager;
 using MyPackSpeech.DataManager.Data;
-using System.Collections.ObjectModel;
-using System.Speech.Recognition;
-using System.Speech.Synthesis;
-using System.Windows.Forms;
 using MyPackSpeech.DataManager.Data.Filter;
+using MyPackSpeech.SpeechRecognition;
 
 namespace MyPackSpeech
 {
@@ -47,6 +34,12 @@ namespace MyPackSpeech
          ActionManager.Instance.InfoPaneSet += ActionManager_InfoPaneSet;
          ActionManager.Instance.CurrStudent.BookmarksChanged += Student_BookmarksChanged;
          ActionManager.Instance.OnViewChange += ActionManager_OnViewChange;
+         ActionManager.Instance.OnShowHelp += Instance_OnShowHelp;
+      }
+
+      void Instance_OnShowHelp(object sender, EventArgs e)
+      {
+         showHelp();
       }
 
       private void ActionManager_OnViewChange(object sender, ViewChangeArgs e)
@@ -60,7 +53,7 @@ namespace MyPackSpeech
       }
       void Instance_MissingPrereqs(object sender, MissingPrereqArgs e)
       {
-         infoBox.SetText("Missing Prerequisites for " + e.Course + "\n" + String.Join("\n", e.Prereqs.Select(p => p.ToString()).ToArray()));
+         infoBox.SetText("Missing Prerequisites for " + e.Course + "\n" + String.Join("\n", e.Prereqs.Select(p => Filter<Course>.PrettyString(p)).ToArray()));
       }
 
       void ActionManager_InfoPaneSet(object sender, InfoPaneSetArgs e)
@@ -163,7 +156,7 @@ namespace MyPackSpeech
             popUp = null;
          }
       }
-      private void showPopUp()
+      private void showHelp()
       {
          if (popUp == null)
          {
@@ -177,8 +170,7 @@ namespace MyPackSpeech
       private void showStartScreen() {
          if (starter == null) {
             starter = new StartScreen();
-            starter.Show();
-         
+            starter.Show();         
          }
          
       }
@@ -190,7 +182,7 @@ namespace MyPackSpeech
 
       private void Button_Click_1(object sender, RoutedEventArgs e)
       {
-         showPopUp();
+         showHelp();
       }
    }
 }

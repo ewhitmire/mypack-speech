@@ -58,5 +58,33 @@ namespace MyPackSpeech.DataManager.Data.Filter
       {
          return obj.GetHashCode();
       }
+
+      public int CompareTo(IFilter<T> other)
+      {
+         if(!(other is LogicalFilterBase<T>))
+            return -1;
+         var c1 = CourseCatalog.Instance.GetCourses(this as IFilter<Course>).ToList();
+         var c2 = CourseCatalog.Instance.GetCourses(other as IFilter<Course>).ToList();
+
+         int cmp = 0;
+         if (c1.Count == c2.Count)
+         {
+            for (int i = 0; i < c1.Count; i++)
+            {
+               cmp = c1[i].CompareTo(c2[i]);
+               if (cmp != 0)
+                  break;
+            }
+         }
+
+         if (cmp == 0)
+         {
+            cmp = LHS.CompareTo(other);
+            if (cmp == 0)
+               cmp = RHS.CompareTo(other);
+         }
+
+         return cmp;
+      }
    }
 }

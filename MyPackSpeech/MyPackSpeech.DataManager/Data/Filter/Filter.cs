@@ -128,5 +128,38 @@ namespace MyPackSpeech.DataManager.Data.Filter
          }
          return str;
       }
+
+
+      public int CompareTo(IFilter<T> other)
+      {
+         if (other == null)
+            return -1;
+
+         if (other is Filter<T>)
+         {
+            Filter<T> filter = other as Filter<T>;
+            int cmp = Op.CompareTo(filter.Op);
+            if (cmp == 0)
+            {
+               if (StrCriteria != null)
+                  cmp = StrCriteria.CompareTo(filter.StrCriteria ?? "");
+               if (cmp == 0)
+                  cmp = IntCriteria.CompareTo(filter.IntCriteria);
+            }
+
+            return cmp;
+         }
+
+         if (other is LogicalFilterBase<T>)
+         {
+            int cmp = this.CompareTo((other as LogicalFilterBase<T>).LHS);
+            if(cmp ==0)
+               cmp = this.CompareTo((other as LogicalFilterBase<T>).RHS);
+
+            return cmp;
+         }
+
+         return 1;
+      }
    }
 }
