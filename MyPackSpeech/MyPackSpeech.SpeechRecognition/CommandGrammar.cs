@@ -48,10 +48,18 @@ namespace MyPackSpeech.SpeechRecognition
 
       private GrammarBuilder buildIntroGrammar()
       {
+
+         GrammarBuilder wildcardBuilder = new GrammarBuilder();
+         wildcardBuilder.AppendWildcard();
+         SemanticResultKey passwordKey =
+           new SemanticResultKey("Wildcard", wildcardBuilder);
+
+
          Choices starts = new Choices("I'd like a", "I'd like to", "I would like to",
              "I want to", "Would you", "Would you please", "please", "How about", "Let's");
 
          GrammarBuilder intro = new GrammarBuilder();
+         //intro.AppendWildcard();
          intro.Append("now", 0, 1);
          intro.Append(starts);
          return intro;
@@ -236,6 +244,29 @@ namespace MyPackSpeech.SpeechRecognition
          }
       }
 
+      private GrammarBuilder CreatePasswordGrammar()
+      {
+         GrammarBuilder wildcardBuilder = new GrammarBuilder();
+         wildcardBuilder.AppendWildcard();
+         SemanticResultKey passwordKey =
+           new SemanticResultKey("Password", wildcardBuilder);
+
+         Choices starts = new Choices("I'd like a", "I'd like to", "I would like to",
+             "I want to", "Would you", "Would you please", "please", "How about", "Let's");
+         wildcardBuilder.Append(starts);
+
+         GrammarBuilder intro = new GrammarBuilder();
+         //intro.AppendWildcard();
+         intro.Append("now", 0, 1);
+         intro.Append(starts);
+
+         GrammarBuilder passwordBuilder =
+           new GrammarBuilder();
+         passwordBuilder.Append(passwordKey);
+
+         return passwordBuilder;
+      }
+
       private void buildCommandGrammar()
       {
          GrammarBuilder add = addCommand();
@@ -247,7 +278,7 @@ namespace MyPackSpeech.SpeechRecognition
          GrammarBuilder bookmark = bookmarkCommand();
          GrammarBuilder help = helpCommand();
          GrammarBuilder view = viewCommand();
-
+         GrammarBuilder password = CreatePasswordGrammar();
 
          //now build the complete pattern...
          Choices commandChoices = new Choices();
@@ -261,7 +292,7 @@ namespace MyPackSpeech.SpeechRecognition
          commandChoices.Add(bookmark);
          commandChoices.Add(help);
          commandChoices.Add(view);
-
+         commandChoices.Add(password);
          
          GrammarBuilder systemRequest = new GrammarBuilder();
          systemRequest.Append(commandChoices);
@@ -420,6 +451,7 @@ namespace MyPackSpeech.SpeechRecognition
          finalCommand.Append(this.pleasantries, 0, 1);
          finalCommand.Append(commandSemKey);
          finalCommand.Append(this.course, 0, 1);
+         //finalCommand.AppendWildcard();
          finalCommand.Append(preps, 0, 1);
          finalCommand.Append(this.semester, 0, 1);
 

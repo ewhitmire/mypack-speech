@@ -35,7 +35,7 @@ namespace MyPackSpeech.SpeechRecognition.Actions
 
             if (missingClasses.Count > 0)
             {
-               ActionManager.Instance.InformPreReqs(Course.Course, missingClasses);
+               ActionManager.Instance.InformPreReqs(Course, missingClasses);
                return false;
             }
             else

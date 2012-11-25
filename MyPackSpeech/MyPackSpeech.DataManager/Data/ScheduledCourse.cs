@@ -42,6 +42,22 @@ namespace MyPackSpeech.DataManager.Data
          Requirement = req;
       }
 
+      public Boolean isPreviousCourse(ScheduledCourse otherCourse) {
+         //Returns true of otherCourse has been finished before this starts.
+
+         if (this.Year > otherCourse.Year) {
+            return true;
+         }
+         else if (this.Year == otherCourse.Year)
+         {
+            return (this.Semester == Semester.Fall && otherCourse.Semester == Semester.Spring);
+         }
+         else 
+         {
+            return false;
+         }
+      }
+
       public override string ToString()
       {
          return string.Format("{0} {1} {2}", Semester, Year, Course);
