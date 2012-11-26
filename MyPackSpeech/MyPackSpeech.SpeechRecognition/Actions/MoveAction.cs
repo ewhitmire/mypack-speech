@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Speech.Recognition;
 using MyPackSpeech.DataManager.Data;
+using MyPackSpeech.DataManager.Data.Filter;
 
 namespace MyPackSpeech.SpeechRecognition.Actions
 {
@@ -42,6 +43,15 @@ namespace MyPackSpeech.SpeechRecognition.Actions
             RecoManager.Instance.Say("That semseter is outside of the current range.");
             return false;
          }
+
+         List<IFilter<Course>> missingClasses = Student.Schedule.GetMissingPreReqs(Course);
+
+         if (missingClasses.Count > 0)
+         {
+            ActionManager.Instance.InformPreReqs(Course, missingClasses);
+            return false;
+         }
+
 
 
          OldCourse = Student.MoveCourse(Course);
