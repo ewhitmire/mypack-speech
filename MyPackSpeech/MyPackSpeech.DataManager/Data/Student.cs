@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -118,29 +119,74 @@ namespace MyPackSpeech.DataManager.Data
             evt(this, EventArgs.Empty);
       
       }
-	  public void RemoveCourse(Course Course)
-	  {
+      public void RemoveCourse(Course Course)
+      {
 
-        ScheduledCourse myCourse = Schedule.Courses.Where(c => c.Course.Equals(Course)).FirstOrDefault();
-        if (myCourse != null)
-        {
-           Schedule.Courses.Remove(myCourse);
-           DegreeRequirement req = Degree.Requirements.Where(c => Course.Equals(c.Fulfillment)).FirstOrDefault();
-           if (req != null)
-           {
-              req.Fulfillment = null;
-           }
-           OnScheduleChanged();
-        }
-        else
-        {
-           if(bookmarks.Contains(Course)){
+         ScheduledCourse myCourse = Schedule.Courses.Where(c => c.Course.Equals(Course)).FirstOrDefault();
+         if (myCourse != null)
+         {
+            Schedule.Courses.Remove(myCourse);
+            DegreeRequirement req = Degree.Requirements.Where(c => Course.Equals(c.Fulfillment)).FirstOrDefault();
+            if (req != null)
+            {
+               req.Fulfillment = null;
+            }
+            OnScheduleChanged();
+         }
+         else
+         {
+            if(bookmarks.Contains(Course)){
             RemoveBookmark(Course);
-           } 
-        }
-        
+            } 
+         }
 
-	  }
+      }
+      
+      public void LoadSchedule(String filepath)
+      {
+         using (StreamReader readFile = new StreamReader(filepath))
+         {
+            string line;
+            string[] data;
+            while ((line = readFile.ReadLine()) != null)
+            {
+               data = line.Split(',');
+               if (data.Length >= 4)
+               {
+                  Department dept = CourseCatalog.Instance.GetDepartment(data[0]);
+                  bool success = dept != null;
+                  int number;
+                  success &= int.TryParse(data[1], out number);
+                  Semester sem;
+                  success &= Enum.TryParse(data[2], out sem);
+                  int year;
+                  success &= int.TryParse(data[3], out year);
+                  if (success)
+                  {
+                     Course course = CourseCatalog.Instance.GetCourse(dept, number);
+                     ScheduledCourse scheduled_course = new ScheduledCourse(course, sem, year);
+                     AddCourse(scheduled_course);
+                  }
+               }
+            }
+         }
+      }
+
+      public void SaveSchedule(String filepath)
+      {
+         using (StreamWriter writeFile = new StreamWriter(filepath))
+         {
+            foreach (ScheduledCourse course in Schedule.Courses)
+            {
+               String line = course.Course.DeptAbv + ",";
+               line += course.Course.Number.ToString() + ",";
+               line += course.Semester.ToString() + ",";
+               line += course.Year.ToString();
+
+               writeFile.WriteLine(line);
+            }
+         }
+      }
 
    }
 }

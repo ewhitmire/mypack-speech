@@ -96,16 +96,21 @@ namespace MyPackSpeech
              course.Description);
       }
 
-
       private void loadFile()
       {
          String filename = getFile();
-         ScheduleLoader.LoadSchedule(ActionManager.Instance.CurrStudent, filename);
+         ActionManager.Instance.CurrStudent.LoadSchedule(filename);
+      }
+
+      private void saveFile()
+      {
+         String filename = getFile();
+         ActionManager.Instance.CurrStudent.SaveSchedule(filename);
       }
 
       private string getFile()
       {
-         Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+         Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
          if (dlg.ShowDialog(this).GetValueOrDefault(false))
             return dlg.FileName;
          return string.Empty;
@@ -187,10 +192,13 @@ namespace MyPackSpeech
          showHelp();
       }
 
-      private void MenuItem_Click_1(object sender, RoutedEventArgs e)
+      private void Load_Click(object sender, RoutedEventArgs e)
       {
-
          loadFile();
+      }
+      private void Save_Click(object sender, RoutedEventArgs e)
+      {
+         saveFile();
       }
    }
 }
