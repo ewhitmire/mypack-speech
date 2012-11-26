@@ -14,19 +14,15 @@
 			<ColumnDefinition Width="10*" />
             <ColumnDefinition Width="4*"/>
         </Grid.ColumnDefinitions>
-        <Menu Grid.Column="0" Grid.ColumnSpan="2" ItemsSource="{Binding}">
+        <Menu x:Name="topMenu" Grid.Column="0" Grid.ColumnSpan="2">
             <Menu.ItemBindingGroup>
                 <BindingGroup Name="Semesters" />
             </Menu.ItemBindingGroup>
-
-            <MenuItem Header="_File">
-                <MenuItem Header="Load _Courses" Click="loadCourses_Click"/>
-                <MenuItem Header="Load _Student" Click="loadStudent_Click"/>
-            </MenuItem>
+            <Button Content="Load" Click="Button_Click_2"/>
         </Menu>
         <TabControl x:Name="tabs" Grid.Row="1" Margin="5,5,5,5">
             <TabItem x:Name="Semester" Header="Semester View">
-                <local:SemesterView x:Name="semView" Loaded="semView_Loaded"/>
+                <local:SemesterView x:Name="semView"/>
             </TabItem>
             <TabItem x:Name="Requirements" Header="Requirements View">
                 <local:RequirementsView x:Name="reqView"/>

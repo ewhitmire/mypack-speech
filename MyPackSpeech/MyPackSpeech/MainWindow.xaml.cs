@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
+using MyPackSpeech.DataManager;
 using MyPackSpeech.DataManager.Data;
 using MyPackSpeech.DataManager.Data.Filter;
 using MyPackSpeech.SpeechRecognition;
@@ -89,24 +90,11 @@ namespace MyPackSpeech
              course.Description);
       }
 
-      private void Load_Click(object sender, RoutedEventArgs e)
-      {
-         loadFile();
-      }
 
       private void loadFile()
       {
-
-      }
-
-      private void loadCourses_Click(object sender, RoutedEventArgs e)
-      {
-         string file = getFile();
-      }
-
-      private void loadStudent_Click(object sender, RoutedEventArgs e)
-      {
-         string file = getFile();
+         String filename = getFile();
+         ScheduleLoader.LoadSchedule(ActionManager.Instance.CurrStudent, filename);
       }
 
       private string getFile()
@@ -174,14 +162,15 @@ namespace MyPackSpeech
          
       }
 
-      private void semView_Loaded(object sender, RoutedEventArgs e)
-      {
-
-      }
 
       private void Button_Click_1(object sender, RoutedEventArgs e)
       {
          showHelp();
+      }
+
+      private void Button_Click_2(object sender, RoutedEventArgs e)
+      {
+         loadFile();
       }
    }
 }

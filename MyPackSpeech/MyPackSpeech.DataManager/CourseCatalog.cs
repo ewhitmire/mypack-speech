@@ -39,6 +39,11 @@ namespace MyPackSpeech.DataManager
       {
          return Courses.Where<Course>(c => courseFilter.Matches(c));
       }
+      public Course GetCourse(Department dept, int number)
+      {
+         IEnumerable<Course> courses = Courses.Where<Course>(c => c.Dept.Equals(dept) && c.Number.Equals(number));
+         return courses.FirstOrDefault();
+      }
       public List<Course> Courses { get; private set; }
       public List<Department> Departments { get; private set; }
       public event EventHandler FilterChanged { add { filterChanged += value; } remove { filterChanged -= value; } }
