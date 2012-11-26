@@ -18,7 +18,7 @@
             <Menu.ItemBindingGroup>
                 <BindingGroup Name="Semesters" />
             </Menu.ItemBindingGroup>
-            <Button Content="Load" Click="Button_Click_2"/>
+            <MenuItem Header="Load" Click="MenuItem_Click_1"/>
         </Menu>
         <TabControl x:Name="tabs" Grid.Row="1" Margin="5,5,5,5">
             <TabItem x:Name="Semester" Header="Semester View">
