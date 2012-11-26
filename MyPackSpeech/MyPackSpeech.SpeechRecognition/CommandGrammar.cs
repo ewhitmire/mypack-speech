@@ -48,12 +48,14 @@ namespace MyPackSpeech.SpeechRecognition
 
       private GrammarBuilder buildIntroGrammar()
       {
+
          Choices starts = new Choices("I'd like a", "I'd like to", "I would like to",
              "I want to", "Would you", "Would you please", "please", "How about", "Let's");
 
          GrammarBuilder intro = new GrammarBuilder();
          intro.Append("now", 0, 1);
-         intro.Append(starts);
+         intro.AppendWildcard();
+         intro.Append(starts, 0, 1);
          return intro;
       }
 
@@ -236,6 +238,7 @@ namespace MyPackSpeech.SpeechRecognition
          }
       }
 
+
       private void buildCommandGrammar()
       {
          GrammarBuilder add = addCommand();
@@ -247,7 +250,6 @@ namespace MyPackSpeech.SpeechRecognition
          GrammarBuilder bookmark = bookmarkCommand();
          GrammarBuilder help = helpCommand();
          GrammarBuilder view = viewCommand();
-
 
          //now build the complete pattern...
          Choices commandChoices = new Choices();
@@ -261,7 +263,6 @@ namespace MyPackSpeech.SpeechRecognition
          commandChoices.Add(bookmark);
          commandChoices.Add(help);
          commandChoices.Add(view);
-
          
          GrammarBuilder systemRequest = new GrammarBuilder();
          systemRequest.Append(commandChoices);

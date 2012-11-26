@@ -224,16 +224,40 @@ namespace MyPackSpeech
       public Student CurrStudent { get; private set; }
       #endregion
 
-      public void InformPreReqs(Course course, List<IFilter<Course>> missing)
+      public void InformPreReqs(ScheduledCourse course, List<IFilter<Course>> missing)
       {
          OnMissingPreReqs(course, missing);
-         RecoManager.Instance.Say("You are missing prerequisites for " + course.ToString());
+         List<IFilter<Course>> scheduledTooLate = new List<IFilter<Course>>();
+         foreach (var prereq in missing)
+         {
+            int count = (from c in CurrStudent.Schedule.Courses
+                         where prereq.Matches(c.Course)
+                         select c.Course).Count();
+            if (count > 0)
+            {
+               scheduledTooLate.Add(prereq);
+            }
+         }
+
+         if (scheduledTooLate.Count == 0)
+         {
+            RecoManager.Instance.Say("You are missing prerequisites for " + course.Course.ToString());
+         }
+         else {
+            string str = "";
+            foreach (IFilter<Course> filter in scheduledTooLate)
+            {
+               str += Filter<Course>.toSpokenString(filter) + " ";
+            }
+
+            RecoManager.Instance.Say("You must schedule " + course.Course.ToString() + " after " + str); 
+         }
       }
 
       private event EventHandler<MissingPrereqArgs> missingPrereqs;
       public event EventHandler<MissingPrereqArgs> MissingPrereqs { add { missingPrereqs += value; } remove { missingPrereqs -= value; } }
 
-      private void OnMissingPreReqs(Course course, List<IFilter<Course>> missing)
+      private void OnMissingPreReqs(ScheduledCourse course, List<IFilter<Course>> missing)
       {
          var evt = missingPrereqs;
          if (evt != null)

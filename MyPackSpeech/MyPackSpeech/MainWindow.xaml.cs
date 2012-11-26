@@ -53,7 +53,12 @@ namespace MyPackSpeech
       }
       void Instance_MissingPrereqs(object sender, MissingPrereqArgs e)
       {
-         infoBox.SetText("Missing Prerequisites for " + e.Course + "\n" + String.Join("\n", e.Prereqs.Select(p => Filter<Course>.PrettyString(p)).ToArray()));
+         List<IFilter<Course>> preReqs = ActionManager.Instance.CurrStudent.Schedule.GetMissingPreReqs(e.Course);
+         string str = "";
+         foreach (IFilter<Course> filter in preReqs) {
+            str += Filter<Course>.PrettyString(filter) + "\n";
+         }
+         infoBox.SetText("Missing Prerequisites for " + e.Course.Course + "\n" + str);
       }
 
       void ActionManager_InfoPaneSet(object sender, InfoPaneSetArgs e)
@@ -65,6 +70,7 @@ namespace MyPackSpeech
       {
          closeDebugWindow();
          closePopUp();
+         closeStartScreen();
          base.OnClosed(e);
       }
 
@@ -143,6 +149,19 @@ namespace MyPackSpeech
             popUp = null;
          }
       }
+
+
+      private void closeStartScreen()
+      {
+         if (starter != null)
+         {
+            starter.Close();
+            starter = null;
+         }
+
+      }
+
+
       private void showHelp()
       {
          if (popUp == null)

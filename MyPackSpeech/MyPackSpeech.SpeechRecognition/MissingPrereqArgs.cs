@@ -11,12 +11,12 @@ namespace MyPackSpeech.SpeechRecognition
    public class MissingPrereqArgs : EventArgs
    {
       private readonly List<IFilter<Course>> prereqs;
-      public readonly Course Course;
+      public readonly ScheduledCourse Course;
       public ReadOnlyCollection<IFilter<Course>> Prereqs { get { return prereqs.AsReadOnly(); } }
 
-      public MissingPrereqArgs(Course course, List<IFilter<Course>> prereqs)
+      public MissingPrereqArgs(ScheduledCourse course, List<IFilter<Course>> prereqs)
       {
-         this.prereqs = course.GetAllPrereqs().Distinct().ToList();
+         this.prereqs = course.Course.GetAllPrereqs().Distinct().ToList();
          this.prereqs.Sort();
 
          List<IFilter<Course>> missing = new List<IFilter<Course>>();

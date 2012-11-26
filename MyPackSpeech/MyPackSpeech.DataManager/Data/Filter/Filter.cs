@@ -109,6 +109,26 @@ namespace MyPackSpeech.DataManager.Data.Filter
          return base.GetHashCode();
       }
 
+      public static string toSpokenString(IFilter<Course> req)
+      {
+         IEnumerable<Course> courses = CourseCatalog.Instance.GetCourses(req);
+
+         if (courses.Count() == 1)
+         {
+            Course match = courses.First();
+            return match.DeptAbv + match.Number;
+         }
+
+         List<Course> orRequirements = courses.ToList();
+         string str = " " + orRequirements[0].DeptAbv + orRequirements[0].Number;
+         for (int i = 1; i < orRequirements.Count; i++)
+         {
+            Course match = orRequirements[i];
+            str += "or " + match.DeptAbv + match.Number;
+         }
+         return str;
+      }
+
       public static string PrettyString(IFilter<Course> req)
       {
          IEnumerable<Course> courses = CourseCatalog.Instance.GetCourses(req);
