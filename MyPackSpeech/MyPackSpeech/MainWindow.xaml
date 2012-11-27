@@ -31,7 +31,7 @@
                 <local:RequirementsView x:Name="reqView"/>
             </TabItem>
         </TabControl>
-        <CheckBox x:Name="isSpeechOn" Content="Speech Recognition On" HorizontalAlignment="Right" Grid.Row="1" VerticalAlignment="Top" Checked="isSpeechOn_Checked" Unchecked="isSpeechOn_Unchecked" Margin="0,6,6,0" Padding="4,-1,0,0"/>
+        <CheckBox x:Name="isSpeechOn" Content="Speech Recognition On" HorizontalAlignment="Right" Grid.Row="1" VerticalAlignment="Top" Checked="isSpeechOn_Checked" Unchecked="isSpeechOn_Unchecked" Margin="0,6,6,0" Padding="4,-1,0,0" IsChecked="True"/>
         <Grid Grid.Column="1"  Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="25"/>

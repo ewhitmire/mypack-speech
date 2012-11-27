@@ -25,7 +25,7 @@ namespace MyPackSpeech
 
    }
 
-   public class ActionManager
+   public class ActionManager : IDialogueManager
    {
       private static ActionManager instance = null;
       public static ActionManager Instance

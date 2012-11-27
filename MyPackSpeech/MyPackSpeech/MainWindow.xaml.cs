@@ -28,13 +28,14 @@ namespace MyPackSpeech
 
       void MainWindow_Loaded(object sender, RoutedEventArgs e)
       {
-         showDebugWindow();
-         showStartScreen();
+         RecoManager.Instance.SetGrammarMode(GrammarModes.MainGrammar);
          ActionManager.Instance.MissingPrereqs += Instance_MissingPrereqs;
          ActionManager.Instance.InfoPaneSet += ActionManager_InfoPaneSet;
          ActionManager.Instance.CurrStudent.BookmarksChanged += Student_BookmarksChanged;
          ActionManager.Instance.OnViewChange += ActionManager_OnViewChange;
          ActionManager.Instance.OnShowHelp += Instance_OnShowHelp;
+         showDebugWindow();
+         RecoManager.Instance.Say("Ok, let's get started");
       }
 
       void Instance_OnShowHelp(object sender, EventArgs e)
@@ -172,14 +173,6 @@ namespace MyPackSpeech
          }
 
          popUp.Show();
-      }
-
-      private void showStartScreen() {
-         if (starter == null) {
-            starter = new StartScreen();
-            starter.Show();         
-         }
-         
       }
 
 

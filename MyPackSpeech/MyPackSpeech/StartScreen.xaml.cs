@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MyPackSpeech.SpeechRecognition;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,6 +22,20 @@ namespace MyPackSpeech
       public StartScreen()
       {
          InitializeComponent();
+         Loaded += StartScreen_Loaded;
+      }
+
+      private void StartScreen_Loaded(object sender, RoutedEventArgs e)
+      {
+         IntroDialogue interaction = IntroDialogue.Instance;
+         interaction.StartInteraction();
+         interaction.OnComplete += interaction_OnComplete;
+      }
+
+      private void interaction_OnComplete(object sender, EventArgs e)
+      {
+         MainWindow win = new MainWindow();
+         win.Show();
       }
    }
 }
