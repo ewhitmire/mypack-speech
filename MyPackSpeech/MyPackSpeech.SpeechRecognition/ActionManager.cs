@@ -52,6 +52,8 @@ namespace MyPackSpeech
       public int? CurrentYear { get; private set; }
       public Course CurrentCourse { get; private set; }
 
+      public int GradYear = 2016;
+
       public void ProcessResult(RecognitionResult result)
       {
          SemanticValueDict semantics = SemanticValueDict.FromSemanticValue(result.Semantics);
