@@ -19,10 +19,12 @@ namespace MyPackSpeech
    /// </summary>
    public partial class StartScreen : Window
    {
+      private static StartScreen instance;
       public StartScreen()
       {
          InitializeComponent();
          Loaded += StartScreen_Loaded;
+         instance = this;
       }
 
       private void StartScreen_Loaded(object sender, RoutedEventArgs e)
@@ -36,6 +38,10 @@ namespace MyPackSpeech
       {
          MainWindow win = new MainWindow();
          win.Show();
+      }
+      public static void CloseWindow()
+      {
+         instance.Close();
       }
    }
 }

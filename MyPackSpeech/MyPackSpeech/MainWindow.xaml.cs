@@ -22,6 +22,7 @@ namespace MyPackSpeech
 
       public MainWindow()
       {
+         ActionManager.Instance.GradYear = IntroDialogue.Instance.GradYear;
          InitializeComponent();
          Loaded += MainWindow_Loaded;
       }
@@ -36,6 +37,7 @@ namespace MyPackSpeech
          ActionManager.Instance.OnShowHelp += Instance_OnShowHelp;
          showDebugWindow();
          RecoManager.Instance.Say("Ok, let's get started");
+         StartScreen.CloseWindow();
       }
 
       void Instance_OnShowHelp(object sender, EventArgs e)
@@ -71,7 +73,6 @@ namespace MyPackSpeech
       {
          closeDebugWindow();
          closePopUp();
-         closeStartScreen();
          base.OnClosed(e);
       }
 
@@ -150,17 +151,6 @@ namespace MyPackSpeech
             popUp.Close();
             popUp = null;
          }
-      }
-
-
-      private void closeStartScreen()
-      {
-         if (starter != null)
-         {
-            starter.Close();
-            starter = null;
-         }
-
       }
 
 
