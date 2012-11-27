@@ -57,7 +57,7 @@ namespace MyPackSpeech.SpeechRecognition.Actions
             (currentYear == 2012 && currentSemester == Semester.Spring) ||
             (currentYear == 2016 && currentSemester == Semester.Fall))
          {
-            RecoManager.Instance.Say("That semseter is outside of the current range.");
+            RecoManager.Instance.Say("That semester is outside of the current range.");
             return false;
          }
          return true;

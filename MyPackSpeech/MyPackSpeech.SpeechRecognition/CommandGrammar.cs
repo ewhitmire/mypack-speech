@@ -348,6 +348,8 @@ namespace MyPackSpeech.SpeechRecognition
          commands.Add(commandSRV);
          commandSRV = new SemanticResultValue("take", (int)CommandTypes.Add);
          commands.Add(commandSRV);
+         commandSRV = new SemanticResultValue("put", (int)CommandTypes.Add);
+         commands.Add(commandSRV);
          SemanticResultKey commandSemKey = new SemanticResultKey(Slots.Command.ToString(), commands);
 
 
@@ -392,6 +394,11 @@ namespace MyPackSpeech.SpeechRecognition
          commandSRV = new SemanticResultValue("remove", (int)CommandTypes.Remove);
          commands.Add(commandSRV);
          commandSRV = new SemanticResultValue("get rid of", (int)CommandTypes.Remove);
+         commands.Add(commandSRV);
+         commandSRV = new SemanticResultValue("take away", (int)CommandTypes.Remove);
+         commands.Add(commandSRV);
+
+         commandSRV = new SemanticResultValue("delete", (int)CommandTypes.Remove);
          commands.Add(commandSRV);
          SemanticResultKey commandSemKey = new SemanticResultKey(Slots.Command.ToString(), commands);
 
