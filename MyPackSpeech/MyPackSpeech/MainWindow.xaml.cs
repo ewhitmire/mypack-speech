@@ -98,23 +98,19 @@ namespace MyPackSpeech
 
       private void loadFile()
       {
-         String filename = getFile();
-         ActionManager.Instance.CurrStudent.LoadSchedule(filename);
+         Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+         if (dlg.ShowDialog(this).GetValueOrDefault(false))
+            ActionManager.Instance.CurrStudent.LoadSchedule(dlg.FileName);
       }
 
       private void saveFile()
       {
-         String filename = getFile();
-         ActionManager.Instance.CurrStudent.SaveSchedule(filename);
-      }
-
-      private string getFile()
-      {
          Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
          if (dlg.ShowDialog(this).GetValueOrDefault(false))
-            return dlg.FileName;
-         return string.Empty;
+            ActionManager.Instance.CurrStudent.SaveSchedule(dlg.FileName);
       }
+
+     
 
       private void isSpeechOn_Checked(object sender, RoutedEventArgs e)
       {

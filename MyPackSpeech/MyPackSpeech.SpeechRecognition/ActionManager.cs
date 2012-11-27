@@ -100,6 +100,8 @@ namespace MyPackSpeech
             case CommandTypes.SetSemester:
             case CommandTypes.Inquire:
             case CommandTypes.View:
+            case CommandTypes.Save:
+            case CommandTypes.Load:
                callEvent = doCourseRegistrationAction(semantics, cmd);
                break;
             case CommandTypes.Undo:

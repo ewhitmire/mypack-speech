@@ -250,6 +250,7 @@ namespace MyPackSpeech.SpeechRecognition
          GrammarBuilder bookmark = bookmarkCommand();
          GrammarBuilder help = helpCommand();
          GrammarBuilder view = viewCommand();
+         GrammarBuilder saveLoad = saveLoadCommand();
 
          //now build the complete pattern...
          Choices commandChoices = new Choices();
@@ -263,6 +264,7 @@ namespace MyPackSpeech.SpeechRecognition
          commandChoices.Add(bookmark);
          commandChoices.Add(help);
          commandChoices.Add(view);
+         commandChoices.Add(saveLoad);
          
          GrammarBuilder systemRequest = new GrammarBuilder();
          systemRequest.Append(commandChoices);
@@ -490,6 +492,38 @@ namespace MyPackSpeech.SpeechRecognition
          finalCommand.Append(preCommand, 0, 1);
          finalCommand.Append(viewSemKey);
          finalCommand.Append(commandSemKey);
+         return finalCommand;
+      }
+      private GrammarBuilder saveLoadCommand()
+      {
+         Choices commands = new Choices();
+         commands.Add(new SemanticResultValue("save", (int)CommandTypes.Save));
+         commands.Add(new SemanticResultValue("load", (int)CommandTypes.Load));
+         SemanticResultKey commandSemKey = new SemanticResultKey(Slots.Command.ToString(), commands);
+
+         Choices adjective = new Choices();
+         adjective.Add("this");
+         adjective.Add("my");
+         adjective.Add("the");
+         adjective.Add("a");
+         adjective.Add("it");
+         
+         Choices objects = new Choices();
+         objects.Add("schedule");
+         objects.Add("file");
+
+         Choices finalPhrase = new Choices();
+         finalPhrase.Add("for later");
+         finalPhrase.Add("from a file");
+
+
+         // put the whole command together
+         GrammarBuilder finalCommand = new GrammarBuilder();
+         finalCommand.Append(this.pleasantries, 0, 1);
+         finalCommand.Append(commandSemKey);
+         finalCommand.Append(adjective, 0, 1);
+         finalCommand.Append(objects, 0, 1);
+         finalCommand.Append(finalPhrase, 0, 1);
          return finalCommand;
       }
    }
