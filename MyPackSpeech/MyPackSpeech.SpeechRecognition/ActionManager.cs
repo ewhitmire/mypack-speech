@@ -132,9 +132,22 @@ namespace MyPackSpeech
          Semester? semester = CourseConstructor.GetSemester(semantics);
          if (semester.HasValue)
             CurrentSemester = semester.Value;
+
          int? year = CourseConstructor.GetYear(semantics);
          if (year.HasValue)
             CurrentYear = year.Value;
+
+         if (semester.HasValue && !year.HasValue)
+         {
+            if (semester == Semester.Fall)
+            {
+               CurrentYear--;
+            }
+            else
+            {
+               CurrentYear++;
+            }
+         }
 
          if (semester.HasValue || year.HasValue)
             OnSemesterChanged();
