@@ -22,7 +22,6 @@ namespace MyPackSpeech
    /// </summary>
    public partial class SemesterView : UserControl
    {
-      private int startYear = 2012;
       //private Semester startSemester = Semester.Fall;
       public SemesterView()
       {
@@ -31,6 +30,7 @@ namespace MyPackSpeech
       }
       private void InitGrids()
       {
+         int startYear = ActionManager.Instance.GradYear - 4;
          sem11.SetSemester(Semester.Fall, startYear);
          sem12.SetSemester(Semester.Spring, startYear + 1);
          sem21.SetSemester(Semester.Fall, startYear + 1);
