@@ -212,6 +212,7 @@ namespace MyPackSpeech.SpeechRecognition
             yearRV = new SemanticResultValue(year.ToString(), year.ToString());
             years.Add(yearRV);
 
+
          }
          SemanticResultKey yearSemKey = new SemanticResultKey(Slots.Year.ToString(), years);
 
