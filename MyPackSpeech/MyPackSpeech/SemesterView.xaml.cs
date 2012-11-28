@@ -26,6 +26,12 @@ namespace MyPackSpeech
       public SemesterView()
       {
          InitializeComponent();
+         Loaded += SemesterView_Loaded;
+      }
+
+      void SemesterView_Loaded(object sender, RoutedEventArgs e)
+      {
+
          InitGrids();
       }
       private void InitGrids()

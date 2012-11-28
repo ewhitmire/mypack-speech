@@ -324,7 +324,7 @@ namespace MyPackSpeech.DataManager
                            preReqs = courseObject["prerequisites"].ToString();
                            //System.Console.WriteLine("preReqs: " + preReqs);
                            if(dept.Abv.Equals("CSC")){
-                              System.Console.WriteLine("CSC" + courseNumber);
+                              //System.Console.WriteLine("CSC" + courseNumber);
                               Char[] delims = { ' ', '(', ')', ':', ';','.', ',', '/' };
                               parsedPreReqs = getPreReqs(preReqs.Split(delims));
                            }

@@ -76,7 +76,7 @@ namespace MyPackSpeech.SpeechRecognition
                break;
          }
 
-         StartSpeechReco();
+         //StartSpeechReco();
       }
 
       void recognitionEngine_RecognizeCompleted(object sender, RecognizeCompletedEventArgs e)

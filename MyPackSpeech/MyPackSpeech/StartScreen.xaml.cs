@@ -71,6 +71,7 @@ namespace MyPackSpeech
 
       private void LoadMainWindow()
       {
+         RecoManager.Instance.StopSpeechReco();
          MainWindow win = new MainWindow();
          win.Show();
       }
