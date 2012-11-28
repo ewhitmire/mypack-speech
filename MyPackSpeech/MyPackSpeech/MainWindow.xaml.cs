@@ -22,12 +22,12 @@ namespace MyPackSpeech
       public MainWindow()
       {
          InitializeComponent();
-         ActionManager.Instance.GradYear = IntroDialogue.Instance.GradYear;
          Loaded += MainWindow_Loaded;
       }
 
       void MainWindow_Loaded(object sender, RoutedEventArgs e)
       {
+         ActionManager.Instance.GradYear = IntroDialogue.Instance.GradYear;
          RecoManager.Instance.SetGrammarMode(GrammarModes.MainGrammar);
          RecoManager.Instance.StartSpeechReco();
          RecoManager.Instance.PauseSpeechReco();

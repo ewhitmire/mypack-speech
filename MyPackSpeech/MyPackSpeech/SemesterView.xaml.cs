@@ -26,14 +26,10 @@ namespace MyPackSpeech
       public SemesterView()
       {
          InitializeComponent();
-         Loaded += SemesterView_Loaded;
-      }
-
-      void SemesterView_Loaded(object sender, RoutedEventArgs e)
-      {
-
          InitGrids();
+         //Loaded += SemesterView_Loaded;
       }
+
       private void InitGrids()
       {
          int startYear = ActionManager.Instance.GradYear - 4;
