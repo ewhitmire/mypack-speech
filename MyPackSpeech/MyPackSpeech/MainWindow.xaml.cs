@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
+using MyPackSpeech.DataManager;
 using MyPackSpeech.DataManager.Data;
 using MyPackSpeech.DataManager.Data.Filter;
 using MyPackSpeech.SpeechRecognition;
@@ -21,19 +22,22 @@ namespace MyPackSpeech
 
       public MainWindow()
       {
+         ActionManager.Instance.GradYear = IntroDialogue.Instance.GradYear;
          InitializeComponent();
          Loaded += MainWindow_Loaded;
       }
 
       void MainWindow_Loaded(object sender, RoutedEventArgs e)
       {
-         showDebugWindow();
-         showStartScreen();
+         RecoManager.Instance.SetGrammarMode(GrammarModes.MainGrammar);
          ActionManager.Instance.MissingPrereqs += Instance_MissingPrereqs;
          ActionManager.Instance.InfoPaneSet += ActionManager_InfoPaneSet;
          ActionManager.Instance.CurrStudent.BookmarksChanged += Student_BookmarksChanged;
          ActionManager.Instance.OnViewChange += ActionManager_OnViewChange;
          ActionManager.Instance.OnShowHelp += Instance_OnShowHelp;
+         showDebugWindow();
+         RecoManager.Instance.Say("Ok, let's get started");
+         StartScreen.CloseWindow();
       }
 
       void Instance_OnShowHelp(object sender, EventArgs e)
@@ -69,7 +73,6 @@ namespace MyPackSpeech
       {
          closeDebugWindow();
          closePopUp();
-         closeStartScreen();
          base.OnClosed(e);
       }
 
@@ -95,33 +98,21 @@ namespace MyPackSpeech
              course.Description);
       }
 
-      private void Load_Click(object sender, RoutedEventArgs e)
-      {
-         loadFile();
-      }
-
       private void loadFile()
-      {
-
-      }
-
-      private void loadCourses_Click(object sender, RoutedEventArgs e)
-      {
-         string file = getFile();
-      }
-
-      private void loadStudent_Click(object sender, RoutedEventArgs e)
-      {
-         string file = getFile();
-      }
-
-      private string getFile()
       {
          Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
          if (dlg.ShowDialog(this).GetValueOrDefault(false))
-            return dlg.FileName;
-         return string.Empty;
+            ActionManager.Instance.CurrStudent.LoadSchedule(dlg.FileName);
       }
+
+      private void saveFile()
+      {
+         Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
+         if (dlg.ShowDialog(this).GetValueOrDefault(false))
+            ActionManager.Instance.CurrStudent.SaveSchedule(dlg.FileName);
+      }
+
+     
 
       private void isSpeechOn_Checked(object sender, RoutedEventArgs e)
       {
@@ -163,17 +154,6 @@ namespace MyPackSpeech
       }
 
 
-      private void closeStartScreen()
-      {
-         if (starter != null)
-         {
-            starter.Close();
-            starter = null;
-         }
-
-      }
-
-
       private void showHelp()
       {
          if (popUp == null)
@@ -185,22 +165,19 @@ namespace MyPackSpeech
          popUp.Show();
       }
 
-      private void showStartScreen() {
-         if (starter == null) {
-            starter = new StartScreen();
-            starter.Show();         
-         }
-         
-      }
-
-      private void semView_Loaded(object sender, RoutedEventArgs e)
-      {
-
-      }
 
       private void Button_Click_1(object sender, RoutedEventArgs e)
       {
          showHelp();
+      }
+
+      private void Load_Click(object sender, RoutedEventArgs e)
+      {
+         loadFile();
+      }
+      private void Save_Click(object sender, RoutedEventArgs e)
+      {
+         saveFile();
       }
    }
 }

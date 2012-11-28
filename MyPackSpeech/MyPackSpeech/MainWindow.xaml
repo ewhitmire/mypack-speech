@@ -14,25 +14,24 @@
 			<ColumnDefinition Width="10*" />
             <ColumnDefinition Width="4*"/>
         </Grid.ColumnDefinitions>
-        <Menu Grid.Column="0" Grid.ColumnSpan="2" ItemsSource="{Binding}">
+        <Menu x:Name="topMenu" Grid.Column="0" Grid.ColumnSpan="2">
             <Menu.ItemBindingGroup>
                 <BindingGroup Name="Semesters" />
             </Menu.ItemBindingGroup>
-
-            <MenuItem Header="_File">
-                <MenuItem Header="Load _Courses" Click="loadCourses_Click"/>
-                <MenuItem Header="Load _Student" Click="loadStudent_Click"/>
+            <MenuItem x:Name="FileMenu" Header="File">
+                <MenuItem Header="Load Schedule" Click="Load_Click"/>
+                <MenuItem Header="Save Schedule" Click="Save_Click"/>
             </MenuItem>
         </Menu>
         <TabControl x:Name="tabs" Grid.Row="1" Margin="5,5,5,5">
             <TabItem x:Name="Semester" Header="Semester View">
-                <local:SemesterView x:Name="semView" Loaded="semView_Loaded"/>
+                <local:SemesterView x:Name="semView"/>
             </TabItem>
             <TabItem x:Name="Requirements" Header="Requirements View">
                 <local:RequirementsView x:Name="reqView"/>
             </TabItem>
         </TabControl>
-        <CheckBox x:Name="isSpeechOn" Content="Speech Recognition On" HorizontalAlignment="Right" Grid.Row="1" VerticalAlignment="Top" Checked="isSpeechOn_Checked" Unchecked="isSpeechOn_Unchecked" Margin="0,6,6,0" Padding="4,-1,0,0"/>
+        <CheckBox x:Name="isSpeechOn" Content="Speech Recognition On" HorizontalAlignment="Right" Grid.Row="1" VerticalAlignment="Top" Checked="isSpeechOn_Checked" Unchecked="isSpeechOn_Unchecked" Margin="0,6,6,0" Padding="4,-1,0,0" IsChecked="True"/>
         <Grid Grid.Column="1"  Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="25"/>

@@ -134,5 +134,32 @@ namespace MyPackSpeech.SpeechRecognition
             return courses.Count() > 0;
          }
       }
+
+      public static bool IsSemesterValid(Semester sem, int year)
+      {
+         if (year >= ActionManager.Instance.GradYear)
+         {
+            if (year == ActionManager.Instance.GradYear && sem == Semester.Spring)
+            {
+               return true;
+            }
+            else
+            {
+            return false;
+            }
+         }
+         else if (year <= ActionManager.Instance.GradYear - 4)
+         {
+            if (year == ActionManager.Instance.GradYear-4 && sem == Semester.Fall)
+            {
+               return true;
+            }
+            else
+            {
+               return false;
+            }
+         }
+         return true;
+      }
    }
 }

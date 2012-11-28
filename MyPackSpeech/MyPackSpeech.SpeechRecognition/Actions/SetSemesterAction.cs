@@ -25,9 +25,6 @@ namespace MyPackSpeech.SpeechRecognition.Actions
             return false;
          }
 
-
-
-
          ActionManager.Instance.SetContext(Semantics);
                 
          return false;
@@ -52,12 +49,9 @@ namespace MyPackSpeech.SpeechRecognition.Actions
             currentYear = year.Value;
          }
 
-         if ((currentSemester == Semester.Summer) ||
-            (currentYear < 2012 || currentYear > 2016) ||
-            (currentYear == 2012 && currentSemester == Semester.Spring) ||
-            (currentYear == 2016 && currentSemester == Semester.Fall))
+         if (!CourseConstructor.IsSemesterValid(currentSemester, currentYear))
          {
-            RecoManager.Instance.Say("That semseter is outside of the current range.");
+            RecoManager.Instance.Say("That semester is outside of the current range.");
             return false;
          }
          return true;

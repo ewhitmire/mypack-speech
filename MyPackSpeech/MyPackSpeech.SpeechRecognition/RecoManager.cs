@@ -8,15 +8,21 @@ using MyPackSpeech.DataManager;
 
 namespace MyPackSpeech.SpeechRecognition
 {
-
+   public enum GrammarModes
+   {
+      IntroductionGrammar,
+      MainGrammar
+   }
    public class RecoManager
    {
       private SpeechRecognitionEngine recognitionEngine;
       public SpeechSynthesizer reader;
-      private CommandGrammar grammar;
+      private CommandGrammar commandGrammar;
+      private IntroGrammar introGrammar;
       private int tries = 0;
       private bool isSpeechRecoActive = false;
       private bool isSpeechRecoStarted = false;
+      private IDialogueManager dialogueManager;
 
       public delegate void SpeechRecognizedHandler(object sender, SpeechRecognizedEventArgs ca);
       public event SpeechRecognizedHandler SpeechRecognized;
@@ -36,17 +42,40 @@ namespace MyPackSpeech.SpeechRecognition
       {
          reader = new SpeechSynthesizer();
          recognitionEngine = new SpeechRecognitionEngine();
-         grammar = new CommandGrammar(CourseCatalog.Instance.Courses);
-         if (grammar.grammar != null)
-         {
-            recognitionEngine.LoadGrammar(grammar.grammar);
-         }
+         
          recognitionEngine.SetInputToDefaultAudioDevice();
 
          recognitionEngine.SpeechRecognitionRejected += recognitionEngine_SpeechRejected;
          recognitionEngine.SpeechRecognized += recognitionEngine_SpeechRecognized;
          reader.SpeakCompleted += reader_SpeakCompleted;
          recognitionEngine.RecognizeCompleted += recognitionEngine_RecognizeCompleted;
+      }
+
+      public void SetGrammarMode(GrammarModes mode)
+      {
+         switch (mode)
+         {
+            case GrammarModes.IntroductionGrammar:
+               dialogueManager = IntroDialogue.Instance;
+               introGrammar = new IntroGrammar();
+               if (introGrammar.grammar != null)
+               {
+                  recognitionEngine.LoadGrammar(introGrammar.grammar);
+               }
+               break;
+
+            case GrammarModes.MainGrammar:
+
+               dialogueManager = ActionManager.Instance;
+               commandGrammar = new CommandGrammar(CourseCatalog.Instance.Courses);
+               if (commandGrammar.grammar != null)
+               {
+                  recognitionEngine.LoadGrammar(commandGrammar.grammar);
+               }
+               break;
+         }
+
+         StartSpeechReco();
       }
 
       void recognitionEngine_RecognizeCompleted(object sender, RecognizeCompletedEventArgs e)
@@ -123,7 +152,7 @@ namespace MyPackSpeech.SpeechRecognition
          tries = 0;
          reader.SpeakAsyncCancelAll();
          //reader.SpeakAsync(args.Result.Text);
-         ActionManager.Instance.ProcessResult(args.Result);
+         dialogueManager.ProcessResult(args.Result);
          if (SpeechRecognized != null)
          {
             SpeechRecognized(this, args);
@@ -135,7 +164,7 @@ namespace MyPackSpeech.SpeechRecognition
          return new Grammar("");
       }
 
-      internal void Say(string speech)
+      public void Say(string speech)
       {
          
          PauseSpeechReco();

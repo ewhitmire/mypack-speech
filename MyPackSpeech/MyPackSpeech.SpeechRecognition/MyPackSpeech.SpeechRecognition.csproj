@@ -60,9 +60,13 @@
     <Compile Include="CommandTypes.cs" />
     <Compile Include="Actions\IAction.cs" />
     <Compile Include="CourseConstructor.cs" />
+    <Compile Include="IDialogueManager.cs" />
     <Compile Include="InfoPaneSetArgs.cs" />
+    <Compile Include="IntroDialogue.cs" />
+    <Compile Include="IntroGrammar.cs" />
     <Compile Include="MissingPrereqArgs.cs" />
     <Compile Include="RecoManager.cs" />
+    <Compile Include="Actions\SaveLoadAction.cs" />
     <Compile Include="SemanticValueDict.cs" />
     <Compile Include="Slots.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

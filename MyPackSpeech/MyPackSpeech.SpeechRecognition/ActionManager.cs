@@ -25,7 +25,7 @@ namespace MyPackSpeech
 
    }
 
-   public class ActionManager
+   public class ActionManager : IDialogueManager
    {
       private static ActionManager instance = null;
       public static ActionManager Instance
@@ -51,6 +51,8 @@ namespace MyPackSpeech
       public Semester? CurrentSemester { get; private set; }
       public int? CurrentYear { get; private set; }
       public Course CurrentCourse { get; private set; }
+
+      public int GradYear = 2016;
 
       public void ProcessResult(RecognitionResult result)
       {
@@ -100,6 +102,8 @@ namespace MyPackSpeech
             case CommandTypes.SetSemester:
             case CommandTypes.Inquire:
             case CommandTypes.View:
+            case CommandTypes.Save:
+            case CommandTypes.Load:
                callEvent = doCourseRegistrationAction(semantics, cmd);
                break;
             case CommandTypes.Undo:
@@ -130,9 +134,22 @@ namespace MyPackSpeech
          Semester? semester = CourseConstructor.GetSemester(semantics);
          if (semester.HasValue)
             CurrentSemester = semester.Value;
+
          int? year = CourseConstructor.GetYear(semantics);
          if (year.HasValue)
             CurrentYear = year.Value;
+
+         if (semester.HasValue && !year.HasValue)
+         {
+            if (semester == Semester.Fall)
+            {
+               CurrentYear--;
+            }
+            else
+            {
+               CurrentYear++;
+            }
+         }
 
          if (semester.HasValue || year.HasValue)
             OnSemesterChanged();

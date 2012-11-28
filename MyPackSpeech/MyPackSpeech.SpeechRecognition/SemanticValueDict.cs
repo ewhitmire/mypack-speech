@@ -30,7 +30,15 @@ namespace MyPackSpeech.SpeechRecognition
       {
          Value = o;
       }
+      public CommandTypes GetCommand()
+      {
+         if (!HasSlot(Slots.Command))
+         {
+            return 0;   // need a NoneCommand
+         }
+         return (CommandTypes)this[Slots.Command.ToString()].Value;
 
+      }
       public String GetSlot(Slots s)
       {
          if (!HasSlot(s))

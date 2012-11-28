@@ -69,6 +69,7 @@
     <Compile Include="Data\PrereqBuilder.cs" />
     <Compile Include="Data\ScheduledCourse.cs" />
     <Compile Include="DegreeCatalog.cs" />
+    <Compile Include="ScheduleLoader.cs" />
     <Compile Include="Utils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Data\DegreeRequirement.cs" />
@@ -619,6 +620,9 @@
     </None>
     <None Include="Curricula\CSC.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="SampleSchedules\demo1.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
   </ItemGroup>

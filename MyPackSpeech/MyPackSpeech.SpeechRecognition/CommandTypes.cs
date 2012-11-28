@@ -28,6 +28,9 @@ namespace MyPackSpeech.SpeechRecognition
                return new ViewAction();
             case CommandTypes.Help:
                return new HelpAction();
+            case CommandTypes.Save:
+            case CommandTypes.Load:
+               return new SaveLoadAction();
             case CommandTypes.Show:
             default:
                break;
@@ -48,6 +51,8 @@ namespace MyPackSpeech.SpeechRecognition
       Inquire,
       Bookmark,
       View,
-      Help
+      Help,
+      Save,
+      Load
    }
 }

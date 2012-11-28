@@ -7,7 +7,7 @@ namespace MyPackSpeech.SpeechRecognition
 {
    public enum Slots
    {
-      Department=0,
+      Department = 0,
       Number,
       Semester,
       Year,
@@ -15,7 +15,10 @@ namespace MyPackSpeech.SpeechRecognition
       Requirement,
       CourseName,
       ViewName,
-      Command
+      Command,
+      Major,
+      GradYear,
+      YesNo
    }
    public enum Views
    {
