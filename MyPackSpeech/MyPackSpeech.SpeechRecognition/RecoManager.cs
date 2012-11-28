@@ -184,5 +184,10 @@ namespace MyPackSpeech.SpeechRecognition
             recognitionEngine.EmulateRecognizeAsync(speech);
          }
       }
+
+      public void BeSilent()
+      {
+         reader.SpeakAsyncCancelAll();
+      }
    }
 }
