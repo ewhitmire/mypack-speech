@@ -106,7 +106,11 @@ namespace MyPackSpeech.SpeechRecognition
       {
          if (!isSpeechRecoStarted && isSpeechRecoActive)
          {
-            recognitionEngine.RecognizeAsync(RecognizeMode.Multiple);
+            try
+            {
+               recognitionEngine.RecognizeAsync(RecognizeMode.Multiple);
+            }
+            catch (Exception e) { } //trying to start itself twice            
             isSpeechRecoStarted = true;
             Console.WriteLine("Speech started");
          }

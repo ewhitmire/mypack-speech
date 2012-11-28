@@ -20,7 +20,7 @@ namespace MyPackSpeech.SpeechRecognition.Actions
             String paneText = "";
             foreach (DegreeRequirement req in reqs)
             {
-               paneText += req.ToPrintedString() + "\n";
+               paneText += req.ToGeneralRequirementsString() + "\n";
             }
 
             ActionManager.Instance.SetInfoPane(paneText);
