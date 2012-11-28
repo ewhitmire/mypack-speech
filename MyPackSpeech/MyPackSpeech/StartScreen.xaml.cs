@@ -55,13 +55,24 @@ namespace MyPackSpeech
             Thread.Sleep(500);            
          }
 
-         MainWindow win = new MainWindow();
-         win.Show();
+         LoadMainWindow();
       }
 
       public static void CloseWindow()
       {
          instance.Close();
+      }
+
+      private void skip_Click(object sender, RoutedEventArgs e)
+      {
+         RecoManager.Instance.BeSilent();
+         LoadMainWindow();
+      }
+
+      private void LoadMainWindow()
+      {
+         MainWindow win = new MainWindow();
+         win.Show();
       }
    }
 }

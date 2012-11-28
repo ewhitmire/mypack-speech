@@ -53,6 +53,7 @@ namespace MyPackSpeech.SpeechRecognition
 
       public void SetGrammarMode(GrammarModes mode)
       {
+         recognitionEngine.UnloadAllGrammars();
          switch (mode)
          {
             case GrammarModes.IntroductionGrammar:
@@ -106,7 +107,11 @@ namespace MyPackSpeech.SpeechRecognition
       {
          if (!isSpeechRecoStarted && isSpeechRecoActive)
          {
-            recognitionEngine.RecognizeAsync(RecognizeMode.Multiple);
+            try
+            {
+               recognitionEngine.RecognizeAsync(RecognizeMode.Multiple);
+            }
+            catch (Exception e) { } //trying to start itself twice            
             isSpeechRecoStarted = true;
             Console.WriteLine("Speech started");
          }
@@ -183,6 +188,11 @@ namespace MyPackSpeech.SpeechRecognition
          {
             recognitionEngine.EmulateRecognizeAsync(speech);
          }
+      }
+
+      public void BeSilent()
+      {
+         reader.SpeakAsyncCancelAll();
       }
    }
 }

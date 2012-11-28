@@ -64,8 +64,8 @@ namespace MyPackSpeech.SpeechRecognition
 
             SemanticResultKey keywordSemKey = new SemanticResultKey(Slots.KeyWords.ToString(), keywordChoices);
 
-            grammar.Append(commandSemKey, 1, 1);
-            grammar.Append(keywordSemKey, 1, 5);
+            grammar.Append(commandSemKey);
+            grammar.Append(keywordSemKey);
          }
       }
 

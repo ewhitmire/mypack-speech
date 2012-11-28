@@ -37,7 +37,7 @@ namespace MyPackSpeech.DataManager
       }
       public IEnumerable<Course> GetCourses(IFilter<Course> courseFilter)
       {
-         return Courses.Where<Course>(c => courseFilter.Matches(c));
+         return Courses.AsParallel().Where<Course>(c => courseFilter.Matches(c));
       }
       public Course GetCourse(Department dept, int number)
       {

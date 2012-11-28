@@ -18,7 +18,6 @@ namespace MyPackSpeech
    {
       DebugWindow debugWnd;
       HelpWindow popUp;
-      StartScreen starter;
 
       public MainWindow()
       {
