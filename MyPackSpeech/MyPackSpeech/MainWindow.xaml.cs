@@ -29,12 +29,15 @@ namespace MyPackSpeech
       void MainWindow_Loaded(object sender, RoutedEventArgs e)
       {
          RecoManager.Instance.SetGrammarMode(GrammarModes.MainGrammar);
+         RecoManager.Instance.StartSpeechReco();
+         RecoManager.Instance.PauseSpeechReco();
          ActionManager.Instance.MissingPrereqs += Instance_MissingPrereqs;
          ActionManager.Instance.InfoPaneSet += ActionManager_InfoPaneSet;
          ActionManager.Instance.CurrStudent.BookmarksChanged += Student_BookmarksChanged;
          ActionManager.Instance.OnViewChange += ActionManager_OnViewChange;
          ActionManager.Instance.OnShowHelp += Instance_OnShowHelp;
          showDebugWindow();
+         RecoManager.Instance.reader.SpeakCompleted += reader_SpeakCompleted;
          RecoManager.Instance.Say("Ok, let's get started");
          StartScreen.CloseWindow();
          RecoManager.Instance.reader.SpeakCompleted += reader_SpeakCompleted;
@@ -45,7 +48,6 @@ namespace MyPackSpeech
          if (!e.Cancelled)
          {
             isSpeechOn.IsChecked = true;
-            Console.WriteLine("Yo, we're ready to go!");
             RecoManager.Instance.reader.SpeakCompleted -= reader_SpeakCompleted;
          }
       }

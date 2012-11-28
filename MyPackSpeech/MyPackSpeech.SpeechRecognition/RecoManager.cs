@@ -27,6 +27,8 @@ namespace MyPackSpeech.SpeechRecognition
       public delegate void SpeechRecognizedHandler(object sender, SpeechRecognizedEventArgs ca);
       public event SpeechRecognizedHandler SpeechRecognized;
 
+      private int sayCounter = 0;
+
       private static RecoManager instance = null;
       public static RecoManager Instance
       {
@@ -89,6 +91,7 @@ namespace MyPackSpeech.SpeechRecognition
 
       void reader_SpeakCompleted(object sender, SpeakCompletedEventArgs e)
       {
+         sayCounter--;
          ResumeSpeechReco();
       }
 
@@ -105,7 +108,7 @@ namespace MyPackSpeech.SpeechRecognition
 
       public void ResumeSpeechReco()
       {
-         if (!isSpeechRecoStarted && isSpeechRecoActive)
+         if (sayCounter == 0 && !isSpeechRecoStarted && isSpeechRecoActive)
          {
             try
             {
@@ -174,6 +177,7 @@ namespace MyPackSpeech.SpeechRecognition
          
          PauseSpeechReco();
          reader.SpeakAsync(speech);
+         sayCounter++;
          Console.WriteLine(speech);
       }
 
