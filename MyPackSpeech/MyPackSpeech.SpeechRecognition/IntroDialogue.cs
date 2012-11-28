@@ -29,7 +29,7 @@ namespace MyPackSpeech.SpeechRecognition
             evt(this, EventArgs.Empty);
       }
 
-      public int GradYear;
+      public int GradYear = 2016;
       private Slots expecting;
 
       public void StartInteraction()
