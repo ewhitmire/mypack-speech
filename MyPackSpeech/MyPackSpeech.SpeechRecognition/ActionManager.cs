@@ -101,6 +101,7 @@ namespace MyPackSpeech
             case CommandTypes.Move:
             case CommandTypes.SetSemester:
             case CommandTypes.Inquire:
+            case CommandTypes.Search:
             case CommandTypes.View:
             case CommandTypes.Save:
             case CommandTypes.Load:
@@ -115,9 +116,6 @@ namespace MyPackSpeech
                   action.Perform();
                beHelpful();
                break;
-            case CommandTypes.Search:
-               doPerformSearch(semantics);
-               break;
             case CommandTypes.Swap:
             case CommandTypes.Show:
             default:
@@ -130,12 +128,6 @@ namespace MyPackSpeech
             actionDetected(this, args);
             RecoManager.Instance.Say("Ok");
          }
-      }
-
-      private void doPerformSearch(SemanticValueDict semantics)
-      {
-         SemanticValueDict semanticValues;
-         //TODO get search terms
       }
 
       public void SetContext(SemanticValueDict semantics)

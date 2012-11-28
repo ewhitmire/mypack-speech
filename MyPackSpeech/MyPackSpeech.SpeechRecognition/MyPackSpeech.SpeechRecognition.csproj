@@ -53,6 +53,7 @@
     <Compile Include="Actions\InquireAction.cs" />
     <Compile Include="Actions\MoveAction.cs" />
     <Compile Include="Actions\RemoveAction.cs" />
+    <Compile Include="Actions\SearchAction.cs" />
     <Compile Include="Actions\SetSemesterAction.cs" />
     <Compile Include="Actions\UnknownAction.cs" />
     <Compile Include="Actions\ViewAction.cs" />
