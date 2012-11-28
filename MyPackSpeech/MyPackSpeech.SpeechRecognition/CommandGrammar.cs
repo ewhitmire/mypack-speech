@@ -54,7 +54,6 @@ namespace MyPackSpeech.SpeechRecognition
 
          GrammarBuilder intro = new GrammarBuilder();
          intro.Append("now", 0, 1);
-         intro.AppendWildcard();
          intro.Append(starts, 0, 1);
          return intro;
       }
