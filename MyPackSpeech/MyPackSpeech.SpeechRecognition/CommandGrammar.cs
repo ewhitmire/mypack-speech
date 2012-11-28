@@ -21,18 +21,20 @@ namespace MyPackSpeech.SpeechRecognition
       private GrammarBuilder reqs;
       private GrammarBuilder pleasantries;
 
-
-      public CommandGrammar()
+      private static readonly Lazy<CommandGrammar> instance = new Lazy<CommandGrammar>(() => new CommandGrammar());
+      public static CommandGrammar Instance
       {
-         buildCommonGrammars();
-         buildCommandGrammar();
+         get
+         {
+            return instance.Value;
+         }
       }
 
-      public CommandGrammar(List<Course> courses)
+      private CommandGrammar()
       {
-         this.classList = courses;
+         Console.WriteLine("Constructing Grammar");
+         this.classList = CourseCatalog.Instance.Courses;
          this.depts = new List<Department>();
-
          parseClasses();
          buildCommonGrammars();
          buildCommandGrammar();

@@ -70,7 +70,7 @@ namespace MyPackSpeech.SpeechRecognition
             case GrammarModes.MainGrammar:
 
                dialogueManager = ActionManager.Instance;
-               commandGrammar = new CommandGrammar(CourseCatalog.Instance.Courses);
+               commandGrammar = CommandGrammar.Instance;
                if (commandGrammar.grammar != null)
                {
                   recognitionEngine.LoadGrammar(commandGrammar.grammar);
