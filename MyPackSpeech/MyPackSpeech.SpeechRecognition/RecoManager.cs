@@ -53,6 +53,7 @@ namespace MyPackSpeech.SpeechRecognition
 
       public void SetGrammarMode(GrammarModes mode)
       {
+         recognitionEngine.UnloadAllGrammars();
          switch (mode)
          {
             case GrammarModes.IntroductionGrammar:
