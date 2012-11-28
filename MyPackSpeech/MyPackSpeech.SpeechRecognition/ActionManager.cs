@@ -115,6 +115,9 @@ namespace MyPackSpeech
                   action.Perform();
                beHelpful();
                break;
+            case CommandTypes.Search:
+               doPerformSearch(semantics);
+               break;
             case CommandTypes.Swap:
             case CommandTypes.Show:
             default:
@@ -127,6 +130,12 @@ namespace MyPackSpeech
             actionDetected(this, args);
             RecoManager.Instance.Say("Ok");
          }
+      }
+
+      private void doPerformSearch(SemanticValueDict semantics)
+      {
+         SemanticValueDict semanticValues;
+         //TODO get search terms
       }
 
       public void SetContext(SemanticValueDict semantics)

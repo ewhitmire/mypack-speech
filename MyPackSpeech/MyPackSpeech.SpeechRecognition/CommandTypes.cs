@@ -53,6 +53,7 @@ namespace MyPackSpeech.SpeechRecognition
       View,
       Help,
       Save,
+      Search,
       Load
    }
 }

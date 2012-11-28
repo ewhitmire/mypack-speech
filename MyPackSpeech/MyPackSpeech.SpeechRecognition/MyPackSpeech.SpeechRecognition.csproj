@@ -67,6 +67,7 @@
     <Compile Include="MissingPrereqArgs.cs" />
     <Compile Include="RecoManager.cs" />
     <Compile Include="Actions\SaveLoadAction.cs" />
+    <Compile Include="SearchGrammarBuilder.cs" />
     <Compile Include="SemanticValueDict.cs" />
     <Compile Include="Slots.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -252,6 +252,7 @@ namespace MyPackSpeech.SpeechRecognition
          GrammarBuilder help = helpCommand();
          GrammarBuilder view = viewCommand();
          GrammarBuilder saveLoad = saveLoadCommand();
+         GrammarBuilder search = SearchGrammarBuilder.Grammar;
 
          //now build the complete pattern...
          Choices commandChoices = new Choices();
@@ -266,6 +267,7 @@ namespace MyPackSpeech.SpeechRecognition
          commandChoices.Add(help);
          commandChoices.Add(view);
          commandChoices.Add(saveLoad);
+         commandChoices.Add(search);
          
          GrammarBuilder systemRequest = new GrammarBuilder();
          systemRequest.Append(commandChoices);
