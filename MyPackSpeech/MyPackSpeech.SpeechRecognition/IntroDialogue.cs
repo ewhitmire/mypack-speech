@@ -54,6 +54,7 @@ namespace MyPackSpeech.SpeechRecognition
 
       public void ProcessResult(RecognitionResult result)
       {
+         Console.WriteLine(result.Text);
          if (result.Semantics.ContainsKey(expecting.ToString()))
          {
             if (result.Semantics.ContainsKey(Slots.Major.ToString()))
