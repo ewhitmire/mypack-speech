@@ -13,12 +13,10 @@ namespace MyPackSpeech.SpeechRecognition
       public Grammar grammar;
       public IntroGrammar()
       {
-         List<Department> depts = CourseCatalog.Instance.Departments;
          Choices majors = new Choices();
-         foreach (Department major in depts)
-         {
-            majors.Add(new SemanticResultValue(major.Name, major.Abv));
-         }
+         majors.Add(new SemanticResultValue("Computer Science", "CSC"));
+         majors.Add(new SemanticResultValue("Art History", "XYZ"));
+
 
          SemanticResultKey majorKey = new SemanticResultKey(Slots.Major.ToString(), majors);
 
