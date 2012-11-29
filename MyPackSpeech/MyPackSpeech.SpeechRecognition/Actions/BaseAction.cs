@@ -55,7 +55,7 @@ namespace MyPackSpeech.SpeechRecognition.Actions
 
       public static String MakeCourseNameForSpeech(Course course)
       {
-         String dept = String.Join(" ", course.DeptAbv.ToCharArray());
+         String dept = course.Dept.Name;//String.Join(".", course.DeptAbv.ToCharArray());
          String number = course.Number.ToString();
          return dept + " " + number;
       }
