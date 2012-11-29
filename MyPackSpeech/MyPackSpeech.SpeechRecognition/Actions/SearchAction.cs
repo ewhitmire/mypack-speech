@@ -14,8 +14,7 @@ namespace MyPackSpeech.SpeechRecognition.Actions
          if (Semantics.HasSlot(Slots.KeyWords))
          {
             String keyword = Semantics.GetSlot(Slots.KeyWords);
-            IEnumerable<Course> courses = CourseCatalog.Instance.Courses.AsParallel().Where(c => c.Description.Contains(keyword)).OrderBy(c=>c.ToString());
-
+            IEnumerable<Course> courses = CourseCatalog.Instance.Courses.AsParallel().Where(c => c.KeyWords.Contains(keyword)).OrderBy(c=>c.ToString());
 
             String paneText = "";
             foreach (Course c in courses)
@@ -33,10 +32,10 @@ namespace MyPackSpeech.SpeechRecognition.Actions
                IEnumerable<String> classNames = courses.Select<Course, String>(c => c.Name);
 
                RecoManager.Instance.Say("I found " + courses.Count() + " " + keyword + " related courses, including " + SpeechUtils.MakeSpeechList(classNames));
-            }else
+            }
+            else
             {
                IEnumerable<String> classNames = courses.Select<Course, String>(c => c.Name);
-
                RecoManager.Instance.Say("I only found one " + keyword + " related course, " + SpeechUtils.MakeSpeechList(classNames));
             }
 
