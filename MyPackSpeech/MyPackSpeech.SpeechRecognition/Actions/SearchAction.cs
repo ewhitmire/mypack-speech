@@ -14,7 +14,7 @@ namespace MyPackSpeech.SpeechRecognition.Actions
          if (Semantics.HasSlot(Slots.KeyWords))
          {
             String keyword = Semantics.GetSlot(Slots.KeyWords);
-            IEnumerable<Course> courses = CourseCatalog.Instance.Courses.AsParallel().Where(c => c.Description.Contains(keyword));
+            IEnumerable<Course> courses = CourseCatalog.Instance.Courses.AsParallel().Where(c => c.Description.Contains(keyword)).OrderBy(c=>c.ToString());
 
 
             String paneText = "";

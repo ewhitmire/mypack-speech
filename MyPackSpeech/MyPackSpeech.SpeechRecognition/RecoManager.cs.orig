@@ -71,8 +71,12 @@ namespace MyPackSpeech.SpeechRecognition
 
             case GrammarModes.MainGrammar:
                dialogueManager = ActionManager.Instance;
+<<<<<<< HEAD
                CreateCommandGrammar();
                
+=======
+               commandGrammar = CommandGrammar.Instance;
+>>>>>>> 2d137c54938f7ff2265405fcef81896c5bf0bf95
                if (commandGrammar.grammar != null)
                {
                   recognitionEngine.LoadGrammar(commandGrammar.grammar);
@@ -85,7 +89,10 @@ namespace MyPackSpeech.SpeechRecognition
 
       public void CreateCommandGrammar()
       {
-         commandGrammar = CommandGrammar.Instance;
+         if (commandGrammar != null)
+         {
+            commandGrammar = new CommandGrammar(CourseCatalog.Instance.Courses);
+         }
       }
 
       void recognitionEngine_RecognizeCompleted(object sender, RecognizeCompletedEventArgs e)

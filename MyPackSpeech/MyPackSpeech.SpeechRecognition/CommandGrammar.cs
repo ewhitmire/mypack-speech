@@ -279,9 +279,8 @@ namespace MyPackSpeech.SpeechRecognition
 
          Grammar testGrammar = new Grammar(systemRequest);
          this.grammar = testGrammar;
-
       }
-
+      
       private GrammarBuilder closeCommand()
       {
          //<pleasantries> <command> <Semester>? <Year>?
