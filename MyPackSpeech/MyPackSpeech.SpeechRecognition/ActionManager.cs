@@ -114,6 +114,9 @@ namespace MyPackSpeech
                   action.Perform();
                beHelpful();
                break;
+            case CommandTypes.CloseWindow:
+               CloseCommand();
+               break;
             case CommandTypes.Swap:
             case CommandTypes.Show:
             default:
@@ -307,6 +310,16 @@ namespace MyPackSpeech
       public void ShowHelp()
       {
          var evt = onShowHelp;
+         if (evt != null)
+            evt(this, EventArgs.Empty);
+      }
+
+      private event EventHandler onCloseCommand;
+      public event EventHandler OnCloseCommand { add { onCloseCommand += value; } remove { onCloseCommand -= value; } }
+
+      public void CloseCommand()
+      {
+         var evt = onCloseCommand;
          if (evt != null)
             evt(this, EventArgs.Empty);
       }
