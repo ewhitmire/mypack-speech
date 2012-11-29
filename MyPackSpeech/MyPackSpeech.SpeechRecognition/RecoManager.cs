@@ -42,13 +42,15 @@ namespace MyPackSpeech.SpeechRecognition
       {
          reader = new SpeechSynthesizer();
          recognitionEngine = new SpeechRecognitionEngine();
-         
+
+
          recognitionEngine.SetInputToDefaultAudioDevice();
 
          recognitionEngine.SpeechRecognitionRejected += recognitionEngine_SpeechRejected;
          recognitionEngine.SpeechRecognized += recognitionEngine_SpeechRecognized;
          reader.SpeakCompleted += reader_SpeakCompleted;
          recognitionEngine.RecognizeCompleted += recognitionEngine_RecognizeCompleted;
+
       }
 
       public void SetGrammarMode(GrammarModes mode)
@@ -65,9 +67,9 @@ namespace MyPackSpeech.SpeechRecognition
                break;
 
             case GrammarModes.MainGrammar:
-
                dialogueManager = ActionManager.Instance;
-               commandGrammar = new CommandGrammar(CourseCatalog.Instance.Courses);
+               CreateCommandGrammar();
+               
                if (commandGrammar.grammar != null)
                {
                   recognitionEngine.LoadGrammar(commandGrammar.grammar);
@@ -76,6 +78,14 @@ namespace MyPackSpeech.SpeechRecognition
          }
 
          StartSpeechReco();
+      }
+
+      public void CreateCommandGrammar()
+      {
+         if (commandGrammar != null)
+         {
+            commandGrammar = new CommandGrammar(CourseCatalog.Instance.Courses);
+         }
       }
 
       void recognitionEngine_RecognizeCompleted(object sender, RecognizeCompletedEventArgs e)
