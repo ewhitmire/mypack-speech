@@ -23,7 +23,6 @@ namespace MyPackSpeech.SpeechRecognition.Actions
 
       public override void Undo()
       {
-         throw new NotImplementedException();
       }
    }
 }

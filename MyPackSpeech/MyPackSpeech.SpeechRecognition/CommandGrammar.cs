@@ -277,8 +277,11 @@ namespace MyPackSpeech.SpeechRecognition
          GrammarBuilder systemRequest = new GrammarBuilder();
          systemRequest.Append(commandChoices);
 
+         DateTime start = DateTime.Now;
          Grammar testGrammar = new Grammar(systemRequest);
          this.grammar = testGrammar;
+         TimeSpan diff = DateTime.Now - start;
+         Console.WriteLine("Grammar time: " + diff.TotalSeconds);
       }
       
       private GrammarBuilder closeCommand()

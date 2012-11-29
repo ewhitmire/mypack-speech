@@ -26,7 +26,8 @@ namespace MyPackSpeech.SpeechRecognition.Actions
          }
 
          ActionManager.Instance.SetContext(Semantics);
-                
+
+         RecoManager.Instance.Say("Ok");
          return false;
       }
 
@@ -63,6 +64,7 @@ namespace MyPackSpeech.SpeechRecognition.Actions
       {
          
       }
+
 
       override public void Undo()
       {
