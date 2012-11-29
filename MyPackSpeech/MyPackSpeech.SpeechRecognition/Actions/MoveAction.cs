@@ -50,7 +50,26 @@ namespace MyPackSpeech.SpeechRecognition.Actions
             return false;
          }
 
+         switch (Course.Semester)
+         {
+            case Semester.Fall:
+               if (!Course.Course.fall)
+               {
+                  ActionManager.Instance.notOffered(Semantics, Course.Semester);
+                  return false;
+               }
+               break;
+            case Semester.Spring:
+               if (!Course.Course.spring)
+               {
+                  ActionManager.Instance.notOffered(Semantics, Course.Semester);
+                  return false;
+               }
+               break;
+            default:
+               return false;
 
+         }
 
          OldCourse = Student.MoveCourse(Course);
          return true;

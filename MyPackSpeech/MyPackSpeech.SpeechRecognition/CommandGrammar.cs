@@ -179,6 +179,8 @@ namespace MyPackSpeech.SpeechRecognition
 
          return course;
       }
+
+
       private GrammarBuilder buildSemesterGrammar()
       {
          Choices prepositions = new Choices("to", "to my", "to the", "in", "in the");
