@@ -14,13 +14,14 @@ namespace MyPackSpeech.SpeechRecognition.Actions
          if (Semantics.HasSlot(Slots.KeyWords))
          {
             String keyword = Semantics.GetSlot(Slots.KeyWords);
-            IEnumerable<Course> courses = CourseCatalog.Instance.Courses.AsParallel().Where(c => c.KeyWords.Contains(keyword)).OrderBy(c=>c.ToString());
+            IEnumerable<Course> courses = CourseCatalog.Instance.Courses.AsParallel().Where(c => c.KeyWords.Contains(keyword)).OrderBy(c => c.ToString());
 
             String paneText = "";
             foreach (Course c in courses)
             {
                paneText += c.DeptAbv + c.Number + " - " + c.Name + "\n";
             }
+
             ActionManager.Instance.SetInfoPane(paneText);
 
             if (courses.Count() > 5)
@@ -30,7 +31,6 @@ namespace MyPackSpeech.SpeechRecognition.Actions
             else if (courses.Count() != 1)
             {
                IEnumerable<String> classNames = courses.Select<Course, String>(c => c.Name);
-
                RecoManager.Instance.Say("I found " + courses.Count() + " " + keyword + " related courses, including " + SpeechUtils.MakeSpeechList(classNames));
             }
             else
@@ -45,7 +45,6 @@ namespace MyPackSpeech.SpeechRecognition.Actions
 
       public override void Undo()
       {
-         throw new NotImplementedException();
       }
    }
 }
