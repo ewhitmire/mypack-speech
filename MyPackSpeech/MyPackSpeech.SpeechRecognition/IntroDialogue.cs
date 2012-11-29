@@ -58,8 +58,16 @@ namespace MyPackSpeech.SpeechRecognition
          {
             if (result.Semantics.ContainsKey(Slots.Major.ToString()))
             {
-               // ignore major
-               promptForGradYear();
+               if (result.Semantics[Slots.Major.ToString()].Value.ToString().Equals("CSC"))
+               {
+                  // ignore major
+                  promptForGradYear();
+
+               }
+               else
+               {
+                  repromptForMajor();
+               }
             }
             else if (result.Semantics.ContainsKey(Slots.GradYear.ToString()))
             {
@@ -79,6 +87,13 @@ namespace MyPackSpeech.SpeechRecognition
                }
             }
          }
+      }
+
+      private void repromptForMajor()
+      {
+
+         RecoManager.Instance.Say("Do you want fries with that?");
+         expecting = Slots.Major;
       }
 
       private void gradYearConfirmed()

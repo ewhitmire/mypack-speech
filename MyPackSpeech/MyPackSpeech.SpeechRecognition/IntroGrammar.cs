@@ -1,4 +1,5 @@
 ﻿using MyPackSpeech.DataManager;
+using MyPackSpeech.DataManager.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,10 +13,14 @@ namespace MyPackSpeech.SpeechRecognition
       public Grammar grammar;
       public IntroGrammar()
       {
+         List<Department> depts = CourseCatalog.Instance.Departments;
          Choices majors = new Choices();
-         majors.Add(new SemanticResultValue("Computer Science", "CSC"));
+         foreach (Department major in depts)
+         {
+            majors.Add(new SemanticResultValue(major.Name, major.Abv));
+         }
 
-         SemanticResultKey major = new SemanticResultKey(Slots.Major.ToString(), majors);
+         SemanticResultKey majorKey = new SemanticResultKey(Slots.Major.ToString(), majors);
 
          Choices years = new Choices();
          for (int i = 2001; i < 2020; i++)
@@ -34,7 +39,7 @@ namespace MyPackSpeech.SpeechRecognition
          SemanticResultKey yesNo = new SemanticResultKey(Slots.YesNo.ToString(), yesOrNo);
 
          Choices options = new Choices();
-         options.Add(major);
+         options.Add(majorKey);
          options.Add(year);
          options.Add(yesNo);
 
