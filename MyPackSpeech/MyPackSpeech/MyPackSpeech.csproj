@@ -153,6 +153,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="Copy of keywords.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="org.keywords.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

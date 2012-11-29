@@ -85,10 +85,7 @@ namespace MyPackSpeech.SpeechRecognition
 
       public void CreateCommandGrammar()
       {
-         if (commandGrammar != null)
-         {
-            commandGrammar = new CommandGrammar(CourseCatalog.Instance.Courses);
-         }
+         commandGrammar = CommandGrammar.Instance;
       }
 
       void recognitionEngine_RecognizeCompleted(object sender, RecognizeCompletedEventArgs e)

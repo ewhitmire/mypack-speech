@@ -44,6 +44,7 @@ namespace MyPackSpeech
          ActionManager manager = ActionManager.Instance;
          GrammarBuilder search = SearchGrammarBuilder.Grammar;
          RecoManager reco = RecoManager.Instance;
+         reco.CreateCommandGrammar();
          CommandGrammar grammar = CommandGrammar.Instance;
          dataLoaded = true;
       }

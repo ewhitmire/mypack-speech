@@ -35,7 +35,10 @@ namespace MyPackSpeech.SpeechRecognition
 
                while ((word = sr.ReadLine()) != null)
                {
-                  KeyWords.Add(word);
+                  if (word.Length > 2)
+                  {
+                     KeyWords.Add(word);
+                  }
                }
             }
          }
