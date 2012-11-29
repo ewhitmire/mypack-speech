@@ -29,12 +29,13 @@ namespace MyPackSpeech.SpeechRecognition
             evt(this, EventArgs.Empty);
       }
 
-      public int GradYear;
+      public int GradYear = 2016;
       private Slots expecting;
 
       public void StartInteraction()
       {
          RecoManager.Instance.SetGrammarMode(GrammarModes.IntroductionGrammar);
+         RecoManager.Instance.StartSpeechReco();
          RecoManager.Instance.Say("Welcome to the MyPack Degree Planner. Before we begin, I need to know a little bit about you.");
          RecoManager.Instance.Say("What is your intended major?");
          expecting = Slots.Major;

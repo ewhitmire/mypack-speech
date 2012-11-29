@@ -27,12 +27,13 @@ namespace MyPackSpeech
       public SemesterControl()
       {
          InitializeComponent();
+         defaultBrush = data.Background;
+         ActionManager.Instance.SemesterChanged += ActionManager_SemesterChanged;
          CollectionViewSource viewSource = (CollectionViewSource)Resources["viewSource"];
          viewSource.Source = ActionManager.Instance.CurrStudent.Schedule.Courses;
-         ActionManager.Instance.SemesterChanged += ActionManager_SemesterChanged;
-         defaultBrush = data.Background;
          updateBrush();
       }
+
 
       private void ActionManager_SemesterChanged(object sender, EventArgs e)
       {

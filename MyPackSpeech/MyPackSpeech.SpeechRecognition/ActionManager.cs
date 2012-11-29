@@ -27,14 +27,12 @@ namespace MyPackSpeech
 
    public class ActionManager : IDialogueManager
    {
-      private static ActionManager instance = null;
+      private static readonly Lazy<ActionManager> instance = new Lazy<ActionManager>(() => new ActionManager());
       public static ActionManager Instance
       {
          get
          {
-            if (instance == null)
-               instance = new ActionManager();
-            return instance;
+            return instance.Value;
          }
       }
 
@@ -101,6 +99,7 @@ namespace MyPackSpeech
             case CommandTypes.Move:
             case CommandTypes.SetSemester:
             case CommandTypes.Inquire:
+            case CommandTypes.Search:
             case CommandTypes.View:
             case CommandTypes.Save:
             case CommandTypes.Load:

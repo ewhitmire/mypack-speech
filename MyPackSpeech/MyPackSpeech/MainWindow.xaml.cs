@@ -18,26 +18,38 @@ namespace MyPackSpeech
    {
       DebugWindow debugWnd;
       HelpWindow popUp;
-      StartScreen starter;
 
       public MainWindow()
       {
-         ActionManager.Instance.GradYear = IntroDialogue.Instance.GradYear;
          InitializeComponent();
          Loaded += MainWindow_Loaded;
       }
 
       void MainWindow_Loaded(object sender, RoutedEventArgs e)
       {
+         ActionManager.Instance.GradYear = IntroDialogue.Instance.GradYear;
          RecoManager.Instance.SetGrammarMode(GrammarModes.MainGrammar);
+         RecoManager.Instance.StartSpeechReco();
+         RecoManager.Instance.PauseSpeechReco();
          ActionManager.Instance.MissingPrereqs += Instance_MissingPrereqs;
          ActionManager.Instance.InfoPaneSet += ActionManager_InfoPaneSet;
          ActionManager.Instance.CurrStudent.BookmarksChanged += Student_BookmarksChanged;
          ActionManager.Instance.OnViewChange += ActionManager_OnViewChange;
          ActionManager.Instance.OnShowHelp += Instance_OnShowHelp;
          showDebugWindow();
+         RecoManager.Instance.reader.SpeakCompleted += reader_SpeakCompleted;
          RecoManager.Instance.Say("Ok, let's get started");
          StartScreen.CloseWindow();
+         RecoManager.Instance.reader.SpeakCompleted += reader_SpeakCompleted;
+      }
+
+      void reader_SpeakCompleted(object sender, System.Speech.Synthesis.SpeakCompletedEventArgs e)
+      {
+         if (!e.Cancelled)
+         {
+            isSpeechOn.IsChecked = true;
+            RecoManager.Instance.reader.SpeakCompleted -= reader_SpeakCompleted;
+         }
       }
 
       void Instance_OnShowHelp(object sender, EventArgs e)

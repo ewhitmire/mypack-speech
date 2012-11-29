@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Threading;
+using System.Speech.Recognition;
 
 namespace MyPackSpeech
 {
@@ -20,6 +22,7 @@ namespace MyPackSpeech
    public partial class StartScreen : Window
    {
       private static StartScreen instance;
+      bool dataLoaded = false;
       public StartScreen()
       {
          InitializeComponent();
@@ -29,19 +32,48 @@ namespace MyPackSpeech
 
       private void StartScreen_Loaded(object sender, RoutedEventArgs e)
       {
+         Thread thread = new Thread(new ThreadStart(loadData));
+         thread.Start();
          IntroDialogue interaction = IntroDialogue.Instance;
          interaction.StartInteraction();
          interaction.OnComplete += interaction_OnComplete;
       }
 
+      private void loadData()
+      {
+         ActionManager manager = ActionManager.Instance;
+         GrammarBuilder search = SearchGrammarBuilder.Grammar;
+         RecoManager reco = RecoManager.Instance;
+         CommandGrammar grammar = CommandGrammar.Instance;
+         dataLoaded = true;
+      }
+
       private void interaction_OnComplete(object sender, EventArgs e)
       {
-         MainWindow win = new MainWindow();
-         win.Show();
+         while (!dataLoaded)
+         {
+            Thread.Sleep(500);            
+         }
+
+         LoadMainWindow();
       }
+
       public static void CloseWindow()
       {
          instance.Close();
+      }
+
+      private void skip_Click(object sender, RoutedEventArgs e)
+      {
+         RecoManager.Instance.BeSilent();
+         LoadMainWindow();
+      }
+
+      private void LoadMainWindow()
+      {
+         RecoManager.Instance.StopSpeechReco();
+         MainWindow win = new MainWindow();
+         win.Show();
       }
    }
 }

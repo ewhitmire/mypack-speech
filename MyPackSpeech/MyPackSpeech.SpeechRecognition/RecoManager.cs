@@ -27,6 +27,8 @@ namespace MyPackSpeech.SpeechRecognition
       public delegate void SpeechRecognizedHandler(object sender, SpeechRecognizedEventArgs ca);
       public event SpeechRecognizedHandler SpeechRecognized;
 
+      private int sayCounter = 0;
+
       private static RecoManager instance = null;
       public static RecoManager Instance
       {
@@ -55,6 +57,7 @@ namespace MyPackSpeech.SpeechRecognition
 
       public void SetGrammarMode(GrammarModes mode)
       {
+         recognitionEngine.UnloadAllGrammars();
          switch (mode)
          {
             case GrammarModes.IntroductionGrammar:
@@ -77,7 +80,7 @@ namespace MyPackSpeech.SpeechRecognition
                break;
          }
 
-         StartSpeechReco();
+         //StartSpeechReco();
       }
 
       public void CreateCommandGrammar()
@@ -98,6 +101,7 @@ namespace MyPackSpeech.SpeechRecognition
 
       void reader_SpeakCompleted(object sender, SpeakCompletedEventArgs e)
       {
+         sayCounter--;
          ResumeSpeechReco();
       }
 
@@ -114,9 +118,13 @@ namespace MyPackSpeech.SpeechRecognition
 
       public void ResumeSpeechReco()
       {
-         if (!isSpeechRecoStarted && isSpeechRecoActive)
+         if (sayCounter == 0 && !isSpeechRecoStarted && isSpeechRecoActive)
          {
-            recognitionEngine.RecognizeAsync(RecognizeMode.Multiple);
+            try
+            {
+               recognitionEngine.RecognizeAsync(RecognizeMode.Multiple);
+            }
+            catch (Exception e) { } //trying to start itself twice            
             isSpeechRecoStarted = true;
             Console.WriteLine("Speech started");
          }
@@ -179,6 +187,7 @@ namespace MyPackSpeech.SpeechRecognition
          
          PauseSpeechReco();
          reader.SpeakAsync(speech);
+         sayCounter++;
          Console.WriteLine(speech);
       }
 
@@ -193,6 +202,11 @@ namespace MyPackSpeech.SpeechRecognition
          {
             recognitionEngine.EmulateRecognizeAsync(speech);
          }
+      }
+
+      public void BeSilent()
+      {
+         reader.SpeakAsyncCancelAll();
       }
    }
 }

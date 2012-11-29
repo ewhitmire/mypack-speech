@@ -12,6 +12,10 @@ namespace MyPackSpeech.SpeechRecognition
 
       public static string MakeSpeechList(IEnumerable<String> reqNames)
       {
+         if (reqNames.Count() == 0)
+         {
+            return "";
+         }
          // everything but final ", and ..."
          String text = String.Join(", ", reqNames.Take(reqNames.Count()-1));
          text = text + ", and "+reqNames.Last();

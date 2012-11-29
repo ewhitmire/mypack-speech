@@ -63,5 +63,22 @@ namespace MyPackSpeech.DataManager.Data
       {
          return Filter<Course>.PrettyString(CourseRequirement);
       }
+
+      public string ToGeneralRequirementsString()
+      {
+
+         if (Name != null)
+         {
+            return Name;
+         }
+         IEnumerable<Course> courses = CourseCatalog.Instance.GetCourses(CourseRequirement);
+         if (courses.Count() == 1)
+         {
+            Course result = courses.First();
+            return result.DeptAbv + result.Number + " - " + result.Name;
+         }
+         return Category.Name;      
+      }
+
    }
 }
