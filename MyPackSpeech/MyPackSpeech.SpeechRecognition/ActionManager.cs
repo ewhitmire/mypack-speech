@@ -223,6 +223,7 @@ namespace MyPackSpeech
             IAction action = actionHistory.Pop();
             action.Undo();
             callEvent = true;
+            RecoManager.Instance.Say("Done");
          }
          return callEvent;
       }
