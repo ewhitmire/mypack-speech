@@ -28,6 +28,10 @@ namespace MyPackSpeech.SpeechRecognition.Actions
             {
                RecoManager.Instance.Say("I found " + courses.Count() + " " + keyword + " related courses. Check the info pane for a list of possible classes.");
             }
+            else if (courses.Count() == 0)
+            {
+               RecoManager.Instance.Say("I can't find any courses like that");
+            }
             else if (courses.Count() != 1)
             {
                IEnumerable<String> classNames = courses.Select<Course, String>(c => c.Name);
