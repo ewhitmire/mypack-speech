@@ -114,6 +114,9 @@ namespace MyPackSpeech
                   action.Perform();
                beHelpful();
                break;
+            case CommandTypes.CloseWindow:
+               CloseCommand();
+               break;
             case CommandTypes.Swap:
             case CommandTypes.Show:
             default:
@@ -171,11 +174,10 @@ namespace MyPackSpeech
       }
 
       private void beHelpful() {
-         RecoManager.Instance.Say("If you would like to add a class, say something like, I would like to add CSC 591 to my Fall 2012 semester.");
-         RecoManager.Instance.Say("If you don't know what you would like to say, press the help button for some suggestions.");
-      
-      
+         RecoManager.Instance.Say("Here is a list of things you can say.");
       }
+
+
       private bool doCourseRegistrationAction(SemanticValueDict semantics, CommandTypes cmd)
       {
          bool callEvent = false;
@@ -308,6 +310,16 @@ namespace MyPackSpeech
       public void ShowHelp()
       {
          var evt = onShowHelp;
+         if (evt != null)
+            evt(this, EventArgs.Empty);
+      }
+
+      private event EventHandler onCloseCommand;
+      public event EventHandler OnCloseCommand { add { onCloseCommand += value; } remove { onCloseCommand -= value; } }
+
+      public void CloseCommand()
+      {
+         var evt = onCloseCommand;
          if (evt != null)
             evt(this, EventArgs.Empty);
       }

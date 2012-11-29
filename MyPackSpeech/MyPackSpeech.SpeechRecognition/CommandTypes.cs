@@ -56,6 +56,7 @@ namespace MyPackSpeech.SpeechRecognition
       Help,
       Save,
       Search,
-      Load
+      Load,
+      CloseWindow
    }
 }

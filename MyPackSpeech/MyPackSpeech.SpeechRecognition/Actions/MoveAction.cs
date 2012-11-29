@@ -38,7 +38,7 @@ namespace MyPackSpeech.SpeechRecognition.Actions
 
          if (!CourseConstructor.IsSemesterValid(Course.Semester, Course.Year))
          {
-            RecoManager.Instance.Say("That semester is outside of the current range.");
+            RecoManager.Instance.Say("please install a flux capacitor and accelerate to 88 miles per hour.");
             return false;
          }
 
@@ -50,7 +50,26 @@ namespace MyPackSpeech.SpeechRecognition.Actions
             return false;
          }
 
+         switch (Course.Semester)
+         {
+            case Semester.Fall:
+               if (!Course.Course.fall)
+               {
+                  ActionManager.Instance.notOffered(Semantics, Course.Semester);
+                  return false;
+               }
+               break;
+            case Semester.Spring:
+               if (!Course.Course.spring)
+               {
+                  ActionManager.Instance.notOffered(Semantics, Course.Semester);
+                  return false;
+               }
+               break;
+            default:
+               return false;
 
+         }
 
          OldCourse = Student.MoveCourse(Course);
          return true;

@@ -55,6 +55,7 @@ namespace MyPackSpeech.SpeechRecognition
             commands.Add(new SemanticResultValue("find", (int)CommandTypes.Search));
             commands.Add(new SemanticResultValue("I want to take", (int)CommandTypes.Search));
             commands.Add(new SemanticResultValue("I want to take a", (int)CommandTypes.Search));
+            commands.Add(new SemanticResultValue("I want to take a class on", (int)CommandTypes.Search));
             commands.Add(new SemanticResultValue("What", (int)CommandTypes.Search));
             SemanticResultKey commandSemKey = new SemanticResultKey(Slots.Command.ToString(), commands);
 
