@@ -27,14 +27,12 @@ namespace MyPackSpeech
 
    public class ActionManager : IDialogueManager
    {
-      private static ActionManager instance = null;
+      private static readonly Lazy<ActionManager> instance = new Lazy<ActionManager>(() => new ActionManager());
       public static ActionManager Instance
       {
          get
          {
-            if (instance == null)
-               instance = new ActionManager();
-            return instance;
+            return instance.Value;
          }
       }
 
@@ -101,6 +99,7 @@ namespace MyPackSpeech
             case CommandTypes.Move:
             case CommandTypes.SetSemester:
             case CommandTypes.Inquire:
+            case CommandTypes.Search:
             case CommandTypes.View:
             case CommandTypes.Save:
             case CommandTypes.Load:
@@ -172,11 +171,10 @@ namespace MyPackSpeech
       }
 
       private void beHelpful() {
-         RecoManager.Instance.Say("If you would like to add a class, say something like, I would like to add CSC 591 to my Fall 2012 semester.");
-         RecoManager.Instance.Say("If you don't know what you would like to say, press the help button for some suggestions.");
-      
-      
+         RecoManager.Instance.Say("Here is a list of things you can say.");
       }
+
+
       private bool doCourseRegistrationAction(SemanticValueDict semantics, CommandTypes cmd)
       {
          bool callEvent = false;

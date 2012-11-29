@@ -21,18 +21,20 @@ namespace MyPackSpeech.SpeechRecognition
       private GrammarBuilder reqs;
       private GrammarBuilder pleasantries;
 
-
-      public CommandGrammar()
+      private static readonly Lazy<CommandGrammar> instance = new Lazy<CommandGrammar>(() => new CommandGrammar());
+      public static CommandGrammar Instance
       {
-         buildCommonGrammars();
-         buildCommandGrammar();
+         get
+         {
+            return instance.Value;
+         }
       }
 
-      public CommandGrammar(List<Course> courses)
+      private CommandGrammar()
       {
-         this.classList = courses;
+         Console.WriteLine("Constructing Grammar");
+         this.classList = CourseCatalog.Instance.Courses;
          this.depts = new List<Department>();
-
          parseClasses();
          buildCommonGrammars();
          buildCommandGrammar();
@@ -253,6 +255,7 @@ namespace MyPackSpeech.SpeechRecognition
          GrammarBuilder help = helpCommand();
          GrammarBuilder view = viewCommand();
          GrammarBuilder saveLoad = saveLoadCommand();
+         GrammarBuilder search = SearchGrammarBuilder.Grammar;
 
          //now build the complete pattern...
          Choices commandChoices = new Choices();
@@ -267,6 +270,7 @@ namespace MyPackSpeech.SpeechRecognition
          commandChoices.Add(help);
          commandChoices.Add(view);
          commandChoices.Add(saveLoad);
+         commandChoices.Add(search);
          
          GrammarBuilder systemRequest = new GrammarBuilder();
          systemRequest.Append(commandChoices);

@@ -31,6 +31,8 @@ namespace MyPackSpeech.SpeechRecognition
             case CommandTypes.Save:
             case CommandTypes.Load:
                return new SaveLoadAction();
+            case CommandTypes.Search:
+               return new SearchAction();
             case CommandTypes.Show:
             default:
                break;
@@ -53,6 +55,7 @@ namespace MyPackSpeech.SpeechRecognition
       View,
       Help,
       Save,
+      Search,
       Load
    }
 }

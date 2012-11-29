@@ -27,6 +27,8 @@ namespace MyPackSpeech.SpeechRecognition
       public delegate void SpeechRecognizedHandler(object sender, SpeechRecognizedEventArgs ca);
       public event SpeechRecognizedHandler SpeechRecognized;
 
+      private int sayCounter = 0;
+
       private static RecoManager instance = null;
       public static RecoManager Instance
       {
@@ -53,6 +55,7 @@ namespace MyPackSpeech.SpeechRecognition
 
       public void SetGrammarMode(GrammarModes mode)
       {
+         recognitionEngine.UnloadAllGrammars();
          switch (mode)
          {
             case GrammarModes.IntroductionGrammar:
@@ -67,7 +70,7 @@ namespace MyPackSpeech.SpeechRecognition
             case GrammarModes.MainGrammar:
 
                dialogueManager = ActionManager.Instance;
-               commandGrammar = new CommandGrammar(CourseCatalog.Instance.Courses);
+               commandGrammar = CommandGrammar.Instance;
                if (commandGrammar.grammar != null)
                {
                   recognitionEngine.LoadGrammar(commandGrammar.grammar);
@@ -75,7 +78,7 @@ namespace MyPackSpeech.SpeechRecognition
                break;
          }
 
-         StartSpeechReco();
+         //StartSpeechReco();
       }
 
       void recognitionEngine_RecognizeCompleted(object sender, RecognizeCompletedEventArgs e)
@@ -88,6 +91,7 @@ namespace MyPackSpeech.SpeechRecognition
 
       void reader_SpeakCompleted(object sender, SpeakCompletedEventArgs e)
       {
+         sayCounter--;
          ResumeSpeechReco();
       }
 
@@ -104,7 +108,7 @@ namespace MyPackSpeech.SpeechRecognition
 
       public void ResumeSpeechReco()
       {
-         if (!isSpeechRecoStarted && isSpeechRecoActive)
+         if (sayCounter == 0 && !isSpeechRecoStarted && isSpeechRecoActive)
          {
             try
             {
@@ -173,6 +177,7 @@ namespace MyPackSpeech.SpeechRecognition
          
          PauseSpeechReco();
          reader.SpeakAsync(speech);
+         sayCounter++;
          Console.WriteLine(speech);
       }
 

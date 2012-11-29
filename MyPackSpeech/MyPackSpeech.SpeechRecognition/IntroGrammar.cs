@@ -27,7 +27,10 @@ namespace MyPackSpeech.SpeechRecognition
 
          Choices yesOrNo = new Choices();
          yesOrNo.Add(new SemanticResultValue("yes", "yes"));
+         yesOrNo.Add(new SemanticResultValue("yeah", "yes"));
+         yesOrNo.Add(new SemanticResultValue("yep", "yes"));
          yesOrNo.Add(new SemanticResultValue("no", "no"));
+         yesOrNo.Add(new SemanticResultValue("nope", "no"));
          SemanticResultKey yesNo = new SemanticResultKey(Slots.YesNo.ToString(), yesOrNo);
 
          Choices options = new Choices();

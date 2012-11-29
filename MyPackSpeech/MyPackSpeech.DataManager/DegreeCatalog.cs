@@ -27,7 +27,7 @@ namespace MyPackSpeech.DataManager
       private Dictionary<String, IFilter<Course>> orphanedFilters;
       private const string degreeList = "Curricula/degrees.txt";
 
-      public DegreeCatalog()
+      private DegreeCatalog()
       {
          Degrees = new List<DegreeProgram>();
          orphanedFilters = new Dictionary<string, IFilter<Course>>();

@@ -1,7 +1,7 @@
 ﻿<Window x:Class="MyPackSpeech.StartScreen"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="StartScreen" Height="410" Width="634.328" WindowStartupLocation="CenterScreen">
+        Title="StartScreen" Height="420" Width="640" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
@@ -11,6 +11,5 @@
         <Label x:Name="TitleText" Content="Welcome to MyPackSpeech!" VerticalAlignment="Top" FontWeight="Bold" FontSize="24" HorizontalContentAlignment="Center" Margin="8,0" Height="42"/>
         <Label x:Name="WelcomText" Content="Imagine that you are a college freshman planning out your Computer Science &#xA;Major for the first time.  You have a list of requirements you need to take, and&#xA;need to know what order in which to take them.  This prototype is a dialogue &#xA;system meant to assist you with the basic functionality of this process.&#xA;&#xA;You can use natural language to interact with the system, and commands are &#xD;&#xA;flexible. You can identify a class with either class department and number, or&#xD;&#xA;with the name directly.  You can add a class, remove a class, move it to &#xD;&#xA;another semester. You can bookmark a class to save it for later, and ask about&#xD;&#xA; your requirements that you need to fill for your major.&#xA;&#xA;To begin, you can ask &quot;What do I need to take to graduate?&quot;&#xA;" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="1" FontSize="16" Width="584"/>
         <Button x:Name="skip" Content="Skip" HorizontalAlignment="Left" Margin="526,10,0,0" Grid.Row="2" VerticalAlignment="Top" Width="75" Click="skip_Click" Height="22"/>
-
     </Grid>
 </Window>

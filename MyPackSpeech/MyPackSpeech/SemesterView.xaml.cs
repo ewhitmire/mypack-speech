@@ -27,7 +27,9 @@ namespace MyPackSpeech
       {
          InitializeComponent();
          InitGrids();
+         //Loaded += SemesterView_Loaded;
       }
+
       private void InitGrids()
       {
          int startYear = ActionManager.Instance.GradYear - 4;

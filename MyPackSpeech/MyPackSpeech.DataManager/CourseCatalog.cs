@@ -75,11 +75,7 @@ namespace MyPackSpeech.DataManager
       {
          Courses = new List<Course>();
          Departments = new List<Department>();
-         DateTime start = DateTime.Now;
          LoadData();
-         DateTime end = DateTime.Now;
-         TimeSpan delta = end - start;
-         //WriteKeyWordFile();
       }
 
       private void WriteKeyWordFile()
@@ -328,7 +324,7 @@ namespace MyPackSpeech.DataManager
                            preReqs = courseObject["prerequisites"].ToString();
                            //System.Console.WriteLine("preReqs: " + preReqs);
                            if(dept.Abv.Equals("CSC")){
-                              System.Console.WriteLine("CSC" + courseNumber);
+                              //System.Console.WriteLine("CSC" + courseNumber);
                               Char[] delims = { ' ', '(', ')', ':', ';','.', ',', '/' };
                               parsedPreReqs = getPreReqs(preReqs.Split(delims));
                            }
