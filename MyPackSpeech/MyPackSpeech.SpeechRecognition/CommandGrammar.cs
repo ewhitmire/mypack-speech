@@ -253,6 +253,7 @@ namespace MyPackSpeech.SpeechRecognition
          GrammarBuilder help = helpCommand();
          GrammarBuilder view = viewCommand();
          GrammarBuilder saveLoad = saveLoadCommand();
+         GrammarBuilder close = closeCommand();
          GrammarBuilder search = SearchGrammarBuilder.Grammar;
 
          //now build the complete pattern...
@@ -269,6 +270,7 @@ namespace MyPackSpeech.SpeechRecognition
          commandChoices.Add(view);
          commandChoices.Add(saveLoad);
          commandChoices.Add(search);
+         commandChoices.Add(close);
          
          GrammarBuilder systemRequest = new GrammarBuilder();
          systemRequest.Append(commandChoices);
@@ -276,6 +278,22 @@ namespace MyPackSpeech.SpeechRecognition
          Grammar testGrammar = new Grammar(systemRequest);
          this.grammar = testGrammar;
 
+      }
+
+      private GrammarBuilder closeCommand()
+      {
+         //<pleasantries> <command> <Semester>? <Year>?
+         Choices commands = new Choices();
+         commands.Add(new SemanticResultValue("close", (int)CommandTypes.CloseWindow));
+         commands.Add(new SemanticResultValue("close window", (int)CommandTypes.CloseWindow));
+         SemanticResultKey commandSemKey = new SemanticResultKey(Slots.Command.ToString(), commands);
+
+         // put the whole command together
+         GrammarBuilder finalCommand = new GrammarBuilder();
+         finalCommand.Append(this.pleasantries, 0, 1);
+         finalCommand.Append(commandSemKey);
+
+         return finalCommand;
       }
 
       private GrammarBuilder semesterCommand()
