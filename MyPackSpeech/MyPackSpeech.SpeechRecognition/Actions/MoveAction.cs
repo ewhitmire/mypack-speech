@@ -38,7 +38,7 @@ namespace MyPackSpeech.SpeechRecognition.Actions
 
          if (!CourseConstructor.IsSemesterValid(Course.Semester, Course.Year))
          {
-            RecoManager.Instance.Say("please install a flux capacitor and accelerate to 88 miles per hour.");
+            RecoManager.Instance.Say("This semester is outside the current range. Please install a flux capacitor and accelerate to 88 miles per hour.");
             return false;
          }
 
