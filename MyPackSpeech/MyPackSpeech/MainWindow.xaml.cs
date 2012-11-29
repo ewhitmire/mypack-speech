@@ -120,6 +120,7 @@ namespace MyPackSpeech
       private void saveFile()
       {
          Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
+         dlg.FileName = "MyPackSchedule";
          if (dlg.ShowDialog(this).GetValueOrDefault(false))
             ActionManager.Instance.CurrStudent.SaveSchedule(dlg.FileName);
       }
