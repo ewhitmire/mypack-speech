@@ -24,12 +24,7 @@ namespace MyPackSpeech
       public RequirementsView()
       {
          InitializeComponent();
-         Loaded += RequirementsView_Loaded;
-         
-      }
 
-      void RequirementsView_Loaded(object sender, RoutedEventArgs e)
-      {
          DegreeProgram degree = ActionManager.Instance.CurrStudent.Degree;
          if (degree != null)
          {
