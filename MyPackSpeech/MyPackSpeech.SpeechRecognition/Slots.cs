@@ -19,7 +19,10 @@ namespace MyPackSpeech.SpeechRecognition
       Major,
       GradYear,
       YesNo,
-      KeyWords
+      KeyWords,
+      KeyWords2,
+      KeyWords3,
+      KeyWords4
    }
    public enum Views
    {
