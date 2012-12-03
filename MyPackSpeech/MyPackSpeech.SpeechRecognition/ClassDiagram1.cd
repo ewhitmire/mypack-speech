@@ -1,0 +1,293 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="MyPackSpeech.SpeechRecognition.CommandGrammar" Collapsed="true">
+    <Position X="2.5" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>BAAAAQBAEApCgIUCAAAAEiAAAABEBAAAQgAAGGAEAQA=</HashCode>
+      <FileName>CommandGrammar.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyPackSpeech.SpeechRecognition.CourseConstructor" Collapsed="true">
+    <Position X="4.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACAAAAAABAAAAAAAAAAAAAABCBgAQCAAAABA=</HashCode>
+      <FileName>CourseConstructor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyPackSpeech.SpeechRecognition.IntroDialogue" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="0.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAACAACIAAAAIAAAEgABCBABBAAAAAQAAAAAAABAA=</HashCode>
+      <FileName>IntroDialogue.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="MyPackSpeech.SpeechRecognition.IntroGrammar" Collapsed="true">
+    <Position X="2.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>IntroGrammar.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyPackSpeech.SpeechRecognition.RecoManager" Collapsed="true">
+    <Position X="4.25" Y="1.5" Width="1.5" />
+    <Members>
+      <Method Name="reader_SpeakCompleted" Hidden="true" />
+      <Method Name="recognitionEngine_RecognizeCompleted" Hidden="true" />
+      <Method Name="recognitionEngine_SpeechRecognized" Hidden="true" />
+      <Method Name="recognitionEngine_SpeechRejected" Hidden="true" />
+    </Members>
+    <NestedTypes>
+      <Delegate Name="MyPackSpeech.SpeechRecognition.RecoManager.SpeechRecognizedHandler" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>RecoManager.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAQBAACIABAAQAA4ACAoiAABJAEABQAKAEAAQAQA=</HashCode>
+      <FileName>RecoManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyPackSpeech.SpeechRecognition.SearchGrammarBuilder" Collapsed="true">
+    <Position X="6" Y="1.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAAAAgAAgAAAQAAAAACAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>SearchGrammarBuilder.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyPackSpeech.SpeechRecognition.SemanticValueDict" Collapsed="true">
+    <Position X="0.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAAAAAAAAEAAAAAAAAAQAAAAgAABAAAA=</HashCode>
+      <FileName>SemanticValueDict.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyPackSpeech.SpeechRecognition.SpeechUtils" Collapsed="true">
+    <Position X="2.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SpeechUtils.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyPackSpeech.SpeechRecognition.InfoPaneSetArgs" Collapsed="true">
+    <Position X="6" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAA=</HashCode>
+      <FileName>InfoPaneSetArgs.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyPackSpeech.ActionDetectedEventArgs" Collapsed="true">
+    <Position X="0.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DialogManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyPackSpeech.DialogManager" BaseTypeListCollapsed="true">
+    <Position X="15" Y="1.5" Width="4" />
+    <Members>
+      <Event Name="actionDetected" Hidden="true" />
+      <Method Name="beHelpful" Hidden="true" />
+      <Method Name="DialogManager" Hidden="true" />
+      <Method Name="doCourseRegistrationAction" Hidden="true" />
+      <Method Name="doUndoComnmand" Hidden="true" />
+      <Event Name="infoPaneSet" Hidden="true" />
+      <Method Name="isJunkSpeech" Hidden="true" />
+      <Event Name="missingPrereqs" Hidden="true" />
+      <Method Name="notOffered" Hidden="true" />
+      <Event Name="onCloseCommand" Hidden="true" />
+      <Event Name="onShowHelp" Hidden="true" />
+      <Event Name="onViewChange" Hidden="true" />
+      <Event Name="semesterChanged" Hidden="true" />
+    </Members>
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>ARQQAACACAIAAAQAACAgCEMSAABAAAQURCCEhGElGIw=</HashCode>
+      <FileName>DialogManager.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="CurrentCourse" />
+      <Property Name="CurrentSemester" />
+      <Property Name="CurrStudent" />
+      <Property Name="Instance" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="MyPackSpeech.DataManager.Data.Course">
+    <Position X="9" Y="1.25" Width="2.75" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Properties" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier />
+    <Lollipop Position="0.1" Collapsed="true" />
+  </Class>
+  <Class Name="MyPackSpeech.DataManager.Data.Student" Collapsed="true">
+    <Position X="19.75" Y="2.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="MyPackSpeech.SpeechRecognition.Actions.AddAction">
+    <Position X="0.5" Y="6.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAABgAEAKAAAAAAAAAAAABAAAAAAAAAAAA=</HashCode>
+      <FileName>Actions\AddAction.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Course" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="MyPackSpeech.SpeechRecognition.Actions.BaseAction" Collapsed="true">
+    <Position X="14" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgACAAEAQgAABgAAACAAAAAAAAAAAABAAAAAAAAAAAA=</HashCode>
+      <FileName>Actions\BaseAction.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="MyPackSpeech.SpeechRecognition.Actions.BookmarkAction">
+    <Position X="17.75" Y="6.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAABgAEAKAAAAAAAAAAAABAAAAAAAAAAAA=</HashCode>
+      <FileName>Actions\BookmarkAction.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Course" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="MyPackSpeech.SpeechRecognition.Actions.HelpAction" Collapsed="true">
+    <Position X="23" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABgAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Actions\HelpAction.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyPackSpeech.SpeechRecognition.Actions.InquireAction">
+    <Position X="3.5" Y="6.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABgAAAAAAAAAAAAAAAABAAAAAAAAAAAA=</HashCode>
+      <FileName>Actions\InquireAction.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyPackSpeech.SpeechRecognition.Actions.MoveAction">
+    <Position X="12" Y="6.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAABgAAAIAAAAAAAAAAAAAAAAAAABAAAAA=</HashCode>
+      <FileName>Actions\MoveAction.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Course" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="MyPackSpeech.SpeechRecognition.Actions.RemoveAction">
+    <Position X="9.25" Y="6.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAABgAAAIAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Actions\RemoveAction.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Course" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="MyPackSpeech.SpeechRecognition.Actions.SaveLoadAction" Collapsed="true">
+    <Position X="25.25" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABgAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Actions\SaveLoadAction.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyPackSpeech.SpeechRecognition.Actions.SearchAction">
+    <Position X="6.25" Y="6.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABgAAAAAAAAAAABAAAAAAAAAAAAAEAAA=</HashCode>
+      <FileName>Actions\SearchAction.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyPackSpeech.SpeechRecognition.Actions.SetSemesterAction">
+    <Position X="15" Y="6.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAABgAAAIAAAAAAAAAAAAAAAAAACAAAAAA=</HashCode>
+      <FileName>Actions\SetSemesterAction.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Course" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="MyPackSpeech.SpeechRecognition.Actions.UnknownAction" Collapsed="true">
+    <Position X="20.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABgAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Actions\UnknownAction.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyPackSpeech.SpeechRecognition.Actions.ViewAction">
+    <Position X="27.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABgAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Actions\ViewAction.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyPackSpeech.DataManager.Data.ScheduledCourse" Collapsed="true">
+    <Position X="9.5" Y="5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Interface Name="MyPackSpeech.DataManager.IDialogueManager" Collapsed="true">
+    <Position X="2.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IDialogueManager.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="MyPackSpeech.SpeechRecognition.IAction" Collapsed="true">
+    <Position X="0.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAEAQAAABgAAAAAAAAAAAAAAAABAAAAAAAAAAAA=</HashCode>
+      <FileName>Actions\IAction.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="MyPackSpeech.SpeechRecognition.CommandTypes" Collapsed="true">
+    <Position X="0.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAIAgIAAAIBIBAAAgAAABAAAAAQFAAAAAAAAAAAgAAA=</HashCode>
+      <FileName>CommandTypes.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="MyPackSpeech.SpeechRecognition.GrammarModes" Collapsed="true">
+    <Position X="2.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>RecoManager.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="MyPackSpeech.SpeechRecognition.Slots" Collapsed="true">
+    <Position X="4.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAQDAAAIAAAIEAABAAAEAIAAAAACAAgAAAAAAA=</HashCode>
+      <FileName>Slots.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="MyPackSpeech.SpeechRecognition.Views" Collapsed="true">
+    <Position X="6" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAIAAAAAAAAAIAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Slots.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="MyPackSpeech.DataManager.Data.Semester" Collapsed="true">
+    <Position X="12.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

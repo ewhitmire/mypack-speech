@@ -27,7 +27,7 @@ namespace MyPackSpeech.SpeechRecognition.Actions
 
          if (sCourse != null)
          {
-            if (!Student.Schedule.Contains(sCourse) && !Student.bookmarks.Contains(sCourse))
+            if (!Student.Schedule.Contains(sCourse) && !Student.Bookmarks.Contains(sCourse))
             {
                RecoManager.Instance.Say("You must add that course before attempting to remove it.");
             }

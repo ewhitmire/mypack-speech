@@ -78,6 +78,7 @@
     <Compile Include="Search\KeywordGenerator.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
     <None Include="CourseData\AA.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

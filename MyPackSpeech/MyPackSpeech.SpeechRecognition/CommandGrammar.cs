@@ -392,12 +392,6 @@ namespace MyPackSpeech.SpeechRecognition
 
       private GrammarBuilder bookmarkCommand()
       {
-         //<pleasantries> <command> <CLASS> <prep> <Time><year>
-         //Pleasantries: I'd like to, please, I want to, would you
-         //Command: Add, Remove
-         //Class: a class, this class, that class, that other class
-         //When: to Spring 2012
-
          Choices commands = new Choices();
          SemanticResultValue commandSRV;
          commandSRV = new SemanticResultValue("bookmark", (int)CommandTypes.Bookmark);
