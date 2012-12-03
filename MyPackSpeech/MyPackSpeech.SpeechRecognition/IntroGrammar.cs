@@ -15,8 +15,6 @@ namespace MyPackSpeech.SpeechRecognition
       {
          Choices majors = new Choices();
          majors.Add(new SemanticResultValue("Computer Science", "CSC"));
-         majors.Add(new SemanticResultValue("Art History", "XYZ"));
-
 
          SemanticResultKey majorKey = new SemanticResultKey(Slots.Major.ToString(), majors);
 

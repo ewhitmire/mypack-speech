@@ -20,9 +20,7 @@ namespace MyPackSpeech.SpeechRecognition
       GradYear,
       YesNo,
       KeyWords,
-      KeyWords2,
-      KeyWords3,
-      KeyWords4
+      KeyWords2
    }
    public enum Views
    {

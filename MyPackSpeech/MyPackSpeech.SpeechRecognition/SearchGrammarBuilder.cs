@@ -70,9 +70,6 @@ namespace MyPackSpeech.SpeechRecognition
 
             SemanticResultKey keywordSemKey = new SemanticResultKey(Slots.KeyWords.ToString(), keywordChoices);
             SemanticResultKey keyword2SemKey = new SemanticResultKey(Slots.KeyWords2.ToString(), keywordChoices);
-            SemanticResultKey keyword3SemKey = new SemanticResultKey(Slots.KeyWords3.ToString(), keywordChoices);
-            SemanticResultKey keyword4SemKey = new SemanticResultKey(Slots.KeyWords4.ToString(), keywordChoices);
-
 
             Choices suffix = new Choices();
             suffix.Add("classes");
@@ -87,8 +84,6 @@ namespace MyPackSpeech.SpeechRecognition
             grammar.Append(commandSemKey);
             grammar.Append(keywordSemKey);
             grammar.Append(keyword2SemKey,0,1);
-            grammar.Append(keyword3SemKey, 0, 1);
-            grammar.Append(keyword4SemKey, 0, 1);
             grammar.Append(suffix, 0, 1);
             grammar.Append(suffix2, 0, 1);
          }

@@ -92,8 +92,7 @@ namespace MyPackSpeech.SpeechRecognition
 
       private void repromptForMajor()
       {
-
-         RecoManager.Instance.Say("Do you want fries with that?");
+         RecoManager.Instance.Say("I do not have information for that major.");
          expecting = Slots.Major;
       }
 

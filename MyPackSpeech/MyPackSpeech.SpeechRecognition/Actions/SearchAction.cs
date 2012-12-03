@@ -56,8 +56,6 @@ namespace MyPackSpeech.SpeechRecognition.Actions
 
          getWord(semantics, Slots.KeyWords, keywords);
          getWord(semantics, Slots.KeyWords2, keywords);
-         getWord(semantics, Slots.KeyWords3, keywords);
-         getWord(semantics, Slots.KeyWords4, keywords);
          
          return keywords;
       }
