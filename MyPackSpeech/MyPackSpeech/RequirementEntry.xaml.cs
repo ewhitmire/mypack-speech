@@ -39,8 +39,8 @@ namespace MyPackSpeech
             updateContent();
 
          }
-         ActionManager.Instance.CurrStudent.ScheduleChanged += Student_ScheduleChanged;
-         ActionManager.Instance.CurrStudent.BookmarksChanged += Student_BookmarksChanged;
+         DialogManager.Instance.CurrStudent.ScheduleChanged += Student_ScheduleChanged;
+         DialogManager.Instance.CurrStudent.BookmarksChanged += Student_BookmarksChanged;
       }
       void Student_BookmarksChanged(object sender, EventArgs e){
          updateContent();

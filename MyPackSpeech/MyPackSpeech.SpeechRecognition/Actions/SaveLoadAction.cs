@@ -13,13 +13,13 @@ namespace MyPackSpeech.SpeechRecognition.Actions
          {
             Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
             if (dlg.ShowDialog().GetValueOrDefault(false))
-               ActionManager.Instance.CurrStudent.SaveSchedule(dlg.FileName);
+               DialogManager.Instance.CurrStudent.SaveSchedule(dlg.FileName);
          }
          else if (CommandTypes.Load.Equals(Semantics.GetCommand()))
          {
             Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
             if (dlg.ShowDialog().GetValueOrDefault(false))
-               ActionManager.Instance.CurrStudent.LoadSchedule(dlg.FileName);
+               DialogManager.Instance.CurrStudent.LoadSchedule(dlg.FileName);
          }
          // prevent push to undo stack
          return false;

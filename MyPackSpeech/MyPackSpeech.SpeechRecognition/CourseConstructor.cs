@@ -26,9 +26,9 @@ namespace MyPackSpeech.SpeechRecognition
             IFilter<Course> filter = CourseFilter.DeptAbv(Department).And(CourseFilter.Number(Number, Operator.EQ));
             return CourseCatalog.Instance.GetCourses(filter).FirstOrDefault();
          }
-         else if (ActionManager.Instance.CurrentCourse != null)
+         else if (DialogManager.Instance.CurrentCourse != null)
          {
-            return ActionManager.Instance.CurrentCourse;
+            return DialogManager.Instance.CurrentCourse;
          }
          return null;
       }
@@ -46,8 +46,8 @@ namespace MyPackSpeech.SpeechRecognition
          {
             return null;
          }
-         Semester? sem = GetSemester(semantics, ActionManager.Instance.CurrentSemester);
-         int? year = GetYear(semantics, ActionManager.Instance.CurrentYear);
+         Semester? sem = GetSemester(semantics, DialogManager.Instance.CurrentSemester);
+         int? year = GetYear(semantics, DialogManager.Instance.CurrentYear);
 
          if (year == null)
             throw new InvalidOperationException("Should not be call without valid year information");
@@ -95,7 +95,7 @@ namespace MyPackSpeech.SpeechRecognition
 
       public static List<Slots> ContainsCourseData(SemanticValueDict course)
       {
-         if (ActionManager.Instance.CurrentCourse == null)
+         if (DialogManager.Instance.CurrentCourse == null)
          {
             return SemanticsContainsCourseData(course);
          }
@@ -107,11 +107,11 @@ namespace MyPackSpeech.SpeechRecognition
          List<Slots> missing = ContainsCourseData(course);
          if (!ignoreSemester)
          {
-            if (!course.ContainsKey(Slots.Semester.ToString()) && !ActionManager.Instance.CurrentSemester.HasValue)
+            if (!course.ContainsKey(Slots.Semester.ToString()) && !DialogManager.Instance.CurrentSemester.HasValue)
             {
                missing.Add(Slots.Semester);
             }
-            if (!course.ContainsKey(Slots.Year.ToString()) && !ActionManager.Instance.CurrentYear.HasValue)
+            if (!course.ContainsKey(Slots.Year.ToString()) && !DialogManager.Instance.CurrentYear.HasValue)
             {
                missing.Add(Slots.Year);
             }
@@ -137,9 +137,9 @@ namespace MyPackSpeech.SpeechRecognition
 
       public static bool IsSemesterValid(Semester sem, int year)
       {
-         if (year >= ActionManager.Instance.GradYear)
+         if (year >= DialogManager.Instance.GradYear)
          {
-            if (year == ActionManager.Instance.GradYear && sem == Semester.Spring)
+            if (year == DialogManager.Instance.GradYear && sem == Semester.Spring)
             {
                return true;
             }
@@ -148,9 +148,9 @@ namespace MyPackSpeech.SpeechRecognition
             return false;
             }
          }
-         else if (year <= ActionManager.Instance.GradYear - 4)
+         else if (year <= DialogManager.Instance.GradYear - 4)
          {
-            if (year == ActionManager.Instance.GradYear-4 && sem == Semester.Fall)
+            if (year == DialogManager.Instance.GradYear-4 && sem == Semester.Fall)
             {
                return true;
             }

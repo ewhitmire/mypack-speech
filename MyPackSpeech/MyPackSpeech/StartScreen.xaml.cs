@@ -41,7 +41,7 @@ namespace MyPackSpeech
 
       private void loadData()
       {
-         ActionManager manager = ActionManager.Instance;
+         DialogManager manager = DialogManager.Instance;
          GrammarBuilder search = SearchGrammarBuilder.Grammar;
          RecoManager reco = RecoManager.Instance;
          reco.CreateCommandGrammar();

@@ -32,7 +32,7 @@ namespace MyPackSpeech.SpeechRecognition.Actions
          bool allGood = base.ValidateCurrentData();
          if (CourseConstructor.ContainsCourseData(Semantics).Count == 0)
          {
-            if (ActionManager.Instance.CurrentCourse == null && !CourseConstructor.IsCourseDataValid(Semantics))
+            if (DialogManager.Instance.CurrentCourse == null && !CourseConstructor.IsCourseDataValid(Semantics))
             {
                correctCourse();
                allGood = false;

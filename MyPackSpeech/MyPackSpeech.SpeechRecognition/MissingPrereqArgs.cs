@@ -23,7 +23,7 @@ namespace MyPackSpeech.SpeechRecognition
          //TODO: BrianR get prereqs using course requirements and registered courses
          foreach (var prereq in prereqs)
          {
-            int count = (from c in ActionManager.Instance.CurrStudent.Schedule.Courses
+            int count = (from c in DialogManager.Instance.CurrStudent.Schedule.Courses
                          where prereq.Matches(c.Course)
                          select c.Course).Count();
             if (count == 0)

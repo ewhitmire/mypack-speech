@@ -12,7 +12,7 @@ namespace MyPackSpeech.SpeechRecognition.Actions
          if (Semantics.HasSlot(Slots.ViewName))
          {
             Views view = (Views)Enum.Parse(typeof(Views), Semantics.GetSlot(Slots.ViewName));
-            ActionManager.Instance.SwitchView(view);
+            DialogManager.Instance.SwitchView(view);
          }
          return false;
       }

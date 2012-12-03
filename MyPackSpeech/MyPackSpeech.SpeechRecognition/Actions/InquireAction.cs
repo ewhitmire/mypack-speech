@@ -11,7 +11,7 @@ namespace MyPackSpeech.SpeechRecognition.Actions
    {
       public override bool Perform()
       {
-         DegreeProgram degree = ActionManager.Instance.CurrStudent.Degree;
+         DegreeProgram degree = DialogManager.Instance.CurrStudent.Degree;
          if (!Semantics.ContainsKey(Slots.Requirement.ToString()))
          {
             // What do I need to graduate?
@@ -23,7 +23,7 @@ namespace MyPackSpeech.SpeechRecognition.Actions
                paneText += req.ToGeneralRequirementsString() + "\n";
             }
 
-            ActionManager.Instance.SetInfoPane(paneText);
+            DialogManager.Instance.SetInfoPane(paneText);
 
             if (reqs.Count() == 0)
             {
@@ -53,7 +53,7 @@ namespace MyPackSpeech.SpeechRecognition.Actions
             {
                // all requirements fulfilled
                RecoManager.Instance.Say("You have already fulfilled all of your "+cat.Name+" requirements");
-               ActionManager.Instance.SetInfoPane("");
+               DialogManager.Instance.SetInfoPane("");
             }
             else
             {
@@ -80,7 +80,7 @@ namespace MyPackSpeech.SpeechRecognition.Actions
                   RecoManager.Instance.Say("You still need " + reqs.Count() + " requirements, including " + SpeechUtils.MakeSpeechList(reqNames));
                }
 
-               ActionManager.Instance.SetInfoPane(paneText);
+               DialogManager.Instance.SetInfoPane(paneText);
             }
          }
          else
@@ -92,7 +92,7 @@ namespace MyPackSpeech.SpeechRecognition.Actions
             {
                paneText += c.DeptAbv + c.Number + " - " + c.Name + "\n";
             }
-            ActionManager.Instance.SetInfoPane(paneText);
+            DialogManager.Instance.SetInfoPane(paneText);
 
             if (courses.Count() > 5)
             {

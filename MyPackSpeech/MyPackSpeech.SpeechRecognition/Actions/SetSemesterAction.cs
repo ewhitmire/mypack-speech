@@ -25,7 +25,7 @@ namespace MyPackSpeech.SpeechRecognition.Actions
             return false;
          }
 
-         ActionManager.Instance.SetContext(Semantics);
+         DialogManager.Instance.SetContext(Semantics);
 
          RecoManager.Instance.Say("Ok");
          return false;

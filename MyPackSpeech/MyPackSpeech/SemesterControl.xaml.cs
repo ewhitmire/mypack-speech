@@ -28,9 +28,9 @@ namespace MyPackSpeech
       {
          InitializeComponent();
          defaultBrush = data.Background;
-         ActionManager.Instance.SemesterChanged += ActionManager_SemesterChanged;
+         DialogManager.Instance.SemesterChanged += ActionManager_SemesterChanged;
          CollectionViewSource viewSource = (CollectionViewSource)Resources["viewSource"];
-         viewSource.Source = ActionManager.Instance.CurrStudent.Schedule.Courses;
+         viewSource.Source = DialogManager.Instance.CurrStudent.Schedule.Courses;
          updateBrush();
       }
 
@@ -43,7 +43,7 @@ namespace MyPackSpeech
       private void updateBrush()
       {
 
-         if (sem.Equals(ActionManager.Instance.CurrentSemester) && year.Equals(ActionManager.Instance.CurrentYear))
+         if (sem.Equals(DialogManager.Instance.CurrentSemester) && year.Equals(DialogManager.Instance.CurrentYear))
          {
             data.Background = Brushes.LightSteelBlue;
          }

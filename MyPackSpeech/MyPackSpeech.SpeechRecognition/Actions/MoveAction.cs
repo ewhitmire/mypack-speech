@@ -46,7 +46,7 @@ namespace MyPackSpeech.SpeechRecognition.Actions
 
          if (missingClasses.Count > 0)
          {
-            ActionManager.Instance.InformPreReqs(Course, missingClasses);
+            DialogManager.Instance.InformPreReqs(Course, missingClasses);
             return false;
          }
 
@@ -55,14 +55,14 @@ namespace MyPackSpeech.SpeechRecognition.Actions
             case Semester.Fall:
                if (!Course.Course.fall)
                {
-                  ActionManager.Instance.notOffered(Semantics, Course.Semester);
+                  DialogManager.Instance.notOffered(Semantics, Course.Semester);
                   return false;
                }
                break;
             case Semester.Spring:
                if (!Course.Course.spring)
                {
-                  ActionManager.Instance.notOffered(Semantics, Course.Semester);
+                  DialogManager.Instance.notOffered(Semantics, Course.Semester);
                   return false;
                }
                break;

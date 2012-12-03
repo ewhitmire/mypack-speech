@@ -23,7 +23,7 @@ namespace MyPackSpeech.SpeechRecognition.Actions
                paneText += c.DeptAbv + c.Number + " - " + c.Name + "\n";
             }
 
-            ActionManager.Instance.SetInfoPane(paneText);
+            DialogManager.Instance.SetInfoPane(paneText);
 
             if (courses.Count() > 5)
             {

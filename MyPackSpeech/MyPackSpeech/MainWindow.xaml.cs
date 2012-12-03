@@ -27,15 +27,15 @@ namespace MyPackSpeech
 
       void MainWindow_Loaded(object sender, RoutedEventArgs e)
       {
-         ActionManager.Instance.GradYear = IntroDialogue.Instance.GradYear;
+         DialogManager.Instance.GradYear = IntroDialogue.Instance.GradYear;
          RecoManager.Instance.SetGrammarMode(GrammarModes.MainGrammar);
          RecoManager.Instance.StartSpeechReco();
          RecoManager.Instance.PauseSpeechReco();
-         ActionManager.Instance.MissingPrereqs += Instance_MissingPrereqs;
-         ActionManager.Instance.InfoPaneSet += ActionManager_InfoPaneSet;
-         ActionManager.Instance.CurrStudent.BookmarksChanged += Student_BookmarksChanged;
-         ActionManager.Instance.OnViewChange += ActionManager_OnViewChange;
-         ActionManager.Instance.OnShowHelp += Instance_OnShowHelp;
+         DialogManager.Instance.MissingPrereqs += Instance_MissingPrereqs;
+         DialogManager.Instance.InfoPaneSet += ActionManager_InfoPaneSet;
+         DialogManager.Instance.CurrStudent.BookmarksChanged += Student_BookmarksChanged;
+         DialogManager.Instance.OnViewChange += ActionManager_OnViewChange;
+         DialogManager.Instance.OnShowHelp += Instance_OnShowHelp;
          showDebugWindow();
          RecoManager.Instance.reader.SpeakCompleted += reader_SpeakCompleted;
          RecoManager.Instance.Say("Ok, let's get started");
@@ -68,7 +68,7 @@ namespace MyPackSpeech
       }
       void Instance_MissingPrereqs(object sender, MissingPrereqArgs e)
       {
-         List<IFilter<Course>> preReqs = ActionManager.Instance.CurrStudent.Schedule.GetMissingPreReqs(e.Course);
+         List<IFilter<Course>> preReqs = DialogManager.Instance.CurrStudent.Schedule.GetMissingPreReqs(e.Course);
          string str = "";
          foreach (IFilter<Course> filter in preReqs) {
             str += Filter<Course>.PrettyString(filter) + "\n";
@@ -92,7 +92,7 @@ namespace MyPackSpeech
       public void showBookmarks()
       {
          String marks = "";
-         List<Course> bookmarked = ActionManager.Instance.CurrStudent.bookmarks;
+         List<Course> bookmarked = DialogManager.Instance.CurrStudent.bookmarks;
 
 
          for (int i = 0; i < bookmarked.Count; i++)
@@ -114,7 +114,7 @@ namespace MyPackSpeech
       {
          Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
          if (dlg.ShowDialog(this).GetValueOrDefault(false))
-            ActionManager.Instance.CurrStudent.LoadSchedule(dlg.FileName);
+            DialogManager.Instance.CurrStudent.LoadSchedule(dlg.FileName);
       }
 
       private void saveFile()
@@ -122,7 +122,7 @@ namespace MyPackSpeech
          Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
          dlg.FileName = "MyPackSchedule";
          if (dlg.ShowDialog(this).GetValueOrDefault(false))
-            ActionManager.Instance.CurrStudent.SaveSchedule(dlg.FileName);
+            DialogManager.Instance.CurrStudent.SaveSchedule(dlg.FileName);
       }
 
      

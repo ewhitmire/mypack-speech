@@ -25,7 +25,7 @@ namespace MyPackSpeech
       {
          InitializeComponent();
 
-         DegreeProgram degree = ActionManager.Instance.CurrStudent.Degree;
+         DegreeProgram degree = DialogManager.Instance.CurrStudent.Degree;
          if (degree != null)
          {
             foreach (DegreeRequirementCategory cat in degree.GetCategories())

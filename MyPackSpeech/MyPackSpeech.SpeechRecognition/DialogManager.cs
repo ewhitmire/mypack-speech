@@ -25,10 +25,10 @@ namespace MyPackSpeech
 
    }
 
-   public class ActionManager : IDialogueManager
+   public class DialogManager : IDialogueManager
    {
-      private static readonly Lazy<ActionManager> instance = new Lazy<ActionManager>(() => new ActionManager());
-      public static ActionManager Instance
+      private static readonly Lazy<DialogManager> instance = new Lazy<DialogManager>(() => new DialogManager());
+      public static DialogManager Instance
       {
          get
          {
@@ -235,7 +235,7 @@ namespace MyPackSpeech
          RecoManager.Instance.Say("That class is not available in the " + semester.ToString());
       }
 
-      protected ActionManager()
+      protected DialogManager()
       {
          CurrStudent = new Student(DegreeCatalog.Instance.Degrees.FirstOrDefault());
       }

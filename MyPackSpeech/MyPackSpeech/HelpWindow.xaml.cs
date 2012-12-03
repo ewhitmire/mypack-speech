@@ -21,7 +21,7 @@ namespace MyPackSpeech
       public HelpWindow()
       {
          InitializeComponent();
-         ActionManager.Instance.OnCloseCommand += ActionManager_OnCloseCommand;
+         DialogManager.Instance.OnCloseCommand += ActionManager_OnCloseCommand;
       }
 
       private void ActionManager_OnCloseCommand(object sender, EventArgs e)

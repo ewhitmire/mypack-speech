@@ -9,7 +9,7 @@ namespace MyPackSpeech.SpeechRecognition.Actions
    {
       public override bool Perform()
       {
-         ActionManager.Instance.ShowHelp();
+         DialogManager.Instance.ShowHelp();
          return false;
       }
 
