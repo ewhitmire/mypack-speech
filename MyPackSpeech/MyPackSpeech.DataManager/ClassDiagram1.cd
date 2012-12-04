@@ -1,0 +1,252 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="MyPackSpeech.DataManager.CourseCatalog">
+    <Position X="1.75" Y="7.5" Width="1.5" />
+    <Members>
+      <Method Name="clearFilteredCourses" Hidden="true" />
+      <Method Name="CourseCatalog" Hidden="true" />
+      <Field Name="DepartmentsList" Hidden="true" />
+      <Field Name="filter" Hidden="true" />
+      <Event Name="filterChanged" Hidden="true" />
+      <Event Name="FilterChanged" Hidden="true" />
+      <Field Name="filteredCourses" Hidden="true" />
+      <Property Name="FilteredCourses" Hidden="true" />
+      <Method Name="FormatCourseList" Hidden="true" />
+      <Method Name="GetCourse" Hidden="true" />
+      <Method Name="GetCourses" Hidden="true" />
+      <Method Name="GetDepartment" Hidden="true" />
+      <Method Name="getPreReqs" Hidden="true" />
+      <Field Name="instance" Hidden="true" />
+      <Method Name="isClassName" Hidden="true" />
+      <Method Name="isClassNumber" Hidden="true" />
+      <Method Name="isDept" Hidden="true" />
+      <Method Name="isUpperCase" Hidden="true" />
+      <Method Name="LoadData" Hidden="true" />
+      <Method Name="OnFilterChanged" Hidden="true" />
+      <Method Name="WriteKeyWordFile" Hidden="true" />
+    </Members>
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="true" />
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Events" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>CAAAgAQAAIBQAABAACAAEAAQABBKJAAQQAAAIJAAAAE=</HashCode>
+      <FileName>CourseCatalog.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Filter" />
+      <Property Name="Instance" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Courses" />
+      <Property Name="Departments" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="MyPackSpeech.DataManager.Data.Course">
+    <Position X="5.75" Y="7.5" Width="1.5" />
+    <Members>
+      <Method Name="checkArguments" Hidden="true" />
+      <Method Name="CompareTo" Hidden="true" />
+      <Method Name="Course" Hidden="true" />
+      <Field Name="Credits" Hidden="true" />
+      <Property Name="DeptAbv" Hidden="true" />
+      <Property Name="DeptName" Hidden="true" />
+      <Property Name="Description" Hidden="true" />
+      <Property Name="DescriptionWrap" Hidden="true" />
+      <Method Name="Equals" Hidden="true" />
+      <Field Name="fall" Hidden="true" />
+      <Method Name="GetAllPrereqs" Hidden="true" />
+      <Method Name="GetHashCode" Hidden="true" />
+      <Method Name="IComparable.CompareTo" Hidden="true" />
+      <Method Name="IsMatch" Hidden="true" />
+      <Field Name="KeyWordFile" Hidden="true" />
+      <Property Name="KeyWords" Hidden="true" />
+      <Method Name="MatchLiklihood" Hidden="true" />
+      <Property Name="Name" Hidden="true" />
+      <Property Name="Number" Hidden="true" />
+      <Property Name="PrereqDesc" Hidden="true" />
+      <Property Name="Prerequisites" Hidden="true" />
+      <Method Name="setKeyWords" Hidden="true" />
+      <Field Name="spring" Hidden="true" />
+      <Method Name="ToString" Hidden="true" />
+    </Members>
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Properties" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>gACCgAAAAAAgAQwEgOAACAQgAgDIAIAAEAgAAAAIAAA=</HashCode>
+      <FileName>Data\Course.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Dept" />
+    </ShowAsAssociation>
+    <Lollipop Orientation="Right" Position="0.1" Collapsed="true" />
+  </Class>
+  <Class Name="MyPackSpeech.DataManager.Data.Department">
+    <Position X="8.75" Y="8.25" Width="1.5" />
+    <Members>
+      <Property Name="Abv" Hidden="true" />
+      <Method Name="Department" Hidden="true" />
+      <Method Name="Equals" Hidden="true" />
+      <Method Name="GetHashCode" Hidden="true" />
+      <Field Name="hash" Hidden="true" />
+      <Property Name="Name" Hidden="true" />
+      <Method Name="ToString" Hidden="true" />
+    </Members>
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Properties" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAGgAAAAAQAAAAAAIAAAAAAAAAAAAA=</HashCode>
+      <FileName>Data\Department.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Orientation="Bottom" Position="0.1" />
+  </Class>
+  <Class Name="MyPackSpeech.DataManager.Data.Student">
+    <Position X="0.75" Y="2.75" Width="1.5" />
+    <Members>
+      <Method Name="AddBookmark" Hidden="true" />
+      <Method Name="AddCourse" Hidden="true" />
+      <Field Name="Bookmarks" Hidden="true" />
+      <Event Name="BookmarksChanged" Hidden="true" />
+      <Method Name="FindCourse" Hidden="true" />
+      <Method Name="IsTaking" Hidden="true" />
+      <Method Name="LoadSchedule" Hidden="true" />
+      <Method Name="MoveCourse" Hidden="true" />
+      <Method Name="OnBookmarksChanged" Hidden="true" />
+      <Method Name="OnScheduleChanged" Hidden="true" />
+      <Method Name="RemoveBookmark" Hidden="true" />
+      <Method Name="RemoveCourse" Hidden="true" />
+      <Property Name="RequiredCourses" Hidden="true" />
+      <Method Name="SaveSchedule" Hidden="true" />
+      <Event Name="ScheduleChanged" Hidden="true" />
+      <Method Name="Student" Hidden="true" />
+      <Property Name="Unfullfilled" Hidden="true" />
+    </Members>
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+      <Compartment Name="Events" Collapsed="true" />
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Properties" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>QAAAEgEQABBAAABIQAAABAAQAEgCAAAAAAEAAIAAAAA=</HashCode>
+      <FileName>Data\Student.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Degree" />
+      <Property Name="Schedule" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="MyPackSpeech.DataManager.Data.DegreeProgram">
+    <Position X="0.5" Y="4.5" Width="1.5" />
+    <Members>
+      <Method Name="DegreeProgram" Hidden="true" />
+      <Method Name="GetCategories" Hidden="true" />
+      <Method Name="GetRequirementsForCategory" Hidden="true" />
+      <Property Name="Name" Hidden="true" />
+    </Members>
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAAAAAAAAAAAAAQAAQIAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Data\DegreeProgram.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Requirements" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="MyPackSpeech.DataManager.Data.Schedule">
+    <Position X="3.5" Y="4" Width="1.5" />
+    <Members>
+      <Method Name="Contains" Hidden="true" />
+      <Method Name="GetBeforeClass" Hidden="true" />
+      <Method Name="GetMissingPreReqs" Hidden="true" />
+      <Method Name="Schedule" Hidden="true" />
+    </Members>
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAAAQAAAAAAAAAACAAAAAAAAAABAQAAA=</HashCode>
+      <FileName>Data\Schedule.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="Student" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Courses" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="MyPackSpeech.DataManager.Data.ScheduledCourse">
+    <Position X="6.5" Y="6" Width="1.5" />
+    <Members>
+      <Property Name="CourseName" Hidden="true" />
+      <Property Name="Credits" Hidden="true" />
+      <Method Name="Equals" Hidden="true" />
+      <Method Name="GetHashCode" Hidden="true" />
+      <Method Name="isPreviousCourse" Hidden="true" />
+      <Method Name="ScheduledCourse" Hidden="true" />
+      <Method Name="ToString" Hidden="true" />
+      <Property Name="Year" Hidden="true" />
+    </Members>
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>gACAAAAABAAAAAAEoIAAAAAAAAIAAKAAAAAAAAAAAAA=</HashCode>
+      <FileName>Data\ScheduledCourse.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Course" />
+      <Property Name="Requirement" />
+      <Property Name="Semester" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="MyPackSpeech.DataManager.Data.DegreeRequirement">
+    <Position X="3.5" Y="6" Width="1.75" />
+    <Members>
+      <Property Name="Category" Hidden="true" />
+      <Property Name="CourseRequirement" Hidden="true" />
+      <Method Name="DegreeRequirement" Hidden="true" />
+      <Field Name="fulfillment" Hidden="true" />
+      <Property Name="Fulfillment" Hidden="true" />
+      <Field Name="Name" Hidden="true" />
+      <Method Name="ToGeneralRequirementsString" Hidden="true" />
+      <Method Name="ToPrintedString" Hidden="true" />
+      <Method Name="ToSpeechString" Hidden="true" />
+      <Method Name="ToString" Hidden="true" />
+    </Members>
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
+      <Compartment Name="Properties" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>hAAAAIAAEAAAAAAEAAAEAAQAAAAAAAAAAAAAAIAACAA=</HashCode>
+      <FileName>Data\DegreeRequirement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="MyPackSpeech.DataManager.Data.Filter.IFilter&lt;T&gt;" Collapsed="true">
+    <Position X="8.5" Y="5.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>IBAAAAAAAAAAAAAAAAAAAAAAACAAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>Data\Filter\IFilter.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="MyPackSpeech.DataManager.Data.Semester" Collapsed="true">
+    <Position X="6.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAEgAAAAAAAAQAAAAAAAAAAA=</HashCode>
+      <FileName>Data\Enums.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -55,7 +55,7 @@ namespace MyPackSpeech.SpeechRecognition.Actions
          List<string> keywords = new List<string>();
 
          getWord(semantics, Slots.KeyWords, keywords);
-         getWord(semantics, Slots.KeyWords2, keywords);
+         //getWord(semantics, Slots.KeyWords2, keywords);
          
          return keywords;
       }

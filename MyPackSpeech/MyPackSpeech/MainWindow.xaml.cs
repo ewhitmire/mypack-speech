@@ -92,7 +92,7 @@ namespace MyPackSpeech
       public void showBookmarks()
       {
          String marks = "";
-         List<Course> bookmarked = DialogManager.Instance.CurrStudent.bookmarks;
+         List<Course> bookmarked = DialogManager.Instance.CurrStudent.Bookmarks;
 
 
          for (int i = 0; i < bookmarked.Count; i++)

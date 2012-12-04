@@ -14,7 +14,7 @@ namespace MyPackSpeech.DataManager.Data
       public event EventHandler BookmarksChanged;
       public Schedule Schedule { get; private set; }
       public DegreeProgram Degree { get; private set; }
-      public List<Course> bookmarks = new List<Course>();
+      public List<Course> Bookmarks = new List<Course>();
 
       public Student(DegreeProgram degree)
       {
@@ -65,15 +65,15 @@ namespace MyPackSpeech.DataManager.Data
 
       public void AddBookmark(Course course)
       {
-         this.bookmarks.Add(course);
+         this.Bookmarks.Add(course);
          OnBookmarksChanged();
       }
 
       public void RemoveBookmark(Course course)
       {
-         if (bookmarks.Contains(course))
+         if (Bookmarks.Contains(course))
          {
-            this.bookmarks.Remove(course);
+            this.Bookmarks.Remove(course);
             OnBookmarksChanged();
          }
       }
@@ -135,7 +135,7 @@ namespace MyPackSpeech.DataManager.Data
          }
          else
          {
-            if(bookmarks.Contains(Course)){
+            if(Bookmarks.Contains(Course)){
             RemoveBookmark(Course);
             } 
          }
